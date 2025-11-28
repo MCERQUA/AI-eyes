@@ -4,20 +4,24 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 
 ## Overview
 - **Type**: Web app with Python backend
-- **Frontend**: GitHub Pages (https://mcerqua.github.io/AI-eyes/)
+- **Frontend**: Netlify (https://ai-guy.mikecerqua.ca or GitHub Pages)
 - **Backend**: Flask server on VPS (https://ai-guy.mikecerqua.ca)
 - **Voice**: ElevenLabs Conversational AI
 - **Vision**: Google Gemini 2.0 Flash
 - **Face Recognition**: DeepFace (VGG-Face model)
+- **Auth**: Clerk (login required for voice chat)
 
 ## Files
 ```
 ├── index.html          # Main app (face + voice agent + camera)
-├── server.py           # Flask backend for vision + face recognition API
+├── server.py           # Flask backend for vision + face recognition + usage API
 ├── requirements.txt    # Python dependencies
 ├── setup-nginx.sh      # Nginx + SSL setup script
+├── pi-guy.service      # Systemd service for auto-start
+├── netlify.toml        # Netlify deployment config
 ├── known_faces/        # Face recognition database
 │   └── Mike/           # Folder per person with their photos
+├── usage.db            # SQLite database for user usage tracking (not in git)
 ├── .env                # API keys (not in git)
 ├── CLAUDE.md           # This file
 └── .gitignore
@@ -89,6 +93,13 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 - **Re-identifies every 10 seconds** while camera is on (if not in conversation)
 - **Database structure**: `known_faces/<PersonName>/<photos>.jpg`
 - Add faces via console: `saveFace("Name")` with camera on
+- **No login required** - face recognition works for everyone
+
+### User Authentication & Limits
+- **Clerk login** required to start voice conversations
+- **20 agent responses per month** per user (resets monthly)
+- **Usage tracked** in SQLite database on server
+- **No login needed** for: face recognition, camera, viewing the face
 
 ## API Endpoints
 
@@ -105,9 +116,27 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 | `/api/faces` | GET | List all known faces in database |
 | `/api/faces/<name>` | POST | Add face image for a person |
 | `/api/faces/<name>` | DELETE | Remove a person from database |
+| `/api/usage/<user_id>` | GET | Check user's usage and remaining allowance |
+| `/api/usage/<user_id>/increment` | POST | Increment user's message count |
 
 ## Starting the Server
 
+The server runs as a systemd service (auto-starts on boot):
+
+```bash
+# Start/stop/restart
+sudo systemctl start pi-guy
+sudo systemctl stop pi-guy
+sudo systemctl restart pi-guy
+
+# Check status
+sudo systemctl status pi-guy
+
+# View logs
+sudo journalctl -u pi-guy -f
+```
+
+Manual start (if needed):
 ```bash
 cd /home/mike/Mike-AI/ai-eyes
 nohup python3 server.py > server.log 2>&1 &
@@ -121,11 +150,19 @@ curl https://ai-guy.mikecerqua.ca/api/health
 ## Environment Variables (.env)
 
 ```
+# ElevenLabs
 ELEVENLABS_API_KEY=xxx
 ELEVENLABS_AGENT_ID=agent_0801kb2240vcea2ayx0a2qxmheha
 ELEVENLABS_VISION_TOOL_ID=tool_4801kb43nm64eeyawtqsbpy8rtb4
 ELEVENLABS_IDENTIFY_TOOL_ID=tool_4801kb4bcw3df5x9v7gvpes40b5m
+
+# Google Gemini (the only real secret!)
 GEMINI_API_KEY=xxx
+
+# Clerk (publishable key is public, ok to expose)
+VITE_CLERK_PUBLISHABLE_KEY=pk_test_xxx
+
+# Server
 VPS_IP=178.156.162.212
 PORT=5000
 DOMAIN=ai-guy.mikecerqua.ca
@@ -174,6 +211,10 @@ saveFace("Mike")          // Save current camera frame as Mike's face
 listFaces()               // List all known faces in database
 getIdentity()             // Get current identified person
 identifyFace()            // Manually trigger face identification
+
+// Auth
+isLoggedIn()              // Check if user is logged in
+getUser()                 // Get current Clerk user object
 ```
 
 ## Adding a New Person to Face Database
@@ -204,10 +245,11 @@ identifyFace()            // Manually trigger face identification
 
 | Feature | Provider | Cost |
 |---------|----------|------|
-| Voice | ElevenLabs API | Paid (per character) |
+| Voice | ElevenLabs API | Paid (per minute) |
 | Vision | Gemini API | Paid (per API call) |
 | Face Recognition | DeepFace (local) | **FREE** |
 | Wake Word | Web Speech API (browser) | **FREE** |
+| Auth | Clerk | Free tier (10k MAU) |
 
 ## Notes
 - **HTTPS Required**: Both mic and camera require secure context
