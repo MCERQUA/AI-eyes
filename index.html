@@ -907,9 +907,17 @@
         }
 
         // ===== CONVERSATION CONTROL =====
+        let isConnecting = false;
+
         window.toggleConversation = async function() {
             if (!agentId) {
                 setupModal.classList.remove('hidden');
+                return;
+            }
+
+            // Prevent multiple instances
+            if (isConnecting) {
+                console.log('Already connecting, ignoring');
                 return;
             }
 
@@ -926,6 +934,7 @@
                 hideTranscription();
             } else {
                 // Start conversation
+                isConnecting = true;
                 callButton.classList.add('connecting');
                 callIcon.textContent = '⏳';
                 updateStatus('connecting', 'CONNECTING...');
@@ -946,6 +955,7 @@
                         },
                         onConnect: () => {
                             console.log('Connected to ElevenLabs');
+                            isConnecting = false;
                             callButton.classList.remove('connecting');
                             callButton.classList.add('active');
                             callIcon.textContent = '📵';
@@ -1002,6 +1012,7 @@
                     });
                 } catch (error) {
                     console.error('Failed to start conversation:', error);
+                    isConnecting = false;
                     callButton.classList.remove('connecting');
                     callIcon.textContent = '📞';
                     updateStatus('disconnected', 'OFFLINE');
@@ -1155,8 +1166,8 @@
                     wakeWordEnabled = true;
                     wakeButton.classList.add('active');
                     wakeIcon.textContent = '👂';
-                    updateStatus('listening', 'LISTENING FOR "AI GUY"');
-                    console.log('Wake word enabled - say "AI Guy" or "Hey Pi Guy"');
+                    updateStatus('listening', 'LISTENING FOR "PIE GUY"');
+                    console.log('Wake word enabled - say "Pie Guy" or "Hey Pie Guy"');
                 }
             }
         };
