@@ -1,6 +1,6 @@
 # Pi-Guy Voice Agent
 
-An interactive voice agent with an animated sci-fi face, powered by ElevenLabs Conversational AI with Gemini Vision capabilities.
+An interactive voice agent with an animated sci-fi face, powered by ElevenLabs Conversational AI with Gemini Vision and DeepFace face recognition capabilities.
 
 ## Overview
 - **Type**: Web app with Python backend
@@ -83,8 +83,9 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 
 ### Face Recognition
 - **Automatic identification** when camera turns on
-- **DeepFace** with VGG-Face model (99%+ accuracy)
+- **DeepFace** with VGG-Face model (99%+ accuracy) - runs locally, **FREE** (no API costs)
 - **Personalized greetings** - Pi-Guy greets known people by name
+- **ElevenLabs tool** - Pi-Guy can identify people mid-conversation ("do you recognize me?")
 - **Re-identifies every 10 seconds** while camera is on (if not in conversation)
 - **Database structure**: `known_faces/<PersonName>/<photos>.jpg`
 - Add faces via console: `saveFace("Name")` with camera on
@@ -199,10 +200,20 @@ identifyFace()            // Manually trigger face identification
 - Multiple camera support
 - Admin UI for managing face database
 
+## Costs
+
+| Feature | Provider | Cost |
+|---------|----------|------|
+| Voice | ElevenLabs API | Paid (per character) |
+| Vision | Gemini API | Paid (per API call) |
+| Face Recognition | DeepFace (local) | **FREE** |
+| Wake Word | Web Speech API (browser) | **FREE** |
+
 ## Notes
 - **HTTPS Required**: Both mic and camera require secure context
 - **Browser Support**: Chrome, Firefox, Edge, Safari (modern versions)
 - **Chrome recommended**: Wake word (Web Speech API) works best in Chrome
-- **Server must be running** for vision to work
-- **Camera permission** needed for vision feature
+- **Server must be running** for vision and face recognition to work
+- **Camera permission** needed for vision and face recognition
 - **Microphone permission** needed for voice and wake word features
+- **DeepFace deps**: Install manually on VPS with `pip install deepface tf-keras` (not in requirements.txt due to Netlify compatibility)
