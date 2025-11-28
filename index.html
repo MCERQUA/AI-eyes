@@ -882,11 +882,14 @@
                     // Request microphone permission
                     await navigator.mediaDevices.getUserMedia({ audio: true });
 
+                    const randomMessage = getRandomFirstMessage();
+                    console.log('Starting with message:', randomMessage);
+
                     conversation = await Conversation.startSession({
                         agentId: agentId,
                         overrides: {
                             agent: {
-                                firstMessage: getRandomFirstMessage()
+                                firstMessage: randomMessage
                             }
                         },
                         onConnect: () => {
