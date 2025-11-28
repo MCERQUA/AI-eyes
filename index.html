@@ -1416,6 +1416,27 @@
 
         scheduleRandomLook();
 
+        // Random expressions when idle
+        function scheduleRandomExpression() {
+            const delay = 5000 + Math.random() * 10000; // Every 5-15 seconds
+            setTimeout(() => {
+                // Only change expression if not in conversation and not already in a mood
+                if (!conversation && currentMood === 'neutral') {
+                    const expressions = ['thinking', 'surprised', 'happy'];
+                    const randomExpr = expressions[Math.floor(Math.random() * expressions.length)];
+                    setMood(randomExpr);
+
+                    // Return to neutral after a short time
+                    setTimeout(() => {
+                        if (!conversation) setMood('neutral');
+                    }, 1000 + Math.random() * 2000);
+                }
+                scheduleRandomExpression();
+            }, delay);
+        }
+
+        scheduleRandomExpression();
+
         // Track mouse movement
         document.addEventListener('mousemove', (e) => {
             lastMouseMove = Date.now();
