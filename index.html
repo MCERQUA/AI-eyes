@@ -344,6 +344,66 @@
             50% { box-shadow: 0 0 30px rgba(255, 221, 0, 0.6); }
         }
 
+        /* Camera button */
+        .camera-button {
+            position: absolute;
+            bottom: 40px;
+            left: calc(50% + 60px);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--blue-dim);
+            background: var(--panel-bg);
+            color: var(--blue-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .camera-button:hover {
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.5);
+            border-color: var(--blue);
+        }
+
+        .camera-button.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .camera-button .camera-icon {
+            position: absolute;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: opacity 0.3s;
+        }
+
+        .camera-button.active .camera-icon {
+            opacity: 0.7;
+            font-size: 1rem;
+            top: 5px;
+            right: 5px;
+        }
+
+        .camera-button video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .camera-button.active video {
+            opacity: 1;
+        }
+
         /* Transcription display */
         .transcription-display {
             position: absolute;
@@ -543,19 +603,35 @@
         <span id="call-icon">📞</span>
     </button>
 
+    <!-- Camera button -->
+    <button class="camera-button" id="camera-button" onclick="toggleCamera()">
+        <span class="camera-icon">📷</span>
+        <video id="camera-video" autoplay playsinline muted></video>
+    </button>
+
+    <!-- Hidden canvas for capturing frames -->
+    <canvas id="capture-canvas" style="display: none;"></canvas>
+
     <div class="instructions">
-        Click the phone button to start/stop conversation
+        Click phone to talk, camera to enable vision
     </div>
 
     <!-- ElevenLabs Conversational AI SDK -->
     <script type="module">
         import { Conversation } from 'https://cdn.jsdelivr.net/npm/@11labs/client@latest/+esm';
 
+        // ===== CONFIGURATION =====
+        const VISION_SERVER_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : 'http://178.156.162.212:5000';  // VPS server URL
+
         // ===== STATE =====
         let conversation = null;
         let agentId = localStorage.getItem('piGuyAgentId') || '';
         let isSpeaking = false;
         let isListening = false;
+        let cameraStream = null;
+        let frameInterval = null;
 
         // ===== DOM ELEMENTS =====
         const leftEye = document.getElementById('left-eye');
@@ -573,6 +649,9 @@
         const errorMessage = document.getElementById('error-message');
         const setupModal = document.getElementById('setup-modal');
         const agentIdInput = document.getElementById('agent-id-input');
+        const cameraButton = document.getElementById('camera-button');
+        const cameraVideo = document.getElementById('camera-video');
+        const captureCanvas = document.getElementById('capture-canvas');
 
         // ===== SETUP =====
         if (agentId) {
@@ -888,6 +967,87 @@
         document.addEventListener('mousemove', (e) => {
             lastMouseMove = Date.now();
         });
+
+        // ===== CAMERA CONTROL =====
+        window.toggleCamera = async function() {
+            if (cameraStream) {
+                // Stop camera
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+                cameraVideo.srcObject = null;
+                cameraButton.classList.remove('active');
+
+                // Stop sending frames
+                if (frameInterval) {
+                    clearInterval(frameInterval);
+                    frameInterval = null;
+                }
+                console.log('Camera disabled');
+            } else {
+                // Start camera
+                try {
+                    cameraStream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user', width: 640, height: 480 }
+                    });
+                    cameraVideo.srcObject = cameraStream;
+                    cameraButton.classList.add('active');
+                    console.log('Camera enabled');
+
+                    // Start sending frames to server every 2 seconds
+                    frameInterval = setInterval(sendFrameToServer, 2000);
+                } catch (error) {
+                    console.error('Camera error:', error);
+                    showError('Camera access denied');
+                }
+            }
+        };
+
+        function captureFrame() {
+            if (!cameraStream || !cameraVideo.videoWidth) return null;
+
+            captureCanvas.width = cameraVideo.videoWidth;
+            captureCanvas.height = cameraVideo.videoHeight;
+            const ctx = captureCanvas.getContext('2d');
+            ctx.drawImage(cameraVideo, 0, 0);
+            return captureCanvas.toDataURL('image/jpeg', 0.8);
+        }
+
+        async function sendFrameToServer() {
+            const frame = captureFrame();
+            if (!frame) return;
+
+            try {
+                await fetch(`${VISION_SERVER_URL}/api/frame`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+            } catch (error) {
+                console.error('Failed to send frame:', error);
+            }
+        }
+
+        // Expose for debugging
+        window.captureAndDescribe = async function() {
+            const frame = captureFrame();
+            if (!frame) {
+                console.log('No camera frame available');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/vision`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+                const data = await response.json();
+                console.log('Vision response:', data.response);
+                return data.response;
+            } catch (error) {
+                console.error('Vision error:', error);
+            }
+        };
 
         // ===== KEYBOARD SHORTCUTS =====
         document.addEventListener('keydown', (e) => {
