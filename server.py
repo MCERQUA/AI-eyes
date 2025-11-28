@@ -97,6 +97,19 @@ init_db()
 # Face recognition setup
 KNOWN_FACES_DIR = Path(__file__).parent / "known_faces"
 KNOWN_FACES_DIR.mkdir(exist_ok=True)
+FACE_OWNERS_FILE = Path(__file__).parent / "face_owners.json"
+
+def load_face_owners():
+    """Load face ownership data (which Clerk user owns which face name)"""
+    if FACE_OWNERS_FILE.exists():
+        with open(FACE_OWNERS_FILE) as f:
+            return json.load(f)
+    return {}
+
+def save_face_owners(owners):
+    """Save face ownership data"""
+    with open(FACE_OWNERS_FILE, 'w') as f:
+        json.dump(owners, f, indent=2)
 
 # Lazy load DeepFace (it's heavy)
 _deepface = None
@@ -114,6 +127,14 @@ current_identity = None
 def serve_index():
     """Serve the main index.html page"""
     return send_file('index.html')
+
+@app.route('/known_faces/<name>/<filename>')
+def serve_face_photo(name, filename):
+    """Serve face photos for the My Face section"""
+    photo_path = KNOWN_FACES_DIR / name / filename
+    if photo_path.exists():
+        return send_file(photo_path)
+    return jsonify({"error": "Photo not found"}), 404
 
 # Configure Gemini
 genai.configure(api_key=os.getenv('GEMINI_API_KEY'))
@@ -327,27 +348,45 @@ def get_identity():
 def list_faces():
     """List all known faces in the database"""
     faces = {}
+    owners = load_face_owners()
+
     for person_dir in KNOWN_FACES_DIR.iterdir():
         if person_dir.is_dir():
             images = [f.name for f in person_dir.iterdir() if f.suffix.lower() in ['.jpg', '.jpeg', '.png']]
             if images:
-                faces[person_dir.name] = images
+                faces[person_dir.name] = {
+                    "photos": images,
+                    "photo_count": len(images),
+                    "owner_id": owners.get(person_dir.name)
+                }
     return jsonify(faces)
 
 @app.route('/api/faces/<name>', methods=['POST'])
 def add_face(name):
     """
     Add a new face image for a person
-    Expects base64 image in JSON body
+    Expects base64 image and optional user_id in JSON body
     """
     data = request.get_json()
     if not data or 'image' not in data:
         return jsonify({"error": "No image data provided"}), 400
 
+    user_id = data.get('user_id')  # Clerk user ID
+
     try:
+        # Check ownership - only owner can add photos (or new name)
+        owners = load_face_owners()
+        if name in owners and owners[name] != user_id and user_id:
+            return jsonify({"error": f"'{name}' is already registered by another user"}), 403
+
         # Create person directory if needed
         person_dir = KNOWN_FACES_DIR / name
         person_dir.mkdir(exist_ok=True)
+
+        # Track ownership if user_id provided
+        if user_id and name not in owners:
+            owners[name] = user_id
+            save_face_owners(owners)
 
         # Count existing images
         existing = len(list(person_dir.glob('*.jpg')))
@@ -370,7 +409,8 @@ def add_face(name):
         return jsonify({
             "status": "success",
             "message": f"Added face image for {name}",
-            "path": str(image_path)
+            "path": str(image_path),
+            "photo_count": existing + 1
         })
 
     except Exception as e:
@@ -379,10 +419,25 @@ def add_face(name):
 
 @app.route('/api/faces/<name>', methods=['DELETE'])
 def remove_face(name):
-    """Remove all face images for a person"""
+    """Remove all face images for a person (must be owner or admin)"""
+    data = request.get_json() or {}
+    user_id = data.get('user_id')
+
+    owners = load_face_owners()
+
+    # Check ownership (allow if owner, or if Mike's unlimited user, or if no owner set)
+    if name in owners and owners[name] != user_id:
+        if user_id not in UNLIMITED_USERS:
+            return jsonify({"error": "You can only delete your own face"}), 403
+
     person_dir = KNOWN_FACES_DIR / name
     if person_dir.exists():
         shutil.rmtree(person_dir)
+
+        # Remove from owners
+        if name in owners:
+            del owners[name]
+            save_face_owners(owners)
 
         # Clear DeepFace cache
         cache_file = KNOWN_FACES_DIR / "representations_vgg_face.pkl"
@@ -391,6 +446,40 @@ def remove_face(name):
 
         return jsonify({"status": "success", "message": f"Removed {name} from database"})
     return jsonify({"error": f"{name} not found"}), 404
+
+@app.route('/api/faces/<name>/photo/<filename>', methods=['DELETE'])
+def remove_photo(name, filename):
+    """Remove a single photo from a person's face set"""
+    data = request.get_json() or {}
+    user_id = data.get('user_id')
+
+    owners = load_face_owners()
+
+    # Check ownership
+    if name in owners and owners[name] != user_id:
+        if user_id not in UNLIMITED_USERS:
+            return jsonify({"error": "You can only delete your own photos"}), 403
+
+    photo_path = KNOWN_FACES_DIR / name / filename
+    if photo_path.exists():
+        photo_path.unlink()
+
+        # Clear DeepFace cache
+        cache_file = KNOWN_FACES_DIR / "representations_vgg_face.pkl"
+        if cache_file.exists():
+            cache_file.unlink()
+
+        # Check if any photos left, if not remove the person entirely
+        person_dir = KNOWN_FACES_DIR / name
+        remaining = list(person_dir.glob('*.jpg')) + list(person_dir.glob('*.jpeg')) + list(person_dir.glob('*.png'))
+        if not remaining:
+            shutil.rmtree(person_dir)
+            if name in owners:
+                del owners[name]
+                save_face_owners(owners)
+
+        return jsonify({"status": "success", "message": f"Removed photo {filename}"})
+    return jsonify({"error": "Photo not found"}), 404
 
 # ===== USER USAGE ENDPOINTS =====
 

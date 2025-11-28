@@ -671,19 +671,92 @@
         }
 
         .community-list li {
-            padding: 8px 10px;
-            margin: 5px 0;
-            background: rgba(0, 136, 255, 0.1);
-            border-radius: 5px;
+            padding: 6px 10px;
+            margin: 3px 0;
             font-size: 0.85rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            color: var(--blue);
         }
 
-        .community-list li .photo-count {
-            font-size: 0.7rem;
+        .community-list li .confidence {
+            font-size: 0.75rem;
             color: var(--blue-dim);
+            font-style: italic;
+        }
+
+        .community-list li .confidence.high {
+            color: var(--green);
+        }
+
+        .community-list li .confidence.medium {
+            color: var(--yellow);
+        }
+
+        .community-list li .confidence.low {
+            color: var(--orange);
+        }
+
+        /* My Face Section */
+        .my-face-section {
+            border-top: 1px solid var(--blue-dim);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .my-face-section h4 {
+            color: var(--cyan);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .my-face-photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .my-face-photos .photo-item {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .my-face-photos .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid var(--blue-dim);
+        }
+
+        .my-face-photos .photo-item .delete-photo {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: var(--red);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .my-face-photos .photo-item:hover .delete-photo {
+            display: flex;
+        }
+
+        .my-face-info {
+            font-size: 0.75rem;
+            color: var(--blue-dim);
+            margin-bottom: 10px;
         }
 
         .face-register {
@@ -791,20 +864,28 @@
     <div class="community-panel">
         <button class="community-toggle" id="community-toggle" title="Community Faces">👥</button>
         <div class="community-content" id="community-content">
-            <h3>👥 Community Faces</h3>
+            <h3>👥 Recognized Faces</h3>
             <ul class="community-list" id="community-list">
-                <!-- Populated by JS -->
+                <!-- Populated by JS - simple text list with confidence -->
             </ul>
-            <div class="face-register">
-                <h4>📸 Register Your Face</h4>
-                <input type="text" id="register-name" placeholder="Enter your name..." maxlength="30" />
-                <div class="photo-preview" id="photo-preview"></div>
-                <div class="face-register-buttons">
-                    <button id="capture-btn" title="Take photo from camera">📷 Capture</button>
-                    <button id="upload-btn" class="upload-btn" title="Upload photo file">📁 Upload</button>
+
+            <!-- My Face Section - only visible when logged in -->
+            <div class="my-face-section" id="my-face-section" style="display: none;">
+                <h4>📸 My Face</h4>
+                <div class="my-face-info" id="my-face-info">Login to register your face</div>
+                <div class="my-face-photos" id="my-face-photos">
+                    <!-- User's photos with delete buttons -->
                 </div>
-                <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" />
-                <div class="register-status" id="register-status"></div>
+                <div class="face-register">
+                    <input type="text" id="register-name" placeholder="Enter your name..." maxlength="30" />
+                    <div class="photo-preview" id="photo-preview"></div>
+                    <div class="face-register-buttons">
+                        <button id="capture-btn" title="Take photo from camera">📷 Capture</button>
+                        <button id="upload-btn" class="upload-btn" title="Upload photo file">📁 Upload</button>
+                    </div>
+                    <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" />
+                    <div class="register-status" id="register-status"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -1713,9 +1794,17 @@
                         signInButtonDiv.style.display = 'none';
                         window.Clerk.mountUserButton(userButtonDiv);
                         console.log('User signed in:', user.primaryEmailAddress?.emailAddress);
+                        // Refresh community panel if open
+                        if (typeof updateMyFaceSection === 'function') {
+                            loadCommunityList().then(() => updateMyFaceSection());
+                        }
                     } else {
                         clerkUser = null;
                         signInButtonDiv.style.display = 'block';
+                        // Hide my face section when logged out
+                        if (typeof updateMyFaceSection === 'function') {
+                            updateMyFaceSection();
+                        }
                     }
                 });
 
@@ -1740,6 +1829,9 @@
         const communityToggle = document.getElementById('community-toggle');
         const communityContent = document.getElementById('community-content');
         const communityList = document.getElementById('community-list');
+        const myFaceSection = document.getElementById('my-face-section');
+        const myFaceInfo = document.getElementById('my-face-info');
+        const myFacePhotos = document.getElementById('my-face-photos');
         const registerName = document.getElementById('register-name');
         const captureBtn = document.getElementById('capture-btn');
         const uploadBtn = document.getElementById('upload-btn');
@@ -1749,36 +1841,51 @@
 
         const MAX_PHOTOS_PER_USER = 10;
         let pendingPhotos = []; // Photos waiting to be saved
+        let facesData = {}; // Store face data from server
+        let myFaceName = null; // The name registered to current user
 
         // Toggle panel
         communityToggle.addEventListener('click', () => {
             communityContent.classList.toggle('open');
             if (communityContent.classList.contains('open')) {
                 loadCommunityList();
+                updateMyFaceSection();
             }
         });
 
-        // Load list of registered faces
+        // Load list of registered faces - simple text with confidence
         async function loadCommunityList() {
             try {
                 const response = await fetch(`${VISION_SERVER_URL}/api/faces`);
-                const faces = await response.json();
+                facesData = await response.json();
 
                 communityList.innerHTML = '';
-                const names = Object.keys(faces).sort();
+                const names = Object.keys(facesData).sort();
 
                 if (names.length === 0) {
                     communityList.innerHTML = '<li style="color: var(--blue-dim);">No faces registered yet</li>';
                     return;
                 }
 
+                // Get current recognition results if available
+                const confidenceMap = {};
+                if (currentIdentity && currentIdentity.name !== 'unknown') {
+                    confidenceMap[currentIdentity.name] = currentIdentity.confidence;
+                }
+
                 names.forEach(name => {
-                    const photoCount = faces[name].length;
                     const li = document.createElement('li');
-                    li.innerHTML = `
-                        <span>${name}</span>
-                        <span class="photo-count">${photoCount} photo${photoCount !== 1 ? 's' : ''}</span>
-                    `;
+                    const confidence = confidenceMap[name];
+
+                    let confidenceHtml = '';
+                    if (confidence !== undefined) {
+                        let confidenceClass = 'low';
+                        if (confidence >= 70) confidenceClass = 'high';
+                        else if (confidence >= 40) confidenceClass = 'medium';
+                        confidenceHtml = `<span class="confidence ${confidenceClass}">${confidence}%</span>`;
+                    }
+
+                    li.innerHTML = `<span>${name}</span>${confidenceHtml}`;
                     communityList.appendChild(li);
                 });
             } catch (error) {
@@ -1787,8 +1894,87 @@
             }
         }
 
+        // Update My Face section based on login status
+        function updateMyFaceSection() {
+            if (!clerkUser) {
+                myFaceSection.style.display = 'none';
+                return;
+            }
+
+            myFaceSection.style.display = 'block';
+
+            // Find if user has a registered face
+            myFaceName = null;
+            for (const [name, data] of Object.entries(facesData)) {
+                if (data.owner_id === clerkUser.id) {
+                    myFaceName = name;
+                    break;
+                }
+            }
+
+            if (myFaceName) {
+                const faceData = facesData[myFaceName];
+                myFaceInfo.textContent = `Registered as: ${myFaceName} (${faceData.photo_count}/${MAX_PHOTOS_PER_USER} photos)`;
+                registerName.value = myFaceName;
+                registerName.disabled = true; // Can't change name once registered
+
+                // Show user's photos with delete buttons
+                myFacePhotos.innerHTML = faceData.photos.map(photo => `
+                    <div class="photo-item">
+                        <img src="${VISION_SERVER_URL}/known_faces/${encodeURIComponent(myFaceName)}/${photo}"
+                             alt="${photo}"
+                             onerror="this.style.display='none'" />
+                        <button class="delete-photo" onclick="deleteMyPhoto('${photo}')" title="Delete">✕</button>
+                    </div>
+                `).join('');
+            } else {
+                myFaceInfo.textContent = 'Add photos to register your face';
+                registerName.value = '';
+                registerName.disabled = false;
+                myFacePhotos.innerHTML = '';
+            }
+        }
+
+        // Delete a single photo
+        window.deleteMyPhoto = async function(filename) {
+            if (!clerkUser || !myFaceName) return;
+
+            if (!confirm(`Delete this photo?`)) return;
+
+            try {
+                const response = await fetch(
+                    `${VISION_SERVER_URL}/api/faces/${encodeURIComponent(myFaceName)}/photo/${encodeURIComponent(filename)}`,
+                    {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ user_id: clerkUser.id })
+                    }
+                );
+
+                if (response.ok) {
+                    registerStatus.textContent = '✅ Photo deleted';
+                    registerStatus.style.color = 'var(--green)';
+                    await loadCommunityList();
+                    updateMyFaceSection();
+                } else {
+                    const result = await response.json();
+                    throw new Error(result.error || 'Delete failed');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                registerStatus.textContent = `❌ ${error.message}`;
+                registerStatus.style.color = 'var(--red)';
+            }
+        };
+
         // Capture from webcam
         captureBtn.addEventListener('click', async () => {
+            if (!clerkUser) {
+                registerStatus.textContent = '⚠️ Please login first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
             const name = registerName.value.trim();
             if (!name) {
                 registerStatus.textContent = '⚠️ Please enter your name first';
@@ -1803,18 +1989,11 @@
             }
 
             // Check current photo count for this user
-            try {
-                const facesResp = await fetch(`${VISION_SERVER_URL}/api/faces`);
-                const faces = await facesResp.json();
-                const existingCount = faces[name] ? faces[name].length : 0;
-
-                if (existingCount + pendingPhotos.length >= MAX_PHOTOS_PER_USER) {
-                    registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
-                    registerStatus.style.color = 'var(--orange)';
-                    return;
-                }
-            } catch (e) {
-                console.error('Error checking faces:', e);
+            const existingCount = facesData[name] ? facesData[name].photo_count : 0;
+            if (existingCount + pendingPhotos.length >= MAX_PHOTOS_PER_USER) {
+                registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
+                registerStatus.style.color = 'var(--orange)';
+                return;
             }
 
             const frame = captureFrame();
@@ -1827,6 +2006,12 @@
 
         // Upload file
         uploadBtn.addEventListener('click', () => {
+            if (!clerkUser) {
+                registerStatus.textContent = '⚠️ Please login first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
             const name = registerName.value.trim();
             if (!name) {
                 registerStatus.textContent = '⚠️ Please enter your name first';
@@ -1837,34 +2022,34 @@
         });
 
         fileUpload.addEventListener('change', async (e) => {
+            if (!clerkUser) return;
+
             const name = registerName.value.trim();
             const files = Array.from(e.target.files);
 
             // Check limits
-            try {
-                const facesResp = await fetch(`${VISION_SERVER_URL}/api/faces`);
-                const faces = await facesResp.json();
-                const existingCount = faces[name] ? faces[name].length : 0;
-                const availableSlots = MAX_PHOTOS_PER_USER - existingCount - pendingPhotos.length;
+            const existingCount = facesData[name] ? facesData[name].photo_count : 0;
+            const availableSlots = MAX_PHOTOS_PER_USER - existingCount - pendingPhotos.length;
 
-                if (availableSlots <= 0) {
-                    registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
-                    registerStatus.style.color = 'var(--orange)';
-                    return;
-                }
+            if (availableSlots <= 0) {
+                registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
 
-                const filesToProcess = files.slice(0, availableSlots);
+            const filesToProcess = files.slice(0, availableSlots);
 
-                for (const file of filesToProcess) {
+            for (const file of filesToProcess) {
+                try {
                     const base64 = await fileToBase64(file);
                     pendingPhotos.push(base64);
                     updatePhotoPreview();
                     await savePhoto(name, base64);
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    registerStatus.textContent = '❌ Upload failed';
+                    registerStatus.style.color = 'var(--red)';
                 }
-            } catch (error) {
-                console.error('Upload error:', error);
-                registerStatus.textContent = '❌ Upload failed';
-                registerStatus.style.color = 'var(--red)';
             }
 
             fileUpload.value = ''; // Reset
@@ -1893,7 +2078,10 @@
                 const response = await fetch(`${VISION_SERVER_URL}/api/faces/${encodeURIComponent(name)}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ image: imageData })
+                    body: JSON.stringify({
+                        image: imageData,
+                        user_id: clerkUser ? clerkUser.id : null
+                    })
                 });
 
                 const result = await response.json();
@@ -1901,13 +2089,16 @@
                 if (response.ok) {
                     registerStatus.textContent = `✅ Photo saved for ${name}!`;
                     registerStatus.style.color = 'var(--green)';
-                    loadCommunityList(); // Refresh list
+                    await loadCommunityList(); // Refresh list
+                    updateMyFaceSection();
+                    pendingPhotos = [];
+                    photoPreview.innerHTML = '';
                 } else {
                     throw new Error(result.error || 'Save failed');
                 }
             } catch (error) {
                 console.error('Save error:', error);
-                registerStatus.textContent = '❌ Failed to save photo';
+                registerStatus.textContent = `❌ ${error.message}`;
                 registerStatus.style.color = 'var(--red)';
             }
         }
@@ -1918,6 +2109,15 @@
             photoPreview.innerHTML = '';
             registerStatus.textContent = '';
         });
+
+        // Refresh community list when face is identified (to show confidence)
+        const originalIdentifyFace = identifyFace;
+        window.identifyFaceWithRefresh = async function() {
+            await originalIdentifyFace();
+            if (communityContent.classList.contains('open')) {
+                loadCommunityList();
+            }
+        };
 
         // Load community list on page load
         loadCommunityList();
