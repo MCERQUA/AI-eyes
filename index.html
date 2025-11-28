@@ -452,11 +452,18 @@
             border-radius: 8px;
             padding: 10px 20px;
             max-width: 80%;
+            max-height: 120px;
+            overflow-y: auto;
             text-align: center;
             font-size: 0.9rem;
             opacity: 0;
             transition: opacity 0.3s ease;
             z-index: 50;
+        }
+
+        .transcription-display #transcription-text {
+            max-height: 80px;
+            overflow-y: auto;
         }
 
         .transcription-display.visible {
@@ -1124,21 +1131,33 @@
         let wakeWordRecognition = null;
         let isWakeWordListening = false;
         let wakeWordEnabled = false;
-        const WAKE_WORDS = ['ai guy', 'hey pi guy', 'pi guy', 'hey ai', 'a i guy'];
+        const WAKE_WORDS = ['ai guy', 'hey pi guy', 'pi guy', 'hey ai', 'a i guy', 'pie guy', 'hey pie guy'];
 
-        window.toggleWakeWord = function() {
+        window.toggleWakeWord = async function() {
             if (wakeWordEnabled) {
                 stopWakeWordListener();
                 wakeWordEnabled = false;
                 wakeButton.classList.remove('active');
                 wakeIcon.textContent = '🎤';
+                updateStatus('disconnected', 'OFFLINE');
                 console.log('Wake word disabled');
             } else {
-                startWakeWordListener();
-                wakeWordEnabled = true;
-                wakeButton.classList.add('active');
-                wakeIcon.textContent = '👂';
-                console.log('Wake word enabled - say "AI Guy" or "Hey Pi Guy"');
+                // Request mic permission first
+                try {
+                    await navigator.mediaDevices.getUserMedia({ audio: true });
+                } catch (e) {
+                    showError('Microphone permission required for voice activation');
+                    return;
+                }
+
+                const started = startWakeWordListener();
+                if (started !== false) {
+                    wakeWordEnabled = true;
+                    wakeButton.classList.add('active');
+                    wakeIcon.textContent = '👂';
+                    updateStatus('listening', 'LISTENING FOR "AI GUY"');
+                    console.log('Wake word enabled - say "AI Guy" or "Hey Pi Guy"');
+                }
             }
         };
 
