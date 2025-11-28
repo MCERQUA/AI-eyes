@@ -49,6 +49,12 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 - **Method**: GET
 - **Trigger phrases**: "do you recognize me", "who am I", "do you know who I am"
 
+#### Server Status Tool (check_server_status)
+- **Tool ID**: `tool_2401kb4hp9aqewdv78z3m7gt2enm`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/server-status`
+- **Method**: GET
+- **Trigger phrases**: "server status", "what's running", "how is the server", "system status", "check the server", "how much memory", "uptime"
+
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
 - **VPS IP**: 178.156.162.212
@@ -118,6 +124,7 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 | `/api/faces/<name>` | DELETE | Remove a person from database |
 | `/api/usage/<user_id>` | GET | Check user's usage and remaining allowance |
 | `/api/usage/<user_id>/increment` | POST | Increment user's message count |
+| `/api/server-status` | GET | Get server status (CPU, memory, disk, processes) |
 
 ## Starting the Server
 
@@ -155,6 +162,7 @@ ELEVENLABS_API_KEY=xxx
 ELEVENLABS_AGENT_ID=agent_0801kb2240vcea2ayx0a2qxmheha
 ELEVENLABS_VISION_TOOL_ID=tool_4801kb43nm64eeyawtqsbpy8rtb4
 ELEVENLABS_IDENTIFY_TOOL_ID=tool_4801kb4bcw3df5x9v7gvpes40b5m
+ELEVENLABS_SERVER_STATUS_TOOL_ID=tool_2401kb4hp9aqewdv78z3m7gt2enm
 
 # Google Gemini (the only real secret!)
 GEMINI_API_KEY=xxx

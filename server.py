@@ -12,6 +12,8 @@ import json
 import shutil
 import tempfile
 import sqlite3
+import subprocess
+import psutil
 from datetime import datetime
 from pathlib import Path
 from flask import Flask, request, jsonify, send_file
@@ -538,6 +540,97 @@ def track_usage(user_id):
         "limit": MONTHLY_LIMIT,
         "remaining": max(0, MONTHLY_LIMIT - new_count)
     })
+
+# ===== SERVER STATUS ENDPOINT =====
+
+@app.route('/api/server-status', methods=['GET'])
+def server_status():
+    """
+    Get current server status - CPU, memory, disk, running processes
+    ElevenLabs tool endpoint for Pi-Guy to check on his server
+    """
+    try:
+        # System info
+        cpu_percent = psutil.cpu_percent(interval=0.5)
+        memory = psutil.virtual_memory()
+        disk = psutil.disk_usage('/')
+        boot_time = datetime.fromtimestamp(psutil.boot_time())
+        uptime = datetime.now() - boot_time
+
+        # Get top processes by CPU
+        processes = []
+        for proc in sorted(psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_percent']),
+                          key=lambda p: p.info.get('cpu_percent', 0) or 0, reverse=True)[:10]:
+            try:
+                info = proc.info
+                if info['cpu_percent'] and info['cpu_percent'] > 0:
+                    processes.append({
+                        'name': info['name'],
+                        'cpu': round(info['cpu_percent'], 1),
+                        'memory': round(info['memory_percent'], 1) if info['memory_percent'] else 0
+                    })
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+
+        # Check if key services are running
+        services = {
+            'pi-guy': False,
+            'nginx': False,
+            'python': False
+        }
+        for proc in psutil.process_iter(['name', 'cmdline']):
+            try:
+                name = proc.info['name'].lower()
+                cmdline = ' '.join(proc.info['cmdline'] or []).lower()
+                if 'nginx' in name:
+                    services['nginx'] = True
+                if 'python' in name and 'server.py' in cmdline:
+                    services['pi-guy'] = True
+                if 'python' in name:
+                    services['python'] = True
+            except (psutil.NoSuchProcess, psutil.AccessDenied):
+                pass
+
+        # Format uptime
+        days = uptime.days
+        hours, remainder = divmod(uptime.seconds, 3600)
+        minutes, _ = divmod(remainder, 60)
+        uptime_str = f"{days}d {hours}h {minutes}m" if days else f"{hours}h {minutes}m"
+
+        status = {
+            'cpu_percent': cpu_percent,
+            'memory_used_percent': round(memory.percent, 1),
+            'memory_used_gb': round(memory.used / (1024**3), 1),
+            'memory_total_gb': round(memory.total / (1024**3), 1),
+            'disk_used_percent': round(disk.percent, 1),
+            'disk_free_gb': round(disk.free / (1024**3), 1),
+            'uptime': uptime_str,
+            'top_processes': processes[:5],
+            'services': services
+        }
+
+        # Generate a Pi-Guy style summary
+        summary_parts = []
+        summary_parts.append(f"CPU at {cpu_percent}%")
+        summary_parts.append(f"memory {memory.percent:.0f}% used")
+        summary_parts.append(f"disk {disk.percent:.0f}% full")
+        summary_parts.append(f"been up for {uptime_str}")
+
+        if processes:
+            top_proc = processes[0]
+            summary_parts.append(f"top process is {top_proc['name']} at {top_proc['cpu']}% CPU")
+
+        status['summary'] = f"Server status: {', '.join(summary_parts)}."
+
+        return jsonify(status)
+
+    except Exception as e:
+        print(f"Server status error: {e}")
+        return jsonify({
+            "error": str(e),
+            "summary": "I tried to check the server but something went wrong. Typical."
+        }), 500
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
