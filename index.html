@@ -450,9 +450,9 @@
             background: var(--panel-bg);
             border: 1px solid var(--blue-dim);
             border-radius: 8px;
-            padding: 10px 20px;
-            max-width: 80%;
-            max-height: 120px;
+            padding: 12px 20px;
+            max-width: 85%;
+            max-height: 150px;
             overflow-y: auto;
             text-align: center;
             font-size: 0.9rem;
@@ -462,8 +462,32 @@
         }
 
         .transcription-display #transcription-text {
-            max-height: 80px;
+            max-height: 100px;
             overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Custom scrollbar for transcription */
+        .transcription-display::-webkit-scrollbar,
+        .transcription-display #transcription-text::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .transcription-display::-webkit-scrollbar-track,
+        .transcription-display #transcription-text::-webkit-scrollbar-track {
+            background: rgba(0, 100, 150, 0.2);
+            border-radius: 3px;
+        }
+
+        .transcription-display::-webkit-scrollbar-thumb,
+        .transcription-display #transcription-text::-webkit-scrollbar-thumb {
+            background: var(--blue-dim);
+            border-radius: 3px;
+        }
+
+        .transcription-display::-webkit-scrollbar-thumb:hover,
+        .transcription-display #transcription-text::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
         }
 
         .transcription-display.visible {
@@ -1207,7 +1231,7 @@
                             stopWakeWordListener();
                             setTimeout(() => {
                                 toggleConversation();
-                            }, 300);
+                            }, 800);
                             return;
                         }
                     }
