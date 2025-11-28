@@ -134,9 +134,9 @@
         .eyelid-top {
             position: absolute;
             width: 130%;
-            height: 60%;
+            height: 75%;
             background: var(--dark-bg);
-            top: -50%;
+            top: -60%;
             left: -15%;
             border-radius: 0 0 50% 50%;
             transition: transform 0.15s ease-in-out;
@@ -860,37 +860,34 @@
             }
         };
 
-        // ===== IDLE BEHAVIOR =====
-        let idleTimeout;
-        let isIdle = false;
+        // ===== RANDOM LOOKING BEHAVIOR =====
+        let lastMouseMove = Date.now();
+        let randomLookInterval;
 
-        function startIdleBehavior() {
-            if (isIdle || currentMood === 'thinking' || conversation) return;
-
-            isIdle = true;
-
-            function idleLook() {
-                if (!isIdle) return;
-
-                const x = window.innerWidth * (0.3 + Math.random() * 0.4);
-                const y = window.innerHeight * (0.2 + Math.random() * 0.4);
-
+        function randomLook() {
+            // Only do random look if mouse hasn't moved recently (2 seconds)
+            if (Date.now() - lastMouseMove > 2000 && currentMood !== 'thinking') {
+                const x = window.innerWidth * (0.2 + Math.random() * 0.6);
+                const y = window.innerHeight * (0.15 + Math.random() * 0.5);
                 updateEyePosition(x, y);
-
-                setTimeout(idleLook, 1500 + Math.random() * 2000);
             }
-
-            idleLook();
         }
 
-        function resetIdleTimer() {
-            isIdle = false;
-            clearTimeout(idleTimeout);
-            idleTimeout = setTimeout(startIdleBehavior, 5000);
+        // Random look every 1.5-4 seconds
+        function scheduleRandomLook() {
+            const delay = 1500 + Math.random() * 2500;
+            setTimeout(() => {
+                randomLook();
+                scheduleRandomLook();
+            }, delay);
         }
 
-        document.addEventListener('mousemove', resetIdleTimer);
-        resetIdleTimer();
+        scheduleRandomLook();
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            lastMouseMove = Date.now();
+        });
 
         // ===== KEYBOARD SHORTCUTS =====
         document.addEventListener('keydown', (e) => {
