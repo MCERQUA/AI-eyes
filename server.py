@@ -27,6 +27,7 @@ CORS(app)
 
 # ===== USER USAGE TRACKING =====
 MONTHLY_LIMIT = 20  # Max agent responses per user per month
+UNLIMITED_USERS = ['user_365rT7sUqN11BDW5TTlt0FAMZWo']  # Mike - unlimited for testing
 DB_PATH = Path(__file__).parent / "usage.db"
 
 def init_db():
@@ -396,6 +397,17 @@ def remove_face(name):
 @app.route('/api/usage/<user_id>', methods=['GET'])
 def check_usage(user_id):
     """Check user's current usage and remaining allowance"""
+    # Unlimited users bypass limits
+    if user_id in UNLIMITED_USERS:
+        return jsonify({
+            "user_id": user_id,
+            "used": get_user_usage(user_id),
+            "limit": -1,
+            "remaining": -1,
+            "allowed": True,
+            "unlimited": True
+        })
+
     count = get_user_usage(user_id)
     return jsonify({
         "user_id": user_id,
@@ -408,6 +420,17 @@ def check_usage(user_id):
 @app.route('/api/usage/<user_id>/increment', methods=['POST'])
 def track_usage(user_id):
     """Increment user's usage count (called when agent responds)"""
+    # Unlimited users still get tracked but never blocked
+    if user_id in UNLIMITED_USERS:
+        increment_usage(user_id)
+        return jsonify({
+            "user_id": user_id,
+            "used": get_user_usage(user_id),
+            "limit": -1,
+            "remaining": -1,
+            "unlimited": True
+        })
+
     count = get_user_usage(user_id)
 
     if count >= MONTHLY_LIMIT:
