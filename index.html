@@ -297,30 +297,37 @@
             letter-spacing: 2px;
         }
 
+        /* Control buttons - left side vertical layout */
+        .controls-container {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
         /* Call button */
         .call-button {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 80px;
+            width: 70px;
+            height: 70px;
             border-radius: 50%;
             border: 3px solid var(--green);
             background: var(--panel-bg);
             color: var(--green);
-            font-size: 2rem;
+            font-size: 1.8rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 100;
         }
 
         .call-button:hover {
             box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
-            transform: translateX(-50%) scale(1.1);
+            transform: scale(1.1);
         }
 
         .call-button.active {
@@ -346,22 +353,18 @@
 
         /* Wake word button */
         .wake-button {
-            position: absolute;
-            bottom: 40px;
-            left: calc(50% - 120px);
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             border: 3px solid var(--blue-dim);
             background: var(--panel-bg);
             color: var(--blue-dim);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 100;
         }
 
         .wake-button:hover {
@@ -383,22 +386,18 @@
 
         /* Camera button */
         .camera-button {
-            position: absolute;
-            bottom: 40px;
-            left: calc(50% + 60px);
-            width: 60px;
-            height: 60px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             border: 3px solid var(--blue-dim);
             background: var(--panel-bg);
             color: var(--blue-dim);
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease;
-            z-index: 100;
             overflow: hidden;
         }
 
@@ -422,9 +421,9 @@
 
         .camera-button.active .camera-icon {
             opacity: 0.7;
-            font-size: 1rem;
-            top: 5px;
-            right: 5px;
+            font-size: 0.9rem;
+            top: 3px;
+            right: 3px;
         }
 
         .camera-button video {
@@ -441,18 +440,18 @@
             opacity: 1;
         }
 
-        /* Transcription display */
+        /* Transcription display - above the face */
         .transcription-display {
             position: absolute;
-            bottom: 140px;
+            top: 60px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--panel-bg);
             border: 1px solid var(--blue-dim);
             border-radius: 8px;
             padding: 12px 20px;
-            max-width: 85%;
-            max-height: 150px;
+            max-width: 70%;
+            max-height: 120px;
             overflow-y: auto;
             text-align: center;
             font-size: 0.9rem;
@@ -576,10 +575,10 @@
             box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
 
-        /* Error message */
+        /* Error message - above the face */
         .error-message {
             position: absolute;
-            bottom: 140px;
+            top: 60px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(255, 34, 68, 0.2);
@@ -595,17 +594,6 @@
 
         .error-message.visible {
             opacity: 1;
-        }
-
-        /* Instructions */
-        .instructions {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.7rem;
-            color: #333;
-            text-align: center;
         }
 
         /* Community Panel */
@@ -964,28 +952,28 @@
     <!-- Error message -->
     <div class="error-message" id="error-message"></div>
 
-    <!-- Wake word button -->
-    <button class="wake-button" id="wake-button" onclick="toggleWakeWord()">
-        <span id="wake-icon">🎤</span>
-    </button>
+    <!-- Control buttons - left side -->
+    <div class="controls-container">
+        <!-- Call button -->
+        <button class="call-button" id="call-button" onclick="toggleConversation()">
+            <span id="call-icon">📞</span>
+        </button>
 
-    <!-- Call button -->
-    <button class="call-button" id="call-button" onclick="toggleConversation()">
-        <span id="call-icon">📞</span>
-    </button>
+        <!-- Wake word button -->
+        <button class="wake-button" id="wake-button" onclick="toggleWakeWord()">
+            <span id="wake-icon">🎤</span>
+        </button>
 
-    <!-- Camera button -->
-    <button class="camera-button" id="camera-button" onclick="toggleCamera()">
-        <span class="camera-icon">📷</span>
-        <video id="camera-video" autoplay playsinline muted></video>
-    </button>
+        <!-- Camera button -->
+        <button class="camera-button" id="camera-button" onclick="toggleCamera()">
+            <span class="camera-icon">📷</span>
+            <video id="camera-video" autoplay playsinline muted></video>
+        </button>
+    </div>
 
     <!-- Hidden canvas for capturing frames -->
     <canvas id="capture-canvas" style="display: none;"></canvas>
 
-    <div class="instructions">
-        🎤 Voice activate | 📞 Talk | 📷 Vision
-    </div>
 
     <!-- ElevenLabs Conversational AI SDK -->
     <script type="module">
