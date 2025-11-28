@@ -1203,9 +1203,11 @@
                             console.log('Wake word detected!', wakeWord);
                             // Set flag immediately to prevent any more triggers
                             wakeWordTriggered = true;
-                            // Stop wake word listener and start conversation
+                            // Stop wake word listener and give mic time to release before starting conversation
                             stopWakeWordListener();
-                            toggleConversation();
+                            setTimeout(() => {
+                                toggleConversation();
+                            }, 300);
                             return;
                         }
                     }
