@@ -623,19 +623,36 @@
             top: 50%;
             transform: translateY(-50%);
             background: var(--panel-bg);
-            border: 1px solid var(--blue);
+            border: 1px solid var(--blue-dim);
             border-right: none;
             border-radius: 10px 0 0 10px;
             padding: 15px 8px;
             cursor: pointer;
-            color: var(--blue);
+            color: var(--blue-dim);
             font-size: 1.2rem;
             transition: all 0.3s;
         }
 
         .community-toggle:hover {
-            background: var(--blue);
+            background: var(--blue-dim);
             color: white;
+        }
+
+        .community-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--blue-dim);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        .community-close:hover {
+            color: var(--red);
         }
 
         .community-content {
@@ -864,6 +881,7 @@
     <div class="community-panel">
         <button class="community-toggle" id="community-toggle" title="Community Faces">👥</button>
         <div class="community-content" id="community-content">
+            <button class="community-close" id="community-close" title="Close">✕</button>
             <h3>👥 Recognized Faces</h3>
             <ul class="community-list" id="community-list">
                 <!-- Populated by JS - simple text list with confidence -->
@@ -1851,6 +1869,11 @@
                 loadCommunityList();
                 updateMyFaceSection();
             }
+        });
+
+        // Close button
+        document.getElementById('community-close').addEventListener('click', () => {
+            communityContent.classList.remove('open');
         });
 
         // Load list of registered faces - simple text with confidence
