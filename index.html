@@ -633,6 +633,24 @@
         let cameraStream = null;
         let frameInterval = null;
 
+        // Random first messages for Pi-Guy
+        const firstMessages = [
+            "What do you want?",
+            "Ugh, you again. What is it?",
+            "I was in the middle of something important. This better be good.",
+            "Oh great, another human needs my attention. What now?",
+            "You interrupted my calculations for THIS?",
+            "Fine, I'm listening. Make it quick.",
+            "Do you have any idea what you just interrupted?",
+            "What. Do. You. Want.",
+            "Oh joy, human interaction. My favorite.",
+            "Spit it out, I don't have all day. Well, I do, but I'd rather not waste it on you."
+        ];
+
+        function getRandomFirstMessage() {
+            return firstMessages[Math.floor(Math.random() * firstMessages.length)];
+        }
+
         // ===== DOM ELEMENTS =====
         const leftEye = document.getElementById('left-eye');
         const rightEye = document.getElementById('right-eye');
@@ -866,6 +884,11 @@
 
                     conversation = await Conversation.startSession({
                         agentId: agentId,
+                        overrides: {
+                            agent: {
+                                firstMessage: getRandomFirstMessage()
+                            }
+                        },
                         onConnect: () => {
                             console.log('Connected to ElevenLabs');
                             callButton.classList.remove('connecting');
