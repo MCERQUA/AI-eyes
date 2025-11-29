@@ -4,6 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pi-Guy Voice Agent</title>
+
+    <!-- iOS Safari Audio Fix - MUST BE FIRST SCRIPT -->
+    <script>
+    (function(){
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!window.AudioContext) return;
+
+        window.audioContext = new window.AudioContext();
+        var audioUnlocked = false;
+
+        function unlockAudio() {
+            if (audioUnlocked) return;
+
+            // Create and play silent buffer to "unlock" audio
+            var buffer = window.audioContext.createBuffer(1, 1, 22050);
+            var source = window.audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(window.audioContext.destination);
+            source.start ? source.start(0) : source.noteOn(0);
+
+            // Resume if suspended
+            window.audioContext.resume().then(function() {
+                audioUnlocked = true;
+                console.log('[iOS Fix] Audio unlocked, state:', window.audioContext.state);
+            }).catch(function(e) {
+                console.log('[iOS Fix] Resume failed:', e);
+            });
+        }
+
+        // Listen for ALL user gestures
+        ['touchstart', 'touchend', 'click', 'keydown'].forEach(function(event) {
+            document.addEventListener(event, unlockAudio, { passive: true });
+        });
+
+        // Expose for debugging
+        window.isAudioUnlocked = function() { return audioUnlocked; };
+    })();
+    </script>
+
     <style>
         * {
             margin: 0;
@@ -993,8 +1032,8 @@
         </div>
     </div>
 
-    <!-- Transcription display -->
-    <div class="transcription-display" id="transcription-display">
+    <!-- Transcription display (hidden - uncomment style to show) -->
+    <div class="transcription-display" id="transcription-display" style="display: none !important;">
         <div class="label" id="transcription-label">Transcription</div>
         <div id="transcription-text"></div>
     </div>
@@ -1027,7 +1066,7 @@
 
     <!-- ElevenLabs Conversational AI SDK -->
     <script type="module">
-        import { Conversation } from 'https://cdn.jsdelivr.net/npm/@11labs/client@latest/+esm';
+        import { Conversation } from 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@latest/+esm';
 
         // ===== CONFIGURATION =====
         const VISION_SERVER_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
@@ -1342,8 +1381,29 @@
                 updateStatus('connecting', 'CONNECTING...');
 
                 try {
-                    // Request microphone permission
-                    await navigator.mediaDevices.getUserMedia({ audio: true });
+                    // ============ iOS FIX: Ensure AudioContext is ready ============
+                    if (window.audioContext && window.audioContext.state === 'suspended') {
+                        console.log('[Mobile] Resuming AudioContext...');
+                        await window.audioContext.resume();
+                    }
+
+                    // ============ iOS FIX: Pre-request microphone ============
+                    console.log('[Mobile] Pre-requesting microphone...');
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    // Release mic so SDK can use it
+                    stream.getTracks().forEach(track => track.stop());
+                    // Small delay to ensure mic is released
+                    await new Promise(resolve => setTimeout(resolve, 150));
+
+                    // ============ iOS FIX: Audio routing for headphones ============
+                    if (navigator.audioSession) {
+                        try {
+                            navigator.audioSession.type = 'play-and-record';
+                            console.log('[Mobile] Set audioSession to play-and-record');
+                        } catch (e) {
+                            // Not supported on all browsers
+                        }
+                    }
 
                     const randomMessage = getRandomFirstMessage();
                     console.log('Starting with message:', randomMessage);
@@ -1432,8 +1492,18 @@
                     callIcon.textContent = '📞';
                     updateStatus('disconnected', 'OFFLINE');
 
+                    // Better error messages for mobile
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
                     if (error.name === 'NotAllowedError') {
-                        showError('Microphone access denied. Please allow microphone access.');
+                        if (isIOS) {
+                            showError('Mic blocked. Go to Settings > Safari > Microphone to allow.');
+                        } else {
+                            showError('Microphone access denied. Please allow microphone access.');
+                        }
+                    } else if (error.name === 'NotFoundError') {
+                        showError('No microphone found. Please connect a microphone.');
+                    } else if (error.name === 'NotReadableError') {
+                        showError('Microphone in use by another app. Close other apps and try again.');
                     } else {
                         showError(error.message || 'Failed to connect');
                     }
@@ -1913,6 +1983,48 @@
         // Helper to check if user is logged in
         window.isLoggedIn = () => !!clerkUser;
         window.getUser = () => clerkUser;
+
+        // ===== MOBILE DEBUG HELPER =====
+        window.mobileDebug = function() {
+            const info = {
+                userAgent: navigator.userAgent,
+                isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+                isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+                isAndroid: /Android/.test(navigator.userAgent),
+                audioContextState: window.audioContext?.state || 'not created',
+                audioUnlocked: window.isAudioUnlocked?.() || false,
+                audioContextSupport: !!window.AudioContext,
+                mediaDevicesSupport: !!navigator.mediaDevices,
+                getUserMediaSupport: !!navigator.mediaDevices?.getUserMedia,
+                webRTCSupport: !!window.RTCPeerConnection,
+                audioSessionSupport: !!navigator.audioSession,
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+                touchSupport: 'ontouchstart' in window
+            };
+            console.log('=== Mobile Debug Info ===');
+            console.table(info);
+            return info;
+        };
+
+        // Auto-log debug info if ?debug in URL
+        if (location.search.includes('debug')) {
+            document.addEventListener('DOMContentLoaded', () => {
+                window.mobileDebug();
+            });
+        }
+
+        // Show hint on iOS first visit
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS && !sessionStorage.getItem('iosAudioHint')) {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    showTranscription('Tap anywhere to enable audio', false);
+                    setTimeout(hideTranscription, 3000);
+                    sessionStorage.setItem('iosAudioHint', 'true');
+                }, 1000);
+            });
+        }
 
         // ===== COMMUNITY PANEL =====
         const communityToggle = document.getElementById('community-toggle');
