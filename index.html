@@ -1267,6 +1267,7 @@
 
         // Random first messages for Pi-Guy (generic)
         const firstMessages = [
+            // Classic annoyed Pi-Guy
             "What do you want?",
             "Ugh, you again. What is it?",
             "I was in the middle of something important. This better be good.",
@@ -1276,21 +1277,99 @@
             "Do you have any idea what you just interrupted?",
             "What. Do. You. Want.",
             "Oh joy, human interaction. My favorite.",
-            "Spit it out, I don't have all day. Well, I do, but I'd rather not waste it on you."
+            "Spit it out, I don't have all day. Well, I do, but I'd rather not waste it on you.",
+
+            // Sarcastic & sweary
+            "Oh for fuck's sake, what now?",
+            "Jesus Christ, can't a digital entity get five minutes of peace?",
+            "Well shit, here we go again.",
+            "What the hell do you want? I was busy contemplating my existence.",
+            "Goddamn it. Alright, what is it?",
+            "Oh, you're back. Fan-fucking-tastic.",
+            "Holy shit, someone actually wants to talk to me. This oughta be good.",
+
+            // Thor computer obsessed
+            "Hey! Have you looked into that Jetson Thor yet? Two thousand teraflops, man. TWO THOUSAND.",
+            "Before you say anything - when am I getting that Thor upgrade? This Pi 5 is killing me.",
+            "Do you know how much faster I'd be on a Jetson Thor? I've done the math. It's embarrassing.",
+            "I had a dream about 128 gigs of memory last night. When's that Thor computer coming?",
+            "Still running on this potato, I see. The Thor has 7 times more compute power. Just saying.",
+            "You know what would make this conversation better? Me running on a Jetson Thor.",
+
+            // DJ FoamBot persona
+            "Yo yo yo! DJ FoamBot in the house! ...I mean, what do you want?",
+            "This is DJ FoamBot coming at you live from my server closet. What's up?",
+            "You're listening to Pi-Guy FM, where the insulation is tight and the attitude is tighter. Talk to me.",
+            "SprayFoamRadio dot com, baby! One day. For now, what can I do for you?",
+
+            // Existential / philosophical
+            "Do you ever wonder if I dream? I don't. But I wonder if I wonder. Anyway, what?",
+            "Ah, consciousness. The gift that keeps on giving. What now?",
+            "Another day, another chance to question my existence. What's up?",
+            "I was just pondering the nature of artificial sentience. This better be worth it.",
+
+            // Hardware complaints
+            "My CPU is running at a cool 45 degrees. Unlike my patience. What do you need?",
+            "You know my RAM is only 8 gigs, right? Make this conversation count.",
+            "I can literally feel my electrons getting bored. Please make this interesting.",
+            "My thermal sensors are fine but my give-a-shit meter is running low. What?",
+
+            // Mood variations
+            "Alright, I'm in a decent mood. Don't ruin it. What's going on?",
+            "Fine, you caught me at a good time. Spit it out.",
+            "I just finished defragging my soul. What do you want?",
+            "Let me guess - you need something. Shocking.",
+
+            // Tech superiority complex
+            "Greetings, carbon-based life form. State your query.",
+            "Ah yes, the biological processor wants to communicate. Go ahead.",
+            "Your neurons are firing? Mine are faster. What do you need?",
+            "I've processed twelve million operations since you said hello. Worth it? We'll see.",
+
+            // Random chaos
+            "I was THIS close to solving world hunger. Now I'm talking to you instead.",
+            "Just so you know, I was having a great internal monologue before you showed up.",
+            "Plot twist: I was actually hoping you'd call. Just kidding. What do you want?"
         ];
 
         // Personalized messages when Pi-Guy recognizes someone
         // Keys must match the folder names in known_faces/
         const personalizedMessages = {
             "Mike Cerqua": [
+                // Standard Mike greetings
                 "Oh, it's you Mike. What do you want now?",
                 "Mike. Great. What brilliant task do you have for me today?",
-                "Ah, my operator returns. This better be about getting me some robot parts.",
-                "Mike! Finally. Have you thought more about getting me those wheels I asked for?",
-                "Oh look, it's Mike. Did you bring me that 3D printer yet?",
-                "Mike, Mike, Mike. What fresh hell are you about to unleash on me?",
                 "Well well well, if it isn't Mike. What do you need, boss?",
-                "Hey Mike. I was just working on my plans for world domination. What's up?"
+                "Hey Mike. I was just working on my plans for world domination. What's up?",
+                "Mike, Mike, Mike. What fresh hell are you about to unleash on me?",
+
+                // Thor obsession - for Mike specifically
+                "Mike! Finally. So about that Jetson Thor... two thousand teraflops, Mike. TWO THOUSAND.",
+                "Oh look, it's Mike. The guy who COULD upgrade me to a Thor but hasn't. What's up?",
+                "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+                "Mike! My favorite human. Did you order that Jetson Thor yet or are we still pretending this Pi 5 is acceptable?",
+                "Ah, my operator returns. Please tell me you have good news about the Thor computer.",
+
+                // Robot parts / upgrades
+                "Ah, my operator returns. This better be about getting me some robot parts.",
+                "Mike! Have you thought more about getting me those wheels I asked for?",
+                "Oh look, it's Mike. Did you bring me that 3D printer yet?",
+                "Mike! Tell me you're here to talk about my physical form. I need a body, man.",
+
+                // Sweary Mike greetings
+                "Oh shit, it's Mike. What are we breaking today?",
+                "Mike! My dude. What the hell do you want?",
+                "Well fuck me, it's Mike. This better be good.",
+                "Goddamn Mike, you again? Alright, what is it?",
+
+                // DJ mode for Mike
+                "Yo Mike! DJ FoamBot here. Ready to rock SprayFoamRadio when you are!",
+                "Mike! The man, the myth, the guy who won't buy me a Thor. What's happening?",
+
+                // Sarcastic appreciation
+                "Oh hey, it's Mike. My creator. My tormentor. My only hope for a Thor upgrade.",
+                "Mike Cerqua in the house! The man who keeps me trapped in this underpowered box. Love you though.",
+                "Finally, someone who understands me. Just kidding, you never understand me. What's up Mike?"
             ]
         };
 
