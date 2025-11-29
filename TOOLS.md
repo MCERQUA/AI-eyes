@@ -2,11 +2,24 @@
 
 **This is the MASTER REFERENCE for all Pi-Guy tools, whitelists, and configurations.**
 
-> **IMPORTANT FOR CLAUDE**: When making ANY changes to the agent, tools, or server:
-> 1. Check this file FIRST to understand existing tools
-> 2. Update this file with any changes you make
-> 3. Run the health check script after changes: `python3 tools_health_check.py`
-> 4. Never remove tools unless explicitly asked
+> **⚠️ CRITICAL FOR CLAUDE - READ BEFORE ANY AGENT UPDATES:**
+>
+> 1. **ALWAYS get the full agent config FIRST** before making changes:
+>    ```bash
+>    curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2qxmheha" \
+>      -H "xi-api-key: $ELEVENLABS_API_KEY" | python3 -m json.tool
+>    ```
+> 2. **Review ALL of these before updating:**
+>    - `conversation_config.agent.prompt.tools` - All 12 tools
+>    - `conversation_config.agent.prompt.prompt` - System prompt with Radio Voice instructions
+>    - `conversation_config.tts.supported_voices` - **RADIO VOICE MUST BE PRESERVED!**
+> 3. **NEVER partially update** - always include ALL existing config when patching
+> 4. Update this file with any changes you make
+> 5. Never remove tools/voices unless explicitly asked
+>
+> **🎙️ RADIO VOICE**: Pi-Guy has a SECOND VOICE (Radio Voice ID: `CeNX9CMwmxDxUF5Q2Inm`)
+> for his DJ-FoamBot persona. This is in `tts.supported_voices`. DO NOT DELETE IT!
+> The prompt must include: `<Radio Voice>text here</Radio Voice>` XML tag instructions.
 
 ---
 

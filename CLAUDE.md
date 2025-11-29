@@ -141,22 +141,59 @@ Triggers: "play music", "play a song", "stop the music", "next track", "skip", "
 
 **This project is being BUILT and features are being ADDED. When making changes:**
 1. **NEVER remove existing tools, endpoints, or features** unless explicitly asked
-2. **Always preserve all 6 ElevenLabs tools** when updating the agent
+2. **Always preserve ALL ElevenLabs tools** when updating the agent
 3. **Check server.py for all existing endpoints** before adding new ones
 4. **All API endpoints must continue working** - don't break existing functionality
 5. **When updating ElevenLabs agent config**, include ALL existing tool_ids in the array
 
-**Current tools that MUST always be attached to the agent (10 total):**
-- look_and_see (vision)
-- identify_person (face recognition)
-- manage_todos (todo list)
-- search_web (web search)
-- run_command (server commands)
-- check_server_status (server health)
-- manage_notes (notes/files)
-- manage_memory (long-term memory via ElevenLabs Knowledge Base)
-- manage_jobs (scheduled tasks/cron jobs)
-- play_music (DJ music controls)
+### ⚠️ CRITICAL: Before Updating ElevenLabs Agent
+
+**ALWAYS review the COMPLETE current agent configuration BEFORE making ANY changes:**
+
+```bash
+# Get full agent config first
+curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2qxmheha" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" | python3 -m json.tool > /tmp/current_agent.json
+
+# Review: tools, prompt, TTS config, voices
+```
+
+**You MUST preserve:**
+1. **All tools** - Currently 12 tools (10 webhook + 2 system)
+2. **The system prompt** - Contains personality, mood system, tool instructions
+3. **The Radio Voice** - Second voice for DJ-FoamBot persona (see below)
+4. **TTS settings** - stability, speed, similarity_boost values
+
+### 🎙️ CRITICAL: Multi-Voice Setup (Radio Voice)
+
+**Pi-Guy has TWO voices configured - DO NOT DELETE THE SECOND VOICE!**
+
+The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is configured in:
+- `conversation_config.tts.supported_voices` array
+- Voice ID: `CeNX9CMwmxDxUF5Q2Inm` (Radio Voice)
+- Primary Voice ID: `eZm9vdjYgL9PZKtf7XMM`
+
+**The system prompt MUST include XML tag instructions:**
+```
+**HOW TO USE RADIO VOICE**: Wrap text in XML tags like this:
+<Radio Voice>LIVE from DJ-FoamBot HQ - all systems GO!</Radio Voice>
+```
+
+**When updating the agent, ALWAYS check that `supported_voices` still contains the Radio Voice!**
+
+### Current tools that MUST always be attached to the agent (12 total):
+- look_and_see (vision) - webhook
+- identify_person (face recognition) - webhook
+- manage_todos (todo list) - webhook
+- search_web (web search) - webhook
+- run_command (server commands) - webhook
+- check_server_status (server health) - webhook
+- manage_notes (notes/files) - webhook
+- manage_memory (long-term memory) - webhook
+- manage_jobs (scheduled tasks/cron jobs) - webhook
+- play_music (DJ music controls) - webhook
+- end_call (end conversation) - system
+- skip_turn (handle silence) - system
 
 ## Overview
 - **Type**: Web app with Python backend
