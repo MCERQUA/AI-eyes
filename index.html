@@ -1759,7 +1759,11 @@
                                 // Sync music playback when Pi-Guy mentions playing
                                 const msg = message.message.toLowerCase();
                                 if (msg.includes('spinning up') || msg.includes("let's go") ||
-                                    msg.includes('playing') || msg.includes('next up')) {
+                                    msg.includes('playing') || msg.includes('next up') ||
+                                    msg.includes('dj foambot') || msg.includes('track') ||
+                                    msg.includes('song') || msg.includes('music') ||
+                                    msg.includes('tune') || msg.includes('banger') ||
+                                    msg.includes('dropping') || msg.includes('coming up')) {
                                     console.log('🎵 Music mentioned, syncing...');
                                     syncMusicState();
                                 } else if (msg.includes('stopped') || msg.includes('silence')) {
