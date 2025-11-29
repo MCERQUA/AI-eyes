@@ -552,6 +552,27 @@
             margin-bottom: 5px;
         }
 
+        /* Face recognition notification */
+        .face-notification {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--panel-bg);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 51;
+            color: var(--green);
+        }
+        .face-notification.visible {
+            opacity: 1;
+        }
+
         .transcription-display.user .label { color: var(--green); }
         .transcription-display.agent .label { color: var(--cyan); }
 
@@ -1038,6 +1059,9 @@
         <div id="transcription-text"></div>
     </div>
 
+    <!-- Face recognition notification -->
+    <div class="face-notification" id="face-notification"></div>
+
     <!-- Error message -->
     <div class="error-message" id="error-message"></div>
 
@@ -1325,6 +1349,18 @@
 
         function hideTranscription() {
             transcriptionDisplay.classList.remove('visible');
+        }
+
+        // Face recognition notification
+        const faceNotification = document.getElementById('face-notification');
+
+        function showFaceNotification(text) {
+            faceNotification.textContent = text;
+            faceNotification.classList.add('visible');
+        }
+
+        function hideFaceNotification() {
+            faceNotification.classList.remove('visible');
         }
 
         // ===== CONVERSATION CONTROL =====
@@ -1626,8 +1662,8 @@
                 console.log('Face identification result:', data);
 
                 if (data.name !== 'unknown') {
-                    showTranscription(`Recognized: ${data.name} (${data.confidence}%)`, false);
-                    setTimeout(hideTranscription, 3000);
+                    showFaceNotification(`Recognized: ${data.name} (${data.confidence}%)`);
+                    setTimeout(hideFaceNotification, 3000);
                 }
             } catch (error) {
                 console.error('Face identification error:', error);
