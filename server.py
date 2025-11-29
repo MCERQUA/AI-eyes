@@ -340,11 +340,27 @@ def identify_face():
 
 @app.route('/api/identity', methods=['GET'])
 def get_identity():
-    """Get the currently identified person"""
+    """Get the currently identified person - used by ElevenLabs identify_person tool"""
     global current_identity
-    if current_identity:
-        return jsonify(current_identity)
-    return jsonify({"name": "unknown", "confidence": 0, "message": "No identification performed yet"})
+    if current_identity and current_identity.get('name') and current_identity['name'] != 'unknown':
+        name = current_identity['name']
+        confidence = current_identity.get('confidence', 0)
+        # Give Pi-Guy a response to speak
+        return jsonify({
+            **current_identity,
+            "response": f"I can see you're {name}. I recognize your face with {confidence:.0f}% confidence."
+        })
+    elif current_identity:
+        return jsonify({
+            **current_identity,
+            "response": "I can see a face but I don't recognize you. You're not in my database. Maybe you should add your face so I can remember you."
+        })
+    return jsonify({
+        "name": "unknown",
+        "confidence": 0,
+        "message": "No identification performed yet",
+        "response": "I can't see anyone right now. Is the camera even on? Turn it on if you want me to see who you are."
+    })
 
 @app.route('/api/faces', methods=['GET'])
 def list_faces():
