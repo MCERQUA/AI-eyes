@@ -1751,15 +1751,59 @@
                         },
                         onMessage: async (message) => {
                             console.log('Message:', message);
+
+                            // Handle tool responses (dj_soundboard, play_music, etc.)
+                            if (message.type === 'agent_tool_response' || message.tool_name) {
+                                console.log('🔧 Tool response:', message.tool_name, message);
+
+                                // DJ Soundboard tool - play the sound!
+                                if (message.tool_name === 'dj_soundboard') {
+                                    try {
+                                        const toolData = typeof message.tool_result === 'string'
+                                            ? JSON.parse(message.tool_result)
+                                            : message.tool_result;
+                                        console.log('🎧 DJ Soundboard response:', toolData);
+
+                                        if (toolData.action === 'play' && toolData.url) {
+                                            console.log('🎵 Playing DJ sound:', toolData.sound);
+                                            playDJSound(toolData.sound);
+                                        }
+                                    } catch (e) {
+                                        console.error('Error parsing tool result:', e);
+                                    }
+                                }
+
+                                // Music tool - sync playback
+                                if (message.tool_name === 'play_music') {
+                                    try {
+                                        const toolData = typeof message.tool_result === 'string'
+                                            ? JSON.parse(message.tool_result)
+                                            : message.tool_result;
+                                        console.log('🎵 Music tool response:', toolData);
+
+                                        if (toolData.action === 'play' && toolData.track) {
+                                            console.log('🎵 Music play triggered, syncing...');
+                                            syncMusicState();
+                                        } else if (toolData.action === 'stop') {
+                                            stopMusicPlayback();
+                                        } else if (toolData.action === 'pause') {
+                                            pauseMusicPlayback();
+                                        }
+                                    } catch (e) {
+                                        console.error('Error parsing music tool result:', e);
+                                    }
+                                }
+                            }
+
                             if (message.source === 'user' && message.message) {
                                 showTranscription(message.message, true);
                             } else if (message.source === 'ai' && message.message) {
                                 showTranscription(message.message, false);
 
-                                // Check for DJ sound effects triggers
+                                // Check for DJ sound effects triggers (fallback for text detection)
                                 checkForDJSounds(message.message);
 
-                                // Sync music playback when Pi-Guy mentions playing
+                                // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
                                 if (msg.includes('spinning up') || msg.includes("let's go") ||
                                     msg.includes('playing') || msg.includes('next up')) {
