@@ -14,6 +14,7 @@ import tempfile
 import sqlite3
 import subprocess
 import psutil
+import requests
 from datetime import datetime
 from pathlib import Path
 from flask import Flask, request, jsonify, send_file
@@ -1360,6 +1361,334 @@ def delete_note(filename):
     })
 
 
+# ===== PI-GUY MEMORY SYSTEM (ElevenLabs Knowledge Base) =====
+
+ELEVENLABS_API_KEY = os.getenv('ELEVENLABS_API_KEY')
+ELEVENLABS_AGENT_ID = os.getenv('ELEVENLABS_AGENT_ID', 'agent_0801kb2240vcea2ayx0a2qxmheha')
+ELEVENLABS_BASE_URL = "https://api.elevenlabs.io/v1/convai"
+MEMORY_FILE = Path(__file__).parent / "memory_docs.json"
+
+def load_memory_docs():
+    """Load mapping of memory names to ElevenLabs document IDs"""
+    if MEMORY_FILE.exists():
+        with open(MEMORY_FILE) as f:
+            return json.load(f)
+    return {}
+
+def save_memory_docs(docs):
+    """Save memory document mapping"""
+    with open(MEMORY_FILE, 'w') as f:
+        json.dump(docs, f, indent=2)
+
+def elevenlabs_headers():
+    """Get headers for ElevenLabs API requests"""
+    return {
+        "xi-api-key": ELEVENLABS_API_KEY,
+        "Content-Type": "application/json"
+    }
+
+def create_knowledge_doc(name, content):
+    """Create a new knowledge base document in ElevenLabs"""
+    url = f"{ELEVENLABS_BASE_URL}/knowledge-base/text"
+    response = requests.post(url, headers=elevenlabs_headers(), json={
+        "text": content,
+        "name": name
+    })
+    response.raise_for_status()
+    return response.json()
+
+def delete_knowledge_doc(doc_id):
+    """Delete a knowledge base document from ElevenLabs"""
+    url = f"{ELEVENLABS_BASE_URL}/knowledge-base/{doc_id}"
+    response = requests.delete(url, headers=elevenlabs_headers(), params={"force": "true"})
+    response.raise_for_status()
+    return response.json() if response.text else {"deleted": True}
+
+def get_knowledge_doc(doc_id):
+    """Get a knowledge base document from ElevenLabs"""
+    url = f"{ELEVENLABS_BASE_URL}/knowledge-base/{doc_id}"
+    response = requests.get(url, headers=elevenlabs_headers())
+    response.raise_for_status()
+    return response.json()
+
+def list_knowledge_docs():
+    """List all knowledge base documents"""
+    url = f"{ELEVENLABS_BASE_URL}/knowledge-base"
+    response = requests.get(url, headers=elevenlabs_headers(), params={"page_size": 100})
+    response.raise_for_status()
+    return response.json()
+
+def update_agent_knowledge_base(doc_ids):
+    """Update the agent's knowledge base with document IDs"""
+    url = f"{ELEVENLABS_BASE_URL}/agents/{ELEVENLABS_AGENT_ID}"
+
+    # Build knowledge base array
+    knowledge_base = []
+    memory_docs = load_memory_docs()
+
+    for doc_id in doc_ids:
+        # Find the name for this doc_id
+        name = next((k for k, v in memory_docs.items() if v == doc_id), doc_id)
+        knowledge_base.append({
+            "type": "text",
+            "name": name,
+            "id": doc_id,
+            "usage_mode": "auto"  # Use RAG for retrieval
+        })
+
+    response = requests.patch(url, headers=elevenlabs_headers(), json={
+        "conversation_config": {
+            "agent": {
+                "prompt": {
+                    "knowledge_base": knowledge_base
+                }
+            }
+        }
+    })
+    response.raise_for_status()
+    return response.json()
+
+@app.route('/api/memory', methods=['GET'])
+def handle_memory():
+    """
+    All-in-one memory endpoint for ElevenLabs tool
+    Query params:
+      - action: 'list', 'read', 'remember', 'forget', 'search'
+      - name: memory name (for read/remember/forget)
+      - content: content to remember (for remember)
+      - search: search term (for search)
+    """
+    action = request.args.get('action', 'list')
+    name = request.args.get('name', '')
+    content = request.args.get('content', '')
+    search_term = request.args.get('search', '')
+
+    if not ELEVENLABS_API_KEY:
+        return jsonify({
+            "error": "ElevenLabs API key not configured",
+            "response": "My memory system isn't set up. The API key is missing."
+        }), 500
+
+    try:
+        memory_docs = load_memory_docs()
+
+        # LIST all memories
+        if action == 'list':
+            if not memory_docs:
+                return jsonify({
+                    "memories": [],
+                    "count": 0,
+                    "response": "I don't have any memories stored yet. Tell me to remember something!"
+                })
+
+            memories = list(memory_docs.keys())
+            return jsonify({
+                "memories": memories,
+                "count": len(memories),
+                "response": f"I remember {len(memories)} thing{'s' if len(memories) != 1 else ''}: {', '.join(memories)}"
+            })
+
+        # READ a specific memory
+        elif action == 'read':
+            if not name:
+                return jsonify({"error": "name required", "response": "Which memory do you want me to recall?"})
+
+            # Fuzzy match
+            matched_name = None
+            name_lower = name.lower()
+            for mem_name in memory_docs.keys():
+                if name_lower in mem_name.lower() or mem_name.lower() in name_lower:
+                    matched_name = mem_name
+                    break
+
+            if not matched_name:
+                return jsonify({
+                    "error": "not found",
+                    "response": f"I don't remember anything called '{name}'. Use 'list memories' to see what I know."
+                })
+
+            doc_id = memory_docs[matched_name]
+            doc = get_knowledge_doc(doc_id)
+            # Content can be in 'extracted_inner_html' (for text docs) or 'text' or 'content'
+            content = doc.get('extracted_inner_html', doc.get('text', doc.get('content', 'Content not available')))
+
+            return jsonify({
+                "name": matched_name,
+                "content": content,
+                "response": f"Here's what I remember about '{matched_name}':\n\n{content[:500]}{'...' if len(str(content)) > 500 else ''}"
+            })
+
+        # REMEMBER something new
+        elif action == 'remember':
+            if not name:
+                return jsonify({"error": "name required", "response": "What should I call this memory?"})
+            if not content:
+                return jsonify({"error": "content required", "response": "What do you want me to remember?"})
+
+            # If memory exists, delete old one first
+            if name in memory_docs:
+                try:
+                    delete_knowledge_doc(memory_docs[name])
+                except:
+                    pass  # Ignore deletion errors
+
+            # Create new knowledge doc
+            doc = create_knowledge_doc(name, content)
+            doc_id = doc['id']
+
+            # Save mapping
+            memory_docs[name] = doc_id
+            save_memory_docs(memory_docs)
+
+            # Update agent's knowledge base
+            update_agent_knowledge_base(list(memory_docs.values()))
+
+            return jsonify({
+                "name": name,
+                "doc_id": doc_id,
+                "response": f"Got it! I'll remember '{name}'. This is now part of my knowledge."
+            })
+
+        # FORGET a memory
+        elif action == 'forget':
+            if not name:
+                return jsonify({"error": "name required", "response": "What should I forget?"})
+
+            # Fuzzy match
+            matched_name = None
+            name_lower = name.lower()
+            for mem_name in memory_docs.keys():
+                if name_lower in mem_name.lower() or mem_name.lower() in name_lower:
+                    matched_name = mem_name
+                    break
+
+            if not matched_name:
+                return jsonify({
+                    "error": "not found",
+                    "response": f"I don't have a memory called '{name}' to forget."
+                })
+
+            # Delete from ElevenLabs
+            doc_id = memory_docs[matched_name]
+            delete_knowledge_doc(doc_id)
+
+            # Remove from local mapping
+            del memory_docs[matched_name]
+            save_memory_docs(memory_docs)
+
+            # Update agent's knowledge base
+            update_agent_knowledge_base(list(memory_docs.values()))
+
+            return jsonify({
+                "name": matched_name,
+                "forgotten": True,
+                "response": f"Done. I've forgotten '{matched_name}'. It's gone from my memory."
+            })
+
+        # SEARCH memories (queries the knowledge base)
+        elif action == 'search':
+            if not search_term:
+                search_term = content or name
+            if not search_term:
+                return jsonify({"error": "search term required", "response": "What are you looking for in my memories?"})
+
+            # List all docs and search through them
+            results = []
+            for mem_name, doc_id in memory_docs.items():
+                try:
+                    doc = get_knowledge_doc(doc_id)
+                    text = doc.get('extracted_inner_html', doc.get('text', doc.get('content', '')))
+                    if search_term.lower() in text.lower() or search_term.lower() in mem_name.lower():
+                        results.append({
+                            "name": mem_name,
+                            "preview": text[:200] if text else "No content"
+                        })
+                except:
+                    continue
+
+            if not results:
+                return jsonify({
+                    "results": [],
+                    "response": f"I couldn't find '{search_term}' in any of my memories."
+                })
+
+            return jsonify({
+                "results": results,
+                "count": len(results),
+                "response": f"Found '{search_term}' in {len(results)} memor{'ies' if len(results) != 1 else 'y'}: {', '.join([r['name'] for r in results])}"
+            })
+
+        else:
+            return jsonify({
+                "error": "invalid action",
+                "response": f"Unknown action '{action}'. Use: list, read, remember, forget, or search."
+            })
+
+    except requests.exceptions.HTTPError as e:
+        print(f"Memory API error: {e}")
+        print(f"Response: {e.response.text if e.response else 'No response'}")
+        return jsonify({
+            "error": str(e),
+            "response": f"My memory system had an error: {str(e)}"
+        }), 500
+    except Exception as e:
+        print(f"Memory error: {e}")
+        return jsonify({
+            "error": str(e),
+            "response": f"Something went wrong with my memory: {str(e)}"
+        }), 500
+
+@app.route('/api/memory/sync', methods=['POST'])
+def sync_memory():
+    """Sync local memory docs with ElevenLabs knowledge base"""
+    try:
+        # Get all docs from ElevenLabs
+        response = list_knowledge_docs()
+        el_docs = {doc['name']: doc['id'] for doc in response.get('documents', [])}
+
+        # Load local mapping
+        memory_docs = load_memory_docs()
+
+        # Find orphaned local entries (doc no longer exists in ElevenLabs)
+        orphans = []
+        for name, doc_id in list(memory_docs.items()):
+            if doc_id not in [d['id'] for d in response.get('documents', [])]:
+                orphans.append(name)
+                del memory_docs[name]
+
+        # Save cleaned mapping
+        save_memory_docs(memory_docs)
+
+        # Update agent with current docs
+        if memory_docs:
+            update_agent_knowledge_base(list(memory_docs.values()))
+
+        return jsonify({
+            "synced": True,
+            "total_docs": len(el_docs),
+            "local_memories": len(memory_docs),
+            "orphans_removed": orphans,
+            "response": f"Memory synced. {len(memory_docs)} memories active, {len(orphans)} orphans cleaned up."
+        })
+
+    except Exception as e:
+        print(f"Memory sync error: {e}")
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/api/memory/list-all', methods=['GET'])
+def list_all_knowledge():
+    """List ALL knowledge base documents in ElevenLabs (for debugging)"""
+    try:
+        response = list_knowledge_docs()
+        docs = response.get('documents', [])
+        return jsonify({
+            "documents": docs,
+            "count": len(docs)
+        })
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print(f"Starting Pi-Guy Vision Server on port {port}")
@@ -1367,4 +1696,5 @@ if __name__ == '__main__':
     print(f"Todo endpoint: http://localhost:{port}/api/todos")
     print(f"Search endpoint: http://localhost:{port}/api/search")
     print(f"Command endpoint: http://localhost:{port}/api/command")
+    print(f"Memory endpoint: http://localhost:{port}/api/memory")
     app.run(host='0.0.0.0', port=port, debug=True)

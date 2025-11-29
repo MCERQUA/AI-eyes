@@ -11,7 +11,7 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 4. **All API endpoints must continue working** - don't break existing functionality
 5. **When updating ElevenLabs agent config**, include ALL existing tool_ids in the array
 
-**Current tools that MUST always be attached to the agent (7 total):**
+**Current tools that MUST always be attached to the agent (8 total):**
 - look_and_see (vision)
 - identify_person (face recognition)
 - manage_todos (todo list)
@@ -19,6 +19,7 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 - run_command (server commands)
 - check_server_status (server health)
 - manage_notes (notes/files)
+- manage_memory (long-term memory via ElevenLabs Knowledge Base)
 
 ## Overview
 - **Type**: Web app with Python backend
@@ -40,6 +41,7 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 ├── known_faces/        # Face recognition database
 │   └── Mike/           # Folder per person with their photos
 ├── pi_notes/           # Pi-Guy's personal notes (created by manage_notes tool)
+├── memory_docs.json    # Maps memory names to ElevenLabs document IDs (not in git)
 ├── face_owners.json    # Maps face names to Clerk user IDs (not in git)
 ├── usage.db            # SQLite database for user usage + todos (not in git)
 ├── .env                # API keys (not in git)
@@ -57,7 +59,7 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 
 ### ElevenLabs Tools
 
-**All 7 tools attached to agent (tool_ids array):**
+**All 8 tools attached to agent (tool_ids array):**
 ```
 tool_5601kb73sh06e6q9t8ng87bv1qsa  # check_server_status
 tool_3401kb73sh07ed5bvhtshsbxq35j  # look_and_see
@@ -66,6 +68,7 @@ tool_4801kb73sh09fxfsvjf3csmca1w5  # manage_todos
 tool_2901kb73sh0ae2a8z7yj04v4chn1  # search_web
 tool_3501kb73sh0be5tt4xb5162ejdxz  # run_command
 tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
+tool_0301kb77mf7vf0sbdyhxn3w470da  # manage_memory
 ```
 
 #### Vision Tool (look_and_see)
@@ -126,13 +129,31 @@ tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 - **Tool ID**: `tool_8001kb754p5setqb2qedb7rfez15`
 - **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/notes`
 - **Method**: GET
-- **Trigger phrases**: "write this down", "make a note", "save this", "my notes", "read notes", "remember this"
+- **Trigger phrases**: "write this down", "make a note", "save this", "my notes", "read notes"
 - **Query params**:
   - `action` - one of: `list`, `read`, `write`, `append`, `delete`, `search`
   - `filename` - name of the note (e.g., "research", "ideas")
   - `content` - text to write or append
   - `search` - text to search for across all notes
 - **Storage**: `pi_notes/` directory, all files are `.md` format
+
+#### Memory Tool (manage_memory)
+- **Tool ID**: `tool_0301kb77mf7vf0sbdyhxn3w470da`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/memory`
+- **Method**: GET
+- **Trigger phrases**: "remember this", "remember that", "don't forget", "what do you remember", "do you remember", "recall", "forget this"
+- **Query params**:
+  - `action` - one of: `list`, `read`, `remember`, `forget`, `search`
+  - `name` - memory name/label (e.g., "Mike's dog", "project deadline")
+  - `content` - information to remember (for remember action)
+  - `search` - search term (for search action)
+- **Storage**: ElevenLabs Knowledge Base (uses RAG for retrieval)
+- **How it works**:
+  - Creates documents in ElevenLabs Knowledge Base via API
+  - Documents are attached to the agent with `usage_mode: "auto"` (RAG)
+  - RAG retrieves relevant memories during conversations
+  - Memories persist across ALL conversations
+- **Local tracking**: `memory_docs.json` maps memory names to document IDs
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
@@ -217,6 +238,9 @@ tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 | `/api/notes` | POST | Create/update note (`{"filename": "...", "content": "...", "append": bool}`) |
 | `/api/notes/<filename>` | GET | Read specific note |
 | `/api/notes/<filename>` | DELETE | Delete specific note |
+| `/api/memory` | GET | Manage long-term memory (`?action=list/read/remember/forget/search`) |
+| `/api/memory/sync` | POST | Sync local memory mapping with ElevenLabs |
+| `/api/memory/list-all` | GET | List all knowledge base documents (debug) |
 
 ## Starting the Server
 
@@ -259,6 +283,7 @@ ELEVENLABS_TODO_TOOL_ID=tool_4801kb73sh09fxfsvjf3csmca1w5
 ELEVENLABS_SEARCH_TOOL_ID=tool_2901kb73sh0ae2a8z7yj04v4chn1
 ELEVENLABS_COMMAND_TOOL_ID=tool_3501kb73sh0be5tt4xb5162ejdxz
 ELEVENLABS_NOTES_TOOL_ID=tool_8001kb754p5setqb2qedb7rfez15
+ELEVENLABS_MEMORY_TOOL_ID=tool_0301kb77mf7vf0sbdyhxn3w470da
 
 # Google Gemini (the only real secret!)
 GEMINI_API_KEY=xxx
@@ -338,7 +363,7 @@ getUser()                 // Get current Clerk user object
 
 ## Future Ideas / TODOs
 - Home automation controls (Home Assistant integration)
-- Memory/context persistence between sessions
+- ~~Memory/context persistence between sessions~~ ✅ DONE - via manage_memory tool
 - Different "moods" based on conversation
 - Screen sharing capability
 - Multiple camera support
@@ -360,6 +385,7 @@ getUser()                 // Get current Clerk user object
 | Todos | SQLite (local) | **FREE** |
 | Server Commands | Local subprocess | **FREE** |
 | Notes/Files | Local filesystem | **FREE** |
+| Long-term Memory | ElevenLabs Knowledge Base | **FREE** (included with ElevenLabs) |
 
 ## Notes
 - **HTTPS Required**: Both mic and camera require secure context
