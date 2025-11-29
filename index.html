@@ -2329,10 +2329,66 @@
 
         // Initialize music player
         musicPlayer.volume = musicVolume;
+        let djTransitionTriggered = false;  // Prevent multiple triggers per track
+        let nextTrackQueued = null;         // Track queued for smooth transition
+        const DJ_INTRO_TIME = 12;           // Seconds before end to trigger DJ intro
 
-        // When track ends, play next
-        musicPlayer.addEventListener('ended', () => {
-            musicControl('next');
+        // Monitor playback for DJ transitions
+        musicPlayer.addEventListener('timeupdate', async () => {
+            if (!musicPlaying || !currentTrack) return;
+
+            const duration = musicPlayer.duration || currentTrack.duration_seconds || 120;
+            const currentTime = musicPlayer.currentTime;
+            const remaining = duration - currentTime;
+
+            // Trigger DJ intro when ~12 seconds remain (enough time to intro next song)
+            if (remaining <= DJ_INTRO_TIME && remaining > (DJ_INTRO_TIME - 1) && !djTransitionTriggered && isConversationActive) {
+                djTransitionTriggered = true;
+                console.log(`🎙️ DJ Transition: ${remaining.toFixed(1)}s remaining - triggering next song intro`);
+
+                // Signal the server that a transition is needed
+                try {
+                    const response = await fetch(`${VISION_SERVER_URL}/api/music/transition`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ remaining_seconds: remaining })
+                    });
+                    const data = await response.json();
+                    if (data.next_track) {
+                        nextTrackQueued = data.next_track;
+                        console.log('🎵 Next up:', data.next_track.title || data.next_track.name);
+                        console.log('📝 Transition queued on server');
+
+                        // Dispatch event for any listeners
+                        window.dispatchEvent(new CustomEvent('dj-transition', {
+                            detail: {
+                                nextTrack: data.next_track,
+                                remainingSeconds: remaining
+                            }
+                        }));
+                    }
+                } catch (err) {
+                    console.error('Failed to queue transition:', err);
+                }
+            }
+        });
+
+        // When track ends, play the queued next track
+        musicPlayer.addEventListener('ended', async () => {
+            djTransitionTriggered = false;  // Reset for next track
+
+            if (nextTrackQueued) {
+                // Play the pre-queued track
+                currentTrack = nextTrackQueued;
+                trackName.textContent = nextTrackQueued.title || nextTrackQueued.name;
+                musicPlayer.src = `${VISION_SERVER_URL}/music/${nextTrackQueued.filename}`;
+                musicPlayer.play();
+                nextTrackQueued = null;
+                console.log('🎵 Playing queued track:', currentTrack.title || currentTrack.name);
+            } else {
+                // No queued track, fetch next
+                musicControl('next');
+            }
         });
 
         // Duck music volume when Pi-Guy speaks

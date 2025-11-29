@@ -125,17 +125,24 @@ Triggers: "remember this", "remember that", "don't forget", "what do you remembe
 DJ Pi-Guy music controls! Control music playback - Pi-Guy becomes DJ-FoamBot when using this.
 
 `action` parameter:
-- `list`: show available tracks
+- `list`: show available tracks with metadata (duration, description, fun facts)
 - `play` + optional `track`: play a track (random if no track specified)
 - `pause`: pause playback
 - `resume`: resume playback
 - `stop`: stop and clear current track
 - `skip`/`next`: skip to next track
 - `volume` + `volume` (0-100): set volume
-- `status`: what's currently playing
+- `status`: what's currently playing (includes time remaining)
 - `shuffle`: toggle shuffle mode
+- `next_up`: preview next track (for smooth DJ transitions)
 
 Triggers: "play music", "play a song", "stop the music", "next track", "skip", "pause music", "turn it up", "turn it down", "what's playing", "list music", "DJ mode"
+
+**DJ Features:**
+- Track metadata stored in `music/music_metadata.json` (title, duration, description, fun facts, phone numbers, ad copy)
+- Responses include `dj_hints` with song info for Pi-Guy to use in DJ intros
+- Frontend detects song ending (~12s before) and queues next track for smooth transitions
+- `/api/music/transition` endpoint for coordinating DJ transitions
 
 ## ⚠️ IMPORTANT: Development Guidelines
 
@@ -216,6 +223,7 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 │   └── Mike/           # Folder per person with their photos
 ├── pi_notes/           # Pi-Guy's personal notes (created by manage_notes tool)
 ├── music/              # MP3 files for DJ Pi-Guy to play
+│   └── music_metadata.json  # Track metadata (duration, description, fun facts, ad copy)
 ├── memory_docs.json    # Maps memory names to ElevenLabs document IDs (not in git)
 ├── job_runner.sh       # Cron script to execute pending jobs
 ├── tools_health_check.py # Script to verify all tools work
@@ -356,12 +364,18 @@ tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
 - **Method**: GET
 - **Trigger phrases**: "play music", "play a song", "stop the music", "next track", "skip", "pause music", "turn it up", "turn it down", "what's playing", "list music", "DJ mode"
 - **Query params**:
-  - `action` - one of: `list`, `play`, `pause`, `resume`, `stop`, `skip`, `next`, `volume`, `status`, `shuffle`
+  - `action` - one of: `list`, `play`, `pause`, `resume`, `stop`, `skip`, `next`, `volume`, `status`, `shuffle`, `next_up`
   - `track` - track name to play (optional, for play action)
   - `volume` - volume level 0-100 (for volume action)
 - **Storage**: MP3 files in `music/` directory
+- **Metadata**: `music/music_metadata.json` - track info (duration, description, fun facts, phone numbers, ad copy)
 - **Frontend**: Music button + "Now Playing" display with play/pause/skip controls
 - **Volume ducking**: Music automatically lowers when Pi-Guy speaks
+- **DJ Transitions**: Frontend detects ~12s before song ends, queues next track for smooth transitions
+- **Response includes**:
+  - `duration_seconds` - track length
+  - `dj_hints` - compiled info for Pi-Guy to use in DJ intros (title, duration, description, phone, ad copy, fun facts)
+- **Additional endpoint**: `/api/music/transition` (POST to queue, GET to check pending)
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
@@ -452,8 +466,10 @@ tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
 | `/api/jobs` | GET | Manage scheduled jobs (`?action=list/schedule/cancel/status/history/run`) |
 | `/api/jobs/run-pending` | POST | Execute pending jobs (called by cron) |
 | `/api/jobs/actions` | GET | List available job actions |
-| `/api/music` | GET | DJ music controls (`?action=list/play/pause/stop/skip/volume/status`) |
+| `/api/music` | GET | DJ music controls (`?action=list/play/pause/stop/skip/volume/status/next_up`) |
 | `/music/<filename>` | GET | Serve music file (MP3, WAV, OGG, M4A, WebM) |
+| `/api/music/transition` | POST | Queue DJ transition (frontend signals song ending) |
+| `/api/music/transition` | GET | Check for pending DJ transition |
 | `/api/music/upload` | POST | Upload a music file |
 
 ## Starting the Server

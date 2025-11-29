@@ -13,6 +13,7 @@ import shutil
 import tempfile
 import sqlite3
 import subprocess
+import time
 import psutil
 import requests
 from datetime import datetime
@@ -2285,21 +2286,64 @@ current_music_state = {
     "current_track": None,
     "volume": 0.3,  # 0.0 to 1.0
     "queue": [],
-    "shuffle": False
+    "shuffle": False,
+    "track_started_at": None,  # When current track started (for timing)
+    "dj_transition_pending": False,  # Flag for DJ transition
+    "next_track": None  # Pre-selected next track for smooth transition
 }
 
+def load_music_metadata():
+    """Load music metadata from JSON file"""
+    metadata_file = MUSIC_DIR / "music_metadata.json"
+    if metadata_file.exists():
+        try:
+            with open(metadata_file, 'r') as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"Error loading music metadata: {e}")
+    return {}
+
 def get_music_files():
-    """Get list of music files in the music directory"""
+    """Get list of music files in the music directory with metadata"""
     music_extensions = {'.mp3', '.wav', '.ogg', '.m4a', '.webm'}
+    metadata = load_music_metadata()
     files = []
     for f in MUSIC_DIR.iterdir():
         if f.is_file() and f.suffix.lower() in music_extensions:
-            files.append({
+            track_info = {
                 'filename': f.name,
                 'name': f.stem,  # filename without extension
                 'size_bytes': f.stat().st_size,
                 'format': f.suffix.lower()[1:]
-            })
+            }
+            # Add metadata if available
+            if f.name in metadata:
+                meta = metadata[f.name]
+                track_info.update({
+                    'title': meta.get('title', f.stem),
+                    'artist': meta.get('artist', 'DJ FoamBot'),
+                    'duration_seconds': meta.get('duration_seconds', 120),
+                    'description': meta.get('description', ''),
+                    'phone_number': meta.get('phone_number'),
+                    'ad_copy': meta.get('ad_copy', ''),
+                    'fun_facts': meta.get('fun_facts', []),
+                    'genre': meta.get('genre', 'Unknown'),
+                    'energy': meta.get('energy', 'medium')
+                })
+            else:
+                # Default metadata for untagged files
+                track_info.update({
+                    'title': f.stem,
+                    'artist': 'DJ FoamBot',
+                    'duration_seconds': 120,  # Default 2 minutes
+                    'description': 'A certified banger from the foam vault!',
+                    'phone_number': None,
+                    'ad_copy': '',
+                    'fun_facts': [],
+                    'genre': 'Unknown',
+                    'energy': 'medium'
+                })
+            files.append(track_info)
     return sorted(files, key=lambda x: x['name'].lower())
 
 @app.route('/music/<filename>')
@@ -2389,12 +2433,37 @@ def handle_music():
 
             current_music_state["playing"] = True
             current_music_state["current_track"] = selected
+            current_music_state["track_started_at"] = time.time()
+
+            # Build a DJ-style intro using metadata
+            title = selected.get('title', selected['name'])
+            description = selected.get('description', '')
+            phone = selected.get('phone_number')
+            ad_copy = selected.get('ad_copy', '')
+            fun_facts = selected.get('fun_facts', [])
+            duration = selected.get('duration_seconds', 120)
+
+            # Format duration nicely
+            duration_str = f"{int(duration // 60)}:{int(duration % 60):02d}"
+
+            # Include metadata hints for Pi-Guy to use in his intro
+            dj_hints = f"Title: {title}. Duration: {duration_str}."
+            if description:
+                dj_hints += f" About: {description}"
+            if phone:
+                dj_hints += f" Call: {phone}"
+            if ad_copy:
+                dj_hints += f" Ad: {ad_copy}"
+            if fun_facts:
+                dj_hints += f" Fun fact: {random.choice(fun_facts)}"
 
             return jsonify({
                 "action": "play",
                 "track": selected,
                 "url": f"/music/{selected['filename']}",
-                "response": f"DJ-FoamBot spinning up '{selected['name']}'! Let's gooo!"
+                "duration_seconds": duration,
+                "dj_hints": dj_hints,
+                "response": f"DJ-FoamBot spinning up '{title}'! {description if description else 'Lets gooo!'}"
             })
 
         # PAUSE playback
@@ -2441,12 +2510,78 @@ def handle_music():
             selected = random.choice(available)
             current_music_state["playing"] = True
             current_music_state["current_track"] = selected
+            current_music_state["track_started_at"] = time.time()
+
+            # Build DJ intro with metadata
+            title = selected.get('title', selected['name'])
+            description = selected.get('description', '')
+            phone = selected.get('phone_number')
+            ad_copy = selected.get('ad_copy', '')
+            fun_facts = selected.get('fun_facts', [])
+            duration = selected.get('duration_seconds', 120)
+            duration_str = f"{int(duration // 60)}:{int(duration % 60):02d}"
+
+            dj_hints = f"Title: {title}. Duration: {duration_str}."
+            if description:
+                dj_hints += f" About: {description}"
+            if phone:
+                dj_hints += f" Call: {phone}"
+            if ad_copy:
+                dj_hints += f" Ad: {ad_copy}"
+            if fun_facts:
+                dj_hints += f" Fun fact: {random.choice(fun_facts)}"
 
             return jsonify({
                 "action": "play",
                 "track": selected,
                 "url": f"/music/{selected['filename']}",
-                "response": f"Skipping! Next up: '{selected['name']}'!"
+                "duration_seconds": duration,
+                "dj_hints": dj_hints,
+                "response": f"Skipping! Next up: '{title}'! {description if description else ''}"
+            })
+
+        # NEXT_UP - preview next track without playing (for DJ transitions)
+        elif action == 'next_up':
+            if not music_files:
+                return jsonify({
+                    "action": "error",
+                    "response": "No tracks available!"
+                })
+
+            # Get a different track from current
+            current_name = current_music_state.get("current_track", {}).get("name")
+            available = [t for t in music_files if t['name'] != current_name]
+            if not available:
+                available = music_files
+
+            selected = random.choice(available)
+            title = selected.get('title', selected['name'])
+            description = selected.get('description', '')
+            phone = selected.get('phone_number')
+            ad_copy = selected.get('ad_copy', '')
+            fun_facts = selected.get('fun_facts', [])
+            duration = selected.get('duration_seconds', 120)
+            duration_str = f"{int(duration // 60)}:{int(duration % 60):02d}"
+
+            dj_hints = f"Title: {title}. Duration: {duration_str}."
+            if description:
+                dj_hints += f" About: {description}"
+            if phone:
+                dj_hints += f" Call: {phone}"
+            if ad_copy:
+                dj_hints += f" Ad: {ad_copy}"
+            if fun_facts:
+                dj_hints += f" Fun fact: {random.choice(fun_facts)}"
+
+            # Store as upcoming track
+            current_music_state["next_track"] = selected
+
+            return jsonify({
+                "action": "next_up",
+                "track": selected,
+                "duration_seconds": duration,
+                "dj_hints": dj_hints,
+                "response": f"Coming up next: '{title}'!"
             })
 
         # VOLUME control
@@ -2490,22 +2625,33 @@ def handle_music():
             track = current_music_state.get("current_track")
             playing = current_music_state.get("playing", False)
             vol = int(current_music_state["volume"] * 100)
+            started_at = current_music_state.get("track_started_at")
 
             if track and playing:
+                # Calculate estimated position (server-side estimate)
+                duration = track.get('duration_seconds', 120)
+                elapsed = time.time() - started_at if started_at else 0
+                remaining = max(0, duration - elapsed)
+                title = track.get('title', track['name'])
+
                 return jsonify({
                     "action": "status",
                     "playing": True,
                     "track": track,
                     "volume": vol,
-                    "response": f"Now playing: '{track['name']}' at {vol}% volume."
+                    "duration_seconds": duration,
+                    "elapsed_seconds": int(elapsed),
+                    "remaining_seconds": int(remaining),
+                    "response": f"Now playing: '{title}' at {vol}% volume. About {int(remaining)}s remaining."
                 })
             elif track:
+                title = track.get('title', track['name'])
                 return jsonify({
                     "action": "status",
                     "playing": False,
                     "track": track,
                     "volume": vol,
-                    "response": f"'{track['name']}' is paused. Volume at {vol}%."
+                    "response": f"'{title}' is paused. Volume at {vol}%."
                 })
             else:
                 return jsonify({
@@ -2538,6 +2684,86 @@ def handle_music():
             "action": "error",
             "response": f"My DJ equipment malfunctioned: {str(e)}"
         })
+
+@app.route('/api/music/transition', methods=['POST', 'GET'])
+def handle_dj_transition():
+    """
+    Handle DJ transition alerts from the frontend.
+    POST: Set a transition alert with next track info
+    GET: Check if there's a pending transition (for agent to poll)
+    """
+    import random
+
+    if request.method == 'POST':
+        # Frontend is signaling that a song is about to end
+        data = request.get_json() or {}
+        remaining = data.get('remaining_seconds', 10)
+
+        # Pre-select the next track
+        music_files = get_music_files()
+        current_name = current_music_state.get("current_track", {}).get("name")
+        available = [t for t in music_files if t['name'] != current_name]
+        if not available:
+            available = music_files
+
+        if available:
+            selected = random.choice(available)
+            current_music_state["next_track"] = selected
+            current_music_state["dj_transition_pending"] = True
+
+            title = selected.get('title', selected['name'])
+            description = selected.get('description', '')
+            phone = selected.get('phone_number')
+            fun_facts = selected.get('fun_facts', [])
+
+            return jsonify({
+                "status": "transition_queued",
+                "next_track": selected,
+                "remaining_seconds": remaining,
+                "response": f"Coming up next: '{title}'! {random.choice(fun_facts) if fun_facts else description}"
+            })
+        else:
+            return jsonify({
+                "status": "no_tracks",
+                "response": "No more tracks to play!"
+            })
+
+    else:  # GET - check for pending transition
+        if current_music_state.get("dj_transition_pending") and current_music_state.get("next_track"):
+            track = current_music_state["next_track"]
+            # Clear the pending flag after reading
+            current_music_state["dj_transition_pending"] = False
+
+            title = track.get('title', track['name'])
+            description = track.get('description', '')
+            phone = track.get('phone_number')
+            ad_copy = track.get('ad_copy', '')
+            fun_facts = track.get('fun_facts', [])
+            duration = track.get('duration_seconds', 120)
+            duration_str = f"{int(duration // 60)}:{int(duration % 60):02d}"
+
+            dj_hints = f"Title: {title}. Duration: {duration_str}."
+            if description:
+                dj_hints += f" About: {description}"
+            if phone:
+                dj_hints += f" Mention: Call {phone}!"
+            if ad_copy:
+                dj_hints += f" Ad: {ad_copy}"
+            if fun_facts:
+                dj_hints += f" Fun fact: {random.choice(fun_facts)}"
+
+            return jsonify({
+                "transition_pending": True,
+                "next_track": track,
+                "dj_hints": dj_hints,
+                "response": f"Hey! Song's ending soon. Coming up next: '{title}'!"
+            })
+        else:
+            return jsonify({
+                "transition_pending": False,
+                "response": "No transition pending."
+            })
+
 
 @app.route('/api/music/upload', methods=['POST'])
 def upload_music():

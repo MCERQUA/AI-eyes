@@ -345,44 +345,82 @@ curl "https://ai-guy.mikecerqua.ca/api/jobs?action=run&name=status_check"
 
 ### 10. Music/DJ (play_music)
 
-**Purpose**: DJ Pi-Guy music controls - play, pause, skip, and control music playback
+**Purpose**: DJ Pi-Guy music controls - play, pause, skip, and control music playback with metadata support for professional DJ intros
 
 **Endpoint**: `GET /api/music`
 
 **Triggers**: "play music", "play a song", "stop the music", "next track", "skip", "pause music", "turn it up", "turn it down", "what's playing", "list music", "DJ mode"
 
 **Parameters**:
-- `action` - `list`, `play`, `pause`, `resume`, `stop`, `skip`, `next`, `volume`, `status`, `shuffle`
+- `action` - `list`, `play`, `pause`, `resume`, `stop`, `skip`, `next`, `volume`, `status`, `shuffle`, `next_up`
 - `track` - Track name to play (optional, for play action)
 - `volume` - Volume level 0-100 (for volume action)
 
-**Storage**: `music/` directory (MP3, WAV, OGG, M4A, WebM files)
+**Storage**:
+- `music/` directory (MP3, WAV, OGG, M4A, WebM files)
+- `music/music_metadata.json` - Track metadata
+
+**Track Metadata** (`music/music_metadata.json`):
+```json
+{
+  "Song-Name.mp3": {
+    "title": "Display Title",
+    "artist": "DJ FoamBot Productions",
+    "duration_seconds": 180,
+    "description": "Brief description of the song",
+    "phone_number": "1-800-FOAM",
+    "ad_copy": "Radio-style ad text",
+    "fun_facts": ["Fact 1", "Fact 2"],
+    "genre": "Hip-Hop",
+    "energy": "high"
+  }
+}
+```
+
+**Response includes**:
+- `duration_seconds` - Track length in seconds
+- `dj_hints` - Compiled DJ hints (title, duration, description, phone, ad copy, fun facts)
 
 **Frontend Features**:
 - Music button in control bar
 - "Now Playing" display with play/pause/skip controls
 - Volume slider
 - Volume ducking when Pi-Guy speaks
+- **DJ Transitions**: Detects ~12s before song ends, queues next track
+
+**Additional Endpoints**:
+- `POST /api/music/transition` - Frontend signals song is ending (queues next track)
+- `GET /api/music/transition` - Check for pending DJ transition
 
 **Test**:
 ```bash
-# List available tracks
+# List available tracks with metadata
 curl "https://ai-guy.mikecerqua.ca/api/music?action=list"
 
-# Play random track
+# Play random track (includes dj_hints in response)
 curl "https://ai-guy.mikecerqua.ca/api/music?action=play"
 
 # Play specific track
-curl "https://ai-guy.mikecerqua.ca/api/music?action=play&track=mysong"
+curl "https://ai-guy.mikecerqua.ca/api/music?action=play&track=Mrs"
+
+# Preview next track (for DJ transitions)
+curl "https://ai-guy.mikecerqua.ca/api/music?action=next_up"
 
 # Set volume
 curl "https://ai-guy.mikecerqua.ca/api/music?action=volume&volume=50"
+
+# Queue a DJ transition
+curl -X POST "https://ai-guy.mikecerqua.ca/api/music/transition" \
+  -H "Content-Type: application/json" \
+  -d '{"remaining_seconds": 10}'
 ```
 
 **Adding Music**:
 ```bash
 # Upload MP3 files to the server
 scp mysong.mp3 mike@178.156.162.212:/home/mike/Mike-AI/ai-eyes/music/
+
+# Update metadata (edit music_metadata.json to add song info)
 ```
 
 ---
