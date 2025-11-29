@@ -188,7 +188,7 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 
 **When updating the agent, ALWAYS check that `supported_voices` still contains the Radio Voice!**
 
-### Current tools that MUST always be attached to the agent (12 total):
+### Current tools that MUST always be attached to the agent (13 total):
 - look_and_see (vision) - webhook
 - identify_person (face recognition) - webhook
 - manage_todos (todo list) - webhook
@@ -199,6 +199,7 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 - manage_memory (long-term memory) - webhook
 - manage_jobs (scheduled tasks/cron jobs) - webhook
 - play_music (DJ music controls) - webhook
+- dj_soundboard (DJ sound effects) - webhook
 - end_call (end conversation) - system
 - skip_turn (handle silence) - system
 
@@ -224,6 +225,8 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 ├── pi_notes/           # Pi-Guy's personal notes (created by manage_notes tool)
 ├── music/              # MP3 files for DJ Pi-Guy to play
 │   └── music_metadata.json  # Track metadata (duration, description, fun facts, ad copy)
+├── sounds/             # DJ soundboard effects (air horns, sirens, scratches, etc.)
+├── generate_dj_sounds.py   # Script to generate DJ sounds via ElevenLabs API
 ├── memory_docs.json    # Maps memory names to ElevenLabs document IDs (not in git)
 ├── job_runner.sh       # Cron script to execute pending jobs
 ├── tools_health_check.py # Script to verify all tools work
@@ -245,7 +248,7 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 
 ### ElevenLabs Tools
 
-**All 10 tools attached to agent (tool_ids array):**
+**All 11 tools attached to agent (tool_ids array):**
 ```
 tool_5601kb73sh06e6q9t8ng87bv1qsa  # check_server_status
 tool_3401kb73sh07ed5bvhtshsbxq35j  # look_and_see
@@ -257,6 +260,7 @@ tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 tool_0301kb77mf7vf0sbdyhxn3w470da  # manage_memory
 tool_6801kb79mrdwfycsawytjq0gx1ck  # manage_jobs
 tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
+tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard
 ```
 
 #### Vision Tool (look_and_see)
@@ -376,6 +380,34 @@ tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
   - `duration_seconds` - track length
   - `dj_hints` - compiled info for Pi-Guy to use in DJ intros (title, duration, description, phone, ad copy, fun facts)
 - **Additional endpoint**: `/api/music/transition` (POST to queue, GET to check pending)
+
+#### DJ Soundboard Tool (dj_soundboard)
+- **Tool ID**: `tool_4101kb908dbrfmttcz597n7h91ns`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/dj-sound`
+- **Method**: GET
+- **Trigger phrases**: "play a sound", "air horn", "give me a horn", "hit the horn", "scratch", "siren", "applause", "drop the bass", "rewind", "soundboard"
+- **Query params**:
+  - `action` - one of: `list`, `play`
+  - `sound` - sound name to play (for play action)
+- **Storage**: MP3 files in `sounds/` directory (generated via ElevenLabs Text-to-Sound API)
+- **Available sounds** (19 total):
+  - **Air horns**: `air_horn`, `air_horn_triple` (ba-ba-baaaa!), `air_horn_long`
+  - **Sirens**: `siren_rise`, `siren_woop`
+  - **Scratches**: `scratch`, `scratch_long`
+  - **Transitions**: `rewind`, `record_stop`, `whoosh`
+  - **Impacts**: `bass_drop`, `impact`
+  - **Crowd**: `applause`, `applause_short`, `crowd_hype`
+  - **Fun**: `laser`, `vinyl_pop`, `gunshot`, `explosion`
+- **When to use** (real DJ techniques):
+  - **Air horn**: Before drops, big announcements, hype moments (dancehall/hip-hop classic)
+  - **Siren**: Building energy, getting attention, before drops
+  - **Scratch**: Transitions, hip-hop vibes, interrupting/rewinding topics
+  - **Rewind**: "Pull-up!" for replaying something, going back (Jamaican dancehall style)
+  - **Bass drop**: THE DROP! Peak moments, big reveals
+  - **Applause**: Celebrating wins, appreciation, sarcastic slow claps
+  - **Explosion**: Mind blown moments, big finales
+- **DJ Pro tip**: Use sounds strategically - a well-timed air horn hits 10x harder than random noise
+- **Generator script**: `generate_dj_sounds.py` - creates sounds using ElevenLabs Text-to-Sound API
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
