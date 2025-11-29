@@ -1616,6 +1616,62 @@
                                 firstMessage: randomMessage
                             }
                         },
+                        clientTools: {
+                            // Client-side music control - runs in browser, not webhook
+                            play_music: async (params) => {
+                                console.log('🎵 Client tool play_music called:', params);
+                                const action = params.action || 'play';
+                                const track = params.track || '';
+                                const volume = params.volume || '';
+
+                                try {
+                                    let url = `${VISION_SERVER_URL}/api/music?action=${action}`;
+                                    if (track) url += `&track=${encodeURIComponent(track)}`;
+                                    if (volume) url += `&volume=${encodeURIComponent(volume)}`;
+
+                                    const response = await fetch(url);
+                                    const data = await response.json();
+                                    console.log('🎵 Music API response:', data);
+
+                                    // Handle the music action client-side
+                                    if (data.action === 'play' && data.url) {
+                                        currentTrack = data.track;
+                                        trackName.textContent = data.track.name;
+                                        musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                                        musicPlayer.volume = musicVolume;
+                                        musicPlayer.play();
+                                        musicPlaying = true;
+                                        musicButton.classList.add('playing');
+                                        playPauseBtn.textContent = '⏸';
+                                        nowPlaying.classList.add('visible');
+                                    } else if (data.action === 'pause') {
+                                        musicPlayer.pause();
+                                        musicPlaying = false;
+                                        playPauseBtn.textContent = '▶';
+                                    } else if (data.action === 'resume') {
+                                        musicPlayer.play();
+                                        musicPlaying = true;
+                                        playPauseBtn.textContent = '⏸';
+                                    } else if (data.action === 'stop') {
+                                        musicPlayer.pause();
+                                        musicPlayer.currentTime = 0;
+                                        musicPlaying = false;
+                                        currentTrack = null;
+                                        musicButton.classList.remove('playing');
+                                        nowPlaying.classList.remove('visible');
+                                    } else if (data.action === 'volume' && data.volume !== undefined) {
+                                        musicVolume = data.volume / 100;
+                                        musicPlayer.volume = musicVolume;
+                                        volumeSlider.value = data.volume;
+                                    }
+
+                                    return data.response;
+                                } catch (error) {
+                                    console.error('🎵 Music tool error:', error);
+                                    return 'Music system error: ' + error.message;
+                                }
+                            }
+                        },
                         onConnect: () => {
                             console.log('Connected to ElevenLabs');
                             isConnecting = false;
@@ -1676,19 +1732,6 @@
                                 showTranscription(message.message, true);
                             } else if (message.source === 'ai' && message.message) {
                                 showTranscription(message.message, false);
-
-                                // Check if Pi-Guy is talking about playing music
-                                // This syncs the frontend with what the tool did
-                                const msg = message.message.toLowerCase();
-                                if (msg.includes('spinning up') || msg.includes('playing') || msg.includes('next up:')) {
-                                    // Pi-Guy said he's playing something - sync with server state
-                                    console.log('Music mentioned, syncing with server...');
-                                    syncMusicState();
-                                } else if (msg.includes('music stopped') || msg.includes('stopping')) {
-                                    stopMusicPlayback();
-                                } else if (msg.includes('pausing') || msg.includes('paused')) {
-                                    pauseMusicPlayback();
-                                }
 
                                 // Track agent response for usage limits
                                 if (clerkUser) {
