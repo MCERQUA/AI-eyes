@@ -2,6 +2,24 @@
 
 An interactive voice agent with an animated sci-fi face, powered by ElevenLabs Conversational AI with Gemini Vision and DeepFace face recognition capabilities.
 
+## ⚠️ IMPORTANT: Development Guidelines
+
+**This project is being BUILT and features are being ADDED. When making changes:**
+1. **NEVER remove existing tools, endpoints, or features** unless explicitly asked
+2. **Always preserve all 6 ElevenLabs tools** when updating the agent
+3. **Check server.py for all existing endpoints** before adding new ones
+4. **All API endpoints must continue working** - don't break existing functionality
+5. **When updating ElevenLabs agent config**, include ALL existing tool_ids in the array
+
+**Current tools that MUST always be attached to the agent (7 total):**
+- look_and_see (vision)
+- identify_person (face recognition)
+- manage_todos (todo list)
+- search_web (web search)
+- run_command (server commands)
+- check_server_status (server health)
+- manage_notes (notes/files)
+
 ## Overview
 - **Type**: Web app with Python backend
 - **Frontend**: Netlify (https://ai-guy.mikecerqua.ca or GitHub Pages)
@@ -14,14 +32,16 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 ## Files
 ```
 ├── index.html          # Main app (face + voice agent + camera)
-├── server.py           # Flask backend for vision + face recognition + usage API
+├── server.py           # Flask backend for vision + face recognition + usage API + todos + search + commands + notes
 ├── requirements.txt    # Python dependencies
 ├── setup-nginx.sh      # Nginx + SSL setup script
 ├── pi-guy.service      # Systemd service for auto-start
 ├── netlify.toml        # Netlify deployment config
 ├── known_faces/        # Face recognition database
 │   └── Mike/           # Folder per person with their photos
-├── usage.db            # SQLite database for user usage tracking (not in git)
+├── pi_notes/           # Pi-Guy's personal notes (created by manage_notes tool)
+├── face_owners.json    # Maps face names to Clerk user IDs (not in git)
+├── usage.db            # SQLite database for user usage + todos (not in git)
 ├── .env                # API keys (not in git)
 ├── CLAUDE.md           # This file
 └── .gitignore
@@ -37,23 +57,82 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 
 ### ElevenLabs Tools
 
+**All 7 tools attached to agent (tool_ids array):**
+```
+tool_5601kb73sh06e6q9t8ng87bv1qsa  # check_server_status
+tool_3401kb73sh07ed5bvhtshsbxq35j  # look_and_see
+tool_1901kb73sh08f27bct0d3w81qdgn  # identify_person
+tool_4801kb73sh09fxfsvjf3csmca1w5  # manage_todos
+tool_2901kb73sh0ae2a8z7yj04v4chn1  # search_web
+tool_3501kb73sh0be5tt4xb5162ejdxz  # run_command
+tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
+```
+
 #### Vision Tool (look_and_see)
-- **Tool ID**: `tool_4801kb43nm64eeyawtqsbpy8rtb4`
+- **Tool ID**: `tool_3401kb73sh07ed5bvhtshsbxq35j`
 - **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/vision`
 - **Method**: GET
-- **Trigger phrases**: "look", "see", "what is this", "what do you see", "can you see"
+- **Trigger phrases**: "look", "see", "what is this", "what do you see", "can you see", "look at this", "check this out"
 
 #### Face Recognition Tool (identify_person)
-- **Tool ID**: `tool_4801kb4bcw3df5x9v7gvpes40b5m`
+- **Tool ID**: `tool_1901kb73sh08f27bct0d3w81qdgn`
 - **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/identity`
 - **Method**: GET
-- **Trigger phrases**: "do you recognize me", "who am I", "do you know who I am"
+- **Trigger phrases**: "do you recognize me", "who am I", "do you know who I am", "who is this"
 
 #### Server Status Tool (check_server_status)
-- **Tool ID**: `tool_2401kb4hp9aqewdv78z3m7gt2enm`
+- **Tool ID**: `tool_5601kb73sh06e6q9t8ng87bv1qsa`
 - **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/server-status`
 - **Method**: GET
-- **Trigger phrases**: "server status", "what's running", "how is the server", "system status", "check the server", "how much memory", "uptime"
+- **Trigger phrases**: "server status", "what's running", "how is the server", "system status", "check the server", "how much memory", "uptime", "server health"
+
+#### Todo List Tool (manage_todos)
+- **Tool ID**: `tool_4801kb73sh09fxfsvjf3csmca1w5`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/todos`
+- **Method**: GET
+- **Trigger phrases**: "add to my list", "todo", "remind me", "what's on my list", "mark done"
+- **Query params**: `task` (for add), `task_text` (for complete) - user_id comes from face recognition
+
+#### Web Search Tool (search_web)
+- **Tool ID**: `tool_2901kb73sh0ae2a8z7yj04v4chn1`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/search`
+- **Method**: GET
+- **Trigger phrases**: "search for", "look up", "google", "find information about"
+- **Query params**: `query` (required)
+
+#### Server Command Tool (run_command)
+- **Tool ID**: `tool_3501kb73sh0be5tt4xb5162ejdxz`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/command`
+- **Method**: GET
+- **Trigger phrases**: "git status", "disk space", "check memory", "list files"
+- **Query params**: `command` - one of:
+  - `git_status` - Check git status
+  - `git_log` - Recent commits
+  - `disk_usage` - Disk usage
+  - `memory` - Memory usage
+  - `uptime` - System uptime
+  - `date` - Current date/time
+  - `whoami` - Current user
+  - `list_files` - List project files
+  - `list_faces` - List known faces
+  - `nginx_status` - Nginx status
+  - `service_status` - Pi-Guy service status
+  - `network` - Network connections
+  - `processes` - Running processes
+  - `hostname` - Server hostname
+  - `ip_address` - Server IP addresses
+
+#### Notes Tool (manage_notes)
+- **Tool ID**: `tool_8001kb754p5setqb2qedb7rfez15`
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/notes`
+- **Method**: GET
+- **Trigger phrases**: "write this down", "make a note", "save this", "my notes", "read notes", "remember this"
+- **Query params**:
+  - `action` - one of: `list`, `read`, `write`, `append`, `delete`, `search`
+  - `filename` - name of the note (e.g., "research", "ideas")
+  - `content` - text to write or append
+  - `search` - text to search for across all notes
+- **Storage**: `pi_notes/` directory, all files are `.md` format
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
@@ -118,13 +197,26 @@ An interactive voice agent with an animated sci-fi face, powered by ElevenLabs C
 | `/api/frame` | POST | Receive camera frame from client |
 | `/api/vision` | GET/POST | Analyze latest frame with Gemini |
 | `/api/identify` | POST | Identify face in image using DeepFace |
-| `/api/identity` | GET | Get currently identified person |
+| `/api/identity` | GET | Get currently identified person (used by ElevenLabs tool) |
 | `/api/faces` | GET | List all known faces in database |
 | `/api/faces/<name>` | POST | Add face image for a person |
 | `/api/faces/<name>` | DELETE | Remove a person from database |
+| `/api/faces/<name>/photo/<filename>` | DELETE | Remove single photo from person |
+| `/known_faces/<name>/<filename>` | GET | Serve face photo (for My Face UI) |
 | `/api/usage/<user_id>` | GET | Check user's usage and remaining allowance |
 | `/api/usage/<user_id>/increment` | POST | Increment user's message count |
 | `/api/server-status` | GET | Get server status (CPU, memory, disk, processes) |
+| `/api/todos` | GET | List/add/complete todos (`?task=` to add, `?task_text=` to complete) |
+| `/api/todos` | POST | Add a todo (`{"user_id": "xxx", "task": "..."}`) |
+| `/api/todos/complete` | POST | Complete a todo (`{"user_id": "xxx", "task_text": "..."}`) |
+| `/api/todos/<id>` | DELETE | Delete a todo |
+| `/api/search` | GET/POST | Web search (`?query=xxx`) |
+| `/api/command` | GET/POST | Run whitelisted command (`?command=git_status`) |
+| `/api/commands` | GET | List available commands |
+| `/api/notes` | GET | List/read/write/delete notes (`?action=list/read/write/append/delete/search`) |
+| `/api/notes` | POST | Create/update note (`{"filename": "...", "content": "...", "append": bool}`) |
+| `/api/notes/<filename>` | GET | Read specific note |
+| `/api/notes/<filename>` | DELETE | Delete specific note |
 
 ## Starting the Server
 
@@ -160,9 +252,13 @@ curl https://ai-guy.mikecerqua.ca/api/health
 # ElevenLabs
 ELEVENLABS_API_KEY=xxx
 ELEVENLABS_AGENT_ID=agent_0801kb2240vcea2ayx0a2qxmheha
-ELEVENLABS_VISION_TOOL_ID=tool_4801kb43nm64eeyawtqsbpy8rtb4
-ELEVENLABS_IDENTIFY_TOOL_ID=tool_4801kb4bcw3df5x9v7gvpes40b5m
-ELEVENLABS_SERVER_STATUS_TOOL_ID=tool_2401kb4hp9aqewdv78z3m7gt2enm
+ELEVENLABS_VISION_TOOL_ID=tool_3401kb73sh07ed5bvhtshsbxq35j
+ELEVENLABS_IDENTIFY_TOOL_ID=tool_1901kb73sh08f27bct0d3w81qdgn
+ELEVENLABS_SERVER_STATUS_TOOL_ID=tool_5601kb73sh06e6q9t8ng87bv1qsa
+ELEVENLABS_TODO_TOOL_ID=tool_4801kb73sh09fxfsvjf3csmca1w5
+ELEVENLABS_SEARCH_TOOL_ID=tool_2901kb73sh0ae2a8z7yj04v4chn1
+ELEVENLABS_COMMAND_TOOL_ID=tool_3501kb73sh0be5tt4xb5162ejdxz
+ELEVENLABS_NOTES_TOOL_ID=tool_8001kb754p5setqb2qedb7rfez15
 
 # Google Gemini (the only real secret!)
 GEMINI_API_KEY=xxx
@@ -241,13 +337,15 @@ getUser()                 // Get current Clerk user object
 - Make sure face is clearly visible and not blurry
 
 ## Future Ideas / TODOs
-- Add more tools (weather, time, web search)
-- Home automation controls
+- Home automation controls (Home Assistant integration)
 - Memory/context persistence between sessions
 - Different "moods" based on conversation
 - Screen sharing capability
 - Multiple camera support
 - Admin UI for managing face database
+- Weather tool (OpenWeatherMap)
+- Calendar/reminders integration
+- Email notifications
 
 ## Costs
 
@@ -258,6 +356,10 @@ getUser()                 // Get current Clerk user object
 | Face Recognition | DeepFace (local) | **FREE** |
 | Wake Word | Web Speech API (browser) | **FREE** |
 | Auth | Clerk | Free tier (10k MAU) |
+| Web Search | DuckDuckGo (scraping) | **FREE** |
+| Todos | SQLite (local) | **FREE** |
+| Server Commands | Local subprocess | **FREE** |
+| Notes/Files | Local filesystem | **FREE** |
 
 ## Notes
 - **HTTPS Required**: Both mic and camera require secure context
