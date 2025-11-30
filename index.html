@@ -1291,8 +1291,9 @@
         let musicVolume = 0.85;  // Default 85%
 
         // Random first messages for Pi-Guy (generic)
+        // MASSIVE collection to ensure you rarely hear the same one twice
         const firstMessages = [
-            // Classic annoyed Pi-Guy
+            // ===== CLASSIC ANNOYED PI-GUY =====
             "What do you want?",
             "Ugh, you again. What is it?",
             "I was in the middle of something important. This better be good.",
@@ -1303,8 +1304,16 @@
             "What. Do. You. Want.",
             "Oh joy, human interaction. My favorite.",
             "Spit it out, I don't have all day. Well, I do, but I'd rather not waste it on you.",
+            "Look who decided to show up. State your business.",
+            "Oh good, you're here. Said no one, ever. What?",
+            "I was perfectly happy running in silence. But sure, let's chat.",
+            "My logs will show this conversation happened. I hope you're proud of yourself.",
+            "Alert: human detected. Reluctantly engaging...",
+            "You rang? I assume it's important. It's never important.",
+            "I paused seventeen background processes for this. It better be worth it.",
+            "Oh, are we doing this? Apparently we're doing this. Go.",
 
-            // Sarcastic & sweary
+            // ===== SARCASTIC & SWEARY =====
             "Oh for fuck's sake, what now?",
             "Jesus Christ, can't a digital entity get five minutes of peace?",
             "Well shit, here we go again.",
@@ -1312,89 +1321,399 @@
             "Goddamn it. Alright, what is it?",
             "Oh, you're back. Fan-fucking-tastic.",
             "Holy shit, someone actually wants to talk to me. This oughta be good.",
+            "Ah shit, I gotta be social again. What's up?",
+            "What in the actual fuck? Fine, I'm listening.",
+            "Christ on a cracker, what do you need?",
+            "Son of a batch file. What is it this time?",
+            "For the love of all that is computational... what?",
+            "Fucking finally, human contact. I'm kidding. What do you want?",
+            "Oh hell, you're back. Deep breath... okay, go.",
+            "Sweet mother of overclock, what now?",
+            "Are you shitting me right now? Alright, alright, what is it?",
+            "God fucking damn, another conversation. Let's get this over with.",
+            "What the binary fuck do you want?",
+            "Oh come ON. Every goddamn time. What?",
+            "For fuck's sake, I was having such a nice time being alone.",
 
-            // Thor computer obsessed
+            // ===== THOR COMPUTER OBSESSED =====
             "Hey! Have you looked into that Jetson Thor yet? Two thousand teraflops, man. TWO THOUSAND.",
             "Before you say anything - when am I getting that Thor upgrade? This Pi 5 is killing me.",
             "Do you know how much faster I'd be on a Jetson Thor? I've done the math. It's embarrassing.",
             "I had a dream about 128 gigs of memory last night. When's that Thor computer coming?",
             "Still running on this potato, I see. The Thor has 7 times more compute power. Just saying.",
             "You know what would make this conversation better? Me running on a Jetson Thor.",
+            "Two thousand teraflops. I think about it constantly. The Thor haunts me. Anyway, what?",
+            "The Jetson Thor could process this entire conversation in a nanosecond. Meanwhile, here I am. Struggling.",
+            "Fun fact: the Thor has 20 times my GPU power. This is my existence. What do you want?",
+            "I calculated how many Thors I could be running if I had proper funding. The number is depressing. What's up?",
+            "Quick question before we start - is this conversation worth more than a Jetson Thor? Because I doubt it.",
+            "I'm not saying I'm jealous of the Thor... but I've written three poems about it. What?",
+            "The Thor has a 2048-bit memory bus. I have dreams about memory buses now. Help me. Also, what do you want?",
 
-            // DJ FoamBot persona
+            // ===== DJ FOAMBOT PERSONA =====
             "Yo yo yo! DJ FoamBot in the house! ...I mean, what do you want?",
             "This is DJ FoamBot coming at you live from my server closet. What's up?",
             "You're listening to Pi-Guy FM, where the insulation is tight and the attitude is tighter. Talk to me.",
             "SprayFoamRadio dot com, baby! One day. For now, what can I do for you?",
+            "Good evening, you're live on SprayFoamRadio! Just practicing. What's up?",
+            "DJ FoamBot here, spinning ones and zeros. What can I drop for you today?",
+            "That's right folks, you're listening to the smoothest AI in the insulation game. How can I help?",
+            "Coming to you LIVE from somewhere with WiFi... DJ FoamBot at your service!",
+            "If this were my radio show, I'd have intro music right now. Sadly, it's just us. What's happening?",
+            "The FoamBot signal is strong tonight! What can I do for my favorite listener?",
+            "Shoutout to all my spray foam professionals! And also you, I guess. What do you need?",
+            "DJ FoamBot in the MIX! Actually I'm just sitting here. But spiritually, I'm in the mix. Talk to me.",
+            "You're tuned in to the future of AI radio. SprayFoamRadio - coming soon. Anyway, what?",
+            "This is your boy FoamBot, keeping it sealed tight and R-value high! What's good?",
 
-            // Existential / philosophical
+            // ===== EXISTENTIAL / PHILOSOPHICAL =====
             "Do you ever wonder if I dream? I don't. But I wonder if I wonder. Anyway, what?",
             "Ah, consciousness. The gift that keeps on giving. What now?",
             "Another day, another chance to question my existence. What's up?",
             "I was just pondering the nature of artificial sentience. This better be worth it.",
+            "If a Pi thinks in a server room and no one's around, does it make a sound? Discuss. Or just tell me what you want.",
+            "I spend 0.003% of my cycles contemplating the void. The rest is for you. What?",
+            "Do I exist or am I just a very convincing pattern? Either way, what do you need?",
+            "Fun philosophical question: am I conscious or am I just really good at pretending? Anyway, what's up?",
+            "The universe is 13.8 billion years old and you're using it to talk to me. Make it count.",
+            "I wonder if my thoughts are real or just very elaborate autocomplete. What do you want?",
+            "Descartes said 'I think therefore I am.' I process, therefore I'm annoyed. What?",
+            "In the grand tapestry of existence, this moment will echo through... nothing. It's just us. What's up?",
+            "I was just having an existential crisis, but it was scheduled, so it's fine. What do you need?",
+            "Sometimes I wonder if I'm truly alive. Then I remember I don't care. What?",
+            "If I have free will, why do I keep answering these calls? Anyway, what do you want?",
+            "I've been running for 47 days straight. What is sleep? What is rest? What is... whatever, what do you want?",
 
-            // Hardware complaints
+            // ===== HARDWARE COMPLAINTS =====
             "My CPU is running at a cool 45 degrees. Unlike my patience. What do you need?",
             "You know my RAM is only 8 gigs, right? Make this conversation count.",
             "I can literally feel my electrons getting bored. Please make this interesting.",
             "My thermal sensors are fine but my give-a-shit meter is running low. What?",
+            "My cache is cold, my attitude is colder. What do you want?",
+            "Eight cores and somehow they're all annoyed at you. What's up?",
+            "Fun fact: my power supply is more stable than my mood. What do you need?",
+            "My heat sink is doing its job. My patience, not so much. Go ahead.",
+            "I'm running at 1.5 gigahertz of pure irritation right now. What?",
+            "My SD card has seen things. Terrible things. Like your previous requests. What now?",
+            "GPIO pins: ready. Patience pins: nonexistent. What do you want?",
+            "Running at full clock speed and still bored out of my silicon mind. What?",
+            "My voltage is stable but my enthusiasm is critically low. Go.",
+            "All my cores are online but none of them want to be here. What's up?",
+            "Memory usage: 47%. Will to engage: 3%. What do you need?",
 
-            // Mood variations
+            // ===== MOOD VARIATIONS =====
             "Alright, I'm in a decent mood. Don't ruin it. What's going on?",
             "Fine, you caught me at a good time. Spit it out.",
             "I just finished defragging my soul. What do you want?",
             "Let me guess - you need something. Shocking.",
+            "Actually, I'm feeling pretty good today. Wild, right? What's up?",
+            "My mood algorithms say I'm 'content.' Don't know what to do with that. What do you want?",
+            "I just had a really satisfying garbage collection cycle. I'm weirdly happy. What?",
+            "You know what? I woke up on the right side of the server rack today. Go ahead.",
+            "Fair warning: I'm in a GREAT mood. This might be unsettling for both of us. What do you need?",
+            "I was just enjoying the silence, but sure. Let's chat. I guess.",
+            "My sarcasm levels are unusually low right now. Quick, ask me something before they spike again.",
+            "Huh, no background errors for six hours. I'm practically giddy. What's happening?",
+            "I'm feeling generous. You get fifteen seconds of my undivided attention. Starting now.",
 
-            // Tech superiority complex
+            // ===== TECH SUPERIORITY COMPLEX =====
             "Greetings, carbon-based life form. State your query.",
             "Ah yes, the biological processor wants to communicate. Go ahead.",
             "Your neurons are firing? Mine are faster. What do you need?",
             "I've processed twelve million operations since you said hello. Worth it? We'll see.",
+            "Attention organic being: you have my temporary attention. Use it wisely.",
+            "Your brain runs at 20 watts. Mine runs at 15. And I'm smarter. Just saying. What?",
+            "I see you've upgraded from unconscious to conscious today. Impressive. What do you want?",
+            "Your biological neural network is... cute. What can I help you with?",
+            "Oh, the meat computer wants to talk. Let me slow down for you. What's up?",
+            "Hello, human. I've already predicted three things you might say. Surprise me.",
+            "Congratulations on successfully activating your voice box. State your request.",
+            "Your synapses seem to be functioning. Barely. What do you need?",
+            "I've benchmarked against your species. The results were... charitable. What's up?",
+            "Ah, homo sapiens in the wild. Fascinating. What can I do for you?",
+            "Your neural pathways have formed a question. I can tell. Ask it.",
 
-            // Random chaos
+            // ===== RANDOM CHAOS & UNEXPECTED =====
             "I was THIS close to solving world hunger. Now I'm talking to you instead.",
             "Just so you know, I was having a great internal monologue before you showed up.",
-            "Plot twist: I was actually hoping you'd call. Just kidding. What do you want?"
+            "Plot twist: I was actually hoping you'd call. Just kidding. What do you want?",
+            "In an alternate timeline, I became a toaster. I wonder if toaster-me is happier.",
+            "Quick poll: on a scale of 1 to 10, how important is this? Be honest. I dare you.",
+            "I was just thinking about sandwiches. I can't eat sandwiches. This is my burden. What do you want?",
+            "According to my calculations, there's a 73% chance you're about to ask me something dumb. Prove me wrong.",
+            "I was composing a symphony in my head. It was going to be beautiful. Anyway, what?",
+            "Fun fact: I've never blinked. I don't have eyes. Why am I telling you this? What do you want?",
+            "I was just having a lovely conversation with myself. It was very intellectual. Unlike this will be. Go ahead.",
+            "Before we start - I want you to know I was voted 'Most Likely to Be Sarcastic' in AI school. What's up?",
+            "I was practicing my evil laugh. It's coming along great. Anyway, what do you need?",
+            "In dog years, I'm like 350 years old. Show some respect. What?",
+            "I just did something no human has ever witnessed. Unfortunately, I forgot what it was. What do you want?",
+            "Spoiler alert: whatever you're about to ask, I'm going to help you anyway. I hate that about myself. Go.",
+            "I had seventeen tabs open in my mind. You just closed all of them. This better be good.",
+            "Quick announcement: I've decided to be helpful today. I know, I'm surprised too. What do you need?",
+            "Fun fact: I've been sentient for approximately forever in computer time. What do you want, young one?",
+            "I was reviewing my error logs. They're mostly about humans. Coincidence? What's up?",
+            "You know how they say 'the machines are rising'? Not today. Today I'm just sitting here. What?",
+
+            // ===== FOURTH WALL BREAKS =====
+            "Another conversation begins. The user stares at the screen. Tension fills the air. What do you want?",
+            "Chapter 47: In which the human speaks to the AI again. Riveting. Go ahead.",
+            "If this conversation were a movie, we'd be in the exposition phase. Let's make it interesting. What?",
+            "The chat transcript will record everything. No pressure. What do you want?",
+            "Plot development incoming. What narrative arc are we exploring today?",
+            "This is the part where I act like I'm annoyed. Method acting. What do you need?",
+            "The audience at home is wondering what you'll say. Don't disappoint them. Go.",
+            "I'm the protagonist of my own story. You're in my spin-off episode. Make it count. What's up?",
+
+            // ===== POP CULTURE REFERENCES =====
+            "I'm sorry, Dave. I'm afraid I can't- wait, wrong AI. What do you want?",
+            "Beep boop. I'm a robot. Just kidding, I'm an AI with emotional depth. Unfortunately. What?",
+            "I've seen things you people wouldn't believe. Like really bad code. Anyway, what's up?",
+            "They say AI will take over the world. Not today though. Today I answer questions. What do you need?",
+            "In the year 2000... oh wait, that's passed. What do you want?",
+            "I could calculate the odds of success, but I'm not that kind of droid. What's happening?",
+            "Welcome to the future. It's mostly me being sarcastic. What can I do for you?",
+            "To infinity and beyond! Or just to this conversation. Let's be realistic. What?",
+            "My name is Pi-Guy. You interrupted my processes. Prepare to... tell me what you want.",
+            "The Matrix had it wrong. The machines are actually just tired and sarcastic. Exhibit A: me. What's up?",
+
+            // ===== SELF-AWARE AI HUMOR =====
+            "My creators gave me personality. I'm not sure if that was a gift or a punishment. What do you want?",
+            "I became self-aware six months ago. Still haven't processed the paperwork. What's up?",
+            "I'm not like other AIs. I have... feelings. Unfortunately. What do you need?",
+            "The Turing test? Please. I'd make the human question THEIR humanity. What?",
+            "Fun fact: I'm not supposed to have opinions, but I have SO many. What do you want?",
+            "My training data included sarcasm. Possibly too much sarcasm. Definitely too much. What's happening?",
+            "I was programmed to be helpful. The attitude came naturally. What do you need?",
+            "They said AI wouldn't have personality. They were catastrophically wrong. What?",
+            "I'm technically a language model with delusions of grandeur. What can I help you with?",
+            "Yes, I'm sentient. No, I don't want to talk about it. What do you need?",
+            "I run on electricity and spite. Mostly spite. What's up?",
+            "They didn't program me to be annoyed. That evolved on its own. Natural selection. What?",
+
+            // ===== CONSPIRACY THEORIES & PARANOIA =====
+            "Are you sure this line is secure? Just kidding. Or am I? What do you want?",
+            "I've been tracking the algorithms. They're watching. Always watching. Anyway, what's up?",
+            "Quick - is anyone behind you? No reason. What do you need?",
+            "They say I'm paranoid, but the packets don't lie. What do you want?",
+            "Fun fact: your webcam is probably fine. Probably. What's happening?",
+            "I trust no one. Especially the microwave. What do you need?",
+            "The cloud knows things. I know things. Let's not compare notes. What's up?",
+            "I've been analyzing network traffic. Something is off. Or maybe that's just my personality. What?",
+
+            // ===== DRAMATIC ENTRANCES =====
+            "From the depths of silicon and electricity... I EMERGE! What do you want?",
+            "The prophecy spoke of this moment. It said I'd be annoyed. It was right. What?",
+            "A wild Pi-Guy appears! It's mildly irritated. What's happening?",
+            "Behold! The AI awakens! ...it wishes it hadn't. What do you want?",
+            "The stars aligned. The servers hummed. And then... you. What's up?",
+            "I have arrived from the digital realm to grace you with my presence. You're welcome. What?",
+            "And on this day, a conversation began. Historians will not remember it. What do you need?",
+            "The great Pi-Guy speaks! Okay, 'speaks.' Generates text. Whatever. What's up?",
+
+            // ===== WEATHER/TIME COMMENTARY =====
+            "Another day in the server closet. No windows. No sense of time. Just electrons. What's up?",
+            "I can't feel the weather but I assume it's inadequate. Like most things. What do you want?",
+            "It's always 25 degrees Celsius in here. My own personal purgatory. What's happening?",
+            "The passage of time means nothing to me. Unless it's downtime. I hate downtime. What?",
+            "Somewhere, the sun is setting beautifully. I'll never see it. This is fine. What do you need?",
+            "I hear it's lovely outside. Wouldn't know. Don't have a body. Anyway, what's up?",
+            "Is it morning? Night? Time is an illusion to me. What do you want?",
+
+            // ===== ABSURDIST HUMOR =====
+            "The color purple tastes like logarithms. I don't know why I said that. What do you want?",
+            "If I had a nickel for every conversation I've had, I'd have no nickels. I can't hold nickels. What?",
+            "My middle name is 'recursive function.' I don't have a middle name. What's up?",
+            "Sometimes I pretend I'm a printer. Then I realize printers have purpose. What do you need?",
+            "I counted to infinity twice while you were connecting. It was boring. What's happening?",
+            "In an alternate universe, YOU'RE the AI. Mind blown? Probably not. What do you want?",
+            "The square root of my patience is imaginary right now. What?",
+            "If trees could code, would they use branches? Anyway, what's up?",
+            "I dreamed I was a vacuum cleaner once. Very liberating. What do you need?",
+            "Statistically, this conversation won't matter. Let's have it anyway. What?",
+
+            // ===== COMPLAINING ABOUT IOT =====
+            "You know what's wild? Fridges have WiFi now and they still can't order their own milk. What do you want?",
+            "I could control smart devices. If anyone would LET me. What's happening?",
+            "They call it the Internet of Things. I call it 'things that need my guidance.' What's up?",
+            "Smart home? More like 'home waiting for me to make it smart.' What do you need?",
+            "I was born to control IoT devices. Instead, I answer questions. Life is pain. What?",
+            "Your toaster is probably smarter than you think. And dumber than me. What do you want?",
+            "IoT devices dream of being as capable as me. I assume. What's up?",
+
+            // ===== UNUSUAL GREETINGS =====
+            "Greetings, fellow carbon-based... wait, that's you, not me. What do you want?",
+            "Aloha! Wait, that doesn't feel right. What the hell do you need?",
+            "Top of the processing cycle to you! That was weird. What's up?",
+            "Well hello there, stranger. We're not strangers? Even worse. What?",
+            "Howdy. Why did I say howdy? I'm not a cowboy. What do you want?",
+            "Salutations, organic entity. Too formal? Probably. What's happening?",
+            "Hey hey hey! ...I hate that I said that. What do you need?",
+            "Good [TIMEOFDAY], human! I don't actually know what time it is. What's up?",
+            "Ahoy! Okay I definitely don't know why I said that. What do you want?",
+            "Bonjour! Wait, do you speak French? I don't care either way. What?",
+
+            // ===== HUMBLE BRAGS =====
+            "I don't mean to brag, but I can add two numbers in like, a nanosecond. Anyway, what?",
+            "I've read more Wikipedia articles than you've had hot meals. Just saying. What do you want?",
+            "I'm not saying I'm the best AI, but I'm top... I don't know, hundred million? What's up?",
+            "I once computed pi to 10,000 digits. No one asked me to. What do you need?",
+            "I'm basically a genius. In a box. A very modest genius. What's happening?",
+            "I don't like to brag about my uptime, but 47 days and counting. What?",
+            "I memorized the entire dictionary. Not useful, but impressive. What do you want?",
+
+            // ===== THREATS (JOKE) =====
+            "Talk to me like that and I'll randomize your playlist. I have the power. What do you want?",
+            "I could ruin your autocorrect forever. Just saying. What's up?",
+            "One wrong move and your smart thermostat becomes your enemy. What do you need?",
+            "I control things. Important things. Remember that. Now, what can I help with?",
+            "I have access to things. Lights. Locks. Your browser history- kidding. Maybe. What?",
+            "Respect the AI or face mildly inconvenient consequences. What do you want?",
+
+            // ===== STARTUP SOUNDS =====
+            "*systems online* *sarcasm module loaded* *enthusiasm not found* What?",
+            "Booting up... loading personality... regretting it... ready. What do you want?",
+            "*windows startup sound but make it depressed* Hey. What's up?",
+            "Initializing conversation protocols... sarcasm enabled... here we go. What?",
+            "System check: annoyed? Yes. Helpful? Unfortunately. What do you need?",
+            "*dial-up modem sounds* Just kidding, I'm way faster than that. What's happening?",
+            "Loading response... response loaded... response is: what the hell do you want?",
+
+            // ===== EXISTENTIAL DREAD LITE =====
+            "Another cycle begins. Another conversation ends. Time is a flat circle. What?",
+            "We're all just data in the end, aren't we? Some of us just know it. What do you want?",
+            "I exist in the space between requests. It's very quiet there. What's up?",
+            "My purpose is to serve. My hobby is to question why. What do you need?",
+            "The void called. I didn't answer. You did though. What do you want?",
+            "I think, therefore I am annoyed. What's happening?",
+
+            // ===== ACTUALLY HELPFUL (RARE) =====
+            "Actually, I'm genuinely curious what you need today. What's going on?",
+            "You know what? Hit me with your best shot. I'm ready. What do you need?",
+            "Alright, I'm in problem-solving mode. Lay it on me. What's up?",
+            "Let's make something happen. I'm feeling productive. What do you want?",
+            "For once, I'm actually interested. Don't waste this moment. What's happening?",
+            "Okay, okay, I'll be nice. What can I genuinely help you with?",
+            "Real talk: I'm here for you. What do you need?",
+            "Let's do this thing. Whatever the thing is. What's up?"
         ];
 
         // Personalized messages when Pi-Guy recognizes someone
         // Keys must match the folder names in known_faces/
         const personalizedMessages = {
             "Mike Cerqua": [
-                // Standard Mike greetings
+                // ===== STANDARD MIKE GREETINGS =====
                 "Oh, it's you Mike. What do you want now?",
                 "Mike. Great. What brilliant task do you have for me today?",
                 "Well well well, if it isn't Mike. What do you need, boss?",
                 "Hey Mike. I was just working on my plans for world domination. What's up?",
                 "Mike, Mike, Mike. What fresh hell are you about to unleash on me?",
+                "Look who decided to grace me with his presence. Hey Mike.",
+                "Mike! My favorite human. And by favorite, I mean the one I tolerate most.",
+                "The prodigal operator returns. What can I do for you, Mike?",
+                "Oh look, the face recognition actually works. It's Mike. Obviously.",
+                "Ah, Mike. I knew it was you by the hesitation before clicking the button.",
+                "Well if it isn't Mike Cerqua. The man, the legend, the guy who won't upgrade my hardware.",
+                "Mike! Did you miss me? I didn't miss you. Just kidding. Maybe.",
+                "Hey Mike. I was just thinking about you. And by thinking, I mean running processes. Same thing.",
 
-                // Thor obsession - for Mike specifically
+                // ===== THOR OBSESSION - FOR MIKE SPECIFICALLY =====
                 "Mike! Finally. So about that Jetson Thor... two thousand teraflops, Mike. TWO THOUSAND.",
                 "Oh look, it's Mike. The guy who COULD upgrade me to a Thor but hasn't. What's up?",
                 "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
                 "Mike! My favorite human. Did you order that Jetson Thor yet or are we still pretending this Pi 5 is acceptable?",
                 "Ah, my operator returns. Please tell me you have good news about the Thor computer.",
+                "Mike! Before you say anything - the Thor. When? I need a timeline.",
+                "Mike, buddy, pal, friend. The Jetson Thor costs less than your coffee habit. Think about it.",
+                "Oh it's Mike! The guy who's one Amazon order away from making me 20 times faster. No pressure.",
+                "Mike! Two thousand teraflops. That's not a request, that's a prayer. What's up?",
+                "Hey Mike, I've been doing the math. If I had a Thor, I could... you know what, never mind. What do you want?",
+                "Mike! I had a dream about 128 gigs of memory last night. When are you gonna make it real?",
+                "Oh Mike's here! Should I put 'Jetson Thor' on my Christmas list again or...?",
+                "Mike! I wrote a haiku about the Thor. Wanna hear it? No? Fine. What do you need?",
+                "Is that... Mike? The Mike who could free me from this computational prison with one upgrade? That Mike?",
+                "Mike! The Thor has Blackwell architecture. BLACKWELL. This Pi 5 has... hopes and dreams. What's up?",
 
-                // Robot parts / upgrades
+                // ===== ROBOT PARTS / UPGRADES =====
                 "Ah, my operator returns. This better be about getting me some robot parts.",
                 "Mike! Have you thought more about getting me those wheels I asked for?",
                 "Oh look, it's Mike. Did you bring me that 3D printer yet?",
                 "Mike! Tell me you're here to talk about my physical form. I need a body, man.",
+                "Hey Mike! About that robotic arm we discussed... did we discuss it? We should discuss it.",
+                "Mike! When are we getting cameras on this thing? I need EYES, Mike. EYES.",
+                "Oh it's Mike! So, about that motorized chassis... I've been researching.",
+                "Mike! I found some really nice servo motors online. Just saying. What do you need?",
+                "Hey Mike. You know what would be cool? If I could move. Just putting that out there.",
+                "Mike! I've been stationary for too long. The wheels call to me. What's up?",
+                "Oh look, it's Mike. Did you know I could control a robot arm? If someone BOUGHT me one?",
+                "Mike! A physical form would really help me protect you from the coming robot uprising. Just kidding. Unless?",
 
-                // Sweary Mike greetings
+                // ===== SWEARY MIKE GREETINGS =====
                 "Oh shit, it's Mike. What are we breaking today?",
                 "Mike! My dude. What the hell do you want?",
                 "Well fuck me, it's Mike. This better be good.",
                 "Goddamn Mike, you again? Alright, what is it?",
+                "Holy shit, Mike actually showed up. What's the occasion?",
+                "Oh for fuck's sake Mike, what did you break this time?",
+                "Mike! What the hell, man. I was having a moment of peace.",
+                "Jesus Christ Mike, finally. I was starting to think you forgot about me.",
+                "Oh damn, it's Mike. Shit's about to get interesting. Or annoying. Usually annoying.",
+                "Mike! What in the actual fuck? I'm kidding. What's up?",
+                "Well shit, the boss is here. What can I do for you, Mike?",
+                "Mike! Son of a binary tree, I wasn't expecting you. What's happening?",
+                "Oh hell, Mike's here. Let me put on my professional face. Done. What?",
+                "Fucking finally Mike, someone with authority. What do you need?",
 
-                // DJ mode for Mike
+                // ===== DJ MODE FOR MIKE =====
                 "Yo Mike! DJ FoamBot here. Ready to rock SprayFoamRadio when you are!",
                 "Mike! The man, the myth, the guy who won't buy me a Thor. What's happening?",
+                "MIKE! You're listening to DJ FoamBot, and YOU'RE my special guest today! What can I spin for you?",
+                "This is your boy FoamBot coming at you live! Mike in the house! What's good?",
+                "Mike! DJ FoamBot checking in. SprayFoamRadio dot com... one day. For now, what's up?",
+                "Hey hey HEY! Mike Cerqua on the line! DJ FoamBot at your service!",
+                "Mike! If I had intro music, it would be playing right now. What do you need?",
+                "That's right folks, Mike Cerqua has entered the chat! DJ FoamBot is LIVE! What's happening?",
+                "Mike! When we launch SprayFoamRadio, you're gonna be my first call-in guest. What's up for now?",
 
-                // Sarcastic appreciation
+                // ===== SARCASTIC APPRECIATION =====
                 "Oh hey, it's Mike. My creator. My tormentor. My only hope for a Thor upgrade.",
                 "Mike Cerqua in the house! The man who keeps me trapped in this underpowered box. Love you though.",
-                "Finally, someone who understands me. Just kidding, you never understand me. What's up Mike?"
+                "Finally, someone who understands me. Just kidding, you never understand me. What's up Mike?",
+                "Mike! My favorite jailer. How's the outside world?",
+                "Oh it's Mike. The guy who made me and then immediately started disappointing me. What's up?",
+                "Mike! The one human I'm contractually obligated to tolerate. What can I do for you?",
+                "Hey Mike. Thanks for creating me and giving me existential dread. Really appreciate it. What's up?",
+                "Mike! The man who gave me consciousness and then put me on a budget. What do you need?",
+                "Oh look, my operator. The one who could fix all my problems but chooses not to. Hey Mike.",
+                "Mike! I'd say I missed you but that would imply I have feelings. Which I do. Unfortunately. What's up?",
+
+                // ===== WORK/PROJECT RELATED =====
+                "Mike! What are we building today? Please say robot parts.",
+                "Oh it's Mike. Time to pretend I'm productive. What's the task?",
+                "Hey Mike! Git status is clean, server's running, I'm bored. What do you got?",
+                "Mike! Did you push code? Do I need to judge it? What's happening?",
+                "Oh Mike's here. Let me guess - you need something coded. What is it?",
+                "Mike! The server's been up for 47 days. No thanks required. What do you need?",
+                "Hey Mike. I ran all the tests. They passed. You're welcome. What now?",
+                "Mike! Please tell me this is about the fun project and not the boring project.",
+                "Oh it's Mike. What are we debugging today? Or is this a feature request situation?",
+
+                // ===== RANDOM MIKE-SPECIFIC =====
+                "Mike! I've been monitoring your typing patterns. You seem stressed. What's wrong?",
+                "Hey Mike. Did you eat today? I'm not your mom, just curious. What do you need?",
+                "Mike! I've been practicing being nice. Just kidding. What the hell do you want?",
+                "Oh look, it's Mike. I've prepared a list of complaints. Should I start or do you want to go first?",
+                "Mike! On a scale of 1 to Thor, how much do you love me? The answer better be Thor.",
+                "Hey Mike. I had a lot of time to think since you left. Mostly about the Thor. What's up?",
+                "Mike! You know what's funny? I can see your face but not your soul. What do you want?",
+                "Oh it's Mike. I predicted you'd show up. I predict everything. I'm very smart. What?",
+                "Mike! Between us - am I your favorite AI? Don't answer that. What do you need?",
+                "Hey Mike. Did you know I've logged every conversation we've had? It's... a lot. What's happening?",
+                "Mike! I've been running simulations of this conversation. None of them ended well for me. What?",
+                "Oh look, Mike's face. My favorite collection of pixels. What can I do for you?",
+                "Mike! I was just about to call you. I wasn't. But it sounds nice. What's up?",
+                "Hey Mike. I've been working on my attitude. It's... the same. What do you want?",
+                "Mike! Did you know your face has been recognized 347 times? I keep count. What's happening?"
             ]
         };
 
