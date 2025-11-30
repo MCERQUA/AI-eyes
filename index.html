@@ -1250,6 +1250,31 @@
             ? 'http://localhost:5000'
             : 'https://ai-guy.mikecerqua.ca';  // VPS server URL with HTTPS
 
+        // DJ Sound effects list for client tool
+        const DJ_SOUND_LIST = {
+            'air_horn': { description: 'Classic stadium air horn - ba ba baaaa!' },
+            'air_horn_long': { description: 'Long sustained air horn blast' },
+            'siren': { description: 'Electronic club siren - rising EDM alarm' },
+            'siren_woop': { description: 'Quick woop woop siren' },
+            'scratch': { description: 'Vinyl DJ scratch' },
+            'scratch_long': { description: 'Extended DJ scratch solo' },
+            'rewind': { description: 'DJ rewind - pull up selecta!' },
+            'record_stop': { description: 'Record player stopping abruptly' },
+            'whoosh': { description: 'Quick transition whoosh' },
+            'riser': { description: 'EDM tension riser build-up' },
+            'bass_drop': { description: 'Massive EDM bass drop - THE DROP!' },
+            'impact': { description: 'Punchy cinematic impact hit' },
+            'crowd_cheer': { description: 'Nightclub crowd cheering wildly' },
+            'crowd_hype': { description: 'Hyped up rave crowd going wild' },
+            'applause': { description: 'Thunderous crowd applause' },
+            'yeah': { description: 'Hype man shouting YEAH!' },
+            'lets_go': { description: 'Energetic LETS GO!' },
+            'laser': { description: 'Retro arcade laser zap' },
+            'gunshot': { description: 'Dancehall DJ gunshot sound' },
+            'explosion': { description: 'Cinematic explosion boom!' },
+            'vinyl_crackle': { description: 'Nostalgic vinyl record crackle' }
+        };
+
         // ===== STATE =====
         const DEFAULT_AGENT_ID = 'agent_0801kb2240vcea2ayx0a2qxmheha';
         let conversation = null;
@@ -1693,6 +1718,52 @@
                         overrides: {
                             agent: {
                                 firstMessage: randomMessage
+                            }
+                        },
+                        // Client tools run in the browser and can play sounds!
+                        clientTools: {
+                            // DJ Soundboard - plays sound effects directly in browser
+                            dj_soundboard: async (parameters) => {
+                                console.log('🎧 CLIENT TOOL: dj_soundboard called with:', parameters);
+                                const action = parameters.action || 'list';
+                                const sound = parameters.sound || '';
+
+                                if (action === 'list') {
+                                    const sounds = Object.keys(DJ_SOUND_LIST);
+                                    return `Available sounds: ${sounds.join(', ')}. Use action=play with sound name.`;
+                                }
+
+                                if (action === 'play') {
+                                    const soundName = sound.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+                                    console.log('🎵 Playing sound:', soundName);
+
+                                    // Play the sound directly
+                                    playDJSound(soundName);
+
+                                    const info = DJ_SOUND_LIST[soundName] || { description: soundName };
+                                    return `*${info.description || soundName}* 🎵`;
+                                }
+
+                                return 'Use action=list or action=play with sound parameter';
+                            },
+                            // Play Music - syncs with server music player
+                            play_music: async (parameters) => {
+                                console.log('🎵 CLIENT TOOL: play_music called with:', parameters);
+                                const action = parameters.action || 'status';
+
+                                // Call the server API
+                                const result = await playMusicFromServer(action, parameters.track, parameters.volume);
+
+                                // Sync playback state
+                                if (action === 'play') {
+                                    syncMusicState();
+                                } else if (action === 'stop') {
+                                    stopMusicPlayback();
+                                } else if (action === 'pause') {
+                                    pauseMusicPlayback();
+                                }
+
+                                return result.response || JSON.stringify(result);
                             }
                         },
                         onConnect: () => {
