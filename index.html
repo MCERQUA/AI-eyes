@@ -1860,7 +1860,14 @@
 
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
-                                if (msg.includes('spinning') || msg.includes("let's go") ||
+
+                                // Detect song change requests - actually skip to next
+                                if ((msg.includes('next') && (msg.includes('song') || msg.includes('track'))) ||
+                                    msg.includes('switching') || msg.includes('change it up') ||
+                                    msg.includes('different song') || msg.includes('skip')) {
+                                    console.log('🎵 Song change detected, skipping...');
+                                    playMusicFromServer('skip');
+                                } else if (msg.includes('spinning') || msg.includes("let's go") ||
                                     msg.includes('playing') || msg.includes('next up') ||
                                     msg.includes('here we go') || msg.includes('coming up') ||
                                     msg.includes('track') || msg.includes('song') ||
