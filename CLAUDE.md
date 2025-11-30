@@ -209,6 +209,9 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 | end_call | (built-in) | system |
 | skip_turn | (built-in) | system |
 
+**🛏️ GO TO SLEEP (end_call):**
+When user says "go to sleep", "go back to sleep", "goodnight", "shut up", "that's all", "I'm done", "bye", "hang up", or "end call", Pi-Guy will say goodbye and use the `end_call` tool to hang up. This was added to the agent's prompt to enable voice-controlled call ending.
+
 **⚠️ NOTE on audio playback:** Both music and DJ sounds use **text detection** in the frontend to trigger playback. When Pi-Guy says trigger words like "spinning up", "playing", "air horn", etc., the frontend detects them and plays audio. This is more reliable than waiting for tool responses.
 
 ### ⚠️ COMMON MISTAKES TO AVOID
