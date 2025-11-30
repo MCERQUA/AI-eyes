@@ -1746,25 +1746,6 @@
 
                                 return 'Use action=list or action=play with sound parameter';
                             },
-                            // Play Music - syncs with server music player
-                            play_music: async (parameters) => {
-                                console.log('🎵 CLIENT TOOL: play_music called with:', parameters);
-                                const action = parameters.action || 'status';
-
-                                // Call the server API
-                                const result = await playMusicFromServer(action, parameters.track, parameters.volume);
-
-                                // Sync playback state
-                                if (action === 'play') {
-                                    syncMusicState();
-                                } else if (action === 'stop') {
-                                    stopMusicPlayback();
-                                } else if (action === 'pause') {
-                                    pauseMusicPlayback();
-                                }
-
-                                return result.response || JSON.stringify(result);
-                            }
                         },
                         onConnect: () => {
                             console.log('Connected to ElevenLabs');
