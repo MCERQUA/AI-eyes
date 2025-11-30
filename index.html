@@ -1861,22 +1861,69 @@
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
 
+                                // Track name detection - play specific track when mentioned
+                                // These map keywords Pi-Guy might say to actual filenames
+                                const trackKeywords = {
+                                    'mrs. sprayfoam': 'Call-Me-Mrs.Sprayfoam',
+                                    'mrs sprayfoam': 'Call-Me-Mrs.Sprayfoam',
+                                    'mrs.sprayfoam': 'Call-Me-Mrs.Sprayfoam',
+                                    'call me mrs': 'Call-Me-Mrs.Sprayfoam',
+                                    'karen': 'Call-Me-Mrs.Sprayfoam',
+                                    'augusta': 'Call-Me-Mrs.Sprayfoam',
+                                    'foamit': 'Foam-It-we-insulate-you-right',
+                                    'foam it': 'Foam-It-we-insulate-you-right',
+                                    'foam-it': 'Foam-It-we-insulate-you-right',
+                                    'moe': 'Foam-It-we-insulate-you-right',
+                                    'toronto': 'Foam-It-we-insulate-you-right',
+                                    'mississauga': 'Foam-It-we-insulate-you-right',
+                                    'foam everything': 'Foam-Everything',
+                                    'hey diddle': 'Hey-Diddle-Diddle',
+                                    'diddle diddle': 'Hey-Diddle-Diddle',
+                                    'nursery': 'Hey-Diddle-Diddle',
+                                    'og poly': 'OG-Polyurthane-gang',
+                                    'o.g. poly': 'OG-Polyurthane-gang',
+                                    'og polyurethane': 'OG-Polyurthane-gang',
+                                    'polyurethane gang': 'Polyurethane-Gang',
+                                    'poly gang': 'Polyurethane-Gang',
+                                    'espuma': 'Espuma-Calidez-2',
+                                    'calidez': 'Espuma-Calidez-2',
+                                    'spanish comfy': 'Spanish-ComfyLife',
+                                    'comfy life': 'Spanish-ComfyLife',
+                                    'latin': 'Spanish-ComfyLife'
+                                };
+
+                                // Check if Pi-Guy mentioned a specific track
+                                let detectedTrack = null;
+                                for (const [keyword, trackName] of Object.entries(trackKeywords)) {
+                                    if (msg.includes(keyword)) {
+                                        detectedTrack = trackName;
+                                        console.log('🎵 Detected specific track:', keyword, '->', trackName);
+                                        break;
+                                    }
+                                }
+
                                 // Detect song change requests - actually skip to next
                                 if ((msg.includes('next') && (msg.includes('song') || msg.includes('track'))) ||
                                     msg.includes('switching') || msg.includes('change it up') ||
-                                    msg.includes('different song') || msg.includes('skip')) {
+                                    msg.includes('different song') || msg.includes("i'm changing") ||
+                                    msg.includes('changing it') || msg.includes('let me change')) {
                                     console.log('🎵 Song change detected, skipping...');
                                     playMusicFromServer('skip');
+                                } else if (detectedTrack) {
+                                    // Play the specific track Pi-Guy mentioned
+                                    console.log('🎵 Playing detected track:', detectedTrack);
+                                    playMusicFromServer('play', detectedTrack);
                                 } else if (msg.includes('spinning') || msg.includes("let's go") ||
                                     msg.includes('playing') || msg.includes('next up') ||
                                     msg.includes('here we go') || msg.includes('coming up') ||
-                                    msg.includes('track') || msg.includes('song') ||
-                                    msg.includes('dj') || msg.includes('music')) {
+                                    msg.includes('dropping') || msg.includes('fire up')) {
                                     console.log('🎵 Music mentioned, syncing...');
                                     syncMusicState();
-                                } else if (msg.includes('stopped') || msg.includes('stopping')) {
+                                } else if (msg.includes('stopped') || msg.includes('stopping') ||
+                                    msg.includes('kill the music') || msg.includes('cut the music')) {
                                     stopMusicPlayback();
-                                } else if (msg.includes('pausing') || msg.includes('paused')) {
+                                } else if (msg.includes('pausing') || msg.includes('paused') ||
+                                    msg.includes('hold up') || msg.includes('one sec')) {
                                     pauseMusicPlayback();
                                 }
 
@@ -2792,35 +2839,86 @@
             // Available sounds: air_horn, bruh, crowd_cheer, crowd_hype, gunshot,
             // impact, laser, lets_go, record_stop, rewind, sad_trombone, scratch_long, yeah
             const soundTriggers = {
+                // Air horn - classic DJ hype sound
                 'air horn': 'air_horn',
                 'airhorn': 'air_horn',
                 'triple horn': 'air_horn',
                 'horn': 'air_horn',
+                'bwaaah': 'air_horn',
+                'bwaaa': 'air_horn',
+
+                // Scratch - DJ turntable
                 'scratch': 'scratch_long',
                 'wicka': 'scratch_long',
+                'wikka': 'scratch_long',
+                'scratching': 'scratch_long',
+
+                // Rewind - pull up selecta!
                 'rewind': 'rewind',
                 'pull up': 'rewind',
                 'pull it back': 'rewind',
                 'back it up': 'rewind',
+                'selecta': 'rewind',
+                'wheel up': 'rewind',
+
+                // Record stop
                 'record stop': 'record_stop',
+                'stop the record': 'record_stop',
+                'needle scratch': 'record_stop',
+
+                // Crowd sounds
                 'crowd goes wild': 'crowd_hype',
+                'crowd hype': 'crowd_hype',
+                'hype': 'crowd_hype',
+                'going crazy': 'crowd_hype',
+                'lose their minds': 'crowd_hype',
                 'crowd cheer': 'crowd_cheer',
                 'applause': 'crowd_cheer',
                 'cheering': 'crowd_cheer',
+                'clapping': 'crowd_cheer',
+                'give it up': 'crowd_cheer',
+
+                // Laser/sci-fi
                 'laser': 'laser',
                 'pew pew': 'laser',
                 'pew': 'laser',
+                'zap': 'laser',
+                'beam': 'laser',
+
+                // Gunshot/bang
                 'gunshot': 'gunshot',
                 'gun shot': 'gunshot',
+                'bang': 'gunshot',
+                'shots': 'gunshot',
+                'pow': 'gunshot',
+
+                // Impact/hit
                 'impact': 'impact',
                 'punch': 'impact',
+                'boom': 'impact',
+                'hit': 'impact',
+                'drop': 'impact',
+                'thud': 'impact',
+
+                // Vocal hype
                 'yeah': 'yeah',
+                'yeahhh': 'yeah',
+                'yeeah': 'yeah',
                 'lets go': 'lets_go',
                 "let's go": 'lets_go',
+                "let's gooo": 'lets_go',
+                'here we go': 'lets_go',
+
+                // Comedy/fail
                 'bruh': 'bruh',
+                'bruhhh': 'bruh',
+                'bro': 'bruh',
                 'sad trombone': 'sad_trombone',
                 'womp womp': 'sad_trombone',
-                'wah wah': 'sad_trombone'
+                'wah wah': 'sad_trombone',
+                'fail': 'sad_trombone',
+                'that sucks': 'sad_trombone',
+                'price is wrong': 'sad_trombone'
             };
 
             // Find ALL sounds mentioned in the message
