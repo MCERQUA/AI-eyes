@@ -1724,7 +1724,8 @@
                         clientTools: {
                             // DJ Soundboard - plays sound effects directly in browser
                             dj_soundboard: async (parameters) => {
-                                console.log('🎧 CLIENT TOOL: dj_soundboard called with:', parameters);
+                                console.log('🎧🎧🎧 CLIENT TOOL INVOKED! dj_soundboard:', parameters);
+                                alert('DJ SOUNDBOARD CALLED: ' + JSON.stringify(parameters));
                                 const action = parameters.action || 'list';
                                 const sound = parameters.sound || '';
 
