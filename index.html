@@ -1724,8 +1724,7 @@
                         clientTools: {
                             // DJ Soundboard - plays sound effects directly in browser
                             dj_soundboard: async (parameters) => {
-                                console.log('🎧🎧🎧 CLIENT TOOL INVOKED! dj_soundboard:', parameters);
-                                alert('DJ SOUNDBOARD CALLED: ' + JSON.stringify(parameters));
+                                console.log('🎧 CLIENT TOOL: dj_soundboard called with:', parameters);
                                 const action = parameters.action || 'list';
                                 const sound = parameters.sound || '';
 
@@ -2809,6 +2808,7 @@
         }
 
         // Detect DJ sound triggers in Pi-Guy's messages
+        // Plays ALL sounds mentioned, not just the first one!
         function checkForDJSounds(message) {
             const msg = message.toLowerCase();
 
@@ -2816,36 +2816,55 @@
             const soundTriggers = {
                 'air horn': 'air_horn',
                 'airhorn': 'air_horn',
+                'triple horn': 'air_horn',
                 'siren': 'siren',
                 'woop woop': 'siren_woop',
                 'scratch': 'scratch',
                 'rewind': 'rewind',
+                'pull up': 'rewind',
                 'record stop': 'record_stop',
                 'whoosh': 'whoosh',
                 'bass drop': 'bass_drop',
                 'drop the bass': 'bass_drop',
+                'the drop': 'bass_drop',
                 'riser': 'riser',
+                'build up': 'riser',
                 'applause': 'applause',
                 'crowd goes wild': 'crowd_hype',
                 'crowd cheer': 'crowd_cheer',
                 'laser': 'laser',
                 'pew pew': 'laser',
                 'gunshot': 'gunshot',
+                'gun shot': 'gunshot',
                 'explosion': 'explosion',
                 'boom': 'explosion',
                 'yeah': 'yeah',
                 'lets go': 'lets_go',
-                'vinyl': 'vinyl_crackle'
+                "let's go": 'lets_go',
+                'vinyl': 'vinyl_crackle',
+                'crackle': 'vinyl_crackle'
             };
 
+            // Find ALL sounds mentioned in the message
+            const soundsToPlay = [];
+            const alreadyQueued = new Set();
+
             for (const [trigger, sound] of Object.entries(soundTriggers)) {
-                if (msg.includes(trigger)) {
-                    console.log('🎧 DJ Sound trigger detected:', trigger, '->', sound);
-                    playDJSound(sound);
-                    return sound;
+                if (msg.includes(trigger) && !alreadyQueued.has(sound)) {
+                    soundsToPlay.push({ trigger, sound });
+                    alreadyQueued.add(sound);
                 }
             }
-            return null;
+
+            // Play each sound with a small delay between them
+            soundsToPlay.forEach((item, index) => {
+                setTimeout(() => {
+                    console.log('🎧 DJ Sound trigger detected:', item.trigger, '->', item.sound);
+                    playDJSound(item.sound);
+                }, index * 300); // 300ms between each sound
+            });
+
+            return soundsToPlay.length > 0 ? soundsToPlay.map(s => s.sound) : null;
         }
 
         // Expose for console debugging
