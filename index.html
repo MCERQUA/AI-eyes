@@ -1846,23 +1846,8 @@
 
                             // Music tool - sync playback
                             if (toolName === 'play_music') {
-                                try {
-                                    const toolData = typeof toolResult === 'string'
-                                        ? JSON.parse(toolResult)
-                                        : toolResult;
-                                    console.log('🎵 Music tool response:', toolData);
-
-                                    if (toolData && toolData.action === 'play' && toolData.track) {
-                                        console.log('🎵 Music play triggered, syncing...');
-                                        syncMusicState();
-                                    } else if (toolData && toolData.action === 'stop') {
-                                        stopMusicPlayback();
-                                    } else if (toolData && toolData.action === 'pause') {
-                                        pauseMusicPlayback();
-                                    }
-                                } catch (e) {
-                                    console.error('Error parsing music tool result:', e);
-                                }
+                                console.log('🎵 Music tool called, syncing state...');
+                                syncMusicState();
                             }
 
                             if (message.source === 'user' && message.message) {
@@ -1875,11 +1860,14 @@
 
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
-                                if (msg.includes('spinning up') || msg.includes("let's go") ||
-                                    msg.includes('playing') || msg.includes('next up')) {
+                                if (msg.includes('spinning') || msg.includes("let's go") ||
+                                    msg.includes('playing') || msg.includes('next up') ||
+                                    msg.includes('here we go') || msg.includes('coming up') ||
+                                    msg.includes('track') || msg.includes('song') ||
+                                    msg.includes('dj') || msg.includes('music')) {
                                     console.log('🎵 Music mentioned, syncing...');
                                     syncMusicState();
-                                } else if (msg.includes('stopped') || msg.includes('silence')) {
+                                } else if (msg.includes('stopped') || msg.includes('stopping')) {
                                     stopMusicPlayback();
                                 } else if (msg.includes('pausing') || msg.includes('paused')) {
                                     pauseMusicPlayback();
