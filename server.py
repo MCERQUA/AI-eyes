@@ -2800,94 +2800,104 @@ SOUNDS_DIR = Path(__file__).parent / "sounds"
 
 # Available DJ sounds with descriptions and when to use them
 DJ_SOUNDS = {
-    # Air horns - the classic hype sounds
+    # Air horns - the classic hip-hop/dancehall DJ sound
     'air_horn': {
-        'description': 'Classic DJ air horn blast',
-        'when_to_use': 'Before a drop, during hype moments, celebrating something awesome'
-    },
-    'air_horn_triple': {
-        'description': 'Triple air horn - ba ba baaaa!',
-        'when_to_use': 'Big announcements, major celebrations, peak energy moments'
+        'description': 'Classic stadium air horn - ba ba baaaa!',
+        'when_to_use': 'Before drops, hype moments, celebrating wins, hip-hop DJ style'
     },
     'air_horn_long': {
-        'description': 'Long sustained air horn',
+        'description': 'Long sustained stadium air horn',
         'when_to_use': 'Building anticipation, extended hype, dramatic moments'
     },
 
-    # Sirens - energy builders
-    'siren_rise': {
-        'description': 'Rising club siren',
-        'when_to_use': 'Building energy before a drop, transitions, getting attention'
+    # Sirens - EDM/Club style
+    'siren': {
+        'description': 'Electronic club siren - rising EDM alarm',
+        'when_to_use': 'Building energy before drops, getting attention, rave vibes'
     },
     'siren_woop': {
         'description': 'Quick woop woop siren',
-        'when_to_use': 'Quick energy bursts, police/emergency themed jokes, alerts'
+        'when_to_use': 'Quick energy bursts, alerts, police themed jokes'
     },
 
     # Scratches - turntablist vibes
     'scratch': {
-        'description': 'Quick vinyl scratch',
-        'when_to_use': 'Transitions, hip-hop moments, interrupting/rewinding a topic'
+        'description': 'Vinyl turntable scratch - wicka wicka',
+        'when_to_use': 'Transitions, hip-hop moments, interrupting topics'
     },
     'scratch_long': {
-        'description': 'Extended scratch solo',
-        'when_to_use': 'Showing off DJ skills, longer transitions, hip-hop intros'
+        'description': 'Extended DJ scratch solo',
+        'when_to_use': 'Showing off DJ skills, battle scratches, hip-hop intros'
     },
 
     # Transitions
     'rewind': {
-        'description': 'Tape rewind effect',
-        'when_to_use': 'Going back to a previous point, rewinding a song, pull-ups'
+        'description': 'DJ rewind - pull up selecta!',
+        'when_to_use': 'Going back, replaying something fire, dancehall pull-ups'
     },
     'record_stop': {
         'description': 'Record stopping abruptly',
-        'when_to_use': 'Stopping everything, dramatic pause, something went wrong'
+        'when_to_use': 'Stopping everything, dramatic pause, cutting the music'
     },
     'whoosh': {
-        'description': 'Swoosh transition',
-        'when_to_use': 'Quick transitions, moving between topics, cinematic moments'
+        'description': 'Cinematic swoosh transition',
+        'when_to_use': 'Quick transitions, moving between topics'
+    },
+    'riser': {
+        'description': 'EDM riser build-up',
+        'when_to_use': 'Building tension before the drop, creating anticipation'
     },
 
-    # Impacts
+    # Impacts and drops
     'bass_drop': {
-        'description': 'Heavy bass drop impact',
-        'when_to_use': 'The DROP! Peak moments, big reveals, after a build-up'
+        'description': 'Massive EDM bass drop impact',
+        'when_to_use': 'THE DROP! Peak moments, big reveals, dubstep vibes'
     },
     'impact': {
-        'description': 'Punchy electronic hit',
+        'description': 'Punchy cinematic impact hit',
         'when_to_use': 'Punctuating statements, transitions, emphasis'
     },
 
-    # Crowd sounds
-    'applause': {
-        'description': 'Crowd applause and cheering',
-        'when_to_use': 'Celebrating wins, acknowledging good points, appreciation'
-    },
-    'applause_short': {
-        'description': 'Quick applause burst',
-        'when_to_use': 'Brief acknowledgment, polite clapping, sarcastic applause'
+    # Crowd sounds - club atmosphere
+    'crowd_cheer': {
+        'description': 'Nightclub crowd cheering and going wild',
+        'when_to_use': 'Big wins, amazing moments, festival energy'
     },
     'crowd_hype': {
-        'description': 'Crowd going wild',
-        'when_to_use': 'Peak hype moments, big announcements, party atmosphere'
+        'description': 'Hyped up rave crowd losing their minds',
+        'when_to_use': 'Peak energy moments, party atmosphere'
+    },
+    'applause': {
+        'description': 'Thunderous crowd applause',
+        'when_to_use': 'Celebrating, appreciation, standing ovation'
     },
 
-    # Fun extras
-    'laser': {
-        'description': 'Sci-fi laser zap',
-        'when_to_use': 'Retro/gaming moments, sci-fi topics, pew pew fun'
+    # DJ vocal shots
+    'yeah': {
+        'description': 'Hype man YEAH! vocal shot',
+        'when_to_use': 'Hyping up, agreement, energy boost'
     },
-    'vinyl_pop': {
-        'description': 'Vinyl crackle and pop',
-        'when_to_use': 'Nostalgic moments, old-school vibes, warm intros'
+    'lets_go': {
+        'description': 'LETS GO! vocal chant',
+        'when_to_use': 'Starting something, getting pumped, motivation'
+    },
+
+    # Sound FX
+    'laser': {
+        'description': 'Retro arcade laser zap - pew pew',
+        'when_to_use': 'Sci-fi moments, gaming references, 80s vibes'
     },
     'gunshot': {
-        'description': 'Gunshot effect',
-        'when_to_use': 'Dancehall style, shooting down bad ideas, bang on point'
+        'description': 'Dancehall gunshot sound - gun finger!',
+        'when_to_use': 'Reggae/dancehall vibes, shooting down bad ideas'
     },
     'explosion': {
-        'description': 'Explosion boom',
-        'when_to_use': 'Mind blown moments, dramatic emphasis, big finales'
+        'description': 'Cinematic explosion boom',
+        'when_to_use': 'Mind blown moments, big finales, dramatic emphasis'
+    },
+    'vinyl_crackle': {
+        'description': 'Warm vinyl record crackle',
+        'when_to_use': 'Nostalgic moments, old-school vibes, warm intros'
     }
 }
 

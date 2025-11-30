@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate DJ sound effects using ElevenLabs Text-to-Sound Effects API
-Run once to cache all sounds, then they're free to use forever!
+These are CLUB/DJ style sounds - not car horns!
 """
 
 import os
@@ -13,102 +13,115 @@ load_dotenv()
 API_KEY = os.getenv('ELEVENLABS_API_KEY')
 SOUNDS_DIR = 'sounds'
 
-# DJ sound effects to generate
+# REAL DJ/Club sound effects with specific prompts
 DJ_SOUNDS = {
-    # Air horns - the classic!
+    # AIR HORNS - The classic hip-hop/dancehall DJ sound
     'air_horn': {
-        'prompt': 'Loud DJ air horn blast, powerful foghorn style, 2 quick blasts',
-        'duration': 2.0
-    },
-    'air_horn_triple': {
-        'prompt': 'Triple DJ air horn blast, ba ba baaaa pattern, loud and celebratory',
-        'duration': 3.0
+        'prompt': 'Loud stadium air horn blast, the classic hip-hop DJ MLG air horn sound effect, three quick blasts ba ba baaaa, very loud and punchy electronic horn',
+        'duration': 2.5
     },
     'air_horn_long': {
-        'prompt': 'Long sustained DJ air horn, building intensity, stadium horn',
+        'prompt': 'Long sustained stadium air horn, DJ club horn building up, electronic foghorn blast that builds in intensity, hip-hop style',
         'duration': 4.0
     },
 
-    # Sirens
-    'siren_rise': {
-        'prompt': 'Club siren sound effect, rising pitch, electronic dance music style',
+    # SIRENS - Club/EDM style
+    'siren': {
+        'prompt': 'Electronic club siren, rising pitch EDM siren sound effect, rave alarm synth siren that builds up, dance music warning siren',
         'duration': 3.0
     },
     'siren_woop': {
-        'prompt': 'Police siren woop woop, quick two-tone, DJ remix style',
+        'prompt': 'Quick woop woop police siren, DJ remix style two-tone siren, electronic club siren quick bursts',
         'duration': 2.0
     },
 
-    # DJ scratches
+    # DJ SCRATCHES - Turntable sounds
     'scratch': {
-        'prompt': 'Vinyl record scratch, classic hip-hop DJ turntable scratch, quick and sharp',
+        'prompt': 'Vinyl record scratch, DJ turntable scratch sound effect, classic hip-hop record scratching, wicka wicka scratch',
         'duration': 1.5
     },
     'scratch_long': {
-        'prompt': 'Extended DJ scratch solo, multiple scratches, turntablist style',
-        'duration': 3.0
+        'prompt': 'Extended DJ scratch solo, multiple vinyl scratches in sequence, turntablist scratching performance, hip-hop DJ battle scratches',
+        'duration': 3.5
     },
 
-    # Transitions
+    # TRANSITIONS
     'rewind': {
-        'prompt': 'Tape rewind sound effect, DJ rewind, rapid tape reverse',
+        'prompt': 'DJ rewind sound effect, vinyl record being spun backwards rapidly, tape rewind whoosh, pull up selecta rewind',
         'duration': 2.0
     },
     'record_stop': {
-        'prompt': 'Record player stopping abruptly, vinyl slowdown and stop',
+        'prompt': 'Record player stopping abruptly, vinyl slowdown and stop, DJ cutting the music suddenly, turntable power off',
         'duration': 2.0
     },
     'whoosh': {
-        'prompt': 'Whoosh transition sound effect, cinematic swoosh, fast movement',
+        'prompt': 'Cinematic whoosh transition, fast swoosh sound effect, DJ transition swoosh, quick movement whoosh',
         'duration': 1.0
     },
-
-    # Impacts and drops
-    'bass_drop': {
-        'prompt': 'Heavy bass drop impact, EDM club style, deep sub bass hit',
-        'duration': 2.0
-    },
-    'impact': {
-        'prompt': 'Electronic impact hit, punchy club sound, DJ transition impact',
-        'duration': 1.0
-    },
-
-    # Crowd sounds
-    'applause': {
-        'prompt': 'Crowd applause and cheering, enthusiastic club audience, celebration',
+    'riser': {
+        'prompt': 'EDM riser build up, tension building synth riser, white noise sweep building to drop, electronic music build up',
         'duration': 4.0
     },
-    'applause_short': {
-        'prompt': 'Quick applause burst, short crowd cheer',
+
+    # IMPACTS AND DROPS
+    'bass_drop': {
+        'prompt': 'Massive EDM bass drop impact, heavy sub bass hit, dubstep drop impact, the drop moment with deep bass thud',
+        'duration': 2.5
+    },
+    'impact': {
+        'prompt': 'Cinematic impact hit, punchy electronic boom, DJ transition impact sound, powerful bass impact',
         'duration': 1.5
     },
+
+    # CROWD SOUNDS - Club atmosphere
+    'crowd_cheer': {
+        'prompt': 'Excited nightclub crowd cheering, audience going wild at a concert, massive crowd roar and applause, festival crowd reaction',
+        'duration': 4.0
+    },
     'crowd_hype': {
-        'prompt': 'Crowd going wild, excited screaming and cheering, festival atmosphere',
+        'prompt': 'Hyped up club crowd, people screaming and cheering at DJ set, rave crowd losing their minds, party crowd noise',
         'duration': 3.0
     },
-
-    # Fun extras
-    'laser': {
-        'prompt': 'Electronic laser zap sound, sci-fi pew pew, retro arcade',
-        'duration': 1.0
+    'applause': {
+        'prompt': 'Enthusiastic crowd applause, audience clapping and cheering, thunderous applause, standing ovation',
+        'duration': 4.0
     },
-    'vinyl_pop': {
-        'prompt': 'Vinyl record static crackle and pop, nostalgic record player',
+
+    # DJ VOCAL SHOTS
+    'yeah': {
+        'prompt': 'DJ vocal sample yeah, hype man shouting yeah, energetic male voice saying yeah with reverb',
+        'duration': 1.5
+    },
+    'lets_go': {
+        'prompt': 'DJ vocal sample lets go, hype man shouting lets go, energetic crowd chant lets go',
         'duration': 2.0
     },
+
+    # LASERS AND FX
+    'laser': {
+        'prompt': 'Retro arcade laser zap, sci-fi pew pew laser sound, electronic laser beam, 80s synth laser',
+        'duration': 1.0
+    },
     'gunshot': {
-        'prompt': 'Gunshot sound effect, single shot, action movie style',
+        'prompt': 'Dancehall DJ gunshot sound effect, reggae sound system gunshot, single shot gun finger sound',
         'duration': 1.0
     },
     'explosion': {
-        'prompt': 'Explosion boom, cinematic impact, dramatic',
-        'duration': 2.0
+        'prompt': 'Cinematic explosion boom, massive explosion impact, epic movie explosion, bass heavy explosion',
+        'duration': 2.5
+    },
+
+    # VINYL/RETRO
+    'vinyl_crackle': {
+        'prompt': 'Vinyl record static and crackle, old record player noise, warm vinyl surface noise, nostalgic record crackle',
+        'duration': 3.0
     },
 }
 
 def generate_sound(name, prompt, duration):
     """Generate a sound effect using ElevenLabs API"""
     print(f"🎵 Generating '{name}'...")
+    print(f"   Prompt: {prompt[:60]}...")
 
     url = "https://api.elevenlabs.io/v1/sound-generation"
 
@@ -120,7 +133,7 @@ def generate_sound(name, prompt, duration):
     data = {
         "text": prompt,
         "duration_seconds": duration,
-        "prompt_influence": 0.5
+        "prompt_influence": 0.7  # Higher influence for more accurate sounds
     }
 
     response = requests.post(url, headers=headers, json=data)
@@ -129,26 +142,27 @@ def generate_sound(name, prompt, duration):
         filepath = os.path.join(SOUNDS_DIR, f"{name}.mp3")
         with open(filepath, 'wb') as f:
             f.write(response.content)
-        print(f"   ✅ Saved to {filepath}")
+        size_kb = len(response.content) / 1024
+        print(f"   ✅ Saved to {filepath} ({size_kb:.1f} KB)")
         return True
     else:
-        print(f"   ❌ Error: {response.status_code} - {response.text}")
+        print(f"   ❌ Error: {response.status_code} - {response.text[:200]}")
         return False
 
 def main():
     # Create sounds directory
     os.makedirs(SOUNDS_DIR, exist_ok=True)
 
-    print("🎧 DJ-FoamBot Sound Generator")
-    print("=" * 40)
-    print(f"Generating {len(DJ_SOUNDS)} sound effects...")
+    print("🎧 DJ-FoamBot Sound Generator v2.0")
+    print("=" * 50)
+    print("Generating REAL club DJ sounds...")
     print()
 
     success = 0
     failed = 0
 
     for name, config in DJ_SOUNDS.items():
-        # Skip if already exists
+        # Skip if already exists (use --force to regenerate)
         filepath = os.path.join(SOUNDS_DIR, f"{name}.mp3")
         if os.path.exists(filepath):
             print(f"⏭️  '{name}' already exists, skipping...")
@@ -161,7 +175,7 @@ def main():
             failed += 1
 
     print()
-    print("=" * 40)
+    print("=" * 50)
     print(f"✅ Success: {success}")
     print(f"❌ Failed: {failed}")
     print()
