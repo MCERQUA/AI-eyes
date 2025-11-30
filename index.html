@@ -1752,46 +1752,64 @@
                         onMessage: async (message) => {
                             console.log('Message:', message);
 
-                            // Handle tool responses (dj_soundboard, play_music, etc.)
-                            if (message.type === 'agent_tool_response' || message.tool_name) {
-                                console.log('🔧 Tool response:', message.tool_name, message);
+                            // Handle tool responses - ElevenLabs sends these in different formats
+                            // Check multiple possible locations for tool name and result
+                            const toolName = message.tool_name ||
+                                           message.name ||
+                                           (message.tool && message.tool.name) ||
+                                           (message.data && message.data.tool_name);
 
-                                // DJ Soundboard tool - play the sound!
-                                if (message.tool_name === 'dj_soundboard') {
-                                    try {
-                                        const toolData = typeof message.tool_result === 'string'
-                                            ? JSON.parse(message.tool_result)
-                                            : message.tool_result;
-                                        console.log('🎧 DJ Soundboard response:', toolData);
+                            const toolResult = message.tool_result ||
+                                             message.result ||
+                                             message.output ||
+                                             (message.tool && message.tool.result) ||
+                                             (message.data && message.data.result);
 
-                                        if (toolData.action === 'play' && toolData.url) {
-                                            console.log('🎵 Playing DJ sound:', toolData.sound);
-                                            playDJSound(toolData.sound);
-                                        }
-                                    } catch (e) {
-                                        console.error('Error parsing tool result:', e);
+                            // Log all messages that might be tool responses
+                            if (toolName || message.type?.includes('tool') || message.tool) {
+                                console.log('🔧 Potential tool response detected:', {
+                                    type: message.type,
+                                    toolName: toolName,
+                                    toolResult: toolResult,
+                                    fullMessage: message
+                                });
+                            }
+
+                            // DJ Soundboard tool - play the sound!
+                            if (toolName === 'dj_soundboard') {
+                                try {
+                                    const toolData = typeof toolResult === 'string'
+                                        ? JSON.parse(toolResult)
+                                        : toolResult;
+                                    console.log('🎧 DJ Soundboard response:', toolData);
+
+                                    if (toolData && toolData.action === 'play' && toolData.sound) {
+                                        console.log('🎵 Playing DJ sound:', toolData.sound);
+                                        playDJSound(toolData.sound);
                                     }
+                                } catch (e) {
+                                    console.error('Error parsing DJ soundboard result:', e);
                                 }
+                            }
 
-                                // Music tool - sync playback
-                                if (message.tool_name === 'play_music') {
-                                    try {
-                                        const toolData = typeof message.tool_result === 'string'
-                                            ? JSON.parse(message.tool_result)
-                                            : message.tool_result;
-                                        console.log('🎵 Music tool response:', toolData);
+                            // Music tool - sync playback
+                            if (toolName === 'play_music') {
+                                try {
+                                    const toolData = typeof toolResult === 'string'
+                                        ? JSON.parse(toolResult)
+                                        : toolResult;
+                                    console.log('🎵 Music tool response:', toolData);
 
-                                        if (toolData.action === 'play' && toolData.track) {
-                                            console.log('🎵 Music play triggered, syncing...');
-                                            syncMusicState();
-                                        } else if (toolData.action === 'stop') {
-                                            stopMusicPlayback();
-                                        } else if (toolData.action === 'pause') {
-                                            pauseMusicPlayback();
-                                        }
-                                    } catch (e) {
-                                        console.error('Error parsing music tool result:', e);
+                                    if (toolData && toolData.action === 'play' && toolData.track) {
+                                        console.log('🎵 Music play triggered, syncing...');
+                                        syncMusicState();
+                                    } else if (toolData && toolData.action === 'stop') {
+                                        stopMusicPlayback();
+                                    } else if (toolData && toolData.action === 'pause') {
+                                        pauseMusicPlayback();
                                     }
+                                } catch (e) {
+                                    console.error('Error parsing music tool result:', e);
                                 }
                             }
 
@@ -2646,25 +2664,72 @@
 
         // ===== DJ SOUNDBOARD =====
         // Sound effects player for DJ-FoamBot
-        const djSoundPlayer = new Audio();
-        djSoundPlayer.volume = 0.8;
+        // Create new Audio for each sound so they can overlap
+        // Pre-loaded sound cache for instant playback
+        const djSoundCache = {};
+
+        // Preload a sound for faster playback
+        async function preloadDJSound(soundName) {
+            const url = `${VISION_SERVER_URL}/sounds/${soundName}.mp3`;
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                djSoundCache[soundName] = URL.createObjectURL(blob);
+                console.log('🎧 Preloaded DJ sound:', soundName);
+            } catch (e) {
+                console.warn('Failed to preload sound:', soundName, e);
+            }
+        }
+
+        // Preload common sounds on page load
+        ['air_horn', 'siren', 'scratch', 'applause', 'bass_drop', 'rewind'].forEach(s => {
+            setTimeout(() => preloadDJSound(s), 1000);
+        });
 
         async function playDJSound(soundName) {
             try {
-                // Fetch sound info from server
-                const response = await fetch(`${VISION_SERVER_URL}/api/dj-sound?action=play&sound=${encodeURIComponent(soundName)}`);
-                const data = await response.json();
+                console.log('🎧 playDJSound called with:', soundName);
 
-                if (data.action === 'play' && data.url) {
-                    djSoundPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    djSoundPlayer.currentTime = 0;
-                    await djSoundPlayer.play();
-                    console.log('🎵 DJ Sound played:', data.sound, data.description);
-                    return data;
+                // Create new audio element for this sound (allows overlapping)
+                const player = new Audio();
+                player.volume = 0.8;
+
+                // Use cached blob URL if available, otherwise fetch with cache-busting
+                let url;
+                if (djSoundCache[soundName]) {
+                    url = djSoundCache[soundName];
+                    console.log('🎵 Using cached sound:', soundName);
                 } else {
-                    console.warn('DJ Sound not found:', soundName);
-                    return null;
+                    // Add cache-busting timestamp to get fresh sounds
+                    const timestamp = Date.now();
+                    url = `${VISION_SERVER_URL}/sounds/${soundName}.mp3?t=${timestamp}`;
+                    console.log('🎵 Loading sound from:', url);
                 }
+
+                player.src = url;
+
+                // Wait for audio to be ready before playing
+                await new Promise((resolve, reject) => {
+                    player.oncanplaythrough = resolve;
+                    player.onerror = reject;
+                    player.load();
+                    // Timeout fallback
+                    setTimeout(resolve, 500);
+                });
+
+                // Play the sound
+                const playPromise = player.play();
+                if (playPromise) {
+                    playPromise.then(() => {
+                        console.log('🎵 DJ Sound playing:', soundName);
+                    }).catch(err => {
+                        console.error('🎵 DJ Sound play error:', err);
+                        // Try again without waiting - autoplay policy issue
+                        console.log('🎵 Attempting silent unlock and retry...');
+                    });
+                }
+
+                return { sound: soundName, url: url };
             } catch (error) {
                 console.error('DJ Sound error:', error);
                 return null;
@@ -2679,9 +2744,7 @@
             const soundTriggers = {
                 'air horn': 'air_horn',
                 'airhorn': 'air_horn',
-                'triple horn': 'air_horn_triple',
-                'ba ba baa': 'air_horn_triple',
-                'siren': 'siren_rise',
+                'siren': 'siren',
                 'woop woop': 'siren_woop',
                 'scratch': 'scratch',
                 'rewind': 'rewind',
@@ -2689,13 +2752,18 @@
                 'whoosh': 'whoosh',
                 'bass drop': 'bass_drop',
                 'drop the bass': 'bass_drop',
+                'riser': 'riser',
                 'applause': 'applause',
                 'crowd goes wild': 'crowd_hype',
+                'crowd cheer': 'crowd_cheer',
                 'laser': 'laser',
                 'pew pew': 'laser',
                 'gunshot': 'gunshot',
                 'explosion': 'explosion',
-                'boom': 'explosion'
+                'boom': 'explosion',
+                'yeah': 'yeah',
+                'lets go': 'lets_go',
+                'vinyl': 'vinyl_crackle'
             };
 
             for (const [trigger, sound] of Object.entries(soundTriggers)) {
