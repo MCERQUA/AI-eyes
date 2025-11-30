@@ -366,6 +366,7 @@ tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard
 
 #### Music Tool (play_music)
 - **Tool ID**: `tool_9801kb8k61zpfkksynb8m4wztkkx`
+- **Type**: webhook
 - **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/music`
 - **Method**: GET
 - **Trigger phrases**: "play music", "play a song", "stop the music", "next track", "skip", "pause music", "turn it up", "turn it down", "what's playing", "list music", "DJ mode"
@@ -382,6 +383,15 @@ tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard
   - `duration_seconds` - track length
   - `dj_hints` - compiled info for Pi-Guy to use in DJ intros (title, duration, description, phone, ad copy, fun facts)
 - **Additional endpoint**: `/api/music/transition` (POST to queue, GET to check pending)
+
+**⚠️ Music Playback Sync (TEXT DETECTION):**
+Like DJ sounds, music playback is synced via text detection. When Pi-Guy says these trigger words, the frontend calls `syncMusicState()`:
+- "spinning up"
+- "playing"
+- "let's go"
+- "next up"
+
+This ensures music starts playing in the browser when Pi-Guy announces it, regardless of webhook response timing.
 
 #### DJ Soundboard Tool (dj_soundboard) - ⚠️ SPECIAL IMPLEMENTATION
 
