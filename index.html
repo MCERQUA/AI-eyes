@@ -2856,8 +2856,8 @@
             }
         }
 
-        // Preload common sounds on page load
-        ['air_horn', 'scratch_long', 'crowd_cheer', 'rewind', 'yeah', 'laser'].forEach(s => {
+        // Preload ALL sounds on page load for instant playback
+        ['air_horn', 'scratch_long', 'crowd_cheer', 'crowd_hype', 'rewind', 'yeah', 'laser', 'lets_go', 'bruh', 'sad_trombone', 'gunshot', 'impact', 'record_stop'].forEach(s => {
             setTimeout(() => preloadDJSound(s), 1000);
         });
 
