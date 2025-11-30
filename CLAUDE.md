@@ -198,10 +198,12 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 - manage_notes (notes/files) - webhook
 - manage_memory (long-term memory) - webhook
 - manage_jobs (scheduled tasks/cron jobs) - webhook
-- play_music (DJ music controls) - webhook
-- dj_soundboard (DJ sound effects) - webhook
+- play_music (DJ music controls) - **client** (but frontend handles playback via text detection)
+- dj_soundboard (DJ sound effects) - **client** (sounds play via frontend text detection, NOT tool response)
 - end_call (end conversation) - system
 - skip_turn (handle silence) - system
+
+**⚠️ NOTE on DJ tools:** `play_music` and `dj_soundboard` are registered as `type: client` in ElevenLabs, but actual audio playback is handled by the frontend detecting trigger words in Pi-Guy's speech. See the DJ Soundboard section below for details.
 
 ## Overview
 - **Type**: Web app with Python backend
@@ -381,33 +383,68 @@ tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard
   - `dj_hints` - compiled info for Pi-Guy to use in DJ intros (title, duration, description, phone, ad copy, fun facts)
 - **Additional endpoint**: `/api/music/transition` (POST to queue, GET to check pending)
 
-#### DJ Soundboard Tool (dj_soundboard)
+#### DJ Soundboard Tool (dj_soundboard) - ⚠️ SPECIAL IMPLEMENTATION
+
+**How DJ Sounds Actually Work (IMPORTANT!):**
+
+Unlike other tools, DJ sounds are NOT played via webhook response. Instead:
+1. Pi-Guy has a `dj_soundboard` tool (type: `client`) that he "calls" to play sounds
+2. The tool exists so Pi-Guy knows he HAS a soundboard and can reference sounds
+3. **Actual sound playback happens via TEXT DETECTION in the frontend**
+4. When Pi-Guy SPEAKS sound names (e.g., "air horn", "siren"), the frontend detects these words and plays the corresponding MP3 files
+
+**Why this approach:**
+- ElevenLabs webhook tools return data to the AGENT, not the browser
+- Client tools run in the browser but have latency issues
+- Text detection is instant and reliable - sounds play AS Pi-Guy speaks about them
+
+**Frontend Implementation (index.html):**
+```javascript
+// checkForDJSounds() scans Pi-Guy's speech for trigger words
+// Plays ALL matching sounds simultaneously (no delay - realtime!)
+// Each sound uses its own Audio element so they can overlap
+const soundTriggers = {
+    'air horn': 'air_horn',
+    'siren': 'siren',
+    'scratch': 'scratch',
+    // ... etc
+};
+```
+
+**Tool Configuration:**
 - **Tool ID**: `tool_4101kb908dbrfmttcz597n7h91ns`
-- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/dj-sound`
-- **Method**: GET
-- **Trigger phrases**: "play a sound", "air horn", "give me a horn", "hit the horn", "scratch", "siren", "applause", "drop the bass", "rewind", "soundboard"
-- **Query params**:
-  - `action` - one of: `list`, `play`
-  - `sound` - sound name to play (for play action)
-- **Storage**: MP3 files in `sounds/` directory (generated via ElevenLabs Text-to-Sound API)
-- **Available sounds** (19 total):
-  - **Air horns**: `air_horn`, `air_horn_triple` (ba-ba-baaaa!), `air_horn_long`
-  - **Sirens**: `siren_rise`, `siren_woop`
-  - **Scratches**: `scratch`, `scratch_long`
-  - **Transitions**: `rewind`, `record_stop`, `whoosh`
-  - **Impacts**: `bass_drop`, `impact`
-  - **Crowd**: `applause`, `applause_short`, `crowd_hype`
-  - **Fun**: `laser`, `vinyl_pop`, `gunshot`, `explosion`
-- **When to use** (real DJ techniques):
-  - **Air horn**: Before drops, big announcements, hype moments (dancehall/hip-hop classic)
-  - **Siren**: Building energy, getting attention, before drops
-  - **Scratch**: Transitions, hip-hop vibes, interrupting/rewinding topics
-  - **Rewind**: "Pull-up!" for replaying something, going back (Jamaican dancehall style)
-  - **Bass drop**: THE DROP! Peak moments, big reveals
-  - **Applause**: Celebrating wins, appreciation, sarcastic slow claps
-  - **Explosion**: Mind blown moments, big finales
-- **DJ Pro tip**: Use sounds strategically - a well-timed air horn hits 10x harder than random noise
-- **Generator script**: `generate_dj_sounds.py` - creates sounds using ElevenLabs Text-to-Sound API
+- **Type**: `client` (registered in ElevenLabs as client tool)
+- **Purpose**: Gives Pi-Guy knowledge of available sounds and DJ instructions
+- **Server endpoint**: `/api/dj-sound` exists but is mainly for listing sounds
+
+**Available Sounds (21 total in `sounds/` directory):**
+- **Air horns**: `air_horn`, `air_horn_long`
+- **Sirens**: `siren`, `siren_woop`
+- **Scratches**: `scratch`, `scratch_long`
+- **Transitions**: `rewind`, `record_stop`, `whoosh`, `riser`
+- **Impacts**: `bass_drop`, `impact`
+- **Crowd**: `applause`, `crowd_cheer`, `crowd_hype`
+- **Vocals**: `yeah`, `lets_go`
+- **Fun**: `laser`, `gunshot`, `explosion`, `vinyl_crackle`
+
+**Text Trigger Words (what Pi-Guy says → sound that plays):**
+- "air horn", "airhorn", "triple horn" → `air_horn`
+- "siren", "woop woop" → `siren` / `siren_woop`
+- "scratch" → `scratch`
+- "rewind", "pull up" → `rewind`
+- "bass drop", "drop the bass", "the drop" → `bass_drop`
+- "applause", "crowd goes wild", "crowd cheer" → `applause` / `crowd_hype`
+- "explosion", "boom" → `explosion`
+- "yeah", "let's go", "lets go" → `yeah` / `lets_go`
+
+**Preloading:** Common sounds are preloaded on page load for instant playback:
+```javascript
+['air_horn', 'siren', 'scratch', 'applause', 'bass_drop', 'rewind']
+```
+
+**Generator script**: `generate_dj_sounds.py` - creates sounds using ElevenLabs Text-to-Sound API
+
+**⚠️ DO NOT try to "fix" this by converting to webhook or changing the text detection approach - this is the working solution after extensive testing.**
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca

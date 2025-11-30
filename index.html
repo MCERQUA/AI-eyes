@@ -2856,12 +2856,10 @@
                 }
             }
 
-            // Play each sound with a small delay between them
-            soundsToPlay.forEach((item, index) => {
-                setTimeout(() => {
-                    console.log('🎧 DJ Sound trigger detected:', item.trigger, '->', item.sound);
-                    playDJSound(item.sound);
-                }, index * 300); // 300ms between each sound
+            // Play all sounds immediately (no delay - realtime!)
+            soundsToPlay.forEach((item) => {
+                console.log('🎧 DJ Sound trigger detected:', item.trigger, '->', item.sound);
+                playDJSound(item.sound);
             });
 
             return soundsToPlay.length > 0 ? soundsToPlay.map(s => s.sound) : null;
