@@ -429,6 +429,12 @@
             animation: wake-pulse 2s ease-in-out infinite;
         }
 
+        .wake-button.unavailable {
+            opacity: 0.3;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
         @keyframes wake-pulse {
             0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 102, 0.3); }
             50% { box-shadow: 0 0 25px rgba(0, 255, 102, 0.6); }
@@ -2549,6 +2555,11 @@
         ];
 
         window.toggleWakeWord = async function() {
+            // Don't allow toggling if already marked unavailable
+            if (wakeButton.classList.contains('unavailable')) {
+                return;
+            }
+
             if (wakeWordEnabled) {
                 stopWakeWordListener();
                 wakeWordEnabled = false;
@@ -2639,6 +2650,15 @@
                     wakeWordEnabled = false;
                     wakeButton.classList.remove('active');
                     wakeIcon.textContent = '🎤';
+                } else if (event.error === 'network') {
+                    // Speech recognition not available (common on Chromium/Pi)
+                    console.log('Speech recognition unavailable - disabling wake word');
+                    wakeWordEnabled = false;
+                    wakeButton.classList.remove('active');
+                    wakeButton.classList.add('unavailable');
+                    wakeButton.title = 'Voice activation not available in this browser';
+                    wakeIcon.textContent = '🎤';
+                    stopWakeWordListener();
                 }
             };
 
