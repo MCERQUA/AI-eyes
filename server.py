@@ -3005,6 +3005,261 @@ def serve_commercial(filename):
     return send_from_directory(COMMERCIALS_DIR, filename)
 
 
+# ===== SUNO AI SONG GENERATION =====
+GENERATED_MUSIC_DIR = Path(__file__).parent / "generated_music"
+GENERATED_MUSIC_DIR.mkdir(exist_ok=True)
+
+# Track generation jobs in progress
+suno_jobs = {}  # job_id -> {status, prompt, created_at, song_ids, etc.}
+
+SUNO_API_KEY = os.environ.get('SUNO_API_KEY', '')
+SUNO_API_BASE = "https://apibox.erweima.ai"  # Common Suno API provider
+
+@app.route('/api/suno', methods=['GET'])
+def handle_suno():
+    """
+    Generate songs using Suno AI!
+    Actions: generate, status, list, play
+    """
+    import requests
+    import time
+
+    action = request.args.get('action', 'list')
+
+    try:
+        if action == 'list':
+            # List all generated songs
+            songs = []
+            for f in GENERATED_MUSIC_DIR.iterdir():
+                if f.suffix.lower() in ['.mp3', '.wav', '.ogg', '.m4a']:
+                    songs.append({
+                        'id': f.stem,
+                        'filename': f.name,
+                        'size_bytes': f.stat().st_size,
+                        'created': f.stat().st_mtime
+                    })
+            songs.sort(key=lambda x: x['created'], reverse=True)
+            return jsonify({
+                "action": "list",
+                "count": len(songs),
+                "songs": songs[:20],  # Last 20 songs
+                "response": f"Got {len(songs)} generated tracks in the vault!"
+            })
+
+        elif action == 'generate':
+            prompt = request.args.get('prompt', '')
+            style = request.args.get('style', '')
+            title = request.args.get('title', '')
+            instrumental = request.args.get('instrumental', 'false').lower() == 'true'
+
+            if not prompt:
+                return jsonify({
+                    "action": "error",
+                    "response": "Need a prompt! Tell me what kind of song to make."
+                })
+
+            # Enhance prompt with Gemini if available
+            full_prompt = prompt
+            if style:
+                full_prompt = f"{style} style: {prompt}"
+
+            # Call Suno API to generate
+            try:
+                # Try the common API format
+                response = requests.post(
+                    f"{SUNO_API_BASE}/api/v1/generate",
+                    headers={
+                        "Authorization": f"Bearer {SUNO_API_KEY}",
+                        "Content-Type": "application/json"
+                    },
+                    json={
+                        "prompt": full_prompt,
+                        "title": title or None,
+                        "make_instrumental": instrumental,
+                        "wait_audio": False  # Don't wait - we'll poll
+                    },
+                    timeout=30
+                )
+
+                if response.status_code == 200:
+                    data = response.json()
+                    # Store job for tracking
+                    job_id = str(int(time.time()))
+                    suno_jobs[job_id] = {
+                        "status": "generating",
+                        "prompt": prompt,
+                        "created_at": time.time(),
+                        "api_response": data,
+                        "song_ids": data.get('data', {}).get('song_ids', []) or [data.get('data', {}).get('task_id')]
+                    }
+
+                    return jsonify({
+                        "action": "generating",
+                        "job_id": job_id,
+                        "response": f"COOKING! Making '{title or 'your track'}' right now. Check back in 30-60 seconds!",
+                        "estimated_time": "30-60 seconds"
+                    })
+                else:
+                    return jsonify({
+                        "action": "error",
+                        "response": f"Suno API error: {response.status_code} - {response.text[:200]}"
+                    })
+
+            except requests.exceptions.RequestException as e:
+                return jsonify({
+                    "action": "error",
+                    "response": f"Couldn't reach Suno API: {str(e)}"
+                })
+
+        elif action == 'status':
+            job_id = request.args.get('job_id') or request.args.get('song_id')
+
+            if not job_id:
+                # Return status of most recent job
+                if suno_jobs:
+                    job_id = max(suno_jobs.keys())
+                else:
+                    return jsonify({
+                        "action": "status",
+                        "status": "no_jobs",
+                        "response": "No songs cooking right now."
+                    })
+
+            if job_id in suno_jobs:
+                job = suno_jobs[job_id]
+                # Check if enough time has passed (songs usually take 30-60s)
+                elapsed = time.time() - job['created_at']
+
+                if elapsed < 30:
+                    return jsonify({
+                        "action": "status",
+                        "status": "generating",
+                        "elapsed_seconds": int(elapsed),
+                        "response": f"Still cooking! About {30 - int(elapsed)} more seconds..."
+                    })
+
+                # Try to fetch the completed song
+                try:
+                    song_ids = job.get('song_ids', [])
+                    if song_ids:
+                        check_response = requests.get(
+                            f"{SUNO_API_BASE}/api/v1/generate/record",
+                            headers={"Authorization": f"Bearer {SUNO_API_KEY}"},
+                            params={"taskId": song_ids[0]},
+                            timeout=15
+                        )
+
+                        if check_response.status_code == 200:
+                            check_data = check_response.json()
+                            songs = check_data.get('data', {}).get('songs', []) or check_data.get('data', {}).get('results', [])
+
+                            if songs:
+                                # Download the song
+                                for song in songs:
+                                    audio_url = song.get('audio_url') or song.get('url')
+                                    if audio_url:
+                                        song_id = song.get('id', job_id)
+                                        save_path = GENERATED_MUSIC_DIR / f"{song_id}.mp3"
+
+                                        audio_resp = requests.get(audio_url, timeout=60)
+                                        if audio_resp.status_code == 200:
+                                            save_path.write_bytes(audio_resp.content)
+                                            job['status'] = 'complete'
+                                            job['song_file'] = str(save_path)
+
+                                            return jsonify({
+                                                "action": "complete",
+                                                "status": "complete",
+                                                "song_id": song_id,
+                                                "title": song.get('title', 'Your Custom Track'),
+                                                "url": f"/generated_music/{song_id}.mp3",
+                                                "response": f"DONE! '{song.get('title', 'Your track')}' is ready to spin!"
+                                            })
+
+                                return jsonify({
+                                    "action": "status",
+                                    "status": "processing",
+                                    "response": "Almost there! Song is finalizing..."
+                                })
+                            else:
+                                return jsonify({
+                                    "action": "status",
+                                    "status": "generating",
+                                    "response": "Still generating... hang tight!"
+                                })
+
+                except Exception as e:
+                    print(f"Status check error: {e}")
+
+                return jsonify({
+                    "action": "status",
+                    "status": "generating",
+                    "elapsed_seconds": int(elapsed),
+                    "response": f"Still working on it... {int(elapsed)}s elapsed"
+                })
+            else:
+                return jsonify({
+                    "action": "status",
+                    "status": "not_found",
+                    "response": "Can't find that job. Try listing songs instead."
+                })
+
+        elif action == 'play':
+            song_id = request.args.get('song_id')
+
+            if not song_id:
+                # Play most recent generated song
+                songs = sorted(GENERATED_MUSIC_DIR.iterdir(), key=lambda x: x.stat().st_mtime, reverse=True)
+                if songs:
+                    song_id = songs[0].stem
+                else:
+                    return jsonify({
+                        "action": "error",
+                        "response": "No generated songs to play!"
+                    })
+
+            # Find the song file
+            song_file = GENERATED_MUSIC_DIR / f"{song_id}.mp3"
+            if not song_file.exists():
+                # Try without extension
+                matches = list(GENERATED_MUSIC_DIR.glob(f"{song_id}*"))
+                if matches:
+                    song_file = matches[0]
+                else:
+                    return jsonify({
+                        "action": "error",
+                        "response": f"Can't find song {song_id}"
+                    })
+
+            return jsonify({
+                "action": "play",
+                "song_id": song_file.stem,
+                "url": f"/generated_music/{song_file.name}",
+                "response": f"Spinning up the custom track!"
+            })
+
+        else:
+            return jsonify({
+                "action": "error",
+                "response": f"Unknown action: {action}. Use generate, status, list, or play."
+            })
+
+    except Exception as e:
+        print(f"Suno error: {e}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({
+            "action": "error",
+            "response": f"Song generation error: {str(e)}"
+        })
+
+
+@app.route('/generated_music/<path:filename>')
+def serve_generated_music(filename):
+    """Serve generated music files"""
+    return send_from_directory(GENERATED_MUSIC_DIR, filename)
+
+
 # ===== DJ SOUNDBOARD =====
 SOUNDS_DIR = Path(__file__).parent / "sounds"
 
