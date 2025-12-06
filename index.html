@@ -2269,6 +2269,15 @@
                                     pauseMusicPlayback();
                                 }
 
+                                // Detect commercial break keywords
+                                const shouldPlayCommercial =
+                                    msg.includes('commercial') || msg.includes('sponsor') ||
+                                    msg.includes('ad break') || msg.includes('word from our');
+                                if (shouldPlayCommercial) {
+                                    console.log('📺 Commercial break detected, fetching ad...');
+                                    playCommercial();
+                                }
+
                                 // Track agent response for usage limits
                                 if (clerkUser) {
                                     try {
@@ -3259,7 +3268,53 @@
         // Clear last synced track after 30 seconds (allow re-sync to same track later)
         setInterval(() => { lastSyncedTrack = null; }, 30000);
 
+        // ===== COMMERCIALS SYSTEM =====
+        const commercialPlayer = new Audio();
+        let commercialPlaying = false;
+
+        async function playCommercial() {
+            if (commercialPlaying) {
+                console.log('📺 Commercial already playing, skipping');
+                return;
+            }
+
+            try {
+                // Pause music if playing
+                const wasMusicPlaying = musicPlaying;
+                if (wasMusicPlaying) {
+                    musicPlayer.pause();
+                    console.log('📺 Paused music for commercial break');
+                }
+
+                const response = await fetch(`${VISION_SERVER_URL}/api/commercials?action=play`);
+                const data = await response.json();
+                console.log('📺 Commercial response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    commercialPlaying = true;
+                    commercialPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    commercialPlayer.volume = 1.0;  // Full volume for commercials
+                    commercialPlayer.play();
+                    console.log('📺 Playing commercial:', data.commercial?.title);
+
+                    // Resume music when commercial ends
+                    commercialPlayer.onended = () => {
+                        commercialPlaying = false;
+                        console.log('📺 Commercial ended');
+                        if (wasMusicPlaying) {
+                            musicPlayer.play();
+                            console.log('📺 Resumed music after commercial');
+                        }
+                    };
+                }
+            } catch (error) {
+                console.error('📺 Commercial playback failed:', error);
+                commercialPlaying = false;
+            }
+        }
+
         // Expose for console testing
+        window.playCommercial = playCommercial;
         window.playMusic = (track) => playMusicFromServer('play', track);
         window.stopMusic = () => playMusicFromServer('stop');
         window.listMusic = async () => {

@@ -206,6 +206,8 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 | tool_6801kb79mrdwfycsawytjq0gx1ck | manage_jobs | webhook |
 | tool_9801kb8k61zpfkksynb8m4wztkkx | play_music | webhook |
 | tool_4101kb908dbrfmttcz597n7h91ns | dj_soundboard | client |
+| tool_8101kbp5rzccfv4r46zrp6wt356g | generate_song | webhook |
+| tool_6601kbpfyjnpeayrjefkga7mgw0n | play_commercial | webhook |
 | end_call | (built-in) | system |
 | skip_turn | (built-in) | system |
 
@@ -255,6 +257,7 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ├── pi_notes/           # Pi-Guy's personal notes (created by manage_notes tool)
 ├── music/              # MP3 files for DJ Pi-Guy to play
 │   └── music_metadata.json  # Track metadata (duration, description, fun facts, ad copy)
+├── commercials/        # Commercial/sponsor audio files for DJ-FoamBot
 ├── sounds/             # DJ soundboard effects (air horns, sirens, scratches, etc.)
 ├── wake_words/         # Porcupine wake word models (.ppn files for Pi)
 ├── wake_word_listener.py   # Always-on wake word detection (for Pi)
@@ -452,6 +455,26 @@ This function:
 3. Plays that exact track
 4. Has 2-second debouncing to prevent duplicate calls
 
+#### Commercials Tool (play_commercial)
+- **Tool ID**: `tool_6601kbpfyjnpeayrjefkga7mgw0n`
+- **Type**: webhook
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/commercials`
+- **Method**: GET
+- **Trigger phrases**: "commercial", "sponsors", "ad break", "word from our sponsors"
+- **Query params**:
+  - `action` - one of: `list`, `play`, `status`
+- **Storage**: MP3 files in `commercials/` directory
+- **How it works**:
+  1. Pi-Guy says "commercial" or "sponsors" or "word from our sponsors"
+  2. Frontend detects these keywords via text detection
+  3. Frontend calls `/api/commercials?action=play`
+  4. Server rotates through commercials and returns the next one
+  5. Frontend pauses music, plays commercial, then resumes music
+- **DJ Workflow**:
+  - Every 3 songs, Pi-Guy announces "word from our sponsors"
+  - Commercial plays automatically
+  - Pi-Guy announces the next song after commercial ends
+
 #### DJ Soundboard Tool (dj_soundboard) - ⚠️ SPECIAL IMPLEMENTATION
 
 **How DJ Sounds Actually Work (IMPORTANT!):**
@@ -632,6 +655,8 @@ The listener runs separately from the browser, detecting "Pi Guy" etc. and trigg
 | `/api/music/transition` | POST | Queue DJ transition (frontend signals song ending) |
 | `/api/music/transition` | GET | Check for pending DJ transition |
 | `/api/music/upload` | POST | Upload a music file |
+| `/api/commercials` | GET | Commercial playback (`?action=list/play/status`) |
+| `/commercials/<filename>` | GET | Serve commercial audio file |
 | `/api/wake-trigger` | POST | Wake word listener triggers this |
 | `/api/wake-trigger` | GET | Frontend polls for wake triggers |
 | `/api/wake-trigger/stream` | GET | SSE stream for real-time wake triggers |

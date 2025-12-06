@@ -2910,6 +2910,101 @@ def upload_music():
     })
 
 
+# ===== COMMERCIALS SYSTEM =====
+COMMERCIALS_DIR = Path(__file__).parent / "commercials"
+
+# Track which commercial to play next (rotate through them)
+commercial_state = {
+    "last_played_index": -1,
+    "play_count": 0  # Track how many times commercials have been played
+}
+
+def get_commercials():
+    """Get list of commercial files"""
+    commercials = []
+    if not COMMERCIALS_DIR.exists():
+        return commercials
+
+    for f in COMMERCIALS_DIR.iterdir():
+        if f.suffix.lower() in ['.mp3', '.wav', '.ogg', '.m4a']:
+            name = f.stem.replace('-', ' ').replace('_', ' ')
+            commercials.append({
+                'filename': f.name,
+                'name': f.stem,
+                'title': name,
+                'format': f.suffix[1:].lower(),
+                'size_bytes': f.stat().st_size
+            })
+    return sorted(commercials, key=lambda x: x['name'])
+
+
+@app.route('/api/commercials', methods=['GET'])
+def handle_commercials():
+    """
+    Handle commercial playback for DJ-FoamBot.
+    Like a real radio station - plays sponsor messages!
+    """
+    action = request.args.get('action', 'play')
+
+    try:
+        if action == 'list':
+            commercials = get_commercials()
+            return jsonify({
+                "action": "list",
+                "count": len(commercials),
+                "commercials": commercials,
+                "response": f"Got {len(commercials)} commercials ready for air time!"
+            })
+
+        elif action == 'play':
+            commercials = get_commercials()
+            if not commercials:
+                return jsonify({
+                    "action": "error",
+                    "response": "No commercials available! We're running ad-free today."
+                })
+
+            # Rotate through commercials
+            commercial_state["last_played_index"] = (commercial_state["last_played_index"] + 1) % len(commercials)
+            commercial_state["play_count"] += 1
+
+            selected = commercials[commercial_state["last_played_index"]]
+
+            return jsonify({
+                "action": "play",
+                "commercial": selected,
+                "url": f"/commercials/{selected['filename']}",
+                "response": f"Playing commercial: {selected['title']}. Stand by for our sponsors!",
+                "dj_hint": f"Commercial break! Playing: {selected['title']}. Let this play through, then hype up the next song!"
+            })
+
+        elif action == 'status':
+            return jsonify({
+                "action": "status",
+                "commercials_played": commercial_state["play_count"],
+                "response": f"Played {commercial_state['play_count']} commercials this session."
+            })
+
+        else:
+            return jsonify({
+                "action": "error",
+                "response": f"Unknown action: {action}. Use 'play' or 'list'."
+            })
+
+    except Exception as e:
+        print(f"Commercial error: {e}")
+        return jsonify({
+            "action": "error",
+            "response": f"Commercial break malfunction: {str(e)}"
+        })
+
+
+@app.route('/commercials/<path:filename>')
+def serve_commercial(filename):
+    """Serve commercial audio files"""
+    return send_from_directory(COMMERCIALS_DIR, filename)
+
+
 # ===== DJ SOUNDBOARD =====
 SOUNDS_DIR = Path(__file__).parent / "sounds"
 
