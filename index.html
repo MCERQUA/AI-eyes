@@ -2282,7 +2282,7 @@
                                     msg.includes('quick break') || msg.includes('brought to you') ||
                                     msg.includes('from our sponsor') || msg.includes('message from') ||
                                     msg.includes('stand by for') || msg.includes('paying the bills');
-                                if (shouldPlayCommercial && !commercialPlaying) {
+                                if (shouldPlayCommercial && typeof playCommercial === 'function') {
                                     console.log('📺 Commercial break detected via text, fetching ad...');
                                     playCommercial();
                                 }
