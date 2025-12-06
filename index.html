@@ -2179,6 +2179,12 @@
                                 syncMusicState();
                             }
 
+                            // Commercial tool - play the commercial!
+                            if (toolName === 'play_commercial') {
+                                console.log('📺 Commercial tool called! Playing commercial...');
+                                playCommercial();
+                            }
+
                             if (message.source === 'user' && message.message) {
                                 showTranscription(message.message, true);
                             } else if (message.source === 'ai' && message.message) {
@@ -2274,9 +2280,10 @@
                                     msg.includes('commercial') || msg.includes('sponsor') ||
                                     msg.includes('ad break') || msg.includes('word from our') ||
                                     msg.includes('quick break') || msg.includes('brought to you') ||
-                                    msg.includes('from our sponsor') || msg.includes('message from');
-                                if (shouldPlayCommercial) {
-                                    console.log('📺 Commercial break detected, fetching ad...');
+                                    msg.includes('from our sponsor') || msg.includes('message from') ||
+                                    msg.includes('stand by for') || msg.includes('paying the bills');
+                                if (shouldPlayCommercial && !commercialPlaying) {
+                                    console.log('📺 Commercial break detected via text, fetching ad...');
                                     playCommercial();
                                 }
 
