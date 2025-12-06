@@ -2272,7 +2272,9 @@
                                 // Detect commercial break keywords
                                 const shouldPlayCommercial =
                                     msg.includes('commercial') || msg.includes('sponsor') ||
-                                    msg.includes('ad break') || msg.includes('word from our');
+                                    msg.includes('ad break') || msg.includes('word from our') ||
+                                    msg.includes('quick break') || msg.includes('brought to you') ||
+                                    msg.includes('from our sponsor') || msg.includes('message from');
                                 if (shouldPlayCommercial) {
                                     console.log('📺 Commercial break detected, fetching ad...');
                                     playCommercial();
