@@ -429,12 +429,6 @@
             animation: wake-pulse 2s ease-in-out infinite;
         }
 
-        .wake-button.unavailable {
-            opacity: 0.3;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
         @keyframes wake-pulse {
             0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 102, 0.3); }
             50% { box-shadow: 0 0 25px rgba(0, 255, 102, 0.6); }
@@ -2555,11 +2549,6 @@
         ];
 
         window.toggleWakeWord = async function() {
-            // Don't allow toggling if already marked unavailable
-            if (wakeButton.classList.contains('unavailable')) {
-                return;
-            }
-
             if (wakeWordEnabled) {
                 stopWakeWordListener();
                 wakeWordEnabled = false;
@@ -2652,13 +2641,13 @@
                     wakeIcon.textContent = '🎤';
                 } else if (event.error === 'network') {
                     // Speech recognition not available (common on Chromium/Pi)
-                    console.log('Speech recognition unavailable - disabling wake word');
-                    wakeWordEnabled = false;
-                    wakeButton.classList.remove('active');
-                    wakeButton.classList.add('unavailable');
-                    wakeButton.title = 'Voice activation not available in this browser';
-                    wakeIcon.textContent = '🎤';
+                    // Don't disable the button - SSE wake word will handle it!
+                    console.log('Browser speech recognition unavailable - using server-side wake word (SSE)');
                     stopWakeWordListener();
+                    // Make sure SSE is running
+                    if (!sseWakeWordEnabled) {
+                        startSSEWakeWordListener();
+                    }
                 }
             };
 
@@ -2682,6 +2671,94 @@
                 wakeWordRecognition = null;
             }
         }
+
+        // ===== SERVER-SIDE WAKE WORD (SSE) =====
+        // Fallback for Chromium/Pi where Web Speech API doesn't work
+        // Listens for triggers from wake_word_listener.py via Server-Sent Events
+        let sseWakeWordEnabled = false;
+        let sseEventSource = null;
+        let sseWakeWordTriggered = false;
+
+        function startSSEWakeWordListener() {
+            if (sseEventSource) {
+                console.log('SSE wake word already running');
+                return true;
+            }
+
+            console.log('🎤 Starting SSE wake word listener...');
+
+            try {
+                sseEventSource = new EventSource(`${VISION_SERVER_URL}/api/wake-trigger/stream`);
+
+                sseEventSource.onopen = () => {
+                    console.log('✓ SSE wake word connected');
+                    sseWakeWordEnabled = true;
+                };
+
+                sseEventSource.onmessage = (event) => {
+                    // Don't trigger if already in conversation or connecting
+                    if (conversation || isConnecting || sseWakeWordTriggered) {
+                        console.log('🎤 Wake trigger ignored (already active)');
+                        return;
+                    }
+
+                    try {
+                        const trigger = JSON.parse(event.data);
+                        console.log('🎤 Wake word triggered via SSE:', trigger.keyword);
+
+                        // Set flag immediately to prevent double triggers
+                        sseWakeWordTriggered = true;
+
+                        // Start conversation
+                        setTimeout(() => {
+                            toggleConversation();
+                        }, 300);
+
+                        // Reset trigger flag after conversation would have started
+                        setTimeout(() => {
+                            sseWakeWordTriggered = false;
+                        }, 3000);
+
+                    } catch (e) {
+                        console.log('SSE parse error:', e);
+                    }
+                };
+
+                sseEventSource.onerror = (event) => {
+                    console.log('SSE wake word error, reconnecting...');
+                    // EventSource will auto-reconnect
+                };
+
+                return true;
+            } catch (e) {
+                console.log('Could not start SSE wake word:', e);
+                return false;
+            }
+        }
+
+        function stopSSEWakeWordListener() {
+            if (sseEventSource) {
+                sseEventSource.close();
+                sseEventSource = null;
+            }
+            sseWakeWordEnabled = false;
+            console.log('SSE wake word stopped');
+        }
+
+        // Auto-start SSE wake word listener on page load
+        // This works on ALL browsers including Chromium on Pi
+        // The Python wake_word_listener.py handles the actual speech recognition
+        window.addEventListener('load', () => {
+            // Give page time to fully load, then start SSE listener
+            setTimeout(() => {
+                console.log('🎤 Attempting to connect SSE wake word listener...');
+                startSSEWakeWordListener();
+            }, 2000);
+        });
+
+        // Expose for debugging
+        window.startSSEWakeWord = startSSEWakeWordListener;
+        window.stopSSEWakeWord = stopSSEWakeWordListener;
 
         // Restart wake word listener when conversation ends (if enabled)
         const originalToggleConversation = window.toggleConversation;

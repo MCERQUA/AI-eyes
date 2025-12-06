@@ -3074,6 +3074,105 @@ def handle_dj_sound():
     return jsonify({'error': 'Unknown action'}), 400
 
 
+# ===== WAKE WORD TRIGGER =====
+# Used by wake_word_listener.py to trigger conversations in the browser
+
+# Store pending wake triggers (simple in-memory queue)
+wake_trigger_queue = []
+wake_trigger_last_id = 0
+
+@app.route('/api/wake-trigger', methods=['POST', 'GET'])
+def wake_trigger():
+    """
+    POST: Wake word listener calls this when keyword detected
+    GET: Frontend polls this to check for pending triggers
+    """
+    global wake_trigger_queue, wake_trigger_last_id
+
+    if request.method == 'POST':
+        # Wake word detected - add to queue
+        data = request.get_json() or {}
+        keyword = data.get('keyword', 'unknown')
+        timestamp = data.get('timestamp', time.time())
+
+        wake_trigger_last_id += 1
+        trigger = {
+            'id': wake_trigger_last_id,
+            'keyword': keyword,
+            'timestamp': timestamp,
+            'created_at': datetime.now().isoformat()
+        }
+        wake_trigger_queue.append(trigger)
+
+        # Keep only last 10 triggers
+        if len(wake_trigger_queue) > 10:
+            wake_trigger_queue = wake_trigger_queue[-10:]
+
+        print(f"🎤 Wake word triggered: {keyword}")
+        return jsonify({'status': 'triggered', 'trigger': trigger})
+
+    else:
+        # Frontend polling for triggers
+        last_id = request.args.get('last_id', 0, type=int)
+
+        # Find triggers newer than last_id
+        new_triggers = [t for t in wake_trigger_queue if t['id'] > last_id]
+
+        if new_triggers:
+            return jsonify({
+                'triggered': True,
+                'triggers': new_triggers,
+                'last_id': new_triggers[-1]['id'] if new_triggers else last_id
+            })
+        else:
+            return jsonify({
+                'triggered': False,
+                'triggers': [],
+                'last_id': wake_trigger_last_id
+            })
+
+
+@app.route('/api/wake-trigger/stream')
+def wake_trigger_stream():
+    """
+    Server-Sent Events stream for real-time wake word notifications.
+    Frontend can connect once and receive push notifications.
+    """
+    from flask import Response
+
+    def generate():
+        last_id = 0
+        while True:
+            # Check for new triggers
+            new_triggers = [t for t in wake_trigger_queue if t['id'] > last_id]
+            if new_triggers:
+                last_id = new_triggers[-1]['id']
+                for trigger in new_triggers:
+                    yield f"data: {json.dumps(trigger)}\n\n"
+
+            # Send heartbeat every 15 seconds to keep connection alive
+            yield f": heartbeat\n\n"
+            time.sleep(0.5)  # Check every 500ms
+
+    return Response(
+        generate(),
+        mimetype='text/event-stream',
+        headers={
+            'Cache-Control': 'no-cache',
+            'Connection': 'keep-alive',
+            'X-Accel-Buffering': 'no'  # Disable nginx buffering
+        }
+    )
+
+
+@app.route('/api/wake-trigger/clear', methods=['POST'])
+def wake_trigger_clear():
+    """Clear all pending wake triggers"""
+    global wake_trigger_queue
+    wake_trigger_queue = []
+    return jsonify({'status': 'cleared'})
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print(f"Starting Pi-Guy Vision Server on port {port}")
@@ -3083,4 +3182,5 @@ if __name__ == '__main__':
     print(f"Command endpoint: http://localhost:{port}/api/command")
     print(f"Memory endpoint: http://localhost:{port}/api/memory")
     print(f"DJ Sound endpoint: http://localhost:{port}/api/dj-sound")
+    print(f"Wake Trigger endpoint: http://localhost:{port}/api/wake-trigger")
     app.run(host='0.0.0.0', port=port, debug=True)

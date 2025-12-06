@@ -256,6 +256,8 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ├── music/              # MP3 files for DJ Pi-Guy to play
 │   └── music_metadata.json  # Track metadata (duration, description, fun facts, ad copy)
 ├── sounds/             # DJ soundboard effects (air horns, sirens, scratches, etc.)
+├── wake_words/         # Porcupine wake word models (.ppn files for Pi)
+├── wake_word_listener.py   # Always-on wake word detection (for Pi)
 ├── generate_dj_sounds.py   # Script to generate DJ sounds via ElevenLabs API
 ├── memory_docs.json    # Maps memory names to ElevenLabs document IDs (not in git)
 ├── job_runner.sh       # Cron script to execute pending jobs
@@ -539,12 +541,32 @@ const soundTriggers = {
 - **Keyboard shortcuts**: Space/Enter to toggle conversation, Escape to end
 
 ### Wake Word Activation
-- **Wake words**: "Pi Guy", "Hey Pi Guy", "AI Guy", "Hey AI", "Hi Guy"
-- **Click mic button** to enable/disable wake word listening
+- **Wake words**: "Pi Guy", "Hey Pi Guy", "AI Guy", "Hey AI", "Hi Guy", "My Guy"
+- **Two detection methods**:
+  1. **Browser Web Speech API** - works in Chrome on desktop
+  2. **Porcupine (Picovoice)** - works on Raspberry Pi via Python script
 - **Always-on listening** - starts conversation hands-free when wake word detected
-- **Auto-restarts** after conversation ends (if enabled)
-- **800ms delay** after detection to release mic before starting conversation
-- Uses browser's Web Speech API (Chrome recommended)
+- **Auto-restarts** after conversation ends
+- **Server-Sent Events** - Python listener triggers browser via SSE
+
+#### Pi/Chromium Wake Word Setup
+Since Chromium doesn't support Web Speech API properly, we use Porcupine:
+```bash
+# Install on Pi
+pip3 install pvporcupine pvrecorder
+
+# Get free API key at https://console.picovoice.ai/
+# Add to .env: PICOVOICE_ACCESS_KEY=xxx
+
+# Create custom wake words at console.picovoice.ai
+# Download .ppn files for Raspberry Pi
+# Place in wake_words/ directory
+
+# Run the listener
+python3 wake_word_listener.py
+```
+
+The listener runs separately from the browser, detecting "Pi Guy" etc. and triggering the conversation via SSE.
 
 ### Vision (Camera)
 - **Camera button** with live preview inside the button
@@ -610,6 +632,10 @@ const soundTriggers = {
 | `/api/music/transition` | POST | Queue DJ transition (frontend signals song ending) |
 | `/api/music/transition` | GET | Check for pending DJ transition |
 | `/api/music/upload` | POST | Upload a music file |
+| `/api/wake-trigger` | POST | Wake word listener triggers this |
+| `/api/wake-trigger` | GET | Frontend polls for wake triggers |
+| `/api/wake-trigger/stream` | GET | SSE stream for real-time wake triggers |
+| `/api/wake-trigger/clear` | POST | Clear pending wake triggers |
 
 ## Starting the Server
 
