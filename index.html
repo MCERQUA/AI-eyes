@@ -2256,6 +2256,8 @@
                                     msg.includes('dropping') || msg.includes('fire up');
 
                                 if (shouldSyncMusic) {
+                                    // Clear lastSyncedTrack to allow switching to new track
+                                    lastSyncedTrack = null;
                                     // Use SYNC action - gets the reserved track WITHOUT selecting a new one
                                     console.log('🎵 Music detected, syncing with server (NOT selecting new track)...');
                                     syncMusicWithServer();
@@ -3219,6 +3221,13 @@
                         return;
                     }
                     lastSyncedTrack = data.track.filename;
+
+                    // Stop current track first (ensures clean switch mid-song)
+                    if (musicPlaying) {
+                        console.log('🎵 Stopping current track to switch songs...');
+                        musicPlayer.pause();
+                        musicPlayer.currentTime = 0;
+                    }
 
                     // Play the track!
                     currentTrack = data.track;
