@@ -3487,14 +3487,19 @@ def wake_trigger_stream():
     """
     Server-Sent Events stream for real-time wake word notifications.
     Frontend can connect once and receive push notifications.
+    Only sends triggers that happen AFTER the client connects.
     """
     from flask import Response
 
     def generate():
-        last_id = 0
+        # Start with current max ID so we only get NEW triggers after connecting
+        last_id = max([t['id'] for t in wake_trigger_queue], default=0)
+        connect_time = time.time()
+
         while True:
-            # Check for new triggers
-            new_triggers = [t for t in wake_trigger_queue if t['id'] > last_id]
+            # Check for new triggers (only those with ID > last_id AND created after we connected)
+            new_triggers = [t for t in wake_trigger_queue
+                          if t['id'] > last_id and t.get('timestamp', 0) > connect_time]
             if new_triggers:
                 last_id = new_triggers[-1]['id']
                 for trigger in new_triggers:
