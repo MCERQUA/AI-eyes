@@ -2765,14 +2765,26 @@
             console.log('SSE wake word stopped');
         }
 
-        // Auto-start SSE wake word listener on page load
-        // This works on ALL browsers including Chromium on Pi
-        // The Python wake_word_listener.py handles the actual speech recognition
+        // Auto-start wake word listeners on page load
         window.addEventListener('load', () => {
-            // Give page time to fully load, then start SSE listener
+            // Give page time to fully load, then start listeners
             setTimeout(() => {
+                // Start SSE listener (for Pi's Porcupine detection)
                 console.log('🎤 Attempting to connect SSE wake word listener...');
                 startSSEWakeWordListener();
+
+                // Also start browser's Web Speech API listener (for laptop/desktop)
+                console.log('🎤 Auto-starting browser wake word listener...');
+                const started = startWakeWordListener();
+                if (started) {
+                    wakeWordEnabled = true;
+                    const wakeBtn = document.getElementById('wake-button');
+                    if (wakeBtn) {
+                        wakeBtn.classList.add('active');
+                        wakeBtn.textContent = '🎤 Listening...';
+                    }
+                    console.log('✓ Browser wake word listener started');
+                }
             }, 2000);
         });
 
