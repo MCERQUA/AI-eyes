@@ -3008,42 +3008,159 @@ def serve_commercial(filename):
 # ===== SUNO AI SONG GENERATION =====
 GENERATED_MUSIC_DIR = Path(__file__).parent / "generated_music"
 GENERATED_MUSIC_DIR.mkdir(exist_ok=True)
+GENERATED_METADATA_FILE = GENERATED_MUSIC_DIR / "generated_metadata.json"
 
 # Track generation jobs in progress
 suno_jobs = {}  # job_id -> {status, prompt, created_at, song_ids, etc.}
 
+# Track which generated song to play next (for shuffle/rotation)
+generated_music_state = {
+    "current_index": -1,
+    "shuffle": False,
+    "last_played": None
+}
+
 SUNO_API_KEY = os.environ.get('SUNO_API_KEY', '')
 SUNO_API_BASE = "https://apibox.erweima.ai"  # Common Suno API provider
+
+
+def load_generated_metadata():
+    """Load metadata for generated songs"""
+    if GENERATED_METADATA_FILE.exists():
+        try:
+            with open(GENERATED_METADATA_FILE, 'r') as f:
+                return json.load(f)
+        except:
+            return {}
+    return {}
+
+
+def save_generated_metadata(metadata):
+    """Save metadata for generated songs"""
+    with open(GENERATED_METADATA_FILE, 'w') as f:
+        json.dump(metadata, f, indent=2)
+
+
+def get_generated_songs_with_metadata():
+    """Get all generated songs with their metadata"""
+    metadata = load_generated_metadata()
+    songs = []
+
+    for f in GENERATED_MUSIC_DIR.iterdir():
+        if f.suffix.lower() in ['.mp3', '.wav', '.ogg', '.m4a']:
+            song_meta = metadata.get(f.name, {})
+            songs.append({
+                'id': f.stem,
+                'filename': f.name,
+                'name': f.stem,
+                'title': song_meta.get('title', f'Generated Track {f.stem[:8]}'),
+                'prompt': song_meta.get('prompt', 'Unknown'),
+                'description': song_meta.get('description', 'AI-generated track'),
+                'made_for': song_meta.get('made_for'),
+                'style': song_meta.get('style'),
+                'created_date': song_meta.get('created_date'),
+                'fun_facts': song_meta.get('fun_facts', []),
+                'size_bytes': f.stat().st_size,
+                'created': f.stat().st_mtime
+            })
+
+    songs.sort(key=lambda x: x['created'], reverse=True)
+    return songs
+
 
 @app.route('/api/suno', methods=['GET'])
 def handle_suno():
     """
-    Generate songs using Suno AI!
-    Actions: generate, status, list, play
+    AI-Generated Songs Playlist!
+    Actions: list, play, skip, status, generate
+    Works just like play_music but for AI-generated tracks.
     """
     import requests
     import time
+    import random
 
     action = request.args.get('action', 'list')
 
     try:
         if action == 'list':
-            # List all generated songs
-            songs = []
-            for f in GENERATED_MUSIC_DIR.iterdir():
-                if f.suffix.lower() in ['.mp3', '.wav', '.ogg', '.m4a']:
-                    songs.append({
-                        'id': f.stem,
-                        'filename': f.name,
-                        'size_bytes': f.stat().st_size,
-                        'created': f.stat().st_mtime
-                    })
-            songs.sort(key=lambda x: x['created'], reverse=True)
+            songs = get_generated_songs_with_metadata()
             return jsonify({
                 "action": "list",
                 "count": len(songs),
-                "songs": songs[:20],  # Last 20 songs
-                "response": f"Got {len(songs)} generated tracks in the vault!"
+                "songs": songs,
+                "response": f"Got {len(songs)} AI-generated tracks in the vault!",
+                "dj_hints": "These are custom tracks made by Suno AI - each one unique!"
+            })
+
+        elif action == 'play':
+            track = request.args.get('track', '')
+            songs = get_generated_songs_with_metadata()
+
+            if not songs:
+                return jsonify({
+                    "action": "error",
+                    "response": "No AI-generated songs yet! Want me to make one?"
+                })
+
+            selected = None
+
+            if track:
+                # Find matching track
+                track_lower = track.lower()
+                for s in songs:
+                    if track_lower in s['title'].lower() or track_lower in s['filename'].lower() or track_lower in s['id'].lower():
+                        selected = s
+                        break
+                if not selected:
+                    return jsonify({
+                        "action": "error",
+                        "response": f"Can't find generated track matching '{track}'. Try 'list' to see what I have."
+                    })
+            else:
+                # Pick next or random
+                if generated_music_state["shuffle"]:
+                    selected = random.choice(songs)
+                else:
+                    generated_music_state["current_index"] = (generated_music_state["current_index"] + 1) % len(songs)
+                    selected = songs[generated_music_state["current_index"]]
+
+            generated_music_state["last_played"] = selected['id']
+
+            # Build DJ hints
+            dj_hints = f"Title: {selected['title']}"
+            if selected.get('prompt') and selected['prompt'] != 'Unknown':
+                dj_hints += f" | Made from prompt: {selected['prompt']}"
+            if selected.get('made_for'):
+                dj_hints += f" | Made for: {selected['made_for']}"
+            if selected.get('fun_facts'):
+                dj_hints += f" | Fun fact: {random.choice(selected['fun_facts'])}"
+
+            return jsonify({
+                "action": "play",
+                "track": selected,
+                "url": f"/generated_music/{selected['filename']}",
+                "dj_hints": dj_hints,
+                "response": f"Spinning up '{selected['title']}' - fresh from the AI studio!"
+            })
+
+        elif action == 'skip' or action == 'next':
+            songs = get_generated_songs_with_metadata()
+            if not songs:
+                return jsonify({"action": "error", "response": "No generated songs to skip to!"})
+
+            if generated_music_state["shuffle"]:
+                selected = random.choice(songs)
+            else:
+                generated_music_state["current_index"] = (generated_music_state["current_index"] + 1) % len(songs)
+                selected = songs[generated_music_state["current_index"]]
+
+            generated_music_state["last_played"] = selected['id']
+
+            return jsonify({
+                "action": "play",
+                "track": selected,
+                "url": f"/generated_music/{selected['filename']}",
+                "response": f"Next up from the AI vault: '{selected['title']}'!"
             })
 
         elif action == 'generate':

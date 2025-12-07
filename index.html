@@ -1803,7 +1803,7 @@
         async function playGeneratedSong(songId) {
             try {
                 const url = songId
-                    ? `${VISION_SERVER_URL}/api/suno?action=play&song_id=${songId}`
+                    ? `${VISION_SERVER_URL}/api/suno?action=play&track=${songId}`
                     : `${VISION_SERVER_URL}/api/suno?action=play`;
                 const response = await fetch(url);
                 const data = await response.json();
@@ -1816,17 +1816,43 @@
                     musicButton.classList.add('playing');
                     playPauseBtn.textContent = '⏸';
                     nowPlaying.classList.add('visible');
-                    trackName.textContent = data.title || 'Generated Track';
-                    console.log('🎵 Playing generated song:', data.song_id);
+                    trackName.textContent = data.track?.title || 'Generated Track';
+                    currentTrack = data.track;
+                    console.log('🎵 Playing generated song:', data.track?.title);
                 }
             } catch (error) {
                 console.error('🎵 Generated song playback failed:', error);
             }
         }
 
-        // Expose globally for tool handlers
+        async function skipGeneratedSong() {
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/suno?action=skip`);
+                const data = await response.json();
+                console.log('🎵 Skip generated song response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    trackName.textContent = data.track?.title || 'Generated Track';
+                    currentTrack = data.track;
+                }
+            } catch (error) {
+                console.error('🎵 Skip generated song failed:', error);
+            }
+        }
+
+        // Expose globally for tool handlers and console
         window.playCommercial = playCommercial;
         window.playGeneratedSong = playGeneratedSong;
+        window.skipGeneratedSong = skipGeneratedSong;
+        window.listGeneratedSongs = async () => {
+            const response = await fetch(`${VISION_SERVER_URL}/api/suno?action=list`);
+            const data = await response.json();
+            console.log('Generated songs:', data.songs);
+            return data;
+        };
 
         // ===== SETUP =====
         if (agentId) {
@@ -2262,8 +2288,17 @@
                                 try {
                                     const toolData = typeof toolResult === 'string' ? JSON.parse(toolResult) : toolResult;
                                     console.log('🎵 Generate song tool response:', toolData);
+                                    // Play if action is 'play' and we have a URL
                                     if (toolData && toolData.action === 'play' && toolData.url) {
-                                        playGeneratedSong(toolData.song_id);
+                                        musicPlayer.src = `${VISION_SERVER_URL}${toolData.url}`;
+                                        musicPlayer.play();
+                                        musicPlaying = true;
+                                        musicButton.classList.add('playing');
+                                        playPauseBtn.textContent = '⏸';
+                                        nowPlaying.classList.add('visible');
+                                        trackName.textContent = toolData.track?.title || 'Generated Track';
+                                        currentTrack = toolData.track;
+                                        console.log('🎵 Playing generated song from tool:', toolData.track?.title);
                                     }
                                 } catch (e) {
                                     console.error('Error parsing generate_song result:', e);
