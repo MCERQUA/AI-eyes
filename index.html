@@ -1756,6 +1756,78 @@
         const volumeSlider = document.getElementById('volume-slider');
         const musicPlayer = document.getElementById('music-player');
 
+        // ===== COMMERCIALS & GENERATED SONGS (must be before onMessage handler) =====
+        const commercialPlayer = new Audio();
+        let commercialPlaying = false;
+
+        async function playCommercial() {
+            if (commercialPlaying) {
+                console.log('📺 Commercial already playing, skipping');
+                return;
+            }
+
+            try {
+                // Pause music if playing
+                const wasMusicPlaying = musicPlaying;
+                if (wasMusicPlaying) {
+                    musicPlayer.pause();
+                    console.log('📺 Paused music for commercial break');
+                }
+
+                const response = await fetch(`${VISION_SERVER_URL}/api/commercials?action=play`);
+                const data = await response.json();
+                console.log('📺 Commercial response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    commercialPlaying = true;
+                    commercialPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    commercialPlayer.volume = 1.0;
+                    commercialPlayer.play();
+                    console.log('📺 Playing commercial:', data.commercial?.title);
+
+                    commercialPlayer.onended = () => {
+                        commercialPlaying = false;
+                        console.log('📺 Commercial ended');
+                        if (wasMusicPlaying) {
+                            musicPlayer.play();
+                            console.log('📺 Resumed music after commercial');
+                        }
+                    };
+                }
+            } catch (error) {
+                console.error('📺 Commercial playback failed:', error);
+                commercialPlaying = false;
+            }
+        }
+
+        async function playGeneratedSong(songId) {
+            try {
+                const url = songId
+                    ? `${VISION_SERVER_URL}/api/suno?action=play&song_id=${songId}`
+                    : `${VISION_SERVER_URL}/api/suno?action=play`;
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log('🎵 Generated song response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    trackName.textContent = data.title || 'Generated Track';
+                    console.log('🎵 Playing generated song:', data.song_id);
+                }
+            } catch (error) {
+                console.error('🎵 Generated song playback failed:', error);
+            }
+        }
+
+        // Expose globally for tool handlers
+        window.playCommercial = playCommercial;
+        window.playGeneratedSong = playGeneratedSong;
+
         // ===== SETUP =====
         if (agentId) {
             setupModal.classList.add('hidden');
@@ -2183,6 +2255,19 @@
                             if (toolName === 'play_commercial') {
                                 console.log('📺 Commercial tool called! Playing commercial...');
                                 playCommercial();
+                            }
+
+                            // Generated song tool - play generated songs
+                            if (toolName === 'generate_song') {
+                                try {
+                                    const toolData = typeof toolResult === 'string' ? JSON.parse(toolResult) : toolResult;
+                                    console.log('🎵 Generate song tool response:', toolData);
+                                    if (toolData && toolData.action === 'play' && toolData.url) {
+                                        playGeneratedSong(toolData.song_id);
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing generate_song result:', e);
+                                }
                             }
 
                             if (message.source === 'user' && message.message) {
@@ -3289,53 +3374,7 @@
         // Clear last synced track after 30 seconds (allow re-sync to same track later)
         setInterval(() => { lastSyncedTrack = null; }, 30000);
 
-        // ===== COMMERCIALS SYSTEM =====
-        const commercialPlayer = new Audio();
-        let commercialPlaying = false;
-
-        async function playCommercial() {
-            if (commercialPlaying) {
-                console.log('📺 Commercial already playing, skipping');
-                return;
-            }
-
-            try {
-                // Pause music if playing
-                const wasMusicPlaying = musicPlaying;
-                if (wasMusicPlaying) {
-                    musicPlayer.pause();
-                    console.log('📺 Paused music for commercial break');
-                }
-
-                const response = await fetch(`${VISION_SERVER_URL}/api/commercials?action=play`);
-                const data = await response.json();
-                console.log('📺 Commercial response:', data);
-
-                if (data.action === 'play' && data.url) {
-                    commercialPlaying = true;
-                    commercialPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    commercialPlayer.volume = 1.0;  // Full volume for commercials
-                    commercialPlayer.play();
-                    console.log('📺 Playing commercial:', data.commercial?.title);
-
-                    // Resume music when commercial ends
-                    commercialPlayer.onended = () => {
-                        commercialPlaying = false;
-                        console.log('📺 Commercial ended');
-                        if (wasMusicPlaying) {
-                            musicPlayer.play();
-                            console.log('📺 Resumed music after commercial');
-                        }
-                    };
-                }
-            } catch (error) {
-                console.error('📺 Commercial playback failed:', error);
-                commercialPlaying = false;
-            }
-        }
-
-        // Expose for console testing
-        window.playCommercial = playCommercial;
+        // Expose music functions for console testing
         window.playMusic = (track) => playMusicFromServer('play', track);
         window.stopMusic = () => playMusicFromServer('stop');
         window.listMusic = async () => {
@@ -3344,7 +3383,7 @@
             return data;
         };
         window.syncMusicState = syncMusicState;
-        window.syncMusicWithServer = syncMusicWithServer;  // New sync function
+        window.syncMusicWithServer = syncMusicWithServer;
 
         // ===== DJ SOUNDBOARD =====
         // Sound effects player for DJ-FoamBot
