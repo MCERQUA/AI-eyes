@@ -2658,8 +2658,7 @@
                 stopWakeWordListener();
                 wakeWordEnabled = false;
                 wakeButton.classList.remove('active');
-                wakeIcon.textContent = '🎤';
-                updateStatus('disconnected', 'OFFLINE');
+                updateStatus('disconnected', 'STANDBY');
                 console.log('Wake word disabled');
             } else {
                 // Request mic permission first
@@ -2674,8 +2673,7 @@
                 if (started !== false) {
                     wakeWordEnabled = true;
                     wakeButton.classList.add('active');
-                    wakeIcon.textContent = '👂';
-                    updateStatus('listening', 'LISTENING FOR "PIE GUY"');
+                    updateStatus('listening', 'LISTENING');
                     console.log('Wake word enabled - say "Pie Guy" or "Hey Pie Guy"');
                 }
             }
@@ -2866,8 +2864,8 @@
                     const wakeBtn = document.getElementById('wake-button');
                     if (wakeBtn) {
                         wakeBtn.classList.add('active');
-                        wakeBtn.textContent = '🎤 Listening...';
                     }
+                    updateStatus('listening', 'LISTENING');
                     console.log('✓ Browser wake word listener started');
                 }
             }, 2000);
