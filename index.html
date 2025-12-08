@@ -1923,6 +1923,63 @@
             return data;
         };
 
+        // ===== SONG GENERATION COMPLETION POLLING =====
+        // Poll for completed song generations and notify agent
+        let songGenerationPolling = null;
+        let isGeneratingSong = false;
+
+        async function checkSongCompletions() {
+            if (!conversation) return;
+
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/suno/completed`);
+                const data = await response.json();
+
+                if (data.has_completed && data.songs.length > 0) {
+                    for (const song of data.songs) {
+                        console.log(`🎵 Song generation complete: "${song.title}"`);
+
+                        // Send BOTH contextual update AND user message to force agent to react
+                        try {
+                            conversation.sendContextualUpdate(`[DJ INFO: Your custom song "${song.title}" is now ready to play!]`);
+                            conversation.sendUserMessage(`[SYSTEM: Your generated song "${song.title}" is ready! Announce it and call generate_song action=play to spin it!]`);
+                        } catch (err) {
+                            console.error('Failed to notify agent of completed song:', err);
+                        }
+
+                        // Clear this song from the queue
+                        await fetch(`${VISION_SERVER_URL}/api/suno/completed?song_id=${song.song_id}`, { method: 'POST' });
+                    }
+
+                    // Stop polling since we found completed songs
+                    stopSongGenerationPolling();
+                }
+            } catch (err) {
+                console.error('Error checking song completions:', err);
+            }
+        }
+
+        function startSongGenerationPolling() {
+            if (songGenerationPolling) return; // Already polling
+            isGeneratingSong = true;
+            console.log('🎵 Started polling for song generation completion');
+            songGenerationPolling = setInterval(checkSongCompletions, 10000); // Every 10 seconds
+        }
+
+        function stopSongGenerationPolling() {
+            if (songGenerationPolling) {
+                clearInterval(songGenerationPolling);
+                songGenerationPolling = null;
+                isGeneratingSong = false;
+                console.log('🎵 Stopped polling for song generation completion');
+            }
+        }
+
+        // Expose for console testing
+        window.checkSongCompletions = checkSongCompletions;
+        window.startSongGenerationPolling = startSongGenerationPolling;
+        window.stopSongGenerationPolling = stopSongGenerationPolling;
+
         // ===== SETUP =====
         if (agentId) {
             setupModal.classList.add('hidden');
@@ -2352,11 +2409,18 @@
                                 playCommercial();
                             }
 
-                            // Generated song tool - play generated songs
+                            // Generated song tool - play generated songs or start polling for completion
                             if (toolName === 'generate_song') {
                                 try {
                                     const toolData = typeof toolResult === 'string' ? JSON.parse(toolResult) : toolResult;
                                     console.log('🎵 Generate song tool response:', toolData);
+
+                                    // If song is generating, start polling for completion
+                                    if (toolData && (toolData.status === 'generating' || toolData.action === 'generating')) {
+                                        console.log('🎵 Song generation started - beginning completion polling');
+                                        startSongGenerationPolling();
+                                    }
+
                                     // Play if action is 'play' and we have a URL
                                     if (toolData && toolData.action === 'play' && toolData.url) {
                                         musicPlayer.src = `${VISION_SERVER_URL}${toolData.url}`;
@@ -2368,6 +2432,13 @@
                                         trackName.textContent = toolData.track?.title || 'Generated Track';
                                         currentTrack = toolData.track;
                                         console.log('🎵 Playing generated song from tool:', toolData.track?.title);
+                                        // Stop polling if we were waiting for this
+                                        stopSongGenerationPolling();
+                                    }
+
+                                    // If song is complete, stop polling
+                                    if (toolData && (toolData.status === 'complete' || toolData.action === 'complete')) {
+                                        stopSongGenerationPolling();
                                     }
                                 } catch (e) {
                                     console.error('Error parsing generate_song result:', e);
