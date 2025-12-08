@@ -1759,6 +1759,34 @@
         // ===== COMMERCIALS & GENERATED SONGS (must be before onMessage handler) =====
         const commercialPlayer = new Audio();
         let commercialPlaying = false;
+        let currentCommercial = null;
+        let commercialEndingNotified = false;
+        const COMMERCIAL_ENDING_ALERT = 5; // Seconds before end to alert agent
+
+        // Monitor commercial playback - notify agent when ending
+        commercialPlayer.addEventListener('timeupdate', async () => {
+            if (!commercialPlaying || !currentCommercial) return;
+
+            const duration = commercialPlayer.duration || currentCommercial.duration_seconds || 30;
+            const currentTime = commercialPlayer.currentTime;
+            const remaining = duration - currentTime;
+
+            // When ~5 seconds remain, alert agent with BOTH contextual update AND user message
+            if (remaining <= COMMERCIAL_ENDING_ALERT && remaining > (COMMERCIAL_ENDING_ALERT - 1) && !commercialEndingNotified && conversation) {
+                commercialEndingNotified = true;
+                const title = currentCommercial.title || 'commercial';
+                console.log(`📺 Commercial "${title}" ending in ${remaining.toFixed(1)}s - notifying agent`);
+
+                try {
+                    // Contextual update for background info
+                    conversation.sendContextualUpdate(`[DJ INFO: Commercial "${title}" ending in 5 seconds]`);
+                    // User message to FORCE a response
+                    conversation.sendUserMessage(`[SYSTEM: Commercial ending soon! Get ready to say "And we're back!" then play the next song!]`);
+                } catch (err) {
+                    console.error('Failed to send commercial ending alert:', err);
+                }
+            }
+        });
 
         async function playCommercial() {
             if (commercialPlaying) {
@@ -1767,11 +1795,13 @@
             }
 
             try {
-                // Pause music if playing
+                // STOP music if playing (not just pause - we want clean transition)
                 const wasMusicPlaying = musicPlaying;
-                if (wasMusicPlaying) {
+                if (wasMusicPlaying || !musicPlayer.paused) {
                     musicPlayer.pause();
-                    console.log('📺 Paused music for commercial break');
+                    musicPlayer.currentTime = 0; // Reset to start
+                    musicPlaying = false;
+                    console.log('📺 Stopped music for commercial break');
                 }
 
                 const response = await fetch(`${VISION_SERVER_URL}/api/commercials?action=play`);
@@ -1780,23 +1810,62 @@
 
                 if (data.action === 'play' && data.url) {
                     commercialPlaying = true;
+                    commercialEndingNotified = false;
+                    currentCommercial = data.commercial;
+                    currentCommercial.duration_seconds = data.duration_seconds || 30;
+
                     commercialPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     commercialPlayer.volume = 1.0;
-                    commercialPlayer.play();
-                    console.log('📺 Playing commercial:', data.commercial?.title);
 
-                    commercialPlayer.onended = () => {
-                        commercialPlaying = false;
-                        console.log('📺 Commercial ended');
-                        if (wasMusicPlaying) {
-                            musicPlayer.play();
-                            console.log('📺 Resumed music after commercial');
+                    const title = currentCommercial.title || 'commercial';
+                    const durationStr = data.duration_str || `${data.duration_seconds}s`;
+
+                    // Play and confirm started
+                    commercialPlayer.play().then(async () => {
+                        console.log(`📺 Playing commercial: ${title} (${durationStr})`);
+
+                        // Confirm to server that playback started
+                        await fetch(`${VISION_SERVER_URL}/api/commercials?action=confirm_started`);
+
+                        // Send contextual update to agent (passive info - no response needed)
+                        if (conversation) {
+                            try {
+                                conversation.sendContextualUpdate(`[DJ INFO: Commercial now playing (${durationStr}). Stay quiet and let it play - you'll be notified when it ends.]`);
+                            } catch (err) {
+                                console.error('Failed to send commercial started update:', err);
+                            }
                         }
+                    });
+
+                    commercialPlayer.onended = async () => {
+                        const endedTitle = currentCommercial?.title || 'commercial';
+                        commercialPlaying = false;
+                        commercialEndingNotified = false;
+                        currentCommercial = null;
+                        console.log(`📺 Commercial ended: ${endedTitle}`);
+
+                        // Notify server
+                        await fetch(`${VISION_SERVER_URL}/api/commercials?action=ended`);
+
+                        // Send BOTH contextual update AND user message to force action
+                        if (conversation) {
+                            try {
+                                conversation.sendContextualUpdate(`[DJ INFO: Commercial "${endedTitle}" finished playing]`);
+                                conversation.sendUserMessage(`[SYSTEM: Commercial done! Say "And we're back!" and call play_music action=skip to continue the show!]`);
+                            } catch (err) {
+                                console.error('Failed to send commercial ended update:', err);
+                            }
+                        }
+
+                        // Don't auto-resume old song - agent will play next song
+                        // The agent gets the SYSTEM message and should call play_music
+                        console.log('📺 Commercial done - waiting for agent to play next song');
                     };
                 }
             } catch (error) {
                 console.error('📺 Commercial playback failed:', error);
                 commercialPlaying = false;
+                currentCommercial = null;
             }
         }
 
@@ -2368,6 +2437,20 @@
                                 // This prevents race conditions where text detection would select a DIFFERENT track
                                 // ===========================================
 
+                                // ===========================================
+                                // DETECT GENERATED/AI SONGS vs REGULAR MUSIC
+                                // ===========================================
+                                const isGeneratedSong =
+                                    msg.includes('generated') || msg.includes('ai song') ||
+                                    msg.includes('ai track') || msg.includes('custom song') ||
+                                    msg.includes('custom track') || msg.includes('first one we') ||
+                                    msg.includes('made this') || msg.includes('created this') ||
+                                    msg.includes('cooked up') || msg.includes('fresh from') ||
+                                    msg.includes('ai studio') || msg.includes('suno') ||
+                                    msg.includes('ai-generated') || msg.includes('we made') ||
+                                    msg.includes('i made') || msg.includes('original track') ||
+                                    msg.includes('from the vault') || msg.includes('ai vault');
+
                                 // Detect any music-related keywords to trigger sync
                                 const shouldSyncMusic =
                                     // Song change/skip keywords
@@ -2384,9 +2467,16 @@
                                 if (shouldSyncMusic) {
                                     // Clear lastSyncedTrack to allow switching to new track
                                     lastSyncedTrack = null;
-                                    // Use SYNC action - gets the reserved track WITHOUT selecting a new one
-                                    console.log('🎵 Music detected, syncing with server (NOT selecting new track)...');
-                                    syncMusicWithServer();
+
+                                    // Check if this is about a generated song or regular music
+                                    if (isGeneratedSong) {
+                                        console.log('🎵 GENERATED song detected, syncing with /api/suno...');
+                                        syncGeneratedMusicWithServer();
+                                    } else {
+                                        // Use SYNC action - gets the reserved track WITHOUT selecting a new one
+                                        console.log('🎵 Regular music detected, syncing with server...');
+                                        syncMusicWithServer();
+                                    }
                                 } else if (msg.includes('stopped') || msg.includes('stopping') ||
                                     msg.includes('kill the music') || msg.includes('cut the music')) {
                                     stopMusicPlayback();
@@ -3087,15 +3177,17 @@
             const currentTime = musicPlayer.currentTime;
             const remaining = duration - currentTime;
 
-            // When ~10 seconds remain, send contextual update to agent
+            // When ~10 seconds remain, alert agent with BOTH contextual update AND user message
             if (remaining <= DJ_INTRO_TIME && remaining > (DJ_INTRO_TIME - 1) && !djTransitionTriggered && conversation) {
                 djTransitionTriggered = true;
                 const trackName = currentTrack.title || currentTrack.name || 'current track';
-                console.log(`🎙️ Track "${trackName}" ending in ${remaining.toFixed(1)}s - notifying agent`);
+                console.log(`🎙️ Track "${trackName}" ending in ${remaining.toFixed(1)}s - forcing agent response`);
 
-                // Send contextual update to let agent know song is ending
                 try {
-                    conversation.sendContextualUpdate(`[DJ ALERT: "${trackName}" is ending in about 10 seconds. Pick the next song and announce it!]`);
+                    // Contextual update for background info
+                    conversation.sendContextualUpdate(`[DJ INFO: "${trackName}" has about 10 seconds left]`);
+                    // User message to FORCE a response - agent MUST act on this
+                    conversation.sendUserMessage(`[SYSTEM: Song ending soon! Announce the next track and call play_music action=skip!]`);
                 } catch (err) {
                     console.error('Failed to send DJ transition alert:', err);
                 }
@@ -3122,11 +3214,14 @@
                 console.error('Failed to clear server state:', err);
             }
 
-            // Notify agent that song ended - prompt for next track
+            // Notify agent that song ended - use BOTH contextual and user message
             if (conversation) {
                 try {
-                    console.log(`🎙️ "${endedTrack}" ended - prompting agent for next track`);
-                    conversation.sendContextualUpdate(`[DJ ALERT: "${endedTrack}" just finished! Time to spin up the next track - announce it and play it!]`);
+                    console.log(`🎙️ "${endedTrack}" ended - forcing agent to play next track`);
+                    // Contextual update for background info
+                    conversation.sendContextualUpdate(`[DJ INFO: "${endedTrack}" just finished playing]`);
+                    // User message to FORCE a response - agent MUST act on this
+                    conversation.sendUserMessage(`[SYSTEM: Song ended! Call play_music action=skip NOW to play the next track!]`);
                 } catch (err) {
                     console.error('Failed to notify agent of track end:', err);
                 }
@@ -3407,6 +3502,68 @@
         // Clear last synced track after 30 seconds (allow re-sync to same track later)
         setInterval(() => { lastSyncedTrack = null; }, 30000);
 
+        // ===== SYNC FOR AI-GENERATED SONGS =====
+        // Now unified with regular music - just passes playlist=generated to /api/music
+        async function syncGeneratedMusicWithServer() {
+            const now = Date.now();
+
+            // Debounce: Ignore if we synced recently
+            if (now - lastSyncTime < SYNC_DEBOUNCE_MS) {
+                console.log('🎵 Generated sync debounced (too soon since last sync)');
+                return;
+            }
+            lastSyncTime = now;
+
+            try {
+                // Use the unified music endpoint with playlist=generated
+                console.log('🎵 Syncing GENERATED music with server (playlist=generated)...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync&playlist=generated`);
+                const data = await response.json();
+                console.log('🎵 Generated sync response:', data);
+
+                if (data.action === 'play' && data.track && data.url) {
+                    // Check if we just synced to this same track
+                    const trackId = data.track.id || data.track.filename;
+                    if (lastSyncedTrack === trackId) {
+                        console.log('🎵 Just synced to this generated track, skipping duplicate');
+                        return;
+                    }
+                    lastSyncedTrack = trackId;
+
+                    // Stop current track first (ensures clean switch mid-song)
+                    if (musicPlaying) {
+                        console.log('🎵 Stopping current track to switch to generated song...');
+                        musicPlayer.pause();
+                        musicPlayer.currentTime = 0;
+                    }
+
+                    // Play the generated track!
+                    currentTrack = data.track;
+                    trackName.textContent = data.track.title || 'AI Generated Track';
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.volume = isSpeaking ? musicVolume * 0.3 : musicVolume;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    console.log('🎵 Now playing GENERATED:', data.track.title);
+
+                    // Confirm playback to clear the reservation
+                    if (data.reservation_id) {
+                        fetch(`${VISION_SERVER_URL}/api/music?action=confirm&reservation_id=${data.reservation_id}`)
+                            .then(r => r.json())
+                            .then(d => console.log('🎵 Reservation confirmed:', d.response))
+                            .catch(e => console.error('🎵 Confirm failed:', e));
+                    }
+                } else if (data.action === 'none') {
+                    console.log('🎵 No generated track to sync (Pi-Guy hasnt selected one yet)');
+                }
+            } catch (error) {
+                console.error('🎵 Generated sync failed:', error);
+            }
+        }
+
         // Expose music functions for console testing
         window.playMusic = (track) => playMusicFromServer('play', track);
         window.stopMusic = () => playMusicFromServer('stop');
@@ -3417,6 +3574,7 @@
         };
         window.syncMusicState = syncMusicState;
         window.syncMusicWithServer = syncMusicWithServer;
+        window.syncGeneratedMusicWithServer = syncGeneratedMusicWithServer;
 
         // ===== DJ SOUNDBOARD =====
         // Sound effects player for DJ-FoamBot
