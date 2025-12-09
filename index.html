@@ -1231,7 +1231,7 @@
             <button onclick="musicControl('toggle')" id="play-pause-btn" title="Play/Pause">⏸</button>
             <button onclick="musicControl('next')" title="Next">⏭</button>
         </div>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="85" onchange="setMusicVolume(this.value)">
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100" onchange="setMusicVolume(this.value)">
     </div>
 
     <!-- Hidden audio player -->
@@ -1288,7 +1288,7 @@
         // ===== MUSIC STATE =====
         let musicPlaying = false;
         let currentTrack = null;
-        let musicVolume = 0.85;  // Default 85%
+        let musicVolume = 1.0;  // Default 100% - full blast!
 
         // Random first messages for Pi-Guy (generic)
         // MASSIVE collection to ensure you rarely hear the same one twice
@@ -3304,7 +3304,8 @@
         // Duck music volume when Pi-Guy speaks
         function duckMusicVolume(duck) {
             if (musicPlaying) {
-                const targetVol = duck ? musicVolume * 0.3 : musicVolume;
+                // Duck to 50% when speaking (was 30% - too quiet)
+                const targetVol = duck ? musicVolume * 0.5 : musicVolume;
                 musicPlayer.volume = targetVol;
             }
         }
@@ -3355,7 +3356,7 @@
         // Set volume from slider
         window.setMusicVolume = function(value) {
             musicVolume = value / 100;
-            musicPlayer.volume = isSpeaking ? musicVolume * 0.3 : musicVolume;
+            musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
         };
 
         // Play music from server API
@@ -3547,7 +3548,7 @@
                     currentTrack = data.track;
                     trackName.textContent = data.track.title || data.track.name;
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    musicPlayer.volume = isSpeaking ? musicVolume * 0.3 : musicVolume;
+                    musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
                     musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
@@ -3612,7 +3613,7 @@
                     currentTrack = data.track;
                     trackName.textContent = data.track.title || 'AI Generated Track';
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    musicPlayer.volume = isSpeaking ? musicVolume * 0.3 : musicVolume;
+                    musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
                     musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
