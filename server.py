@@ -3233,6 +3233,9 @@ def get_generated_songs_with_metadata():
                 'title': song_meta.get('title', f'Generated Track {f.stem[:8]}'),
                 'prompt': song_meta.get('prompt', 'Unknown'),
                 'description': song_meta.get('description', 'AI-generated track'),
+                'genre': song_meta.get('genre', 'Unknown'),
+                'themes': song_meta.get('themes', []),
+                'duration_seconds': song_meta.get('duration_seconds', 0),
                 'made_for': song_meta.get('made_for'),
                 'style': song_meta.get('style'),
                 'created_date': song_meta.get('created_date'),
@@ -3303,10 +3306,18 @@ def handle_suno():
 
             generated_music_state["last_played"] = selected['id']
 
-            # Build DJ hints
+            # Build DJ hints with rich metadata
             dj_hints = f"Title: {selected['title']}"
-            if selected.get('prompt') and selected['prompt'] != 'Unknown':
-                dj_hints += f" | Made from prompt: {selected['prompt']}"
+            if selected.get('genre') and selected['genre'] != 'Unknown':
+                dj_hints += f" | Genre: {selected['genre']}"
+            if selected.get('duration_seconds'):
+                mins = int(selected['duration_seconds'] // 60)
+                secs = int(selected['duration_seconds'] % 60)
+                dj_hints += f" | Duration: {mins}:{secs:02d}"
+            if selected.get('description') and selected['description'] != 'AI-generated track':
+                dj_hints += f" | About: {selected['description']}"
+            if selected.get('themes'):
+                dj_hints += f" | Themes: {', '.join(selected['themes'][:3])}"
             if selected.get('made_for'):
                 dj_hints += f" | Made for: {selected['made_for']}"
             if selected.get('fun_facts'):
@@ -3333,10 +3344,26 @@ def handle_suno():
 
             generated_music_state["last_played"] = selected['id']
 
+            # Build DJ hints with rich metadata (same as play)
+            dj_hints = f"Title: {selected['title']}"
+            if selected.get('genre') and selected['genre'] != 'Unknown':
+                dj_hints += f" | Genre: {selected['genre']}"
+            if selected.get('duration_seconds'):
+                mins = int(selected['duration_seconds'] // 60)
+                secs = int(selected['duration_seconds'] % 60)
+                dj_hints += f" | Duration: {mins}:{secs:02d}"
+            if selected.get('description') and selected['description'] != 'AI-generated track':
+                dj_hints += f" | About: {selected['description']}"
+            if selected.get('themes'):
+                dj_hints += f" | Themes: {', '.join(selected['themes'][:3])}"
+            if selected.get('fun_facts'):
+                dj_hints += f" | Fun fact: {random.choice(selected['fun_facts'])}"
+
             return jsonify({
                 "action": "play",
                 "track": selected,
                 "url": f"/generated_music/{selected['filename']}",
+                "dj_hints": dj_hints,
                 "response": f"Next up from the AI vault: '{selected['title']}'!"
             })
 
