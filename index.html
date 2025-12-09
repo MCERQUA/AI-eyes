@@ -3319,13 +3319,19 @@
                 playPauseBtn.textContent = '▶';
                 nowPlaying.classList.remove('visible');
             } else {
-                // If we have a track, resume. Otherwise fetch random
-                if (currentTrack) {
-                    musicPlayer.play();
-                    musicPlaying = true;
-                    musicButton.classList.add('playing');
-                    playPauseBtn.textContent = '⏸';
-                    nowPlaying.classList.add('visible');
+                // If we have a track AND a valid source, resume. Otherwise fetch random
+                if (currentTrack && musicPlayer.src && musicPlayer.src !== window.location.href) {
+                    try {
+                        await musicPlayer.play();
+                        musicPlaying = true;
+                        musicButton.classList.add('playing');
+                        playPauseBtn.textContent = '⏸';
+                        nowPlaying.classList.add('visible');
+                    } catch (err) {
+                        console.error('🎵 Failed to resume, fetching new track:', err.message);
+                        currentTrack = null;
+                        await playMusicFromServer('play');
+                    }
                 } else {
                     // Fetch and play a random track
                     await playMusicFromServer('play');
@@ -3370,16 +3376,21 @@
 
                 if (data.action === 'play' && data.url) {
                     currentTrack = data.track;
-                    trackName.textContent = data.track.name;
+                    trackName.textContent = data.track?.name || 'Unknown Track';
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    musicPlayer.play();
-                    musicPlaying = true;
-                    musicButton.classList.add('playing');
-                    playPauseBtn.textContent = '⏸';
-                    nowPlaying.classList.add('visible');
-
-                    // Duck if speaking
-                    if (isSpeaking) duckMusicVolume(true);
+                    try {
+                        await musicPlayer.play();
+                        musicPlaying = true;
+                        musicButton.classList.add('playing');
+                        playPauseBtn.textContent = '⏸';
+                        nowPlaying.classList.add('visible');
+                        // Duck if speaking
+                        if (isSpeaking) duckMusicVolume(true);
+                    } catch (err) {
+                        console.error('🎵 Failed to play track:', err.message);
+                        musicPlaying = false;
+                        currentTrack = null;
+                    }
                 } else if (data.action === 'pause') {
                     musicPlayer.pause();
                     musicPlaying = false;
