@@ -603,6 +603,36 @@
             cursor: pointer;
         }
 
+        /* Playlist selector */
+        .playlist-selector {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .playlist-selector select {
+            background: var(--panel-bg);
+            border: 1px solid var(--blue-dim);
+            color: var(--cyan);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .playlist-selector select:hover,
+        .playlist-selector select:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .playlist-selector select option {
+            background: #0a0a14;
+            color: var(--cyan);
+        }
+
         .now-playing .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none;
             width: 12px;
@@ -1222,6 +1252,12 @@
 
     <!-- Now Playing display -->
     <div class="now-playing" id="now-playing">
+        <div class="playlist-selector">
+            <select id="playlist-select" onchange="switchPlaylist(this.value)" title="Switch Playlist">
+                <option value="sprayfoam">📻 SprayFoam Radio</option>
+                <option value="generated">🤖 Pi-Guy Originals</option>
+            </select>
+        </div>
         <div class="track-info">
             <span class="track-label">NOW PLAYING</span>
             <span class="track-name" id="track-name">-</span>
@@ -1289,6 +1325,7 @@
         let musicPlaying = false;
         let currentTrack = null;
         let musicVolume = 1.0;  // Default 100% - full blast!
+        let currentPlaylist = 'sprayfoam';  // 'sprayfoam' or 'generated'
 
         // Random first messages for Pi-Guy (generic)
         // MASSIVE collection to ensure you rarely hear the same one twice
@@ -1763,29 +1800,11 @@
         let commercialEndingNotified = false;
         const COMMERCIAL_ENDING_ALERT = 5; // Seconds before end to alert agent
 
-        // Monitor commercial playback - notify agent when ending
+        // Monitor commercial playback - no early alerts, just wait for it to end
+        // Commercials are short so we don't need "ending soon" alerts like songs
         commercialPlayer.addEventListener('timeupdate', async () => {
-            if (!commercialPlaying || !currentCommercial) return;
-
-            const duration = commercialPlayer.duration || currentCommercial.duration_seconds || 30;
-            const currentTime = commercialPlayer.currentTime;
-            const remaining = duration - currentTime;
-
-            // When ~5 seconds remain, alert agent with BOTH contextual update AND user message
-            if (remaining <= COMMERCIAL_ENDING_ALERT && remaining > (COMMERCIAL_ENDING_ALERT - 1) && !commercialEndingNotified && conversation) {
-                commercialEndingNotified = true;
-                const title = currentCommercial.title || 'commercial';
-                console.log(`📺 Commercial "${title}" ending in ${remaining.toFixed(1)}s - notifying agent`);
-
-                try {
-                    // Contextual update for background info
-                    conversation.sendContextualUpdate(`[DJ INFO: Commercial "${title}" ending in 5 seconds]`);
-                    // User message to FORCE a response
-                    conversation.sendUserMessage(`[SYSTEM: Commercial ending soon! Get ready to say "And we're back!" then play the next song!]`);
-                } catch (err) {
-                    console.error('Failed to send commercial ending alert:', err);
-                }
-            }
+            // Just tracking - no early notifications for commercials
+            // The 'ended' event will notify the agent when it's done
         });
 
         async function playCommercial() {
@@ -1838,27 +1857,24 @@
                     });
 
                     commercialPlayer.onended = async () => {
-                        const endedTitle = currentCommercial?.title || 'commercial';
                         commercialPlaying = false;
                         commercialEndingNotified = false;
                         currentCommercial = null;
-                        console.log(`📺 Commercial ended: ${endedTitle}`);
+                        console.log('📺 Commercial ended');
 
                         // Notify server
                         await fetch(`${VISION_SERVER_URL}/api/commercials?action=ended`);
 
-                        // Send BOTH contextual update AND user message to force action
+                        // Send user message to force agent to continue the show
+                        // Don't mention commercial name - agent doesn't know what played
                         if (conversation) {
                             try {
-                                conversation.sendContextualUpdate(`[DJ INFO: Commercial "${endedTitle}" finished playing]`);
-                                conversation.sendUserMessage(`[SYSTEM: Commercial done! Say "And we're back!" and call play_music action=skip to continue the show!]`);
+                                conversation.sendUserMessage(`[SYSTEM: Commercial break is over! Say "And we're back!" and call play_music action=skip to continue the show!]`);
                             } catch (err) {
-                                console.error('Failed to send commercial ended update:', err);
+                                console.error('Failed to send commercial ended alert:', err);
                             }
                         }
 
-                        // Don't auto-resume old song - agent will play next song
-                        // The agent gets the SYSTEM message and should call play_music
                         console.log('📺 Commercial done - waiting for agent to play next song');
                     };
                 }
@@ -2397,10 +2413,13 @@
                                 }
                             }
 
-                            // Music tool - sync playback
+                            // Music tool - sync playback using the proper sync function
                             if (toolName === 'play_music') {
-                                console.log('🎵 Music tool called, syncing state...');
-                                syncMusicState();
+                                console.log('🎵 Music tool called, syncing with server...');
+                                // Reset transition flag for new track
+                                djTransitionTriggered = false;
+                                // Use syncMusicWithServer which handles URL properly for all playlists
+                                syncMusicWithServer();
                             }
 
                             // Commercial tool - play the commercial!
@@ -3365,10 +3384,21 @@
             musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
         };
 
+        // Switch playlist (from dropdown)
+        window.switchPlaylist = async function(playlist) {
+            console.log(`🎵 Switching to playlist: ${playlist}`);
+            currentPlaylist = playlist;
+
+            // If music is playing, switch to a track from the new playlist
+            if (musicPlaying) {
+                await playMusicFromServer('play');
+            }
+        };
+
         // Play music from server API
         async function playMusicFromServer(action, track = '') {
             try {
-                let url = `${VISION_SERVER_URL}/api/music?action=${action}`;
+                let url = `${VISION_SERVER_URL}/api/music?action=${action}&playlist=${currentPlaylist}`;
                 if (track) url += `&track=${encodeURIComponent(track)}`;
 
                 const response = await fetch(url);
@@ -3376,7 +3406,8 @@
 
                 if (data.action === 'play' && data.url) {
                     currentTrack = data.track;
-                    trackName.textContent = data.track?.name || 'Unknown Track';
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track?.title || data.track?.name || 'Unknown Track';
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     try {
                         await musicPlayer.play();
@@ -3428,7 +3459,8 @@
                 case 'play':
                     if (musicData.url) {
                         currentTrack = musicData.track;
-                        trackName.textContent = musicData.track?.name || 'Unknown';
+                        djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                        trackName.textContent = musicData.track?.title || musicData.track?.name || 'Unknown';
                         musicPlayer.src = `${VISION_SERVER_URL}${musicData.url}`;
                         musicPlayer.play();
                         musicPlaying = true;
@@ -3468,14 +3500,26 @@
         // Sync music state with server (called when Pi-Guy says he's playing something)
         async function syncMusicState() {
             try {
-                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=status`);
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=status&playlist=${currentPlaylist}`);
                 const data = await response.json();
                 console.log('Music state from server:', data);
 
                 if (data.playing && data.track) {
                     currentTrack = data.track;
-                    trackName.textContent = data.track.name;
-                    musicPlayer.src = `${VISION_SERVER_URL}/music/${data.track.filename}`;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track.title || data.track.name;
+                    // Use url_prefix from track data (works for both /music/ and /generated_music/)
+                    const urlPrefix = data.track.url_prefix || '/music/';
+                    musicPlayer.src = `${VISION_SERVER_URL}${urlPrefix}${data.track.filename}`;
+                    // Update dropdown to match current playlist
+                    const playlistSelect = document.getElementById('playlist-select');
+                    if (urlPrefix.includes('generated')) {
+                        currentPlaylist = 'generated';
+                        if (playlistSelect) playlistSelect.value = 'generated';
+                    } else {
+                        currentPlaylist = 'sprayfoam';
+                        if (playlistSelect) playlistSelect.value = 'sprayfoam';
+                    }
                     musicPlayer.volume = isSpeaking ? (data.volume / 100) * 0.3 : data.volume / 100;
                     musicPlayer.play();
                     musicPlaying = true;
@@ -3483,7 +3527,7 @@
                     playPauseBtn.textContent = '⏸';
                     nowPlaying.classList.add('visible');
                     volumeSlider.value = data.volume;
-                    console.log('Music started:', data.track.name);
+                    console.log('Music started:', data.track.title || data.track.name);
                 }
             } catch (error) {
                 console.error('Failed to sync music state:', error);
@@ -3529,8 +3573,8 @@
             lastSyncTime = now;
 
             try {
-                console.log('🎵 Syncing with server (action=sync)...');
-                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync`);
+                console.log(`🎵 Syncing with server (action=sync, playlist=${currentPlaylist})...`);
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync&playlist=${currentPlaylist}`);
                 const data = await response.json();
                 console.log('🎵 Sync response:', data);
 
@@ -3557,6 +3601,7 @@
 
                     // Play the track!
                     currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                     trackName.textContent = data.track.title || data.track.name;
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
@@ -3622,6 +3667,7 @@
 
                     // Play the generated track!
                     currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                     trackName.textContent = data.track.title || 'AI Generated Track';
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
