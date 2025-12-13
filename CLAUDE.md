@@ -303,6 +303,12 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ├── usage.db            # SQLite database for user usage + todos (not in git)
 ├── .env                # API keys (not in git)
 ├── CLAUDE.md           # This file
+├── docs/               # Documentation folder
+│   ├── AGENT-VERSIONS.md        # Version history & tracking (IMPORTANT!)
+│   ├── ELEVENLABS-VERSIONING.md # API reference for versioning
+│   ├── ELEVENLABS-FEATURES.md   # ElevenLabs feature docs
+│   ├── agent-snapshot-*.json    # Agent config backups
+│   └── ...                      # Other documentation
 └── .gitignore
 ```
 
@@ -314,6 +320,19 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 - **Max Tokens**: 1000
 - **Primary Voice**: Kitt-Voice (`E3MHpxAogw45xwi3vBsd`)
 - **Radio Voice**: Radio Voice (`CeNX9CMwmxDxUF5Q2Inm`)
+
+### Agent Versioning (ENABLED)
+- **Versioning Enabled**: 2025-12-13
+- **Main Branch ID**: `agtbrch_0601kcccvnnveza8ws2egm714wmn`
+- **Current Version**: `agtvrsn_3601kcccvq5cf8yrbft5vzgeyryy`
+- **Version History**: See `docs/AGENT-VERSIONS.md`
+- **Versioning Docs**: See `docs/ELEVENLABS-VERSIONING.md`
+
+**Quick Version Check:**
+```bash
+curl -s "https://api.elevenlabs.io/v1/convai/agents/$ELEVENLABS_AGENT_ID" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" | python3 -c "import sys,json; d=json.load(sys.stdin); print('version_id:', d.get('version_id'))"
+```
 
 ### ElevenLabs Tools
 

@@ -3640,12 +3640,22 @@
             lastSyncTime = now;
 
             try {
-                console.log(`🎵 Syncing with server (action=sync, playlist=${currentPlaylist})...`);
-                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync&playlist=${currentPlaylist}`);
+                // DON'T send playlist param - let server use its remembered playlist state
+                // This fixes DJ Soul not playing generated tracks properly
+                console.log('🎵 Syncing with server (action=sync, letting server decide playlist)...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync`);
                 const data = await response.json();
                 console.log('🎵 Sync response:', data);
 
                 if (data.action === 'play' && data.track && data.url) {
+                    // Update currentPlaylist based on server response
+                    if (data.playlist) {
+                        currentPlaylist = data.playlist;
+                        const playlistSelect = document.getElementById('playlist-select');
+                        if (playlistSelect) playlistSelect.value = data.playlist === 'generated' ? 'generated' : 'sprayfoam';
+                        console.log(`🎵 Updated currentPlaylist to: ${currentPlaylist}`);
+                    }
+
                     // Check if this is a different track than what's playing
                     if (currentTrack && currentTrack.filename === data.track.filename && musicPlaying) {
                         console.log('🎵 Already playing this track, skipping');
@@ -3698,8 +3708,15 @@
         setInterval(() => { lastSyncedTrack = null; }, 30000);
 
         // ===== SYNC FOR AI-GENERATED SONGS =====
-        // Now unified with regular music - just passes playlist=generated to /api/music
+        // Now unified - just calls syncMusicWithServer since server tracks playlist state
         async function syncGeneratedMusicWithServer() {
+            // Server remembers which playlist is active, so just call the unified sync
+            console.log('🎵 Generated sync -> using unified syncMusicWithServer (server tracks playlist)');
+            return syncMusicWithServer();
+        }
+
+        // Legacy sync function kept for compatibility - now just wraps the unified sync
+        async function syncGeneratedMusicWithServerLegacy() {
             const now = Date.now();
 
             // Debounce: Ignore if we synced recently
@@ -3710,9 +3727,9 @@
             lastSyncTime = now;
 
             try {
-                // Use the unified music endpoint with playlist=generated
-                console.log('🎵 Syncing GENERATED music with server (playlist=generated)...');
-                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync&playlist=generated`);
+                // Use the unified music endpoint - let server decide playlist
+                console.log('🎵 Syncing GENERATED music with server...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync`);
                 const data = await response.json();
                 console.log('🎵 Generated sync response:', data);
 
