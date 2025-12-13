@@ -166,19 +166,18 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ```
 
 **You MUST preserve:**
-1. **All tools** - Currently 12 tools (10 webhook + 2 system)
+1. **All tools** - Currently 13 tools (11 webhook/client + 2 system)
 2. **The system prompt** - Contains personality, mood system, tool instructions
-3. **The Radio Voice** - Second voice for DJ-FoamBot persona (see below)
+3. **Both voices** - Primary Kitt-Voice + Radio Voice for DJ persona
 4. **TTS settings** - stability, speed, similarity_boost values
 
-### 🎙️ CRITICAL: Multi-Voice Setup (Radio Voice)
+### 🎙️ CRITICAL: Multi-Voice Setup
 
-**Pi-Guy has TWO voices configured - DO NOT DELETE THE SECOND VOICE!**
+**Pi-Guy has TWO voices configured - DO NOT DELETE EITHER VOICE!**
 
-The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is configured in:
-- `conversation_config.tts.supported_voices` array
-- Voice ID: `CeNX9CMwmxDxUF5Q2Inm` (Radio Voice)
-- Primary Voice ID: `eZm9vdjYgL9PZKtf7XMM`
+The agent has two voices configured in `conversation_config.tts.supported_voices`:
+- **Primary Voice ID**: `E3MHpxAogw45xwi3vBsd` (Kitt-Voice) - main speaking voice
+- **Radio Voice ID**: `CeNX9CMwmxDxUF5Q2Inm` (Radio Voice) - DJ-FoamBot persona
 
 **The system prompt MUST include XML tag instructions:**
 ```
@@ -188,33 +187,67 @@ The agent has a secondary "Radio Voice" for his DJ-FoamBot persona. This is conf
 
 **When updating the agent, ALWAYS check that `supported_voices` still contains the Radio Voice!**
 
-### Current tools that MUST always be attached to the agent (11 webhook/client + 2 system):
+### Current tools that MUST always be attached to the agent (13 total: 11 webhook/client + 2 system):
 
 **⚠️ CRITICAL: When updating agent via API, you MUST include ALL tool_ids in the array!**
 **If you only send a partial list, tools will be REMOVED from the agent!**
 
 | Tool ID | Name | Type |
 |---------|------|------|
-| tool_5601kb73sh06e6q9t8ng87bv1qsa | check_server_status | webhook |
-| tool_3401kb73sh07ed5bvhtshsbxq35j | look_and_see | webhook |
-| tool_1901kb73sh08f27bct0d3w81qdgn | identify_person | webhook |
-| tool_4801kb73sh09fxfsvjf3csmca1w5 | manage_todos | webhook |
-| tool_2901kb73sh0ae2a8z7yj04v4chn1 | search_web | webhook |
-| tool_3501kb73sh0be5tt4xb5162ejdxz | run_command | webhook |
-| tool_8001kb754p5setqb2qedb7rfez15 | manage_notes | webhook |
 | tool_0301kb77mf7vf0sbdyhxn3w470da | manage_memory | webhook |
+| tool_1901kb73sh08f27bct0d3w81qdgn | identify_person | webhook |
+| tool_2901kb73sh0ae2a8z7yj04v4chn1 | search_web | webhook |
+| tool_3401kb73sh07ed5bvhtshsbxq35j | look_and_see | webhook |
+| tool_3501kb73sh0be5tt4xb5162ejdxz | run_command | webhook |
+| tool_4801kb73sh09fxfsvjf3csmca1w5 | manage_todos | webhook |
+| tool_5601kb73sh06e6q9t8ng87bv1qsa | check_server_status | webhook |
 | tool_6801kb79mrdwfycsawytjq0gx1ck | manage_jobs | webhook |
+| tool_8001kb754p5setqb2qedb7rfez15 | manage_notes | webhook |
 | tool_9801kb8k61zpfkksynb8m4wztkkx | play_music | webhook |
-| tool_4101kb908dbrfmttcz597n7h91ns | dj_soundboard | client |
+| tool_4101kb908dbrfmttcz597n7h91ns | dj_soundboard | **client** |
 | tool_8101kbp5rzccfv4r46zrp6wt356g | generate_song | webhook |
 | tool_6601kbpfyjnpeayrjefkga7mgw0n | play_commercial | webhook |
 | end_call | (built-in) | system |
 | skip_turn | (built-in) | system |
 
 **🛏️ GO TO SLEEP (end_call):**
-When user says "go to sleep", "go back to sleep", "goodnight", "shut up", "that's all", "I'm done", "bye", "hang up", or "end call", Pi-Guy will say goodbye and use the `end_call` tool to hang up. This was added to the agent's prompt to enable voice-controlled call ending.
+When user says "go to sleep", "go back to sleep", "goodnight", "shut up", "that's all", "I'm done", "bye", "hang up", or "end call", Pi-Guy will say goodbye and use the `end_call` tool to hang up.
 
-**⚠️ NOTE on audio playback:** Both music and DJ sounds use **text detection** in the frontend to trigger playback. When Pi-Guy says trigger words like "spinning up", "playing", "air horn", etc., the frontend detects them and plays audio. This is more reliable than waiting for tool responses.
+## 🎧 Audio Playback Architecture (IMPORTANT!)
+
+### DJ Sounds - How They Actually Work
+
+**Primary mechanism: ElevenLabs CLIENT TOOL (Silent)**
+
+The `dj_soundboard` tool is a **client tool** (not webhook). When the agent calls it:
+1. Agent calls `dj_soundboard` with `action=play, sound=air_horn`
+2. ElevenLabs SDK triggers `clientTools.dj_soundboard()` in the browser (index.html line 2325)
+3. Browser plays the sound via `playDJSound()` directly
+4. **Agent does NOT need to say sound names out loud** - the tool call is silent
+
+This is confirmed working - Pi-Guy has played "bruh" sound as a response BEFORE speaking.
+
+**Backup mechanism: Text Detection (DISABLED by default)**
+
+There's also a `checkForDJSounds()` function (line 3843) that scans Pi-Guy's speech for trigger words. This is a FALLBACK that can be enabled if the client tool ever fails.
+
+### Music - How It Actually Works
+
+**Primary mechanism: Webhook Tool + Tool Response Detection**
+
+1. Agent calls `play_music` webhook tool
+2. Server reserves track, returns info to agent
+3. Frontend's `onMessage` handler detects `toolName === 'play_music'` (line 2447)
+4. Frontend calls `syncMusicWithServer()` which fetches the reserved track
+5. Frontend plays the reserved track
+
+**Backup mechanism: Text Detection (currently active)**
+
+If the tool response detection misses, text detection (lines 2575-2599) also triggers `syncMusicWithServer()` when Pi-Guy says keywords like "spinning", "playing", etc.
+
+### Commercials - How They Work
+
+Same pattern: tool response detection (line 2456) + text detection backup (lines 2609-2618).
 
 ### ⚠️ COMMON MISTAKES TO AVOID
 
@@ -279,23 +312,26 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 - **Agent ID**: `agent_0801kb2240vcea2ayx0a2qxmheha`
 - **Model**: glm-45-air-fp8 (configurable in ElevenLabs dashboard)
 - **Max Tokens**: 1000
-- **Voice**: Custom (eZm9vdjYgL9PZKtf7XMM)
+- **Primary Voice**: Kitt-Voice (`E3MHpxAogw45xwi3vBsd`)
+- **Radio Voice**: Radio Voice (`CeNX9CMwmxDxUF5Q2Inm`)
 
 ### ElevenLabs Tools
 
-**All 11 tools attached to agent (tool_ids array):**
+**All 13 tools attached to agent (tool_ids array):**
 ```
-tool_5601kb73sh06e6q9t8ng87bv1qsa  # check_server_status
-tool_3401kb73sh07ed5bvhtshsbxq35j  # look_and_see
-tool_1901kb73sh08f27bct0d3w81qdgn  # identify_person
-tool_4801kb73sh09fxfsvjf3csmca1w5  # manage_todos
-tool_2901kb73sh0ae2a8z7yj04v4chn1  # search_web
-tool_3501kb73sh0be5tt4xb5162ejdxz  # run_command
-tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 tool_0301kb77mf7vf0sbdyhxn3w470da  # manage_memory
+tool_1901kb73sh08f27bct0d3w81qdgn  # identify_person
+tool_2901kb73sh0ae2a8z7yj04v4chn1  # search_web
+tool_3401kb73sh07ed5bvhtshsbxq35j  # look_and_see
+tool_3501kb73sh0be5tt4xb5162ejdxz  # run_command
+tool_4801kb73sh09fxfsvjf3csmca1w5  # manage_todos
+tool_5601kb73sh06e6q9t8ng87bv1qsa  # check_server_status
 tool_6801kb79mrdwfycsawytjq0gx1ck  # manage_jobs
+tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
-tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard
+tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard (CLIENT tool)
+tool_8101kbp5rzccfv4r46zrp6wt356g  # generate_song
+tool_6601kbpfyjnpeayrjefkga7mgw0n  # play_commercial
 ```
 
 #### Vision Tool (look_and_see)
@@ -475,41 +511,24 @@ This function:
   - Commercial plays automatically
   - Pi-Guy announces the next song after commercial ends
 
-#### DJ Soundboard Tool (dj_soundboard) - ⚠️ SPECIAL IMPLEMENTATION
-
-**How DJ Sounds Actually Work (IMPORTANT!):**
-
-Unlike other tools, DJ sounds are NOT played via webhook response. Instead:
-1. Pi-Guy has a `dj_soundboard` tool (type: `client`) that he "calls" to play sounds
-2. The tool exists so Pi-Guy knows he HAS a soundboard and can reference sounds
-3. **Actual sound playback happens via TEXT DETECTION in the frontend**
-4. When Pi-Guy SPEAKS sound names (e.g., "air horn", "siren"), the frontend detects these words and plays the corresponding MP3 files
-
-**Why this approach:**
-- ElevenLabs webhook tools return data to the AGENT, not the browser
-- Client tools run in the browser but have latency issues
-- Text detection is instant and reliable - sounds play AS Pi-Guy speaks about them
-
-**Frontend Implementation (index.html):**
-```javascript
-// checkForDJSounds() scans Pi-Guy's speech for trigger words
-// Plays ALL matching sounds simultaneously (no delay - realtime!)
-// Each sound uses its own Audio element so they can overlap
-const soundTriggers = {
-    'air horn': 'air_horn',
-    'siren': 'siren',
-    'scratch': 'scratch',
-    // ... etc
-};
-```
+#### DJ Soundboard Tool (dj_soundboard) - CLIENT TOOL
 
 **Tool Configuration:**
 - **Tool ID**: `tool_4101kb908dbrfmttcz597n7h91ns`
-- **Type**: `client` (registered in ElevenLabs as client tool)
-- **Purpose**: Gives Pi-Guy knowledge of available sounds and DJ instructions
-- **Server endpoint**: `/api/dj-sound` exists but is mainly for listing sounds
+- **Type**: `client` (runs directly in browser, NOT webhook)
+- **Server endpoint**: `/api/dj-sound` exists for listing sounds
 
-**Available Sounds (13 total in `sounds/` directory):**
+**How It Works (CLIENT TOOL - SILENT OPERATION):**
+
+The `dj_soundboard` is a CLIENT tool, meaning it runs in the browser:
+1. Agent calls `dj_soundboard` with `action=play, sound=air_horn`
+2. ElevenLabs SDK triggers `clientTools.dj_soundboard()` in browser (index.html line 2325)
+3. Browser immediately plays the sound via `playDJSound()`
+4. **Agent does NOT speak the sound name** - the tool call is completely silent
+
+**This is confirmed working** - Pi-Guy has played "bruh" as a response BEFORE speaking any words.
+
+**Available Sounds (15 in `sounds/` directory):**
 - **Air horn**: `air_horn` (classic DJ horn)
 - **Scratch**: `scratch_long` (DJ scratch solo)
 - **Transitions**: `rewind`, `record_stop`
@@ -519,27 +538,16 @@ const soundTriggers = {
 - **Sound FX**: `laser`, `gunshot`
 - **Comedy**: `bruh`, `sad_trombone`
 
-**Text Trigger Words (what Pi-Guy says → sound that plays):**
-- "air horn", "airhorn", "triple horn" → `air_horn`
-- "scratch" → `scratch_long`
-- "rewind", "pull up" → `rewind`
-- "record stop" → `record_stop`
-- "applause", "crowd cheer", "crowd goes wild" → `crowd_cheer` / `crowd_hype`
-- "impact", "punch", "hit" → `impact`
-- "yeah", "let's go", "lets go" → `yeah` / `lets_go`
-- "laser", "pew pew" → `laser`
-- "gunshot", "gun shot" → `gunshot`
-- "bruh" → `bruh`
-- "sad trombone", "fail", "womp womp" → `sad_trombone`
-
-**Preloading:** Common sounds are preloaded on page load for instant playback:
+**Preloading:** Sounds are preloaded on page load for instant playback (line 3787):
 ```javascript
-['air_horn', 'scratch_long', 'crowd_cheer', 'rewind', 'yeah', 'laser']
+['air_horn', 'scratch_long', 'crowd_cheer', 'crowd_hype', 'rewind', 'yeah', 'laser', 'lets_go', 'bruh', 'sad_trombone', 'gunshot', 'impact', 'record_stop']
 ```
 
 **Generator script**: `generate_dj_sounds.py` - creates sounds using ElevenLabs Text-to-Sound API
 
-**⚠️ DO NOT try to "fix" this by converting to webhook or changing the text detection approach - this is the working solution after extensive testing.**
+**Backup: Text Detection (can be re-enabled if needed)**
+
+There's a backup `checkForDJSounds()` function (line 3843) that can be re-enabled if the client tool fails. See "Backup/Restore" section below.
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
@@ -827,3 +835,97 @@ setMusicVolume(50)        // Set volume 0-100
 - **Camera permission** needed for vision and face recognition
 - **Microphone permission** needed for voice and wake word features
 - **DeepFace deps**: Install manually on VPS with `pip install deepface tf-keras` (not in requirements.txt due to Netlify compatibility)
+
+---
+
+## 📦 Backup & Restore Documentation
+
+**IMPORTANT:** All features have backup mechanisms. When disabling a feature, ALWAYS comment it out (don't delete) and document why.
+
+### DJ Sounds Text Detection (BACKUP - Currently Disabled)
+
+**What:** Text detection that scans Pi-Guy's speech for sound trigger words
+**Where:** `index.html` line 2503 - call to `checkForDJSounds(message.message)`
+**Why disabled:** The client tool (`dj_soundboard`) works reliably and silently. Text detection was causing duplicate sounds and required Pi-Guy to say sound names out loud.
+**Status:** DISABLED as of 2024-12-13
+
+**To re-enable if client tool fails:**
+```javascript
+// In index.html, find line ~2503 in onMessage handler:
+// UNCOMMENT this line:
+// checkForDJSounds(message.message);
+```
+
+**Text trigger words (for reference):**
+- "air horn", "airhorn", "horn" → `air_horn`
+- "scratch", "wicka" → `scratch_long`
+- "rewind", "pull up", "selecta" → `rewind`
+- "crowd goes wild", "applause" → `crowd_cheer`/`crowd_hype`
+- "bruh", "bro" → `bruh`
+- "sad trombone", "womp womp", "fail" → `sad_trombone`
+- Full list in `checkForDJSounds()` function (line 3843)
+
+### Music Text Detection (BACKUP - Currently Active)
+
+**What:** Text detection that syncs music playback when Pi-Guy mentions playing
+**Where:** `index.html` lines 2575-2599
+**Why kept active:** Works alongside tool response detection (line 2447) as redundancy
+**Status:** ACTIVE
+
+**How it works:**
+- Detects keywords: "spinning", "playing", "next up", "here we go", "coming up", etc.
+- Calls `syncMusicWithServer()` which fetches the RESERVED track (not a new random one)
+- Has 2-second debouncing to prevent duplicates
+
+**To disable if causing issues:**
+```javascript
+// In index.html, find lines ~2587-2599 and comment out:
+// if (shouldSyncMusic) {
+//     ... syncMusicWithServer() calls ...
+// }
+```
+
+### Commercial Text Detection (BACKUP - Currently Active)
+
+**What:** Text detection for commercial breaks
+**Where:** `index.html` lines 2609-2618
+**Status:** ACTIVE
+
+**Trigger words:** "commercial", "sponsor", "ad break", "word from our", "brought to you"
+
+### Agent Configuration Backup
+
+**Always save agent config before changes:**
+```bash
+curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2qxmheha" \
+  -H "xi-api-key: $ELEVENLABS_API_KEY" | python3 -m json.tool > backups/agent_backup_$(date +%Y%m%d_%H%M%S).json
+```
+
+**Backup files in repo:**
+- `agent_backup_20251207_050452.json` - backup before changes
+- `agent_backup_20251208_042234.json` - another backup
+- `agent_backup_analysis_20251207.json` - analysis of agent state
+- `agent_backup_restored_20251208.json` - restored config
+
+### Code Change Tracking
+
+When modifying features, use this comment format:
+```javascript
+// BACKUP: [feature name]
+// DISABLED: [date] by [who]
+// REASON: [why disabled]
+// TO RESTORE: [instructions]
+// ORIGINAL CODE:
+// [the original code, commented out]
+```
+
+### Files That Should NEVER Be Deleted
+
+| File | Purpose | Consequence if deleted |
+|------|---------|------------------------|
+| `.env` | API keys | Server won't start |
+| `usage.db` | User data, todos, jobs | Lose all user data |
+| `memory_docs.json` | Memory ID mapping | Lose memory sync |
+| `face_owners.json` | Face-to-user mapping | Lose personalization |
+| `known_faces/` | Face recognition DB | Can't recognize anyone |
+| `music/music_metadata.json` | Track metadata | DJ hints won't work |

@@ -2499,8 +2499,16 @@
                             } else if (message.source === 'ai' && message.message) {
                                 showTranscription(message.message, false);
 
-                                // Check for DJ sound effects triggers (fallback for text detection)
-                                checkForDJSounds(message.message);
+                                // ==========================================================
+                                // BACKUP: DJ Sounds Text Detection
+                                // DISABLED: 2024-12-13
+                                // REASON: Client tool (dj_soundboard) works reliably and silently.
+                                //         Text detection caused duplicates and required Pi-Guy
+                                //         to say sound names out loud. Client tool is superior.
+                                // TO RESTORE: Uncomment the line below if client tool ever fails
+                                // ORIGINAL CODE:
+                                // checkForDJSounds(message.message);
+                                // ==========================================================
 
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
