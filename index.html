@@ -642,6 +642,31 @@
             cursor: pointer;
         }
 
+        /* Autoplay toggle */
+        .autoplay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+        }
+
+        .autoplay-toggle label {
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .autoplay-toggle input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: var(--cyan);
+        }
+
+        .autoplay-toggle.enabled label {
+            color: var(--cyan);
+        }
+
         /* Transcription display - above the face */
         .transcription-display {
             position: absolute;
@@ -1267,7 +1292,11 @@
             <button onclick="musicControl('toggle')" id="play-pause-btn" title="Play/Pause">⏸</button>
             <button onclick="musicControl('next')" title="Next">⏭</button>
         </div>
-        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100" onchange="setMusicVolume(this.value)">
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100" oninput="setMusicVolume(this.value)">
+        <div class="autoplay-toggle" id="autoplay-toggle">
+            <input type="checkbox" id="autoplay-checkbox" onchange="toggleAutoplay(this.checked)">
+            <label for="autoplay-checkbox">Auto</label>
+        </div>
     </div>
 
     <!-- Hidden audio player -->
@@ -1326,6 +1355,7 @@
         let currentTrack = null;
         let musicVolume = 1.0;  // Default 100% - full blast!
         let currentPlaylist = 'sprayfoam';  // 'sprayfoam' or 'generated'
+        let autoplayEnabled = localStorage.getItem('musicAutoplay') === 'true';  // Persist preference
 
         // Random first messages for Pi-Guy (generic)
         // MASSIVE collection to ensure you rarely hear the same one twice
@@ -3284,7 +3314,7 @@
             }
         });
 
-        // When track ends, notify agent and wait for next song
+        // When track ends, notify agent or auto-play next
         musicPlayer.addEventListener('ended', async () => {
             const endedTrack = currentTrack ? (currentTrack.title || currentTrack.name) : 'track';
             djTransitionTriggered = false;  // Reset for next track
@@ -3304,7 +3334,7 @@
                 console.error('Failed to clear server state:', err);
             }
 
-            // Notify agent that song ended - use BOTH contextual and user message
+            // If agent is in conversation, let agent handle it
             if (conversation) {
                 try {
                     console.log(`🎙️ "${endedTrack}" ended - forcing agent to play next track`);
@@ -3315,9 +3345,15 @@
                 } catch (err) {
                     console.error('Failed to notify agent of track end:', err);
                 }
+                console.log('🎵 Track ended - waiting for agent to play next');
             }
-
-            console.log('🎵 Track ended - waiting for agent to play next');
+            // No agent - check if autoplay is enabled
+            else if (autoplayEnabled) {
+                console.log(`🎵 "${endedTrack}" ended - autoplay enabled, playing next track`);
+                await playMusicFromServer('skip');
+            } else {
+                console.log('🎵 Track ended - autoplay disabled, waiting for manual action');
+            }
         });
 
         // Duck music volume when Pi-Guy speaks
@@ -3383,6 +3419,29 @@
             musicVolume = value / 100;
             musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
         };
+
+        // Toggle autoplay (only works when agent is NOT in conversation)
+        window.toggleAutoplay = function(enabled) {
+            autoplayEnabled = enabled;
+            localStorage.setItem('musicAutoplay', enabled);
+            const toggle = document.getElementById('autoplay-toggle');
+            if (toggle) {
+                toggle.classList.toggle('enabled', enabled);
+            }
+            console.log(`🎵 Autoplay ${enabled ? 'enabled' : 'disabled'}`);
+        };
+
+        // Initialize autoplay toggle state on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('autoplay-checkbox');
+            const toggle = document.getElementById('autoplay-toggle');
+            if (checkbox) {
+                checkbox.checked = autoplayEnabled;
+            }
+            if (toggle && autoplayEnabled) {
+                toggle.classList.add('enabled');
+            }
+        });
 
         // Switch playlist (from dropdown)
         window.switchPlaylist = async function(playlist) {

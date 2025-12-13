@@ -14,6 +14,7 @@ import tempfile
 import sqlite3
 import subprocess
 import time
+import random
 import psutil
 import requests
 from datetime import datetime
@@ -2300,8 +2301,47 @@ current_music_state = {
     # Track reservation system - prevents race conditions between tool calls and text detection
     "reserved_track": None,  # Track that Pi-Guy announced (waiting for frontend to play)
     "reserved_at": None,  # Timestamp of reservation (expires after 30s)
-    "reservation_id": None  # Unique ID to track which reservation is active
+    "reservation_id": None,  # Unique ID to track which reservation is active
+    # Recently played tracking - prevents repeating the same songs
+    "recently_played": []  # List of recently played track names (max 50% of playlist)
 }
+
+def get_random_track_avoiding_recent(tracks, recently_played, current_name=None):
+    """
+    Select a random track while avoiding recently played ones.
+    Falls back to any track if all have been played recently.
+    """
+    # Exclude current track
+    available = [t for t in tracks if t['name'] != current_name]
+    if not available:
+        available = tracks
+
+    # Exclude recently played tracks
+    not_recent = [t for t in available if t['name'] not in recently_played]
+
+    # If we've played everything recently, reset and use all available
+    if not not_recent:
+        not_recent = available
+
+    return random.choice(not_recent)
+
+def add_to_recently_played(track_name, playlist_size):
+    """
+    Add a track to recently played list.
+    Keeps list at max 50% of playlist size to ensure variety.
+    """
+    max_recent = max(1, playlist_size // 2)  # At least 1, max 50% of playlist
+    recently = current_music_state["recently_played"]
+
+    # Remove if already in list (to move to end)
+    if track_name in recently:
+        recently.remove(track_name)
+
+    recently.append(track_name)
+
+    # Trim to max size
+    while len(recently) > max_recent:
+        recently.pop(0)
 
 def reserve_track(track):
     """
@@ -2549,12 +2589,20 @@ def handle_music():
                         "response": f"Can't find a track matching '{track}'. Try 'list music' to see what I have."
                     })
             else:
-                # Random track
-                selected = random.choice(music_files)
+                # Random track - avoid recently played
+                current_name = (current_music_state.get("current_track") or {}).get("name")
+                selected = get_random_track_avoiding_recent(
+                    music_files,
+                    current_music_state["recently_played"],
+                    current_name
+                )
 
             current_music_state["playing"] = True
             current_music_state["current_track"] = selected
             current_music_state["track_started_at"] = time.time()
+
+            # Track this song as recently played
+            add_to_recently_played(selected['name'], len(music_files))
 
             # RESERVE the track - prevents text detection from selecting a different one
             reservation_id = reserve_track(selected)
@@ -2630,16 +2678,20 @@ def handle_music():
                     "response": "No music to skip to!"
                 })
 
-            # Get a different track if possible
-            current_name = current_music_state.get("current_track", {}).get("name")
-            available = [t for t in music_files if t['name'] != current_name]
-            if not available:
-                available = music_files
+            # Get a different track - avoid recently played
+            current_name = (current_music_state.get("current_track") or {}).get("name")
+            selected = get_random_track_avoiding_recent(
+                music_files,
+                current_music_state["recently_played"],
+                current_name
+            )
 
-            selected = random.choice(available)
             current_music_state["playing"] = True
             current_music_state["current_track"] = selected
             current_music_state["track_started_at"] = time.time()
+
+            # Track this song as recently played
+            add_to_recently_played(selected['name'], len(music_files))
 
             # RESERVE the track - prevents text detection from selecting a different one
             reservation_id = reserve_track(selected)
@@ -2685,13 +2737,13 @@ def handle_music():
                     "response": "No tracks available!"
                 })
 
-            # Get a different track from current
-            current_name = current_music_state.get("current_track", {}).get("name")
-            available = [t for t in music_files if t['name'] != current_name]
-            if not available:
-                available = music_files
-
-            selected = random.choice(available)
+            # Get a different track - avoid recently played
+            current_name = (current_music_state.get("current_track") or {}).get("name")
+            selected = get_random_track_avoiding_recent(
+                music_files,
+                current_music_state["recently_played"],
+                current_name
+            )
             title = selected.get('title', selected['name'])
             description = selected.get('description', '')
             phone = selected.get('phone_number')
@@ -2904,15 +2956,16 @@ def handle_dj_transition():
         data = request.get_json() or {}
         remaining = data.get('remaining_seconds', 10)
 
-        # Pre-select the next track
+        # Pre-select the next track - avoid recently played
         music_files = get_music_files()
-        current_name = current_music_state.get("current_track", {}).get("name")
-        available = [t for t in music_files if t['name'] != current_name]
-        if not available:
-            available = music_files
+        current_name = (current_music_state.get("current_track") or {}).get("name")
 
-        if available:
-            selected = random.choice(available)
+        if music_files:
+            selected = get_random_track_avoiding_recent(
+                music_files,
+                current_music_state["recently_played"],
+                current_name
+            )
             current_music_state["next_track"] = selected
             current_music_state["dj_transition_pending"] = True
 
@@ -3088,12 +3141,11 @@ def handle_commercials():
 
             return jsonify({
                 "action": "play",
-                "commercial": selected,
+                "commercial": {"filename": selected['filename']},  # Don't expose title to agent
                 "url": f"/commercials/{selected['filename']}",
                 "duration_seconds": duration,
                 "duration_str": duration_str,
-                "response": f"Commercial queued: {selected['title']} ({duration_str}). Intro it, then frontend will play!",
-                "dj_hint": f"Commercial break incoming! '{selected['title']}' - {duration_str} long. Announce the sponsor break, then it will start playing."
+                "response": f"Commercial break! Just say 'word from our sponsors' then stay quiet. You'll be notified when it ends."
             })
 
         elif action == 'confirm_started':
