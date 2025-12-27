@@ -113,6 +113,11 @@
                 inset 0 0 30px rgba(0, 136, 255, 0.05);
             border: 2px solid rgba(0, 136, 255, 0.3);
             z-index: 1;
+            --shake-amount: 5px;
+            /* Flex to center children */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         /* Eyes container */
@@ -123,6 +128,7 @@
             gap: 40px;
             margin-bottom: 50px;
             position: relative;
+            z-index: 1;
         }
 
         .eye {
@@ -826,11 +832,7 @@
             z-index: 1;
         }
 
-        /* Screen shake on bass - intensity via CSS variable */
-        .face-box {
-            --shake-amount: 5px;
-        }
-
+        /* Screen shake on bass */
         .shake {
             animation: screenShake 0.1s ease-out;
         }
