@@ -101,17 +101,18 @@
             z-index: 10;
         }
 
-        /* Black box behind eyes to hide eyelid edges */
-        .eyes-container::before {
-            content: '';
-            position: absolute;
-            top: -30px;
-            left: -60px;
-            right: -60px;
-            bottom: -30px;
+        /* Face Box - Contains eyes, mouth, and visualizer bars */
+        .face-box {
+            position: relative;
+            padding: 40px 60px;
             background: var(--dark-bg);
-            z-index: -1;
-            border-radius: 20px;
+            border-radius: 30px;
+            box-shadow:
+                0 0 30px rgba(0, 136, 255, 0.3),
+                0 0 60px rgba(0, 136, 255, 0.1),
+                inset 0 0 30px rgba(0, 136, 255, 0.05);
+            border: 2px solid rgba(0, 136, 255, 0.3);
+            z-index: 1;
         }
 
         /* Eyes container */
@@ -122,7 +123,6 @@
             gap: 40px;
             margin-bottom: 50px;
             position: relative;
-            z-index: 1;
         }
 
         .eye {
@@ -827,19 +827,21 @@
         }
 
         /* ============================================
-           VISUALIZER BARS - Equalizer bars around face
+           VISUALIZER BARS - Equalizer bars around face box
            ============================================ */
 
-        /* Top/Bottom visualizers - attached to face container */
+        /* Top/Bottom visualizers - attached to face box */
         .visualizer-container {
             position: absolute;
             left: 10px;
             right: 10px;
+            height: 60px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: flex-end;
             gap: 3px;
             pointer-events: none;
-            z-index: 5;
+            z-index: -1;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -872,7 +874,7 @@
             background: linear-gradient(to top,
                 var(--cyan) 0%,
                 var(--blue) 40%,
-                #9933ff 70%,
+                #aa00ff 70%,
                 var(--red) 100%);
             background-size: 100% 55px;
             background-position: bottom;
@@ -883,14 +885,14 @@
             background: linear-gradient(to bottom,
                 var(--cyan) 0%,
                 var(--blue) 40%,
-                #9933ff 70%,
+                #aa00ff 70%,
                 var(--red) 100%);
             background-size: 100% 55px;
             background-position: top;
             background-repeat: no-repeat;
         }
 
-        /* Side visualizers - attached to face container, full height */
+        /* Side visualizers - attached to face box, full height */
         .side-visualizer {
             position: absolute;
             top: 10px;
@@ -898,7 +900,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            z-index: 5;
+            z-index: -1;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
@@ -922,7 +924,7 @@
             background: linear-gradient(to left,
                 var(--cyan) 0%,
                 var(--blue) 40%,
-                #9933ff 70%,
+                #aa00ff 70%,
                 var(--red) 100%);
             background-size: 85px 100%;
             background-position: right;
@@ -933,7 +935,7 @@
             background: linear-gradient(to right,
                 var(--cyan) 0%,
                 var(--blue) 40%,
-                #9933ff 70%,
+                #aa00ff 70%,
                 var(--red) 100%);
             background-size: 85px 100%;
             background-position: left;
@@ -1490,32 +1492,40 @@
     </div>
 
     <div class="face-container">
-        <div class="eyes-container">
-            <!-- Left Eye -->
-            <div class="eye left-eye" id="left-eye">
-                <div class="eye-white">
-                    <div class="pupil-container" id="left-pupil-container">
-                        <div class="pupil"></div>
+        <!-- Face Box - Contains all face elements with its own background -->
+        <div class="face-box" id="face-box">
+            <div class="eyes-container">
+                <!-- Left Eye -->
+                <div class="eye left-eye" id="left-eye">
+                    <div class="eye-white">
+                        <div class="pupil-container" id="left-pupil-container">
+                            <div class="pupil"></div>
+                        </div>
                     </div>
+                    <div class="eyelid-top"></div>
+                    <div class="eyelid-bottom"></div>
+                    <div class="eye-cap-top"></div>
                 </div>
-                <div class="eyelid-top"></div>
-                <div class="eyelid-bottom"></div>
-                <div class="eye-cap-top"></div>
+
+                <!-- Right Eye -->
+                <div class="eye right-eye" id="right-eye">
+                    <div class="eye-white">
+                        <div class="pupil-container" id="right-pupil-container">
+                            <div class="pupil"></div>
+                        </div>
+                    </div>
+                    <div class="eyelid-top"></div>
+                    <div class="eyelid-bottom"></div>
+                    <div class="eye-cap-top"></div>
+                </div>
             </div>
 
-            <!-- Right Eye -->
-            <div class="eye right-eye" id="right-eye">
-                <div class="eye-white">
-                    <div class="pupil-container" id="right-pupil-container">
-                        <div class="pupil"></div>
-                    </div>
-                </div>
-                <div class="eyelid-top"></div>
-                <div class="eyelid-bottom"></div>
-                <div class="eye-cap-top"></div>
+            <!-- Waveform Mouth -->
+            <div class="mouth-container">
+                <canvas id="waveform-canvas"></canvas>
             </div>
 
-            <!-- Side visualizers - inside eyes-container so they extend from sides -->
+            <!-- Side visualizers - inside face box so they extend from sides -->
             <div class="side-visualizer left" id="left-viz">
                 <!-- Bars added by JS -->
             </div>
@@ -1523,18 +1533,13 @@
                 <!-- Bars added by JS -->
             </div>
 
-            <!-- Top/Bottom visualizers -->
+            <!-- Top/Bottom visualizers - inside face box -->
             <div class="visualizer-container top" id="top-viz">
                 <!-- Bars added by JS -->
             </div>
             <div class="visualizer-container bottom" id="bottom-viz">
                 <!-- Bars added by JS -->
             </div>
-        </div>
-
-        <!-- Waveform Mouth -->
-        <div class="mouth-container">
-            <canvas id="waveform-canvas"></canvas>
         </div>
     </div>
 
