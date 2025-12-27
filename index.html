@@ -3792,6 +3792,12 @@
         const BEAT_THRESHOLD = 0.4;
         const BEAT_COOLDOWN = 150;
 
+        // Simulated audio values (used when real audio data not available)
+        let simBass = 0.5;
+        let simMid = 0.5;
+        let simEnergy = 0.5;
+        let simHighMid = 0.5;
+
         // Disco dots state
         let discoDots = [];
 
@@ -4138,6 +4144,15 @@
             // If no audio data, use simulated values based on time for basic animation
             const time = Date.now() / 1000;
             const hasAudioData = energy > 0.01;
+
+            // Update simulated values when no audio data (creates gentle pulsing effect)
+            if (!hasAudioData) {
+                simBass = 0.3 + Math.sin(time * 2) * 0.2 + Math.sin(time * 3.7) * 0.15;
+                simMid = 0.4 + Math.sin(time * 1.5) * 0.2;
+                simHighMid = 0.3 + Math.sin(time * 2.5) * 0.2;
+                simEnergy = (simBass + simMid + simHighMid) / 3;
+            }
+
             const useBass = hasAudioData ? bass : simBass;
             const useMid = hasAudioData ? mid : simMid;
             const useEnergy = hasAudioData ? energy : simEnergy;
