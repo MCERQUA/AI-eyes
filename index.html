@@ -97,6 +97,21 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Black box behind eyes to hide eyelid edges */
+        .eyes-container::before {
+            content: '';
+            position: absolute;
+            top: -30px;
+            left: -60px;
+            right: -60px;
+            bottom: -30px;
+            background: var(--dark-bg);
+            z-index: -1;
+            border-radius: 20px;
         }
 
         /* Eyes container */
@@ -811,6 +826,120 @@
             z-index: 1;
         }
 
+        /* ============================================
+           VISUALIZER BARS - Equalizer bars around face
+           ============================================ */
+
+        /* Top/Bottom visualizers - attached to face container */
+        .visualizer-container {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            pointer-events: none;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .visualizer-container.active {
+            opacity: 1;
+        }
+
+        .visualizer-container.top {
+            top: -8px;
+            transform: translateY(-100%);
+            align-items: flex-end;
+        }
+
+        .visualizer-container.bottom {
+            bottom: -8px;
+            transform: translateY(100%);
+            align-items: flex-start;
+        }
+
+        .visualizer-bar {
+            flex: 1;
+            max-width: 8px;
+            border-radius: 3px;
+            transition: height 0.05s ease;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        .visualizer-container.top .visualizer-bar {
+            background: linear-gradient(to top,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                #9933ff 70%,
+                var(--red) 100%);
+            background-size: 100% 55px;
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+
+        .visualizer-container.bottom .visualizer-bar {
+            background: linear-gradient(to bottom,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                #9933ff 70%,
+                var(--red) 100%);
+            background-size: 100% 55px;
+            background-position: top;
+            background-repeat: no-repeat;
+        }
+
+        /* Side visualizers - attached to face container, full height */
+        .side-visualizer {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 5;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .side-visualizer.active {
+            opacity: 1;
+        }
+
+        .side-visualizer.left { right: 100%; margin-right: 8px; align-items: flex-end; }
+        .side-visualizer.right { left: 100%; margin-left: 8px; align-items: flex-start; }
+
+        .side-bar {
+            width: 80px;
+            height: 6px;
+            border-radius: 3px;
+            box-shadow: 0 0 8px var(--cyan);
+            transition: width 0.05s ease;
+        }
+
+        .side-visualizer.left .side-bar {
+            background: linear-gradient(to left,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                #9933ff 70%,
+                var(--red) 100%);
+            background-size: 85px 100%;
+            background-position: right;
+            background-repeat: no-repeat;
+        }
+
+        .side-visualizer.right .side-bar {
+            background: linear-gradient(to right,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                #9933ff 70%,
+                var(--red) 100%);
+            background-size: 85px 100%;
+            background-position: left;
+            background-repeat: no-repeat;
+        }
+
         /* Transcription display - above the face */
         .transcription-display {
             position: absolute;
@@ -1385,6 +1514,22 @@
                 <div class="eyelid-bottom"></div>
                 <div class="eye-cap-top"></div>
             </div>
+
+            <!-- Side visualizers - inside eyes-container so they extend from sides -->
+            <div class="side-visualizer left" id="left-viz">
+                <!-- Bars added by JS -->
+            </div>
+            <div class="side-visualizer right" id="right-viz">
+                <!-- Bars added by JS -->
+            </div>
+
+            <!-- Top/Bottom visualizers -->
+            <div class="visualizer-container top" id="top-viz">
+                <!-- Bars added by JS -->
+            </div>
+            <div class="visualizer-container bottom" id="bottom-viz">
+                <!-- Bars added by JS -->
+            </div>
         </div>
 
         <!-- Waveform Mouth -->
@@ -1458,7 +1603,7 @@
     </div>
 
     <!-- Hidden audio player -->
-    <audio id="music-player" style="display: none;"></audio>
+    <audio id="music-player" style="display: none;" crossorigin="anonymous"></audio>
 
     <!-- Hidden canvas for capturing frames -->
     <canvas id="capture-canvas" style="display: none;"></canvas>
@@ -2075,6 +2220,11 @@
 
         async function playGeneratedSong(songId) {
             try {
+                // Setup audio analyser BEFORE playing (only if visualizer is enabled)
+                if (visualizerEnabled) {
+                    await setupMusicAnalyser();
+                }
+
                 const url = songId
                     ? `${VISION_SERVER_URL}/api/suno?action=play&track=${songId}`
                     : `${VISION_SERVER_URL}/api/suno?action=play`;
@@ -2084,7 +2234,7 @@
 
                 if (data.action === 'play' && data.url) {
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    musicPlayer.play();
+                    await musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
                     playPauseBtn.textContent = '⏸';
@@ -2100,13 +2250,18 @@
 
         async function skipGeneratedSong() {
             try {
+                // Setup audio analyser BEFORE playing (only if visualizer is enabled)
+                if (visualizerEnabled) {
+                    await setupMusicAnalyser();
+                }
+
                 const response = await fetch(`${VISION_SERVER_URL}/api/suno?action=skip`);
                 const data = await response.json();
                 console.log('🎵 Skip generated song response:', data);
 
                 if (data.action === 'play' && data.url) {
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
-                    musicPlayer.play();
+                    await musicPlayer.play();
                     musicPlaying = true;
                     trackName.textContent = data.track?.title || 'Generated Track';
                     currentTrack = data.track;
@@ -2630,8 +2785,12 @@
 
                                     // Play if action is 'play' and we have a URL
                                     if (toolData && toolData.action === 'play' && toolData.url) {
+                                        // Setup audio analyser BEFORE playing
+                                        if (visualizerEnabled) {
+                                            await setupMusicAnalyser();
+                                        }
                                         musicPlayer.src = `${VISION_SERVER_URL}${toolData.url}`;
-                                        musicPlayer.play();
+                                        await musicPlayer.play();
                                         musicPlaying = true;
                                         musicButton.classList.add('playing');
                                         playPauseBtn.textContent = '⏸';
@@ -3540,6 +3699,12 @@
                 playPauseBtn.textContent = '▶';
                 nowPlaying.classList.remove('visible');
             } else {
+                // Setup audio analyser BEFORE playing (only if visualizer is enabled)
+                // This ensures the Web Audio API is ready before audio starts
+                if (visualizerEnabled) {
+                    await setupMusicAnalyser();
+                }
+
                 // If we have a track AND a valid source, resume. Otherwise fetch random
                 if (currentTrack && musicPlayer.src && musicPlayer.src !== window.location.href) {
                     try {
@@ -3663,8 +3828,58 @@
             initPartyEffects();
         });
 
-        // Initialize party effects (particles and disco dots)
+        // Initialize party effects (particles, disco dots, and visualizer bars)
+        const NUM_BARS = 25; // Same number on all sides
+
+        // Create visualizer bars on all four sides
+        function createVisualizerBars() {
+            const topViz = document.getElementById('top-viz');
+            const bottomViz = document.getElementById('bottom-viz');
+            const leftViz = document.getElementById('left-viz');
+            const rightViz = document.getElementById('right-viz');
+
+            if (!topViz || !bottomViz || !leftViz || !rightViz) return;
+
+            topViz.innerHTML = '';
+            bottomViz.innerHTML = '';
+            leftViz.innerHTML = '';
+            rightViz.innerHTML = '';
+
+            for (let i = 0; i < NUM_BARS; i++) {
+                // Calculate center curve multiplier (1.0 at center, lower at edges)
+                const distFromCenter = Math.abs(i - (NUM_BARS - 1) / 2) / ((NUM_BARS - 1) / 2);
+                const centerMultiplier = 1 - (distFromCenter * 0.6); // 1.0 center, 0.4 at edges
+
+                const topBar = document.createElement('div');
+                topBar.className = 'visualizer-bar';
+                topBar.dataset.centerMult = centerMultiplier;
+                topBar.style.height = '10px';
+                topViz.appendChild(topBar);
+
+                const bottomBar = document.createElement('div');
+                bottomBar.className = 'visualizer-bar';
+                bottomBar.dataset.centerMult = centerMultiplier;
+                bottomBar.style.height = '10px';
+                bottomViz.appendChild(bottomBar);
+
+                const leftBar = document.createElement('div');
+                leftBar.className = 'side-bar';
+                leftBar.dataset.centerMult = centerMultiplier;
+                leftBar.style.width = '20px';
+                leftViz.appendChild(leftBar);
+
+                const rightBar = document.createElement('div');
+                rightBar.className = 'side-bar';
+                rightBar.dataset.centerMult = centerMultiplier;
+                rightBar.style.width = '20px';
+                rightViz.appendChild(rightBar);
+            }
+        }
+
         function initPartyEffects() {
+            // Create visualizer bars on all four sides
+            createVisualizerBars();
+
             // Create particles
             const particleContainer = document.getElementById('party-particle-container');
             if (particleContainer) {
@@ -3711,25 +3926,41 @@
         }
 
         // Setup audio analysis for music player
-        function setupMusicAnalyser() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 512;
-                frequencyData = new Uint8Array(analyser.frequencyBinCount);
-            }
+        async function setupMusicAnalyser() {
+            // Skip if visualizer disabled - but DON'T skip if already connected
+            // because we need audio to keep flowing through the connection
+            if (!visualizerEnabled && !musicSourceNode) return;
 
-            // Connect music player to analyser if not already connected
-            if (!musicSourceNode && musicPlayer) {
-                try {
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    console.log('✨ Created new AudioContext, state:', audioContext.state);
+                }
+
+                // Resume audio context if suspended (required after user interaction)
+                if (audioContext.state === 'suspended') {
+                    await audioContext.resume();
+                    console.log('✨ AudioContext resumed, state:', audioContext.state);
+                }
+
+                if (!analyser) {
+                    analyser = audioContext.createAnalyser();
+                    analyser.fftSize = 512;
+                    frequencyData = new Uint8Array(analyser.frequencyBinCount);
+                }
+
+                // Connect music player to analyser if not already connected
+                // IMPORTANT: createMediaElementSource can only be called once per element
+                if (!musicSourceNode && musicPlayer) {
                     musicSourceNode = audioContext.createMediaElementSource(musicPlayer);
                     musicSourceNode.connect(analyser);
                     analyser.connect(audioContext.destination);
-                    console.log('✨ Music analyser connected');
-                } catch (e) {
-                    // Already connected or other error
-                    console.log('✨ Music analyser already connected or error:', e.message);
+                    console.log('✨ Music analyser connected to audio output, context state:', audioContext.state);
                 }
+            } catch (e) {
+                console.error('✨ Music analyser error:', e.message);
+                // If connection fails, audio still plays through element normally
+                // Effects will just show without audio reactivity
             }
         }
 
@@ -3896,21 +4127,29 @@
             const container = document.getElementById('party-effects-container');
             if (container) container.classList.add('active');
 
-            // Setup analyser if needed
-            if (!analyser) {
+            // Try to setup analyser (will skip if already done or on error)
+            if (!musicSourceNode && visualizerEnabled) {
                 setupMusicAnalyser();
             }
 
-            // Get frequency data
+            // Get frequency data (returns zeros if analyser not connected)
             const { bass, mid, highMid, treble, energy } = getFrequencyBands();
-            const isBeat = detectBeat(bass);
+
+            // If no audio data, use simulated values based on time for basic animation
+            const time = Date.now() / 1000;
+            const hasAudioData = energy > 0.01;
+            const useBass = hasAudioData ? bass : simBass;
+            const useMid = hasAudioData ? mid : simMid;
+            const useEnergy = hasAudioData ? energy : simEnergy;
+            const useHighMid = hasAudioData ? highMid : simHighMid;
+            const isBeat = hasAudioData ? detectBeat(bass) : (Math.random() < 0.02); // Random beats when no audio
 
             // Update center glow
             const glow = document.getElementById('center-glow');
             if (glow) {
-                const size = 600 + bass * 800;
-                const hue = 180 + energy * 60 + mid * 40;
-                const opacity = 0.3 + energy * 0.7;
+                const size = 600 + useBass * 800;
+                const hue = 180 + useEnergy * 60 + useMid * 40;
+                const opacity = 0.3 + useEnergy * 0.7;
 
                 glow.style.width = size + 'px';
                 glow.style.height = size + 'px';
@@ -3931,68 +4170,90 @@
                 // Beat flash
                 const flash = document.getElementById('beat-flash');
                 if (flash) {
-                    flash.style.opacity = Math.min(bass * 0.6, 0.4);
+                    flash.style.opacity = Math.min(useBass * 0.6, 0.4);
                     setTimeout(() => flash.style.opacity = 0, 80);
                 }
 
                 // Sound ripple
-                triggerSoundRipple(bass);
+                triggerSoundRipple(useBass);
 
                 // Explosion
-                triggerExplosion(bass);
+                triggerExplosion(useBass);
             }
 
             // Update particles
-            const time = Date.now() / 1000;
             partyParticles.forEach((p, i) => {
-                const radius = p.baseRadius + bass * 200;
+                const radius = p.baseRadius + useBass * 200;
                 const orbitSpeed = 0.3 + (i % 5) * 0.1;
                 const x = 50 + Math.cos(time * orbitSpeed + p.angle) * (radius / 10);
                 const y = 50 + Math.sin(time * orbitSpeed * 0.7 + p.angle) * (radius / 15);
-                const size = 4 + energy * 8;
+                const size = 4 + useEnergy * 8;
 
                 p.el.style.left = x + '%';
                 p.el.style.top = y + '%';
                 p.el.style.width = size + 'px';
                 p.el.style.height = size + 'px';
-                p.el.style.opacity = 0.3 + energy * 0.7;
+                p.el.style.opacity = 0.3 + useEnergy * 0.7;
             });
 
             // Update disco dots
             const centerX = 50, centerY = 50;
             discoDots.forEach((dot, i) => {
-                const dynamicRadius = dot.orbitRadius * (0.5 + energy * 2);
+                const dynamicRadius = dot.orbitRadius * (0.5 + useEnergy * 2);
                 const orbitX = Math.cos(time * dot.speed + dot.angle) * dynamicRadius;
                 const orbitY = Math.sin(time * dot.speed * 0.8 + dot.angle) * dynamicRadius;
 
-                const pullStrength = 1 - energy;
+                const pullStrength = 1 - useEnergy;
                 const targetX = dot.baseX + orbitX;
                 const targetY = dot.baseY + orbitY;
                 const x = targetX + (centerX - targetX) * pullStrength * 0.7;
                 const y = targetY + (centerY - targetY) * pullStrength * 0.7;
 
-                let size = 0.4 + highMid * 0.6 + bass * 0.4;
+                let size = 0.4 + useHighMid * 0.6 + useBass * 0.4;
                 if (isBeat) size += 0.5;
 
-                const hue = (dot.hueOffset + time * 30 + mid * 60) % 360;
+                const hue = (dot.hueOffset + time * 30 + useMid * 60) % 360;
 
                 dot.el.style.left = x + '%';
                 dot.el.style.top = y + '%';
                 dot.el.style.transform = `scale(${size})`;
-                dot.el.style.opacity = 0.3 + energy * 0.7;
+                dot.el.style.opacity = 0.3 + useEnergy * 0.7;
                 dot.el.style.background = `hsl(${hue}, 100%, 70%)`;
-                dot.el.style.boxShadow = `0 0 ${10 + bass * 20}px hsl(${hue}, 100%, 50%)`;
+                dot.el.style.boxShadow = `0 0 ${10 + useBass * 20}px hsl(${hue}, 100%, 50%)`;
+            });
+
+            // Update visualizer bars
+            // Show visualizer containers
+            document.querySelectorAll('.visualizer-container, .side-visualizer').forEach(el => {
+                el.classList.add('active');
+            });
+
+            // Top and bottom bars - height based on frequency data
+            document.querySelectorAll('.visualizer-bar').forEach((bar, i) => {
+                const mult = parseFloat(bar.dataset.centerMult) || 1;
+                const bandIndex = Math.floor(i / NUM_BARS * (frequencyData ? frequencyData.length : 256));
+                const level = frequencyData ? (frequencyData[bandIndex] / 255) : useEnergy;
+                bar.style.height = ((8 + level * 50) * mult) + 'px';
+            });
+
+            // Side bars - width based on frequency data
+            document.querySelectorAll('.side-bar').forEach((bar, i) => {
+                const mult = parseFloat(bar.dataset.centerMult) || 1;
+                const bandIndex = Math.floor(i / NUM_BARS * (frequencyData ? frequencyData.length : 256));
+                const level = frequencyData ? (frequencyData[bandIndex] / 255) : useEnergy;
+                bar.style.width = ((15 + level * 70) * mult) + 'px';
             });
 
             visualizerAnimationId = requestAnimationFrame(updateVisualizerEffects);
         }
 
         // Start visualizer when music starts
-        musicPlayer.addEventListener('play', () => {
+        musicPlayer.addEventListener('play', async () => {
+            // Ensure audio context is running
             if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume();
+                await audioContext.resume();
             }
-            setupMusicAnalyser();
+            await setupMusicAnalyser();
             if (!visualizerAnimationId) {
                 updateVisualizerEffects();
             }
@@ -4002,11 +4263,19 @@
         musicPlayer.addEventListener('pause', () => {
             const container = document.getElementById('party-effects-container');
             if (container) container.classList.remove('active');
+            // Hide visualizer bars
+            document.querySelectorAll('.visualizer-container, .side-visualizer').forEach(el => {
+                el.classList.remove('active');
+            });
         });
 
         musicPlayer.addEventListener('ended', () => {
             const container = document.getElementById('party-effects-container');
             if (container) container.classList.remove('active');
+            // Hide visualizer bars
+            document.querySelectorAll('.visualizer-container, .side-visualizer').forEach(el => {
+                el.classList.remove('active');
+            });
         });
 
         // Start the animation loop
@@ -4026,6 +4295,11 @@
         // Play music from server API
         async function playMusicFromServer(action, track = '') {
             try {
+                // Setup audio analyser BEFORE playing (only if visualizer is enabled)
+                if (visualizerEnabled) {
+                    await setupMusicAnalyser();
+                }
+
                 let url = `${VISION_SERVER_URL}/api/music?action=${action}&playlist=${currentPlaylist}`;
                 if (track) url += `&track=${encodeURIComponent(track)}`;
 
@@ -4055,7 +4329,11 @@
                     musicPlaying = false;
                     playPauseBtn.textContent = '▶';
                 } else if (data.action === 'resume') {
-                    musicPlayer.play();
+                    // Setup audio analyser BEFORE playing
+                    if (visualizerEnabled) {
+                        await setupMusicAnalyser();
+                    }
+                    await musicPlayer.play();
                     musicPlaying = true;
                     playPauseBtn.textContent = '⏸';
                 } else if (data.action === 'stop') {
@@ -4080,17 +4358,21 @@
 
         // Handle music commands from ElevenLabs tool responses
         // This is called when Pi-Guy's tool returns music data
-        window.handleMusicCommand = function(musicData) {
+        window.handleMusicCommand = async function(musicData) {
             if (!musicData || !musicData.action) return;
 
             switch(musicData.action) {
                 case 'play':
                     if (musicData.url) {
+                        // Setup audio analyser BEFORE playing
+                        if (visualizerEnabled) {
+                            await setupMusicAnalyser();
+                        }
                         currentTrack = musicData.track;
                         djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                         trackName.textContent = musicData.track?.title || musicData.track?.name || 'Unknown';
                         musicPlayer.src = `${VISION_SERVER_URL}${musicData.url}`;
-                        musicPlayer.play();
+                        await musicPlayer.play();
                         musicPlaying = true;
                         musicButton.classList.add('playing');
                         playPauseBtn.textContent = '⏸';
@@ -4103,7 +4385,11 @@
                     playPauseBtn.textContent = '▶';
                     break;
                 case 'resume':
-                    musicPlayer.play();
+                    // Setup audio analyser BEFORE playing
+                    if (visualizerEnabled) {
+                        await setupMusicAnalyser();
+                    }
+                    await musicPlayer.play();
                     musicPlaying = true;
                     playPauseBtn.textContent = '⏸';
                     break;
@@ -4133,6 +4419,10 @@
                 console.log('Music state from server:', data);
 
                 if (data.playing && data.track) {
+                    // Setup audio analyser BEFORE playing
+                    if (visualizerEnabled) {
+                        await setupMusicAnalyser();
+                    }
                     currentTrack = data.track;
                     djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                     trackName.textContent = data.track.title || data.track.name;
@@ -4149,7 +4439,7 @@
                         if (playlistSelect) playlistSelect.value = 'sprayfoam';
                     }
                     musicPlayer.volume = isSpeaking ? (data.volume / 100) * 0.3 : data.volume / 100;
-                    musicPlayer.play();
+                    await musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
                     playPauseBtn.textContent = '⏸';
@@ -4238,12 +4528,17 @@
                     }
 
                     // Play the track!
+                    // Setup audio analyser BEFORE playing (only if visualizer is enabled)
+                    if (visualizerEnabled) {
+                        await setupMusicAnalyser();
+                    }
+
                     currentTrack = data.track;
                     djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                     trackName.textContent = data.track.title || data.track.name;
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
-                    musicPlayer.play();
+                    await musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
                     playPauseBtn.textContent = '⏸';
@@ -4311,12 +4606,16 @@
                     }
 
                     // Play the generated track!
+                    // Setup audio analyser BEFORE playing
+                    if (visualizerEnabled) {
+                        await setupMusicAnalyser();
+                    }
                     currentTrack = data.track;
                     djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
                     trackName.textContent = data.track.title || 'AI Generated Track';
                     musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
                     musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
-                    musicPlayer.play();
+                    await musicPlayer.play();
                     musicPlaying = true;
                     musicButton.classList.add('playing');
                     playPauseBtn.textContent = '⏸';
