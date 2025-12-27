@@ -826,6 +826,71 @@
             z-index: 1;
         }
 
+        /* Screen shake on bass - intensity via CSS variable */
+        .face-box {
+            --shake-amount: 5px;
+        }
+
+        .shake {
+            animation: screenShake 0.1s ease-out;
+        }
+
+        @keyframes screenShake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(calc(var(--shake-amount) * -1), var(--shake-amount)); }
+            50% { transform: translate(var(--shake-amount), calc(var(--shake-amount) * -1)); }
+            75% { transform: translate(calc(var(--shake-amount) * -1), calc(var(--shake-amount) * -1)); }
+        }
+
+        /* Waveform oscilloscope - FULL SCREEN background effect */
+        .oscilloscope-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+            transition: opacity 0.3s;
+        }
+
+        .oscilloscope-container.active {
+            opacity: 1;
+        }
+
+        #oscilloscope-canvas {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px var(--cyan)) drop-shadow(0 0 60px var(--blue));
+        }
+
+        /* Fireworks - Shoot up, then explode */
+        .fireworks-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .firework-rocket {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to top, transparent, white, var(--cyan));
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .firework-spark {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
         /* ============================================
            VISUALIZER BARS - Equalizer bars around face box
            ============================================ */
@@ -1486,8 +1551,12 @@
         <div class="center-glow" id="center-glow"></div>
         <div class="ripple-container" id="ripple-container"></div>
         <div class="explosion-container" id="explosion-container"></div>
+        <div class="fireworks-container" id="fireworks-container"></div>
         <div class="party-particle-container" id="party-particle-container"></div>
         <div class="disco-container" id="disco-container"></div>
+        <div class="oscilloscope-container" id="oscilloscope-container">
+            <canvas id="oscilloscope-canvas"></canvas>
+        </div>
         <div class="beat-flash" id="beat-flash"></div>
     </div>
 
@@ -3788,6 +3857,7 @@
         let audioContext = null;
         let analyser = null;
         let frequencyData = null;
+        let timeDomainData = null;
         let musicSourceNode = null;
         let visualizerAnimationId = null;
 
@@ -3808,6 +3878,18 @@
 
         // Particles state
         let partyParticles = [];
+
+        // Reactive effects state (toggleable via control panel)
+        let reactiveEffects = {
+            beatflash: true,
+            shake: true,
+            centerglow: true,
+            oscilloscope: false,
+            fireworks: false
+        };
+
+        // Firework cooldown
+        let lastFireworkTime = 0;
 
         // Toggle visualizer
         window.toggleVisualizer = function(enabled) {
@@ -3956,8 +4038,10 @@
 
                 if (!analyser) {
                     analyser = audioContext.createAnalyser();
-                    analyser.fftSize = 512;
+                    analyser.fftSize = 2048; // Higher for oscilloscope waveform quality
+                    analyser.smoothingTimeConstant = 0.8;
                     frequencyData = new Uint8Array(analyser.frequencyBinCount);
+                    timeDomainData = new Uint8Array(analyser.fftSize);
                 }
 
                 // Connect music player to analyser if not already connected
@@ -4125,11 +4209,187 @@
             }
         }
 
+        // Firework - shoot up then explode
+        function triggerFirework(energy) {
+            if (!reactiveEffects.fireworks) return;
+
+            const now = Date.now();
+            if (now - lastFireworkTime < 500) return; // Cooldown
+            if (Math.random() > energy * 0.3) return; // Random chance based on energy
+            lastFireworkTime = now;
+
+            const container = document.getElementById('fireworks-container');
+            if (!container) return;
+
+            // Random starting position along bottom
+            const startX = 20 + Math.random() * 60; // 20-80% of screen
+
+            // Create rocket
+            const rocket = document.createElement('div');
+            rocket.className = 'firework-rocket';
+            rocket.style.left = startX + '%';
+            rocket.style.bottom = '0';
+
+            const hue = Math.random() * 360;
+            rocket.style.background = `linear-gradient(to top, transparent, hsl(${hue}, 100%, 70%), white)`;
+
+            container.appendChild(rocket);
+
+            // Animate rocket going up
+            const rocketDuration = 800 + Math.random() * 400;
+            const targetY = 30 + Math.random() * 30; // Explode at 30-60% height
+            const startTime = Date.now();
+
+            function animateRocket() {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / rocketDuration;
+
+                if (progress >= 1) {
+                    rocket.remove();
+                    explodeFirework(startX, 100 - targetY, hue);
+                    return;
+                }
+
+                const eased = 1 - Math.pow(1 - progress, 2);
+                rocket.style.bottom = (eased * targetY) + '%';
+                rocket.style.opacity = 1 - progress * 0.3;
+
+                requestAnimationFrame(animateRocket);
+            }
+            animateRocket();
+        }
+
+        function explodeFirework(x, y, hue) {
+            const container = document.getElementById('fireworks-container');
+            if (!container) return;
+            const sparkCount = 30 + Math.floor(Math.random() * 20);
+
+            for (let i = 0; i < sparkCount; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'firework-spark';
+
+                const angle = (i / sparkCount) * Math.PI * 2;
+                const speed = 100 + Math.random() * 150;
+                const size = 3 + Math.random() * 5;
+                const sparkHue = (hue + Math.random() * 60 - 30) % 360;
+
+                spark.style.width = size + 'px';
+                spark.style.height = size + 'px';
+                spark.style.left = x + '%';
+                spark.style.top = y + '%';
+                spark.style.background = `hsl(${sparkHue}, 100%, 70%)`;
+                spark.style.boxShadow = `0 0 ${size * 3}px hsl(${sparkHue}, 100%, 50%)`;
+
+                container.appendChild(spark);
+
+                const duration = 800 + Math.random() * 600;
+                const startTime = Date.now();
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+
+                function animateSpark() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+
+                    if (progress >= 1) {
+                        spark.remove();
+                        return;
+                    }
+
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const px = vx * eased;
+                    const py = vy * eased + progress * progress * 200; // Gravity
+
+                    spark.style.transform = `translate(${px}px, ${py}px)`;
+                    spark.style.opacity = 1 - progress;
+
+                    requestAnimationFrame(animateSpark);
+                }
+                animateSpark();
+            }
+        }
+
+        // Oscilloscope - waveform display (full screen background)
+        function updateOscilloscope() {
+            if (!reactiveEffects.oscilloscope) return;
+
+            const container = document.getElementById('oscilloscope-container');
+            if (!container) return;
+            if (!container.classList.contains('active')) {
+                container.classList.add('active');
+            }
+
+            const canvas = document.getElementById('oscilloscope-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = canvas.offsetWidth * 2;
+            canvas.height = canvas.offsetHeight * 2;
+
+            // Clear
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Need time domain data for waveform
+            if (!analyser || !timeDomainData) return;
+            analyser.getByteTimeDomainData(timeDomainData);
+
+            // Sample fewer points for smoother wave (every 16th point)
+            const sampleStep = 16;
+            const numSamples = Math.floor(timeDomainData.length / sampleStep);
+            const sliceWidth = canvas.width / numSamples;
+
+            // Draw glow layer first (thicker, more transparent)
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.25)';
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            let x = 0;
+            for (let i = 0; i < numSamples; i++) {
+                const dataIndex = i * sampleStep;
+                const v = timeDomainData[dataIndex] / 128.0;
+                const y = canvas.height / 2 + (v - 1) * canvas.height * 0.35;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+            ctx.stroke();
+
+            // Draw main bright line on top
+            ctx.beginPath();
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 6;
+            x = 0;
+
+            for (let i = 0; i < numSamples; i++) {
+                const dataIndex = i * sampleStep;
+                const v = timeDomainData[dataIndex] / 128.0;
+                const y = canvas.height / 2 + (v - 1) * canvas.height * 0.35;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+            ctx.stroke();
+        }
+
         // Main visualizer animation loop
         function updateVisualizerEffects() {
             if (!visualizerEnabled || !musicPlayer || musicPlayer.paused) {
                 const container = document.getElementById('party-effects-container');
                 if (container) container.classList.remove('active');
+                // Also hide oscilloscope when not playing
+                const oscContainer = document.getElementById('oscilloscope-container');
+                if (oscContainer) oscContainer.classList.remove('active');
                 visualizerAnimationId = requestAnimationFrame(updateVisualizerEffects);
                 return;
             }
@@ -4188,10 +4448,23 @@
             // Trigger effects on beat
             if (isBeat) {
                 // Beat flash
-                const flash = document.getElementById('beat-flash');
-                if (flash) {
-                    flash.style.opacity = Math.min(useBass * 0.6, 0.4);
-                    setTimeout(() => flash.style.opacity = 0, 80);
+                if (reactiveEffects.beatflash) {
+                    const flash = document.getElementById('beat-flash');
+                    if (flash) {
+                        flash.style.opacity = Math.min(useBass * 0.6, 0.4);
+                        setTimeout(() => flash.style.opacity = 0, 80);
+                    }
+                }
+
+                // Bass shake - shakes face box on beat
+                if (reactiveEffects.shake) {
+                    const faceBox = document.getElementById('face-box');
+                    if (faceBox) {
+                        faceBox.classList.add('shake');
+                        // Shake intensity based on bass strength
+                        faceBox.style.setProperty('--shake-amount', (useBass * 8) + 'px');
+                        setTimeout(() => faceBox.classList.remove('shake'), 100);
+                    }
                 }
 
                 // Sound ripple
@@ -4199,6 +4472,20 @@
 
                 // Explosion
                 triggerExplosion(useBass);
+            }
+
+            // Fireworks - trigger randomly based on energy (not just beats)
+            if (reactiveEffects.fireworks) {
+                triggerFirework(useEnergy);
+            }
+
+            // Oscilloscope - full screen waveform display
+            if (reactiveEffects.oscilloscope) {
+                updateOscilloscope();
+            } else {
+                // Hide oscilloscope when disabled
+                const oscContainer = document.getElementById('oscilloscope-container');
+                if (oscContainer) oscContainer.classList.remove('active');
             }
 
             // Update particles
