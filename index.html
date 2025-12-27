@@ -667,6 +667,150 @@
             color: var(--cyan);
         }
 
+        /* Visualizer toggle - same style as autoplay */
+        .visualizer-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+        }
+
+        .visualizer-toggle label {
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .visualizer-toggle input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: var(--purple);
+        }
+
+        .visualizer-toggle.enabled label {
+            color: var(--purple);
+        }
+
+        /* ============================================
+           PARTY MODE EFFECTS - Only visible when music plays
+           ============================================ */
+
+        /* Container for all party effects - positioned behind face */
+        .party-effects-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .party-effects-container.active {
+            opacity: 1;
+        }
+
+        /* Center Glow - pulses behind face with audio */
+        .center-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 136, 255, 0.15) 0%, rgba(0, 255, 255, 0.05) 40%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* Sound Ripples - expand from center on bass hits */
+        .ripple-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .sound-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Bass Explosions - burst particles */
+        .explosion-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .explosion-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Particles - orbit around center */
+        .party-particle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .party-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            border-radius: 50%;
+            opacity: 0;
+        }
+
+        /* Disco Dots - orbit and react */
+        .disco-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .disco-dot {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(3px);
+            opacity: 0;
+            transition: left 0.1s ease-out, top 0.1s ease-out, opacity 0.2s;
+        }
+
+        /* Beat Flash - screen flash on bass hits */
+        .beat-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.3), transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 1;
+        }
+
         /* Transcription display - above the face */
         .transcription-display {
             position: absolute;
@@ -1206,6 +1350,16 @@
         </div>
     </div>
 
+    <!-- PARTY EFFECTS - Behind face, only visible when music plays with visualizer enabled -->
+    <div class="party-effects-container" id="party-effects-container">
+        <div class="center-glow" id="center-glow"></div>
+        <div class="ripple-container" id="ripple-container"></div>
+        <div class="explosion-container" id="explosion-container"></div>
+        <div class="party-particle-container" id="party-particle-container"></div>
+        <div class="disco-container" id="disco-container"></div>
+        <div class="beat-flash" id="beat-flash"></div>
+    </div>
+
     <div class="face-container">
         <div class="eyes-container">
             <!-- Left Eye -->
@@ -1296,6 +1450,10 @@
         <div class="autoplay-toggle" id="autoplay-toggle">
             <input type="checkbox" id="autoplay-checkbox" onchange="toggleAutoplay(this.checked)">
             <label for="autoplay-checkbox">Auto</label>
+        </div>
+        <div class="visualizer-toggle" id="visualizer-toggle">
+            <input type="checkbox" id="visualizer-checkbox" onchange="toggleVisualizer(this.checked)" checked>
+            <label for="visualizer-checkbox">FX</label>
         </div>
     </div>
 
@@ -3450,6 +3608,409 @@
                 toggle.classList.add('enabled');
             }
         });
+
+        // ============================================
+        // PARTY VISUALIZER EFFECTS
+        // Only active when music is playing AND visualizer is enabled
+        // ============================================
+
+        let visualizerEnabled = localStorage.getItem('visualizerEnabled') !== 'false'; // Default ON
+        let audioContext = null;
+        let analyser = null;
+        let frequencyData = null;
+        let musicSourceNode = null;
+        let visualizerAnimationId = null;
+
+        // Beat detection state
+        let prevBassLevel = 0;
+        let lastBeatTime = 0;
+        const BEAT_THRESHOLD = 0.4;
+        const BEAT_COOLDOWN = 150;
+
+        // Disco dots state
+        let discoDots = [];
+
+        // Particles state
+        let partyParticles = [];
+
+        // Toggle visualizer
+        window.toggleVisualizer = function(enabled) {
+            visualizerEnabled = enabled;
+            localStorage.setItem('visualizerEnabled', enabled);
+            const toggle = document.getElementById('visualizer-toggle');
+            if (toggle) {
+                toggle.classList.toggle('enabled', enabled);
+            }
+            console.log(`✨ Visualizer ${enabled ? 'enabled' : 'disabled'}`);
+
+            // Immediately show/hide effects
+            const container = document.getElementById('party-effects-container');
+            if (!enabled && container) {
+                container.classList.remove('active');
+            }
+        };
+
+        // Initialize visualizer toggle on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('visualizer-checkbox');
+            const toggle = document.getElementById('visualizer-toggle');
+            if (checkbox) {
+                checkbox.checked = visualizerEnabled;
+            }
+            if (toggle && visualizerEnabled) {
+                toggle.classList.add('enabled');
+            }
+            initPartyEffects();
+        });
+
+        // Initialize party effects (particles and disco dots)
+        function initPartyEffects() {
+            // Create particles
+            const particleContainer = document.getElementById('party-particle-container');
+            if (particleContainer) {
+                particleContainer.innerHTML = '';
+                partyParticles = [];
+                for (let i = 0; i < 30; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'party-particle';
+                    particle.style.left = Math.random() * 100 + '%';
+                    particle.style.top = Math.random() * 100 + '%';
+                    particleContainer.appendChild(particle);
+                    partyParticles.push({
+                        el: particle,
+                        angle: (i / 30) * Math.PI * 2,
+                        baseRadius: 100 + i * 10
+                    });
+                }
+            }
+
+            // Create disco dots
+            const discoContainer = document.getElementById('disco-container');
+            if (discoContainer) {
+                discoContainer.innerHTML = '';
+                discoDots = [];
+                for (let i = 0; i < 40; i++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'disco-dot';
+                    const baseX = Math.random() * 100;
+                    const baseY = Math.random() * 100;
+                    dot.style.left = baseX + '%';
+                    dot.style.top = baseY + '%';
+                    discoContainer.appendChild(dot);
+                    discoDots.push({
+                        el: dot,
+                        baseX: baseX,
+                        baseY: baseY,
+                        angle: Math.random() * Math.PI * 2,
+                        speed: 0.5 + Math.random() * 1.5,
+                        orbitRadius: 5 + Math.random() * 15,
+                        hueOffset: Math.random() * 360
+                    });
+                }
+            }
+        }
+
+        // Setup audio analysis for music player
+        function setupMusicAnalyser() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 512;
+                frequencyData = new Uint8Array(analyser.frequencyBinCount);
+            }
+
+            // Connect music player to analyser if not already connected
+            if (!musicSourceNode && musicPlayer) {
+                try {
+                    musicSourceNode = audioContext.createMediaElementSource(musicPlayer);
+                    musicSourceNode.connect(analyser);
+                    analyser.connect(audioContext.destination);
+                    console.log('✨ Music analyser connected');
+                } catch (e) {
+                    // Already connected or other error
+                    console.log('✨ Music analyser already connected or error:', e.message);
+                }
+            }
+        }
+
+        // Get frequency bands from audio data
+        function getFrequencyBands() {
+            if (!analyser || !frequencyData) return { bass: 0, mid: 0, treble: 0, energy: 0, highMid: 0 };
+
+            analyser.getByteFrequencyData(frequencyData);
+
+            // Frequency band ranges (for 44100Hz sample rate, 512 FFT)
+            const bassEnd = 10;      // ~0-430Hz
+            const midEnd = 50;       // ~430-2150Hz
+            const highMidEnd = 100;  // ~2150-4300Hz
+
+            let bass = 0, mid = 0, highMid = 0, treble = 0;
+
+            for (let i = 0; i < frequencyData.length; i++) {
+                const value = frequencyData[i] / 255;
+                if (i < bassEnd) bass += value;
+                else if (i < midEnd) mid += value;
+                else if (i < highMidEnd) highMid += value;
+                else treble += value;
+            }
+
+            bass /= bassEnd;
+            mid /= (midEnd - bassEnd);
+            highMid /= (highMidEnd - midEnd);
+            treble /= (frequencyData.length - highMidEnd);
+
+            const energy = (bass + mid + highMid + treble) / 4;
+
+            return { bass, mid, highMid, treble, energy };
+        }
+
+        // Detect bass beat
+        function detectBeat(bass) {
+            const now = Date.now();
+            const isBeat = bass > BEAT_THRESHOLD &&
+                           bass > prevBassLevel * 1.2 &&
+                           (now - lastBeatTime) > BEAT_COOLDOWN;
+
+            if (isBeat) {
+                lastBeatTime = now;
+            }
+            prevBassLevel = bass * 0.8 + prevBassLevel * 0.2;
+
+            return isBeat;
+        }
+
+        // Sound ripple effect
+        const MAX_RIPPLES = 8;
+        let activeRipples = 0;
+
+        function triggerSoundRipple(bassLevel) {
+            if (activeRipples >= MAX_RIPPLES) return;
+
+            const container = document.getElementById('ripple-container');
+            if (!container) return;
+
+            const ripple = document.createElement('div');
+            ripple.className = 'sound-ripple';
+
+            const hue = 180 + bassLevel * 100;
+            const color = `hsl(${hue}, 100%, 60%)`;
+            const colorDim = `hsl(${hue}, 100%, 40%)`;
+
+            ripple.style.boxShadow = `
+                0 0 0 3px ${color},
+                0 0 0 6px ${colorDim}88,
+                0 0 0 10px ${colorDim}44,
+                0 0 30px ${color}66`;
+
+            container.appendChild(ripple);
+            activeRipples++;
+
+            const startSize = 50;
+            const maxSize = 300 + bassLevel * 800;
+            const duration = 600 + bassLevel * 400;
+            const startTime = Date.now();
+
+            function animateRipple() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const size = startSize + (maxSize - startSize) * eased;
+
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.opacity = 1 - progress;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateRipple);
+                } else {
+                    ripple.remove();
+                    activeRipples--;
+                }
+            }
+            animateRipple();
+        }
+
+        // Bass explosion effect
+        function triggerExplosion(bassLevel) {
+            const container = document.getElementById('explosion-container');
+            if (!container) return;
+
+            const particleCount = Math.floor(15 + bassLevel * 25);
+            const hue = Math.random() * 360;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'explosion-particle';
+
+                const angle = (i / particleCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+                const speed = 200 + bassLevel * 400 + Math.random() * 200;
+                const size = 4 + Math.random() * 8;
+                const particleHue = (hue + Math.random() * 40 - 20) % 360;
+
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.background = `hsl(${particleHue}, 100%, 60%)`;
+                particle.style.boxShadow = `0 0 ${size * 2}px hsl(${particleHue}, 100%, 50%)`;
+
+                container.appendChild(particle);
+
+                const duration = 600 + Math.random() * 400;
+                const startTime = Date.now();
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+
+                function animateParticle() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+
+                    if (progress >= 1) {
+                        particle.remove();
+                        return;
+                    }
+
+                    const eased = 1 - Math.pow(1 - progress, 2);
+                    const x = vx * eased * 0.5;
+                    const y = vy * eased * 0.5 + progress * progress * 100;
+
+                    particle.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+                    particle.style.opacity = 1 - progress;
+
+                    requestAnimationFrame(animateParticle);
+                }
+                animateParticle();
+            }
+        }
+
+        // Main visualizer animation loop
+        function updateVisualizerEffects() {
+            if (!visualizerEnabled || !musicPlayer || musicPlayer.paused) {
+                const container = document.getElementById('party-effects-container');
+                if (container) container.classList.remove('active');
+                visualizerAnimationId = requestAnimationFrame(updateVisualizerEffects);
+                return;
+            }
+
+            // Show effects container
+            const container = document.getElementById('party-effects-container');
+            if (container) container.classList.add('active');
+
+            // Setup analyser if needed
+            if (!analyser) {
+                setupMusicAnalyser();
+            }
+
+            // Get frequency data
+            const { bass, mid, highMid, treble, energy } = getFrequencyBands();
+            const isBeat = detectBeat(bass);
+
+            // Update center glow
+            const glow = document.getElementById('center-glow');
+            if (glow) {
+                const size = 600 + bass * 800;
+                const hue = 180 + energy * 60 + mid * 40;
+                const opacity = 0.3 + energy * 0.7;
+
+                glow.style.width = size + 'px';
+                glow.style.height = size + 'px';
+                glow.style.background = `radial-gradient(circle,
+                    hsla(${hue}, 80%, 50%, ${opacity * 0.4}) 0%,
+                    hsla(${hue - 30}, 80%, 40%, ${opacity * 0.15}) 40%,
+                    transparent 70%)`;
+                glow.style.opacity = opacity;
+
+                if (isBeat) {
+                    glow.style.filter = 'blur(40px)';
+                    setTimeout(() => glow.style.filter = 'blur(60px)', 100);
+                }
+            }
+
+            // Trigger effects on beat
+            if (isBeat) {
+                // Beat flash
+                const flash = document.getElementById('beat-flash');
+                if (flash) {
+                    flash.style.opacity = Math.min(bass * 0.6, 0.4);
+                    setTimeout(() => flash.style.opacity = 0, 80);
+                }
+
+                // Sound ripple
+                triggerSoundRipple(bass);
+
+                // Explosion
+                triggerExplosion(bass);
+            }
+
+            // Update particles
+            const time = Date.now() / 1000;
+            partyParticles.forEach((p, i) => {
+                const radius = p.baseRadius + bass * 200;
+                const orbitSpeed = 0.3 + (i % 5) * 0.1;
+                const x = 50 + Math.cos(time * orbitSpeed + p.angle) * (radius / 10);
+                const y = 50 + Math.sin(time * orbitSpeed * 0.7 + p.angle) * (radius / 15);
+                const size = 4 + energy * 8;
+
+                p.el.style.left = x + '%';
+                p.el.style.top = y + '%';
+                p.el.style.width = size + 'px';
+                p.el.style.height = size + 'px';
+                p.el.style.opacity = 0.3 + energy * 0.7;
+            });
+
+            // Update disco dots
+            const centerX = 50, centerY = 50;
+            discoDots.forEach((dot, i) => {
+                const dynamicRadius = dot.orbitRadius * (0.5 + energy * 2);
+                const orbitX = Math.cos(time * dot.speed + dot.angle) * dynamicRadius;
+                const orbitY = Math.sin(time * dot.speed * 0.8 + dot.angle) * dynamicRadius;
+
+                const pullStrength = 1 - energy;
+                const targetX = dot.baseX + orbitX;
+                const targetY = dot.baseY + orbitY;
+                const x = targetX + (centerX - targetX) * pullStrength * 0.7;
+                const y = targetY + (centerY - targetY) * pullStrength * 0.7;
+
+                let size = 0.4 + highMid * 0.6 + bass * 0.4;
+                if (isBeat) size += 0.5;
+
+                const hue = (dot.hueOffset + time * 30 + mid * 60) % 360;
+
+                dot.el.style.left = x + '%';
+                dot.el.style.top = y + '%';
+                dot.el.style.transform = `scale(${size})`;
+                dot.el.style.opacity = 0.3 + energy * 0.7;
+                dot.el.style.background = `hsl(${hue}, 100%, 70%)`;
+                dot.el.style.boxShadow = `0 0 ${10 + bass * 20}px hsl(${hue}, 100%, 50%)`;
+            });
+
+            visualizerAnimationId = requestAnimationFrame(updateVisualizerEffects);
+        }
+
+        // Start visualizer when music starts
+        musicPlayer.addEventListener('play', () => {
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+            setupMusicAnalyser();
+            if (!visualizerAnimationId) {
+                updateVisualizerEffects();
+            }
+        });
+
+        // Hide effects when music stops
+        musicPlayer.addEventListener('pause', () => {
+            const container = document.getElementById('party-effects-container');
+            if (container) container.classList.remove('active');
+        });
+
+        musicPlayer.addEventListener('ended', () => {
+            const container = document.getElementById('party-effects-container');
+            if (container) container.classList.remove('active');
+        });
+
+        // Start the animation loop
+        updateVisualizerEffects();
 
         // Switch playlist (from dropdown)
         window.switchPlaylist = async function(playlist) {

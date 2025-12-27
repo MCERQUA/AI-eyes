@@ -1,0 +1,2431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi-Guy Visual Lab</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #0088ff;
+            --blue-dim: #0055aa;
+            --blue-bright: #00aaff;
+            --cyan: #00ffff;
+            --green: #00ff66;
+            --yellow: #ffdd00;
+            --orange: #ff6600;
+            --red: #ff2244;
+            --purple: #aa00ff;
+            --pink: #ff00aa;
+
+            /* Face box background - this is what eyelids match */
+            --face-bg: #050508;
+            --page-bg: #050508;
+        }
+
+        /* Effects are STILL by default - JS drives them based on audio */
+
+        body {
+            background: var(--page-bg);
+            font-family: 'Courier New', monospace;
+            color: var(--blue);
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* ============================================
+           BACKGROUND OPTIONS - Toggle these in controls
+           ============================================ */
+
+        /* Animated gradient background - very dark */
+        .bg-gradient {
+            background: linear-gradient(-45deg, #050508, #0a0a15, #080815, #050508);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Starfield background - very dark */
+        .bg-stars {
+            background: radial-gradient(ellipse at bottom, #0a0a12 0%, #020204 100%);
+        }
+
+        .bg-stars::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, white, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, white, transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.9), transparent),
+                radial-gradient(1px 1px at 230px 80px, white, transparent),
+                radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.7), transparent),
+                radial-gradient(1px 1px at 350px 60px, white, transparent),
+                radial-gradient(2px 2px at 420px 180px, rgba(255,255,255,0.8), transparent),
+                radial-gradient(1px 1px at 500px 100px, white, transparent),
+                radial-gradient(2px 2px at 580px 200px, rgba(255,255,255,0.9), transparent);
+            background-size: 600px 250px;
+            animation: twinkle 8s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Matrix rain background */
+        .bg-matrix {
+            background: #000;
+        }
+
+        /* Equalizer/music visualizer background - DEPRECATED, use reactive glow */
+        .bg-equalizer {
+            background: linear-gradient(180deg, #0a0a0a 0%, #1a0a2e 50%, #0a0a0a 100%);
+        }
+
+        /* REACTIVE CENTER GLOW - Pulses with audio from face box */
+        .center-glow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 136, 255, 0.15) 0%, rgba(0, 255, 255, 0.05) 40%, transparent 70%);
+            filter: blur(60px);
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.1s;
+        }
+
+        .center-glow.active {
+            opacity: 1;
+        }
+
+        /* ============================================
+           PARTY MODE BACKGROUNDS
+           ============================================ */
+
+        /* Party container - holds all effects */
+        .party-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* 1. Laser beams */
+        .laser-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .laser {
+            position: absolute;
+            width: 4px;
+            height: 150%;
+            background: linear-gradient(to bottom, transparent, var(--cyan), transparent);
+            transform-origin: top center;
+            opacity: 0;
+        }
+
+        /* Lasers: rotation driven by mids frequency, no CSS animation */
+        .laser.active {
+            opacity: 0; /* JS sets opacity and rotation based on audio */
+            transition: none;
+        }
+
+        .laser:nth-child(1) { left: 20%; }
+        .laser:nth-child(2) { left: 40%; }
+        .laser:nth-child(3) { left: 60%; }
+        .laser:nth-child(4) { left: 80%; }
+
+        .laser.red { background: linear-gradient(to bottom, transparent, var(--red), transparent); }
+        .laser.green { background: linear-gradient(to bottom, transparent, var(--green), transparent); }
+        .laser.purple { background: linear-gradient(to bottom, transparent, var(--purple), transparent); }
+
+        /* 2. Strobe effect - AUDIO REACTIVE (triggered by snare/hi-hat) */
+        .strobe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: white;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.05s ease-out;
+        }
+
+        /* No auto-animation - controlled by JS based on audio */
+
+        /* 3. Color wash - JS sets position and opacity based on low-mids */
+        .color-wash {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,0,100,0.3), transparent 70%);
+            transition: opacity 0.1s;
+        }
+
+        .color-wash.active {
+            /* JS controls opacity and background position */
+        }
+
+        /* 4. Spotlights - JS sets position based on frequencies */
+        .spotlight {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+            opacity: 0;
+            filter: blur(30px);
+            transition: none;
+        }
+
+        .spotlight.active {
+            /* JS controls position and opacity */
+        }
+
+        /* 5. Sound Ripples - Triggered on bass beats, expand outward like sound waves */
+        .ripple-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .sound-ripple {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+            pointer-events: none;
+            /* Multiple concentric rings for sound wave look */
+            box-shadow:
+                0 0 0 2px rgba(0, 255, 255, 0.8),
+                0 0 0 4px rgba(0, 255, 255, 0.4),
+                0 0 0 8px rgba(0, 255, 255, 0.2),
+                0 0 20px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Bass Explosions - Particles burst outward from center on bass hits */
+        .explosion-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .explosion-particle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Fireworks - Shoot up, then explode */
+        .fireworks-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: visible;
+        }
+
+        .firework-rocket {
+            position: absolute;
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to top, transparent, white, var(--cyan));
+            border-radius: 2px;
+            pointer-events: none;
+        }
+
+        .firework-spark {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* 6. Particles - JS controls position based on treble */
+        .particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            border-radius: 50%;
+            opacity: 0;
+            box-shadow: 0 0 10px currentColor;
+            transition: none;
+        }
+
+        .particle.active {
+            /* JS controls Y position and opacity */
+        }
+
+        /* 7. Grid - JS flashes on beats */
+        .grid-overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0,255,255,0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,255,255,0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0;
+            transition: opacity 0.05s;
+        }
+
+        .grid-overlay.active {
+            /* JS controls opacity on beats */
+        }
+
+        /* 8. Light bars - JS controls position based on energy */
+        .light-bar {
+            position: absolute;
+            width: 200%;
+            height: 30px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(-45deg) translateX(-200%);
+            opacity: 0;
+            transition: none;
+        }
+
+        .light-bar.active {
+            /* JS controls translateX based on energy */
+        }
+
+        /* 9. Corner glows - JS controls based on bass */
+        .corner-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            transform: scale(1);
+            transition: none;
+        }
+
+        .corner-glow.active {
+            /* JS controls opacity and scale based on bass */
+        }
+
+        .corner-glow.top-left { top: -150px; left: -150px; background: var(--purple); }
+        .corner-glow.top-right { top: -150px; right: -150px; background: var(--cyan); }
+        .corner-glow.bottom-left { bottom: -150px; left: -150px; background: var(--red); }
+        .corner-glow.bottom-right { bottom: -150px; right: -150px; background: var(--green); }
+
+        /* 10. Bass drop flash - JS triggers on big beats */
+        .bass-flash {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, var(--cyan), transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+            transition: none;
+        }
+
+        /* 11. Scan lines - JS controls opacity based on mids */
+        .scan-lines {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.1) 2px,
+                rgba(0,0,0,0.1) 4px
+            );
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scan-lines.active {
+            /* JS controls opacity based on mids */
+        }
+
+        /* 12. Disco dots - Orbit, bounce, and react to music */
+        .disco-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .disco-dot {
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(3px);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: left 0.1s ease-out, top 0.1s ease-out, opacity 0.2s;
+            /* JS controls position, scale, color, and glow */
+        }
+
+        /* ============================================
+           AUDIO-REACTIVE VISUALIZERS
+           ============================================ */
+
+        /* Tunnel/Starfield - classic flying through space */
+        .tunnel-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            perspective: 500px;
+            overflow: hidden;
+        }
+
+        .tunnel-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) translateZ(0);
+            opacity: 0;
+        }
+
+        .tunnel-ring.active {
+            animation: tunnelFly 3s linear infinite;
+        }
+
+        @keyframes tunnelFly {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 0;
+                border-width: 1px;
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.3; }
+            100% {
+                width: 200vw;
+                height: 200vh;
+                opacity: 0;
+                border-width: 4px;
+            }
+        }
+
+        /* Waveform oscilloscope - FULL SCREEN background effect */
+        .oscilloscope-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .oscilloscope-container.active {
+            opacity: 1;
+        }
+
+        #oscilloscope-canvas {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 30px var(--cyan)) drop-shadow(0 0 60px var(--blue));
+        }
+
+        /* Energy meter - shows overall intensity */
+        .energy-meter {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 150px;
+            height: 10px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--blue-dim);
+            border-radius: 5px;
+            overflow: hidden;
+            z-index: 100;
+        }
+
+        .energy-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--cyan), var(--green), var(--yellow), var(--red));
+            transition: width 0.1s ease-out;
+            border-radius: 5px;
+        }
+
+        /* Beat flash - full screen on kick */
+        .beat-flash {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.3), transparent 70%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Screen shake on bass - intensity via CSS variable */
+        .face-box {
+            --shake-amount: 5px;
+        }
+
+        .shake {
+            animation: screenShake 0.1s ease-out;
+        }
+
+        @keyframes screenShake {
+            0%, 100% { transform: translate(0, 0); }
+            25% { transform: translate(calc(var(--shake-amount) * -1), var(--shake-amount)); }
+            50% { transform: translate(var(--shake-amount), calc(var(--shake-amount) * -1)); }
+            75% { transform: translate(calc(var(--shake-amount) * -1), calc(var(--shake-amount) * -1)); }
+        }
+
+        /* Treble sparkles */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleFade 0.5s ease-out forwards;
+        }
+
+        @keyframes sparkleFade {
+            0% { opacity: 1; transform: scale(1); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        /* ============================================
+           FACE BOX - Contains face with its own background
+           ============================================ */
+
+        .face-box {
+            position: relative;
+            width: min(380px, 85vw);
+            height: min(380px, 85vw);
+            background: var(--face-bg);
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 70px;
+            padding-bottom: 40px;
+            margin: 0;
+            /* Optional border glow */
+            box-shadow:
+                0 0 30px rgba(0, 136, 255, 0.3),
+                0 0 60px rgba(0, 136, 255, 0.1),
+                inset 0 0 30px rgba(0, 136, 255, 0.05);
+            border: 2px solid rgba(0, 136, 255, 0.3);
+            z-index: 1;
+        }
+
+        /* Alternative face box styles */
+        .face-box.style-none {
+            background: transparent;
+            border: none;
+            box-shadow: none;
+        }
+
+        .face-box.style-glow {
+            box-shadow:
+                0 0 50px rgba(0, 255, 255, 0.4),
+                0 0 100px rgba(0, 136, 255, 0.3),
+                inset 0 0 50px rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.5);
+        }
+
+        .face-box.style-neon {
+            border: 3px solid var(--cyan);
+            box-shadow:
+                0 0 10px var(--cyan),
+                0 0 20px var(--cyan),
+                0 0 40px var(--cyan),
+                inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .face-box.style-hologram {
+            background: rgba(0, 136, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            box-shadow:
+                0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .face-box.style-hologram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 255, 255, 0.03) 2px,
+                rgba(0, 255, 255, 0.03) 4px
+            );
+            pointer-events: none;
+            border-radius: 28px;
+        }
+
+        /* ============================================
+           EYES - Now use face-bg instead of page bg
+           ============================================ */
+
+        .eyes-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: min(30px, 6vw);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .eye {
+            position: relative;
+            width: min(100px, 22vw);
+            height: min(115px, 25vw);
+        }
+
+        .eye-white {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #ffffff 0%, #e8e8e8 70%, #cccccc 100%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow:
+                0 0 30px rgba(0, 136, 255, 0.3),
+                inset 0 -10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .pupil-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.1s ease-out;
+        }
+
+        .pupil {
+            width: min(40px, 10vw);
+            height: min(40px, 10vw);
+            background: radial-gradient(circle at 30% 30%, #333 0%, #000 70%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .pupil::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+        }
+
+        .pupil::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            top: 20px;
+            right: 12px;
+        }
+
+        /* EYELIDS - Use face-bg color so they blend with face box */
+        .eyelid-top {
+            position: absolute;
+            width: 130%;
+            height: 75%;
+            background: var(--face-bg);
+            top: -60%;
+            left: -15%;
+            border-radius: 0 0 50% 50%;
+            transition: transform 0.15s ease-in-out;
+            z-index: 10;
+        }
+
+        .eyelid-bottom {
+            position: absolute;
+            width: 130%;
+            height: 40%;
+            background: var(--face-bg);
+            bottom: -35%;
+            left: -15%;
+            border-radius: 50% 50% 0 0;
+            transition: transform 0.15s ease-in-out;
+            z-index: 10;
+        }
+
+        .eye-cap-top {
+            position: absolute;
+            width: 120%;
+            height: 27px;
+            background: var(--face-bg);
+            top: -15px;
+            left: -10%;
+            z-index: 11;
+        }
+
+        /* Blink animation */
+        .eye.blinking .eyelid-top {
+            transform: translateY(90%);
+        }
+
+        .eye.blinking .eyelid-bottom {
+            transform: translateY(-30%);
+        }
+
+        /* Mood: Angry */
+        .eye.angry .eyelid-top {
+            transform: translateY(40%) rotate(var(--angry-rotate, 0deg));
+        }
+
+        .left-eye.angry .eyelid-top {
+            --angry-rotate: 15deg;
+            transform-origin: right center;
+        }
+
+        .right-eye.angry .eyelid-top {
+            --angry-rotate: -15deg;
+            transform-origin: left center;
+        }
+
+        /* Mood: Happy */
+        .eye.happy .eyelid-bottom {
+            transform: translateY(-60%);
+        }
+
+        /* Mood: Surprised */
+        .eye.surprised .eye-white {
+            transform: scale(1.1);
+        }
+
+        .eye.surprised .pupil {
+            transform: scale(0.8);
+        }
+
+        /* ============================================
+           MOUTH / WAVEFORM
+           ============================================ */
+
+        .mouth-container {
+            width: min(160px, 40vw);
+            height: min(50px, 12vw);
+            position: relative;
+        }
+
+        #waveform-canvas {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px var(--cyan));
+        }
+
+        /* ============================================
+           MUSIC VISUALIZER ELEMENTS
+           ============================================ */
+
+        /* Top/Bottom visualizers - attached to face box */
+        .visualizer-container {
+            position: absolute;
+            left: 10px;
+            right: 10px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 3px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .visualizer-container.top {
+            top: -8px;
+            transform: translateY(-100%);
+            align-items: flex-end;
+        }
+
+        .visualizer-container.bottom {
+            bottom: -8px;
+            transform: translateY(100%);
+            align-items: flex-start;
+        }
+
+        .visualizer-bar {
+            flex: 1;
+            max-width: 8px;
+            border-radius: 3px;
+            transition: height 0.05s ease;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        .visualizer-container.top .visualizer-bar {
+            background: linear-gradient(to top,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                var(--purple) 70%,
+                var(--red) 100%);
+            background-size: 100% 55px;
+            background-position: bottom;
+            background-repeat: no-repeat;
+        }
+
+        .visualizer-container.bottom .visualizer-bar {
+            background: linear-gradient(to bottom,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                var(--purple) 70%,
+                var(--red) 100%);
+            background-size: 100% 55px;
+            background-position: top;
+            background-repeat: no-repeat;
+        }
+
+        /* Animated equalizer bars */
+        @keyframes equalizerBounce {
+            0%, 100% { height: 20px; }
+            25% { height: 80px; }
+            50% { height: 40px; }
+            75% { height: 100px; }
+        }
+
+        .visualizer-bar.animate {
+            animation: equalizerBounce 0.5s ease-in-out infinite;
+        }
+
+        .visualizer-bar:nth-child(2n) { animation-delay: 0.1s; }
+        .visualizer-bar:nth-child(3n) { animation-delay: 0.2s; }
+        .visualizer-bar:nth-child(4n) { animation-delay: 0.15s; }
+        .visualizer-bar:nth-child(5n) { animation-delay: 0.25s; }
+
+        /* Side visualizers - attached to face box, full height */
+        .side-visualizer {
+            position: absolute;
+            top: 10px;
+            bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: -1;
+        }
+
+        .side-visualizer.left { right: 100%; margin-right: 8px; align-items: flex-end; }
+        .side-visualizer.right { left: 100%; margin-left: 8px; align-items: flex-start; }
+
+        .side-bar {
+            width: 80px;
+            height: 6px;
+            border-radius: 3px;
+            box-shadow: 0 0 8px var(--cyan);
+        }
+
+        .side-visualizer.left .side-bar {
+            background: linear-gradient(to left,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                var(--purple) 70%,
+                var(--red) 100%);
+            background-size: 85px 100%;
+            background-position: right;
+            background-repeat: no-repeat;
+        }
+
+        .side-visualizer.right .side-bar {
+            background: linear-gradient(to right,
+                var(--cyan) 0%,
+                var(--blue) 40%,
+                var(--purple) 70%,
+                var(--red) 100%);
+            background-size: 85px 100%;
+            background-position: left;
+            background-repeat: no-repeat;
+        }
+
+        /* ============================================
+           CONTROL PANEL
+           ============================================ */
+
+        .control-panel {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            bottom: 20px;
+            background: rgba(10, 10, 18, 0.95);
+            border: 1px solid var(--blue-dim);
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 1000;
+            max-width: 280px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--blue-dim) transparent;
+        }
+
+        .control-panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .control-panel::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .control-panel::-webkit-scrollbar-thumb {
+            background: var(--blue-dim);
+            border-radius: 3px;
+        }
+
+        .control-panel h3 {
+            margin-bottom: 15px;
+            color: var(--cyan);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--blue);
+            font-size: 12px;
+        }
+
+        .control-group select,
+        .control-group input[type="color"],
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            background: var(--face-bg);
+            border: 1px solid var(--blue-dim);
+            color: var(--blue);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: var(--cyan);
+        }
+
+        .control-group button {
+            width: 100%;
+            padding: 10px;
+            background: var(--blue-dim);
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s;
+        }
+
+        .control-group button:hover {
+            background: var(--blue);
+        }
+
+        .control-group button.active {
+            background: var(--green);
+        }
+
+        /* Toggle switches */
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .toggle-switch {
+            width: 50px;
+            height: 26px;
+            background: var(--face-bg);
+            border: 1px solid var(--blue-dim);
+            border-radius: 13px;
+            cursor: pointer;
+            position: relative;
+            transition: background 0.3s;
+        }
+
+        .toggle-switch::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--blue-dim);
+            border-radius: 50%;
+            top: 2px;
+            left: 2px;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .toggle-switch.on {
+            background: rgba(0, 255, 102, 0.2);
+            border-color: var(--green);
+        }
+
+        .toggle-switch.on::after {
+            transform: translateX(24px);
+            background: var(--green);
+        }
+
+        /* Now Playing info */
+        .now-playing {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 10, 18, 0.9);
+            border: 1px solid var(--cyan);
+            border-radius: 10px;
+            padding: 15px 30px;
+            text-align: center;
+            z-index: 100;
+        }
+
+        .now-playing .title {
+            color: var(--cyan);
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .now-playing .artist {
+            color: var(--blue-dim);
+            font-size: 12px;
+        }
+
+        /* DJ Mode indicator */
+        .dj-mode {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--cyan);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .dj-mode .record {
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--cyan);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .dj-mode .record::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--cyan);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .dj-mode.playing .record {
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* LED strip effect around face */
+        .led-strip {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border-radius: 35px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .led-strip.rainbow {
+            background: linear-gradient(90deg,
+                var(--red), var(--orange), var(--yellow),
+                var(--green), var(--cyan), var(--blue), var(--purple));
+            background-size: 300% 100%;
+            animation: ledFlow 3s linear infinite;
+            opacity: 0.5;
+        }
+
+        .led-strip.pulse {
+            background: var(--cyan);
+            animation: ledPulse 1s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes ledFlow {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes ledPulse {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Status text */
+        .status-text {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--blue-dim);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body class="bg-gradient">
+
+    <div class="status-text">Pi-Guy Visual Lab - Experimental Interface</div>
+
+    <!-- REACTIVE CENTER GLOW - Behind everything, pulses with audio -->
+    <div class="center-glow" id="center-glow"></div>
+
+    <!-- PARTY MODE CONTAINER -->
+    <div class="party-container" id="party-container">
+        <!-- Sound Ripples (spawned on bass hits) -->
+        <div class="ripple-container" id="ripple-container"></div>
+
+        <!-- Bass Explosions (burst particles on beats) -->
+        <div class="explosion-container" id="explosion-container"></div>
+
+        <!-- Fireworks (shoot up and explode) -->
+        <div class="fireworks-container" id="fireworks-container"></div>
+
+        <!-- Particles (generated by JS) -->
+        <div class="particle-container" id="particle-container"></div>
+
+        <!-- Disco dots (generated by JS) -->
+        <div class="disco-container" id="disco-container"></div>
+
+        <!-- Oscilloscope waveform -->
+        <div class="oscilloscope-container" id="oscilloscope-container">
+            <canvas id="oscilloscope-canvas"></canvas>
+        </div>
+
+        <!-- Beat flash -->
+        <div class="beat-flash" id="beat-flash"></div>
+    </div>
+
+    <!-- Energy meter -->
+    <div class="energy-meter">
+        <div class="energy-fill" id="energy-fill"></div>
+    </div>
+
+    <!-- Bass debug meter -->
+    <div class="energy-meter" style="bottom: 35px; background: rgba(255,0,0,0.2);">
+        <div class="energy-fill" id="bass-fill" style="background: linear-gradient(90deg, #ff0000, #ff6600);"></div>
+    </div>
+    <div style="position:fixed; bottom: 55px; left: 20px; color: #888; font-size: 10px; font-family: monospace;" id="beat-debug">BASS: 0.00</div>
+
+    <!-- DJ Mode indicator -->
+    <div class="dj-mode" id="dj-mode">
+        <div class="record"></div>
+        <span>DJ Mode</span>
+    </div>
+
+    <!-- THE FACE BOX - Contains all face elements with its own background -->
+    <div class="face-box" id="face-box">
+        <!-- LED strip around face (optional effect) -->
+        <div class="led-strip" id="led-strip"></div>
+
+        <div class="eyes-container">
+            <!-- Left Eye -->
+            <div class="eye left-eye" id="left-eye">
+                <div class="eye-white">
+                    <div class="pupil-container" id="left-pupil-container">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="eyelid-top"></div>
+                <div class="eyelid-bottom"></div>
+                <div class="eye-cap-top"></div>
+            </div>
+
+            <!-- Right Eye -->
+            <div class="eye right-eye" id="right-eye">
+                <div class="eye-white">
+                    <div class="pupil-container" id="right-pupil-container">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="eyelid-top"></div>
+                <div class="eyelid-bottom"></div>
+                <div class="eye-cap-top"></div>
+            </div>
+        </div>
+
+        <!-- Waveform Mouth -->
+        <div class="mouth-container">
+            <canvas id="waveform-canvas"></canvas>
+        </div>
+
+        <!-- Side visualizers - inside face box so they extend from sides -->
+        <div class="side-visualizer left" id="left-viz">
+            <!-- Bars added by JS -->
+        </div>
+        <div class="side-visualizer right" id="right-viz">
+            <!-- Bars added by JS -->
+        </div>
+
+        <!-- Top/Bottom visualizers - inside face box -->
+        <div class="visualizer-container top" id="top-viz">
+            <!-- Bars added by JS -->
+        </div>
+        <div class="visualizer-container bottom" id="bottom-viz">
+            <!-- Bars added by JS -->
+        </div>
+    </div>
+
+    <!-- Now Playing -->
+    <div class="now-playing" id="now-playing" style="display: none;">
+        <div class="title">Sample Track</div>
+        <div class="artist">DJ-FoamBot</div>
+    </div>
+
+    <!-- Control Panel -->
+    <div class="control-panel">
+        <h3>Visual Lab Controls</h3>
+
+        <div class="control-group">
+            <label>Background Style</label>
+            <select id="bg-select" onchange="changeBackground(this.value)">
+                <option value="gradient">Animated Gradient</option>
+                <option value="stars">Starfield</option>
+                <option value="matrix">Matrix Dark</option>
+                <option value="equalizer">Equalizer Purple</option>
+                <option value="solid">Solid Color</option>
+            </select>
+        </div>
+
+        <div class="control-group">
+            <label>Background Color (for solid)</label>
+            <input type="color" id="bg-color" value="#1a1a2e" onchange="setSolidBg(this.value)">
+        </div>
+
+        <div class="toggle-row">
+            <label>Top/Bottom Bars</label>
+            <div class="toggle-switch on" id="topbottom-viz-toggle" onclick="toggleViz('topbottom')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Side Bars</label>
+            <div class="toggle-switch on" id="side-viz-toggle" onclick="toggleViz('side')"></div>
+        </div>
+
+        <div class="control-group">
+            <button onclick="triggerBlink()">Test Blink</button>
+        </div>
+
+        <h3 style="margin-top: 20px;">Effects (Audio-Reactive)</h3>
+
+        <div class="toggle-row">
+            <label>Sound Ripples</label>
+            <div class="toggle-switch on" id="rings-toggle" onclick="toggleEffect('rings')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Particles</label>
+            <div class="toggle-switch on" id="particles-toggle" onclick="toggleEffect('particles')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Disco Dots</label>
+            <div class="toggle-switch on" id="disco-toggle" onclick="toggleEffect('disco')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Bass Explosions</label>
+            <div class="toggle-switch on" id="explosions-toggle" onclick="toggleEffect('explosions')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Fireworks</label>
+            <div class="toggle-switch" id="fireworks-toggle" onclick="toggleEffect('fireworks')"></div>
+        </div>
+
+        <div class="control-group">
+            <button onclick="triggerBassFlash()">Test Bass Drop</button>
+        </div>
+
+        <h3 style="margin-top: 20px;">Audio Source</h3>
+
+        <div class="control-group">
+            <label>🎵 Load Audio File</label>
+            <input type="file" id="audio-file" accept="audio/*" onchange="loadAudioFile(event)" style="width:100%;font-size:11px;">
+        </div>
+
+        <div class="control-group">
+            <button id="play-audio-btn" onclick="toggleAudioPlayback()" disabled>Play Audio</button>
+        </div>
+
+        <h3 style="margin-top: 20px;">Core Effects</h3>
+
+        <div class="toggle-row">
+            <label>Beat Flash</label>
+            <div class="toggle-switch on" id="beatflash-toggle" onclick="toggleReactiveEffect('beatflash')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Bass Shake</label>
+            <div class="toggle-switch on" id="shake-toggle" onclick="toggleReactiveEffect('shake')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Center Glow</label>
+            <div class="toggle-switch on" id="centerglow-toggle" onclick="toggleReactiveEffect('centerglow')"></div>
+        </div>
+
+        <div class="toggle-row">
+            <label>Oscilloscope</label>
+            <div class="toggle-switch" id="oscilloscope-toggle" onclick="toggleReactiveEffect('oscilloscope')"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // ============================================
+        // EYE TRACKING (same as original)
+        // ============================================
+
+        const leftPupil = document.getElementById('left-pupil-container');
+        const rightPupil = document.getElementById('right-pupil-container');
+        const leftEye = document.getElementById('left-eye');
+        const rightEye = document.getElementById('right-eye');
+
+        // Track mouse for eye movement
+        document.addEventListener('mousemove', (e) => {
+            const maxMove = 25;
+
+            [leftPupil, rightPupil].forEach(pupil => {
+                if (!pupil) return;
+                const eye = pupil.closest('.eye');
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+
+                let dx = e.clientX - eyeCenterX;
+                let dy = e.clientY - eyeCenterY;
+
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                if (distance > maxMove) {
+                    dx = (dx / distance) * maxMove;
+                    dy = (dy / distance) * maxMove;
+                }
+
+                pupil.style.transform = `translate(${dx}px, ${dy}px)`;
+            });
+        });
+
+        // Random eye movement when idle
+        let idleTimeout;
+        function startIdleEyes() {
+            clearTimeout(idleTimeout);
+            idleTimeout = setTimeout(() => {
+                const randomX = (Math.random() - 0.5) * 30;
+                const randomY = (Math.random() - 0.5) * 20;
+
+                [leftPupil, rightPupil].forEach(pupil => {
+                    if (pupil) {
+                        pupil.style.transform = `translate(${randomX}px, ${randomY}px)`;
+                    }
+                });
+
+                startIdleEyes();
+            }, 2000 + Math.random() * 3000);
+        }
+        startIdleEyes();
+
+        // Blinking
+        function triggerBlink() {
+            leftEye.classList.add('blinking');
+            rightEye.classList.add('blinking');
+            setTimeout(() => {
+                leftEye.classList.remove('blinking');
+                rightEye.classList.remove('blinking');
+            }, 150);
+        }
+
+        // Random blinking
+        function randomBlink() {
+            triggerBlink();
+            setTimeout(randomBlink, 2000 + Math.random() * 4000);
+        }
+        setTimeout(randomBlink, 3000);
+
+        // Mood setting
+        function setMood(mood) {
+            const moods = ['neutral', 'happy', 'angry', 'surprised', 'sad', 'thinking'];
+            moods.forEach(m => {
+                leftEye.classList.remove(m);
+                rightEye.classList.remove(m);
+            });
+            if (mood !== 'neutral') {
+                leftEye.classList.add(mood);
+                rightEye.classList.add(mood);
+            }
+        }
+
+        // ============================================
+        // WAVEFORM MOUTH
+        // ============================================
+
+        const canvas = document.getElementById('waveform-canvas');
+        const ctx = canvas.getContext('2d');
+        let isSpeaking = false;
+        let speakingIntensity = 0;
+
+        function resizeCanvas() {
+            canvas.width = canvas.offsetWidth * 2;
+            canvas.height = canvas.offsetHeight * 2;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function drawWaveform() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const centerY = canvas.height / 2;
+            const width = canvas.width;
+
+            ctx.beginPath();
+            ctx.moveTo(0, centerY);
+
+            const segments = 50;
+            const segmentWidth = width / segments;
+
+            for (let i = 0; i <= segments; i++) {
+                const x = i * segmentWidth;
+                let amplitude;
+
+                if (isSpeaking) {
+                    // More dramatic when speaking
+                    amplitude = Math.sin(i * 0.3 + Date.now() * 0.01) *
+                               (20 + Math.random() * 30) * speakingIntensity;
+                } else {
+                    // Subtle idle animation
+                    amplitude = Math.sin(i * 0.2 + Date.now() * 0.002) * 5;
+                }
+
+                const y = centerY + amplitude;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+
+            requestAnimationFrame(drawWaveform);
+        }
+        drawWaveform();
+
+        // ============================================
+        // VISUALIZER BARS
+        // ============================================
+
+        const NUM_BARS = 25; // Same number on all sides
+
+        function createVisualizerBars() {
+            // All four sides get the same number of bars
+            const topViz = document.getElementById('top-viz');
+            const bottomViz = document.getElementById('bottom-viz');
+            const leftViz = document.getElementById('left-viz');
+            const rightViz = document.getElementById('right-viz');
+
+            topViz.innerHTML = '';
+            bottomViz.innerHTML = '';
+            leftViz.innerHTML = '';
+            rightViz.innerHTML = '';
+
+            for (let i = 0; i < NUM_BARS; i++) {
+                // Calculate center curve multiplier (1.0 at center, lower at edges)
+                const distFromCenter = Math.abs(i - (NUM_BARS - 1) / 2) / ((NUM_BARS - 1) / 2);
+                const centerMultiplier = 1 - (distFromCenter * 0.6); // 1.0 center, 0.4 at edges
+
+                const topBar = document.createElement('div');
+                topBar.className = 'visualizer-bar';
+                topBar.dataset.centerMult = centerMultiplier;
+                topBar.style.height = '10px';
+                topViz.appendChild(topBar);
+
+                const bottomBar = document.createElement('div');
+                bottomBar.className = 'visualizer-bar';
+                bottomBar.dataset.centerMult = centerMultiplier;
+                bottomBar.style.height = '10px';
+                bottomViz.appendChild(bottomBar);
+
+                const leftBar = document.createElement('div');
+                leftBar.className = 'side-bar';
+                leftBar.dataset.centerMult = centerMultiplier;
+                leftBar.style.width = '20px';
+                leftViz.appendChild(leftBar);
+
+                const rightBar = document.createElement('div');
+                rightBar.className = 'side-bar';
+                rightBar.dataset.centerMult = centerMultiplier;
+                rightBar.style.width = '20px';
+                rightViz.appendChild(rightBar);
+            }
+        }
+        createVisualizerBars();
+
+        // ============================================
+        // CONTROL FUNCTIONS
+        // ============================================
+
+        function changeBackground(style) {
+            document.body.className = '';
+            switch(style) {
+                case 'gradient':
+                    document.body.classList.add('bg-gradient');
+                    break;
+                case 'stars':
+                    document.body.classList.add('bg-stars');
+                    break;
+                case 'matrix':
+                    document.body.classList.add('bg-matrix');
+                    break;
+                case 'equalizer':
+                    document.body.classList.add('bg-equalizer');
+                    break;
+                case 'solid':
+                    document.body.style.background = document.getElementById('bg-color').value;
+                    break;
+            }
+        }
+
+        function setSolidBg(color) {
+            document.getElementById('bg-select').value = 'solid';
+            document.body.className = '';
+            document.body.style.background = color;
+        }
+
+        function changeFaceBox(style) {
+            const faceBox = document.getElementById('face-box');
+            faceBox.className = 'face-box';
+            if (style !== 'default') {
+                faceBox.classList.add('style-' + style);
+            }
+        }
+
+        function setFaceBg(color) {
+            document.documentElement.style.setProperty('--face-bg', color);
+        }
+
+        function changeLED(style) {
+            const led = document.getElementById('led-strip');
+            led.className = 'led-strip';
+            if (style !== 'none') {
+                led.classList.add(style);
+            }
+        }
+
+        function toggleViz(type) {
+            if (type === 'topbottom') {
+                const toggle = document.getElementById('topbottom-viz-toggle');
+                const topViz = document.getElementById('top-viz');
+                const bottomViz = document.getElementById('bottom-viz');
+                toggle.classList.toggle('on');
+                const show = toggle.classList.contains('on');
+                topViz.style.display = show ? 'flex' : 'none';
+                bottomViz.style.display = show ? 'flex' : 'none';
+            } else if (type === 'side') {
+                const toggle = document.getElementById('side-viz-toggle');
+                const leftViz = document.getElementById('left-viz');
+                const rightViz = document.getElementById('right-viz');
+                toggle.classList.toggle('on');
+                const show = toggle.classList.contains('on');
+                leftViz.style.display = show ? 'flex' : 'none';
+                rightViz.style.display = show ? 'flex' : 'none';
+            }
+        }
+
+        function toggleNowPlaying() {
+            const toggle = document.getElementById('nowplaying-toggle');
+            const np = document.getElementById('now-playing');
+            toggle.classList.toggle('on');
+            np.style.display = toggle.classList.contains('on') ? 'block' : 'none';
+        }
+
+        // All visualizers shown by default (toggles are 'on')
+
+        // ============================================
+        // AUDIO-REACTIVE EFFECTS
+        // ============================================
+
+        let partyEffects = {
+            rings: true,       // Sound ripples - on by default
+            particles: true,   // Particles - on by default
+            disco: true,       // Disco dots - on by default
+            explosions: true,  // Bass explosions - on by default
+            fireworks: false   // Fireworks - off by default (can be intense)
+        };
+
+        // Create particles
+        function createParticles() {
+            const container = document.getElementById('particle-container');
+            container.innerHTML = '';
+            const colors = ['var(--cyan)', 'var(--purple)', 'var(--red)', 'var(--green)', 'var(--yellow)'];
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // Create disco dots with stored positions for animation
+        let discoDots = [];
+        function createDiscoDots() {
+            const container = document.getElementById('disco-container');
+            container.innerHTML = '';
+            discoDots = [];
+
+            // More dots, spread in a grid-like pattern but with randomness
+            for (let i = 0; i < 40; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'disco-dot';
+
+                // Random base positions
+                const baseX = Math.random() * 100;
+                const baseY = Math.random() * 100;
+
+                dot.style.left = baseX + '%';
+                dot.style.top = baseY + '%';
+                container.appendChild(dot);
+
+                discoDots.push({
+                    el: dot,
+                    baseX: baseX,
+                    baseY: baseY,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: 0.5 + Math.random() * 1.5,
+                    orbitRadius: 5 + Math.random() * 15,
+                    hueOffset: Math.random() * 360
+                });
+            }
+        }
+        createDiscoDots();
+
+        function toggleEffect(effect) {
+            partyEffects[effect] = !partyEffects[effect];
+            const toggle = document.getElementById(effect + '-toggle');
+            toggle.classList.toggle('on', partyEffects[effect]);
+
+            const isOn = partyEffects[effect];
+
+            switch(effect) {
+                case 'rings':
+                    if (!isOn) {
+                        document.getElementById('ripple-container').innerHTML = '';
+                    }
+                    break;
+                case 'particles':
+                    document.querySelectorAll('.particle').forEach(el => {
+                        el.classList.toggle('active', isOn);
+                        if (!isOn) el.style.opacity = 0;
+                    });
+                    break;
+                case 'disco':
+                    if (!isOn) {
+                        discoDots.forEach(dot => {
+                            dot.el.style.opacity = 0;
+                        });
+                    }
+                    break;
+                case 'explosions':
+                    if (!isOn) {
+                        document.getElementById('explosion-container').innerHTML = '';
+                    }
+                    break;
+                case 'fireworks':
+                    if (!isOn) {
+                        document.getElementById('fireworks-container').innerHTML = '';
+                    }
+                    break;
+            }
+        }
+
+        // Bass Explosion - burst of particles from center on beat
+        function triggerExplosion(bassLevel) {
+            if (!partyEffects.explosions) return;
+
+            const container = document.getElementById('explosion-container');
+            const particleCount = Math.floor(15 + bassLevel * 25); // 15-40 particles
+
+            // Random color for this explosion
+            const hue = Math.random() * 360;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'explosion-particle';
+
+                // Random angle
+                const angle = (i / particleCount) * Math.PI * 2 + (Math.random() - 0.5) * 0.5;
+                const speed = 200 + bassLevel * 400 + Math.random() * 200;
+                const size = 4 + Math.random() * 8;
+
+                // Slight color variation
+                const particleHue = (hue + Math.random() * 40 - 20) % 360;
+
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = '50%';
+                particle.style.top = '50%';
+                particle.style.background = `hsl(${particleHue}, 100%, 60%)`;
+                particle.style.boxShadow = `0 0 ${size * 2}px hsl(${particleHue}, 100%, 50%)`;
+
+                container.appendChild(particle);
+
+                // Animate outward
+                const duration = 600 + Math.random() * 400;
+                const startTime = Date.now();
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+
+                function animateParticle() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+
+                    if (progress >= 1) {
+                        particle.remove();
+                        return;
+                    }
+
+                    // Ease out + gravity
+                    const eased = 1 - Math.pow(1 - progress, 2);
+                    const x = vx * eased * 0.5;
+                    const y = vy * eased * 0.5 + progress * progress * 100; // Gravity
+
+                    particle.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px))`;
+                    particle.style.opacity = 1 - progress;
+
+                    requestAnimationFrame(animateParticle);
+                }
+                animateParticle();
+            }
+        }
+
+        // Firework - shoot up then explode
+        let lastFireworkTime = 0;
+        function triggerFirework(energy) {
+            if (!partyEffects.fireworks) return;
+
+            const now = Date.now();
+            if (now - lastFireworkTime < 500) return; // Cooldown
+            if (Math.random() > energy * 0.3) return; // Random chance based on energy
+            lastFireworkTime = now;
+
+            const container = document.getElementById('fireworks-container');
+
+            // Random starting position along bottom
+            const startX = 20 + Math.random() * 60; // 20-80% of screen
+
+            // Create rocket
+            const rocket = document.createElement('div');
+            rocket.className = 'firework-rocket';
+            rocket.style.left = startX + '%';
+            rocket.style.bottom = '0';
+
+            const hue = Math.random() * 360;
+            rocket.style.background = `linear-gradient(to top, transparent, hsl(${hue}, 100%, 70%), white)`;
+
+            container.appendChild(rocket);
+
+            // Animate rocket going up
+            const rocketDuration = 800 + Math.random() * 400;
+            const targetY = 30 + Math.random() * 30; // Explode at 30-60% height
+            const startTime = Date.now();
+
+            function animateRocket() {
+                const elapsed = Date.now() - startTime;
+                const progress = elapsed / rocketDuration;
+
+                if (progress >= 1) {
+                    rocket.remove();
+                    explodeFirework(startX, 100 - targetY, hue);
+                    return;
+                }
+
+                const eased = 1 - Math.pow(1 - progress, 2);
+                rocket.style.bottom = (eased * targetY) + '%';
+                rocket.style.opacity = 1 - progress * 0.3;
+
+                requestAnimationFrame(animateRocket);
+            }
+            animateRocket();
+        }
+
+        function explodeFirework(x, y, hue) {
+            const container = document.getElementById('fireworks-container');
+            const sparkCount = 30 + Math.floor(Math.random() * 20);
+
+            for (let i = 0; i < sparkCount; i++) {
+                const spark = document.createElement('div');
+                spark.className = 'firework-spark';
+
+                const angle = (i / sparkCount) * Math.PI * 2;
+                const speed = 100 + Math.random() * 150;
+                const size = 3 + Math.random() * 5;
+                const sparkHue = (hue + Math.random() * 60 - 30) % 360;
+
+                spark.style.width = size + 'px';
+                spark.style.height = size + 'px';
+                spark.style.left = x + '%';
+                spark.style.top = y + '%';
+                spark.style.background = `hsl(${sparkHue}, 100%, 70%)`;
+                spark.style.boxShadow = `0 0 ${size * 3}px hsl(${sparkHue}, 100%, 50%)`;
+
+                container.appendChild(spark);
+
+                const duration = 800 + Math.random() * 600;
+                const startTime = Date.now();
+                const vx = Math.cos(angle) * speed;
+                const vy = Math.sin(angle) * speed;
+
+                function animateSpark() {
+                    const elapsed = Date.now() - startTime;
+                    const progress = elapsed / duration;
+
+                    if (progress >= 1) {
+                        spark.remove();
+                        return;
+                    }
+
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const px = vx * eased;
+                    const py = vy * eased + progress * progress * 200; // Gravity
+
+                    spark.style.transform = `translate(${px}px, ${py}px)`;
+                    spark.style.opacity = 1 - progress;
+
+                    requestAnimationFrame(animateSpark);
+                }
+                animateSpark();
+            }
+        }
+
+        function triggerBassFlash() {
+            const flash = document.getElementById('bass-flash');
+            flash.classList.remove('pop');
+            void flash.offsetWidth; // Trigger reflow
+            flash.classList.add('pop');
+        }
+
+        // Sound Ripple system - triggers on bass beats like the shake
+        const MAX_RIPPLES = 8; // Limit active ripples
+        let activeRipples = 0;
+
+        function triggerSoundRipple(bassLevel) {
+            if (!partyEffects.rings) return;
+            if (activeRipples >= MAX_RIPPLES) return;
+
+            const container = document.getElementById('ripple-container');
+            const ripple = document.createElement('div');
+            ripple.className = 'sound-ripple';
+
+            // Color based on bass intensity - cyan to purple to magenta
+            const hue = 180 + bassLevel * 100; // 180 (cyan) to 280 (magenta)
+            const color = `hsl(${hue}, 100%, 60%)`;
+            const colorDim = `hsl(${hue}, 100%, 40%)`;
+
+            ripple.style.boxShadow = `
+                0 0 0 3px ${color},
+                0 0 0 6px ${colorDim}88,
+                0 0 0 10px ${colorDim}44,
+                0 0 30px ${color}66`;
+
+            container.appendChild(ripple);
+            activeRipples++;
+
+            // Animate: expand outward proportional to bass strength
+            const startSize = 50;
+            const maxSize = 300 + bassLevel * 800; // Bigger ripples for harder hits
+            const duration = 600 + bassLevel * 400; // Slower for bigger ripples
+            const startTime = Date.now();
+
+            function animateRipple() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+
+                // Ease out for natural deceleration
+                const eased = 1 - Math.pow(1 - progress, 3);
+
+                const size = startSize + (maxSize - startSize) * eased;
+                const opacity = 1 - progress;
+
+                ripple.style.width = size + 'px';
+                ripple.style.height = size + 'px';
+                ripple.style.opacity = opacity;
+
+                if (progress < 1) {
+                    requestAnimationFrame(animateRipple);
+                } else {
+                    ripple.remove();
+                    activeRipples--;
+                }
+            }
+            animateRipple();
+        }
+
+        // ============================================
+        // AUDIO ANALYSIS SYSTEM
+        // ============================================
+
+        let audioContext = null;
+        let analyser = null;
+        let audioSource = null;
+        let audioElement = null;
+        let audioPlaying = false;
+        const audioSensitivity = 1.5; // Fixed sensitivity for audio reactivity
+
+        // Frequency data arrays
+        let frequencyData = null;
+        let timeDomainData = null;
+
+        // Reactive effects state
+        let reactiveEffects = {
+            beatflash: true,
+            shake: true,
+            centerglow: true,
+            oscilloscope: false
+        };
+
+        // Beat detection state - simplified for better bass tracking
+        let prevBassLevel = 0;
+        let lastBeatTime = 0;
+        let beatCooldown = 80; // ms between beats (allows up to ~750 BPM for rapid bass)
+
+        // Frequency band ranges (for 2048 FFT size at 44100Hz, each bin = ~21.5Hz)
+        const BANDS = {
+            subBass: { start: 0, end: 4 },      // 0-86Hz
+            bass: { start: 4, end: 12 },        // 86-258Hz
+            lowMid: { start: 12, end: 24 },     // 258-516Hz
+            mid: { start: 24, end: 92 },        // 516-1978Hz
+            highMid: { start: 92, end: 186 },   // 1978-4000Hz
+            treble: { start: 186, end: 512 }    // 4000-11000Hz
+        };
+
+        // Initialize audio context and analyser
+        function initAudio() {
+            if (audioContext) return;
+
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            analyser.fftSize = 2048;
+            analyser.smoothingTimeConstant = 0.8;
+
+            frequencyData = new Uint8Array(analyser.frequencyBinCount);
+            timeDomainData = new Uint8Array(analyser.fftSize);
+
+            console.log('Audio context initialized, FFT bins:', analyser.frequencyBinCount);
+        }
+
+        // Load audio file
+        function loadAudioFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            initAudio();
+
+            // Create audio element
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.src = '';
+            }
+
+            audioElement = new Audio();
+            audioElement.src = URL.createObjectURL(file);
+
+            // Connect to analyser
+            audioSource = audioContext.createMediaElementSource(audioElement);
+            audioSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+
+            // Enable play button
+            document.getElementById('play-audio-btn').disabled = false;
+            document.getElementById('play-audio-btn').textContent = 'Play: ' + file.name.substring(0, 15);
+
+            console.log('Audio loaded:', file.name);
+        }
+
+        // Toggle audio playback
+        function toggleAudioPlayback() {
+            if (!audioElement) return;
+
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            if (audioPlaying) {
+                audioElement.pause();
+                audioPlaying = false;
+                document.getElementById('play-audio-btn').textContent = 'Play Real Audio';
+            } else {
+                // Reset beat detection state for clean start
+                bassHistory = [];
+                prevBassLevel = 0;
+                lastBeatTime = 0;
+
+                audioElement.play();
+                audioPlaying = true;
+                document.getElementById('play-audio-btn').textContent = 'Pause';
+                startAudioVisualization();
+            }
+        }
+
+        // Get average level for a frequency band
+        function getBandLevel(band) {
+            if (!frequencyData) return 0;
+            let sum = 0;
+            const count = band.end - band.start;
+            for (let i = band.start; i < band.end; i++) {
+                sum += frequencyData[i];
+            }
+            return (sum / count / 255) * audioSensitivity;
+        }
+
+        // Beat detection with running average for better accuracy
+        let bassHistory = [];
+        const HISTORY_SIZE = 8; // ~130ms of history at 60fps
+        let lastBassAvg = 0;
+
+        function detectBeat(bassLevel) {
+            const now = Date.now();
+
+            // Add to history
+            bassHistory.push(bassLevel);
+            if (bassHistory.length > HISTORY_SIZE) {
+                bassHistory.shift();
+            }
+
+            // Calculate running average
+            const bassAvg = bassHistory.reduce((a, b) => a + b, 0) / bassHistory.length;
+
+            // Beat detection:
+            // 1. Current bass is significantly above recent average (it's a peak)
+            // 2. Bass is above minimum threshold
+            // 3. Enough time since last beat
+            const peakRatio = bassAvg > 0.05 ? (bassLevel / bassAvg) : 1;
+            const isAboveAvg = peakRatio > 1.3; // Current is 30% above average
+            const isStrongEnough = bassLevel > 0.2; // Lower threshold for sensitivity
+            const cooldownPassed = (now - lastBeatTime) > beatCooldown;
+
+            // Also detect sharp spikes (for rapid hits)
+            const spike = bassLevel - prevBassLevel;
+            const isSharpSpike = spike > 0.08 && bassLevel > 0.15;
+
+            prevBassLevel = bassLevel;
+            lastBassAvg = bassAvg;
+
+            const isBeat = cooldownPassed && (
+                (isAboveAvg && isStrongEnough) || isSharpSpike
+            );
+
+            // Update debug display
+            const bassFill = document.getElementById('bass-fill');
+            const beatDebug = document.getElementById('beat-debug');
+            if (bassFill) {
+                bassFill.style.width = (bassLevel * 100) + '%';
+            }
+            if (beatDebug) {
+                const status = isBeat ? ' BEAT!' : (isAboveAvg ? ' (peak)' : '');
+                beatDebug.textContent = `BASS: ${bassLevel.toFixed(2)} avg: ${bassAvg.toFixed(2)}${status}`;
+                beatDebug.style.color = isBeat ? '#00ff00' : '#888';
+            }
+
+            if (isBeat) {
+                lastBeatTime = now;
+                return true;
+            }
+            return false;
+        }
+
+        // Main visualization loop
+        function startAudioVisualization() {
+            if (!analyser || !audioPlaying) return;
+
+            // Get frequency data
+            analyser.getByteFrequencyData(frequencyData);
+            analyser.getByteTimeDomainData(timeDomainData);
+
+            // Extract frequency bands
+            const bass = getBandLevel(BANDS.bass);
+            const subBass = getBandLevel(BANDS.subBass);
+            const lowMid = getBandLevel(BANDS.lowMid);
+            const mid = getBandLevel(BANDS.mid);
+            const highMid = getBandLevel(BANDS.highMid);
+            const treble = getBandLevel(BANDS.treble);
+            const fullBass = (bass + subBass) / 2;
+
+            // Overall energy
+            const energy = (bass * 2 + lowMid + mid + highMid + treble) / 6;
+            document.getElementById('energy-fill').style.width = (energy * 100) + '%';
+
+            // Beat detection
+            const isBeat = detectBeat(fullBass);
+
+            // Apply reactive effects based on frequency data
+            applyReactiveEffects(fullBass, lowMid, mid, highMid, treble, energy, isBeat);
+
+            // Continue loop
+            if (audioPlaying) {
+                requestAnimationFrame(startAudioVisualization);
+            }
+        }
+
+        // Apply frequency-reactive effects
+        function applyReactiveEffects(bass, lowMid, mid, highMid, treble, energy, isBeat) {
+            // Only apply beat effects if actually playing music/audio
+            const isActuallyPlaying = audioPlaying;
+
+            // BASS → Beat flash, screen shake, and sound ripples (only when playing)
+            // Note: beat detection already checks bass level, no need for extra threshold here
+            if (isBeat && isActuallyPlaying) {
+                if (reactiveEffects.beatflash) {
+                    const flash = document.getElementById('beat-flash');
+                    flash.style.opacity = Math.min(bass * 0.6, 0.4);
+                    setTimeout(() => flash.style.opacity = 0, 80);
+                }
+
+                if (reactiveEffects.shake) {
+                    const faceBox = document.getElementById('face-box');
+                    faceBox.classList.add('shake');
+                    // Shake intensity based on bass strength
+                    faceBox.style.setProperty('--shake-amount', (bass * 8) + 'px');
+                    setTimeout(() => faceBox.classList.remove('shake'), 100);
+                }
+
+                // Sound ripples on beat - synced with shake
+                if (partyEffects.rings) {
+                    triggerSoundRipple(bass);
+                }
+
+                // Bass explosions on beat
+                if (partyEffects.explosions) {
+                    triggerExplosion(bass);
+                }
+            }
+
+            // Fireworks trigger randomly based on energy (not just on beats)
+            if (isActuallyPlaying && partyEffects.fireworks) {
+                triggerFirework(energy);
+            }
+
+            // WAVEFORM → Oscilloscope
+            if (reactiveEffects.oscilloscope) {
+                updateOscilloscope();
+            }
+
+            // DISCO DOTS - Orbit, bounce, and react to music
+            if (partyEffects.disco) {
+                if (isActuallyPlaying) {
+                    const time = Date.now() / 1000;
+                    const centerX = 50;
+                    const centerY = 50;
+
+                    discoDots.forEach((dot, i) => {
+                        // Orbit radius expands with energy, contracts when quiet
+                        const dynamicRadius = dot.orbitRadius * (0.5 + energy * 2);
+
+                        // Position orbits around base position
+                        const orbitX = Math.cos(time * dot.speed + dot.angle) * dynamicRadius;
+                        const orbitY = Math.sin(time * dot.speed * 0.8 + dot.angle) * dynamicRadius;
+
+                        // Pull toward center when quiet, spread out when loud
+                        const pullStrength = 1 - energy; // 1 when silent, 0 when loud
+                        const targetX = dot.baseX + orbitX;
+                        const targetY = dot.baseY + orbitY;
+
+                        // Lerp toward center based on quietness
+                        const x = targetX + (centerX - targetX) * pullStrength * 0.7;
+                        const y = targetY + (centerY - targetY) * pullStrength * 0.7;
+
+                        // Size pulses with bass, jumps on beats
+                        let size = 0.4 + highMid * 0.6 + bass * 0.4;
+                        if (isBeat) {
+                            size += 0.5; // Pop on beat
+                        }
+
+                        // Color cycles through spectrum based on position and time
+                        const hue = (dot.hueOffset + time * 30 + mid * 60) % 360;
+
+                        dot.el.style.left = x + '%';
+                        dot.el.style.top = y + '%';
+                        dot.el.style.transform = `scale(${size})`;
+                        dot.el.style.opacity = 0.3 + energy * 0.7;
+                        dot.el.style.background = `hsl(${hue}, 100%, 70%)`;
+                        dot.el.style.boxShadow = `0 0 ${10 + bass * 20}px hsl(${hue}, 100%, 50%)`;
+                    });
+                } else {
+                    // When not playing, fade out and pull to center
+                    discoDots.forEach(dot => {
+                        dot.el.style.opacity = 0;
+                        dot.el.style.left = '50%';
+                        dot.el.style.top = '50%';
+                    });
+                }
+            }
+
+            // BASS + ENERGY → Particles (explode outward on beats, float with energy)
+            if (partyEffects.particles) {
+                if (isActuallyPlaying) {
+                    const time = Date.now() / 1000;
+                    document.querySelectorAll('.particle').forEach((particle, i) => {
+                        // Each particle has different behavior based on index
+                        const angle = (i / 30) * Math.PI * 2; // Spread in circle
+                        const baseRadius = 100 + i * 10;
+
+                        // Radius expands with bass
+                        const radius = baseRadius + bass * 200;
+
+                        // Position orbits and pulses
+                        const orbitSpeed = 0.3 + (i % 5) * 0.1;
+                        const x = 50 + Math.cos(time * orbitSpeed + angle) * (radius / 10);
+                        const y = 50 + Math.sin(time * orbitSpeed * 0.7 + angle) * (radius / 15);
+
+                        // Size pulses with energy
+                        const size = 4 + energy * 8;
+
+                        particle.style.left = x + '%';
+                        particle.style.top = y + '%';
+                        particle.style.width = size + 'px';
+                        particle.style.height = size + 'px';
+                        particle.style.opacity = 0.3 + energy * 0.7;
+                    });
+                } else {
+                    document.querySelectorAll('.particle').forEach(particle => {
+                        particle.style.opacity = 0;
+                    });
+                }
+            }
+
+            // ENERGY → Visualizer bar heights (all sides match, tapered from center)
+            if (audioPlaying) {
+                // Top and bottom bars
+                document.querySelectorAll('.visualizer-bar').forEach((bar, i) => {
+                    const mult = parseFloat(bar.dataset.centerMult) || 1;
+                    const bandIndex = Math.floor(i / NUM_BARS * 256);
+                    const level = frequencyData ? (frequencyData[bandIndex] / 255 * audioSensitivity) : 0.5;
+                    bar.style.height = ((8 + level * 50) * mult) + 'px';
+                });
+
+                // Side bars (same logic)
+                document.querySelectorAll('.side-bar').forEach((bar, i) => {
+                    const mult = parseFloat(bar.dataset.centerMult) || 1;
+                    const bandIndex = Math.floor(i / NUM_BARS * 256);
+                    const level = frequencyData ? (frequencyData[bandIndex] / 255 * audioSensitivity) : 0.5;
+                    bar.style.width = ((15 + level * 70) * mult) + 'px';
+                });
+            }
+
+            // ENERGY → Mouth waveform intensity
+            speakingIntensity = energy;
+            isSpeaking = energy > 0.2;
+
+            // CENTER GLOW → Pulses with bass/energy, color shifts with frequencies
+            if (reactiveEffects.centerglow) {
+                const glow = document.getElementById('center-glow');
+                if (isActuallyPlaying) {
+                    glow.classList.add('active');
+
+                    // Size pulses with bass (600px base, up to 1200px on heavy bass)
+                    const size = 600 + bass * 800;
+
+                    // Color shifts based on frequencies (cyan → purple → red based on energy)
+                    const hue = 180 + energy * 60 + mid * 40; // 180 (cyan) to ~280 (purple/magenta)
+                    const saturation = 80 + bass * 20;
+                    const lightness = 50 + treble * 20;
+
+                    // Opacity based on energy
+                    const opacity = 0.3 + energy * 0.7;
+
+                    glow.style.width = size + 'px';
+                    glow.style.height = size + 'px';
+                    glow.style.background = `radial-gradient(circle,
+                        hsla(${hue}, ${saturation}%, ${lightness}%, ${opacity * 0.4}) 0%,
+                        hsla(${hue - 30}, ${saturation}%, ${lightness - 20}%, ${opacity * 0.15}) 40%,
+                        transparent 70%)`;
+                    glow.style.opacity = opacity;
+
+                    // Extra punch on beat
+                    if (isBeat) {
+                        glow.style.filter = `blur(40px)`;
+                        setTimeout(() => glow.style.filter = 'blur(60px)', 100);
+                    }
+                } else {
+                    glow.classList.remove('active');
+                    glow.style.opacity = 0;
+                }
+            }
+        }
+
+        // Oscilloscope - waveform display (smooth, full screen background)
+        function updateOscilloscope() {
+            const container = document.getElementById('oscilloscope-container');
+            if (!container.classList.contains('active')) {
+                container.classList.add('active');
+            }
+
+            const canvas = document.getElementById('oscilloscope-canvas');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = canvas.offsetWidth * 2;
+            canvas.height = canvas.offsetHeight * 2;
+
+            // Clear
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Sample fewer points for smoother wave (every 16th point)
+            const sampleStep = 16;
+            const numSamples = Math.floor(timeDomainData.length / sampleStep);
+            const sliceWidth = canvas.width / numSamples;
+
+            // Draw glow layer first (thicker, more transparent)
+            ctx.beginPath();
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.25)';
+            ctx.lineWidth = 20;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            let x = 0;
+            for (let i = 0; i < numSamples; i++) {
+                const dataIndex = i * sampleStep;
+                const v = timeDomainData[dataIndex] / 128.0;
+                const y = canvas.height / 2 + (v - 1) * canvas.height * 0.35;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+            ctx.stroke();
+
+            // Draw main bright line on top
+            ctx.beginPath();
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 6;
+            x = 0;
+
+            for (let i = 0; i < numSamples; i++) {
+                const dataIndex = i * sampleStep;
+                const v = timeDomainData[dataIndex] / 128.0;
+                const y = canvas.height / 2 + (v - 1) * canvas.height * 0.35;
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+                x += sliceWidth;
+            }
+            ctx.stroke();
+        }
+
+        // Toggle reactive effects
+        function toggleReactiveEffect(effect) {
+            reactiveEffects[effect] = !reactiveEffects[effect];
+            const toggle = document.getElementById(effect + '-toggle');
+            if (toggle) toggle.classList.toggle('on', reactiveEffects[effect]);
+
+            // Deactivate containers when toggled off
+            if (!reactiveEffects[effect]) {
+                switch(effect) {
+                    case 'oscilloscope':
+                        const oscEl = document.getElementById('oscilloscope-container');
+                        oscEl.classList.remove('active');
+                        oscEl.style.opacity = 0;
+                        break;
+                    case 'beatflash':
+                        document.getElementById('beat-flash').style.opacity = 0;
+                        break;
+                    case 'shake':
+                        document.getElementById('face-box').classList.remove('shake');
+                        break;
+                    case 'centerglow':
+                        const glowEl = document.getElementById('center-glow');
+                        glowEl.classList.remove('active');
+                        glowEl.style.opacity = 0;
+                        break;
+                }
+            }
+        }
+
+        console.log('Pi-Guy Visual Lab - Load an audio file to start!');
+    </script>
+</body>
+</html>
