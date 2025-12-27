@@ -104,9 +104,17 @@
         /* Face Box - Contains eyes, mouth, and visualizer bars */
         .face-box {
             position: relative;
-            padding: 40px 60px;
+            width: min(380px, 85vw);
+            height: min(380px, 85vw);
             background: var(--dark-bg);
-            border-radius: 30px;
+            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding-top: 70px;
+            padding-bottom: 40px;
+            margin: 0;
             box-shadow:
                 0 0 30px rgba(0, 136, 255, 0.3),
                 0 0 60px rgba(0, 136, 255, 0.1),
@@ -114,10 +122,6 @@
             border: 2px solid rgba(0, 136, 255, 0.3);
             z-index: 1;
             --shake-amount: 5px;
-            /* Flex to center children */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
         /* Eyes container */
@@ -125,16 +129,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 40px;
-            margin-bottom: 50px;
+            gap: min(30px, 6vw);
+            margin-bottom: 40px;
             position: relative;
-            z-index: 1;
         }
 
         .eye {
             position: relative;
-            width: 120px;
-            height: 140px;
+            width: min(100px, 22vw);
+            height: min(115px, 25vw);
         }
 
         .eye-white {
@@ -160,8 +163,8 @@
         }
 
         .pupil {
-            width: 50px;
-            height: 50px;
+            width: min(40px, 10vw);
+            height: min(40px, 10vw);
             background: radial-gradient(circle at 30% 30%, #333 0%, #000 70%);
             border-radius: 50%;
             position: relative;
