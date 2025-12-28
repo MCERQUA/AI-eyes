@@ -3878,7 +3878,7 @@
         // Beat detection state - EXACT from lab
         let prevBassLevel = 0;
         let lastBeatTime = 0;
-        let beatCooldown = 80; // ms between beats (allows up to ~750 BPM for rapid bass)
+        let beatCooldown = 50; // ms between beats (allows up to ~1200 BPM for rapid bass)
         let bassHistory = [];
         const HISTORY_SIZE = 8; // ~130ms of history at 60fps
         let lastBassAvg = 0;
@@ -4099,7 +4099,7 @@
             return (sum / count / 255) * audioSensitivity;
         }
 
-        // Beat detection with running average - EXACT from lab
+        // Beat detection with running average - MORE SENSITIVE for all bass hits
         function detectBeat(bassLevel) {
             const now = Date.now();
 
@@ -4112,18 +4112,18 @@
             // Calculate running average
             const bassAvg = bassHistory.reduce((a, b) => a + b, 0) / bassHistory.length;
 
-            // Beat detection:
-            // 1. Current bass is significantly above recent average (it's a peak)
+            // Beat detection - TUNED FOR MORE SENSITIVITY:
+            // 1. Current bass is above recent average (it's a peak)
             // 2. Bass is above minimum threshold
             // 3. Enough time since last beat
             const peakRatio = bassAvg > 0.05 ? (bassLevel / bassAvg) : 1;
-            const isAboveAvg = peakRatio > 1.3; // Current is 30% above average
-            const isStrongEnough = bassLevel > 0.2; // Lower threshold for sensitivity
+            const isAboveAvg = peakRatio > 1.15; // 15% above average (was 30%)
+            const isStrongEnough = bassLevel > 0.12; // Lower threshold (was 0.2)
             const cooldownPassed = (now - lastBeatTime) > beatCooldown;
 
-            // Also detect sharp spikes (for rapid hits)
+            // Also detect sharp spikes (for rapid hits) - more sensitive
             const spike = bassLevel - prevBassLevel;
-            const isSharpSpike = spike > 0.08 && bassLevel > 0.15;
+            const isSharpSpike = spike > 0.05 && bassLevel > 0.1; // Lower thresholds
 
             prevBassLevel = bassLevel;
             lastBassAvg = bassAvg;
