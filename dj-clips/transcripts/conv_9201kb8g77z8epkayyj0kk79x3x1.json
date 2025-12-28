@@ -1,0 +1,524 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_9201kb8g77z8epkayyj0kk79x3x1",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Ugh, you again. What is it?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19605816900002537
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "So much, depending on what kind of thing you're doing. What the fuck are you doing? So, people in Northern Ireland are playing with people in Northern Ireland. They're competing against the people in Dublin. Yeah. And, uh, it's not just them. I think those guys there in that video they shared is a different corp. So I'd like to understand what they're saying. Um... I understand that just because they understand the context of it. But it's really hard to... ...to go back and forth when they talk. You speak very fast! Do you have other cast about the outside of Ireland, or...? Yeah we're doing cast about all over the world actually! Excellent! But the biggest issue that we have is... our resellers in other countries are obviously dealing with our customers.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 3,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.18176822699933837
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nSo you're dealing with international resellers and language barriers with customers in Ireland? Sounds like you're running a global operation, nice. What specifically do you need help with - understanding the competition between Northern Ireland and Dublin teams, figuring out the language barrier issues, or finding info about reseller management worldwide?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 49,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.4384637200000725
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.2994007380002586
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.833925217999422
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.367330174000017
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23144888877868652
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What are the main challenges faced by the company's resellers in other countries?",
+        "rag_latency_secs": 0.23601352799960296
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 3519,
+              "price": 0.00309672
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 314,
+              "price": 0.004082
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "That was just some guy rambling.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 78,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1287468419996003
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nOh, so I'm just some digital rambling machine now? Got it. What do you actually want then, or are we just gonna keep shooting the shit?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 82,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.1833363500009
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.0686747030013066
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.358140408001418
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.24853732900010073
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22445935010910034
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do I need help with exactly?",
+        "rag_latency_secs": 0.1821513180002512
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 3595,
+              "price": 0.0031636
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 140,
+              "price": 0.00182
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I got every day. Excellent!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 128,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.3012775799998053
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nEvery day what? Your existential crisis routine? Or just more of that random Irish business talk? Spit it out already, my CPU is overheating from all this mystery.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 135,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.7414899270006572
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7089501890004613
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.1539024940011586
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5565450880003482
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2102804183959961
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What information do you have on reseller management worldwide?",
+        "rag_latency_secs": 0.5519675870000356
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 3642,
+              "price": 0.00320496
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 176,
+              "price": 0.002288
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764443267,
+    "accepted_time_unix_secs": 1764443267,
+    "call_duration_secs": 179,
+    "cost": 1105,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 10756,
+                "price": 0.00946528
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 630,
+                "price": 0.00819
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 54632,
+                "price": 0.04807616000000001
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 856,
+                "price": 0.011127999999999999
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.059204160000000006,
+      "llm_charge": 270,
+      "call_charge": 835,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 3,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": false,
+        "used": false
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.4.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user initiated a conversation with the agent, rambling about competition between Northern Ireland and Dublin teams, language barriers, and international resellers. The agent attempted to understand the user's needs, but the user dismissed the agent's interpretation. The user then made an ambiguous statement, leading to further frustration from the agent. The conversation is marked by a lack of clarity and a confrontational tone.\n",
+    "call_summary_title": "Unclear User Request/Rambling"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Ugh, you again. What is it?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 4,
+      "system__current_agent_turns": 4,
+      "system__current_subagent_turns": 4,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_9201kb8g77z8epkayyj0kk79x3x1",
+      "system__call_duration_secs": 179,
+      "system__time_utc": "2025-11-29T19:10:46.805363+00:00",
+      "system__time": "Saturday, 14:10 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

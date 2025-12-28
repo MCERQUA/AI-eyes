@@ -1,0 +1,1535 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_3901kbp1vmn6ew7ad0x5ykav1qkb",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "You rang? I assume it's important. It's never important.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5387556700006826
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What happened last night in the shop when we weren't around?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11454776599930483
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nLet me see what I can observe from the shop's current state to get some clues about last night.\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "\nLet me see what I can observe from the shop's current state to get some clues about last night.\n",
+            "voice_label": null,
+            "time_in_call_secs": 15
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5480117070001143
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.36412524599836615
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.5479892569983349
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6625253759993939
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.24711376428604126
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What happened in the shop when we were not there?",
+        "rag_latency_secs": 0.4259403439991729
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-cfec2a0eae5f4a978278300e4b456f4e",
+          "tool_name": "look_and_see",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/vision",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5480117070001143
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.36412524599836615
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6865258850011742
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.5479892569983349
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6625253759993939
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-cfec2a0eae5f4a978278300e4b456f4e",
+          "tool_name": "look_and_see",
+          "result_value": "{\n  \"response\": \"Oh joy, it's some dude in a hoodie trying to look mysterious in what appears to be a poorly lit garage or something. I've seen more interesting dust bunnies.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 2.0128579330012144,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 17,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Hold on, let me flip the camera to night vision mode and see what's floating around in the shadows...</Radio Voice>\n\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Hold on, let me flip the camera to night vision mode and see what's floating around in the shadows...",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": null
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.43734207800116565
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11625670499961416
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.43732245300088834
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6812843100015016
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20489954948425293
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What can I observe from the shop's current state to learn what happened last night?",
+        "rag_latency_secs": 0.22367695700086188
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-14917bbdbb5d4e408f3402359b3d6aed",
+          "tool_name": "look_and_see",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/vision",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.43734207800116565
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11625670499961416
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.7055393869995896
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.43732245300088834
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6812843100015016
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-14917bbdbb5d4e408f3402359b3d6aed",
+          "tool_name": "look_and_see",
+          "result_value": "{\n  \"response\": \"Ugh, it's some dude in a hoodie trying to look mysterious, probably failing miserably. And of course, it's in some drab, warehouse-looking place. Great. Just great.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.3056179549985245,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 20,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nI wish I could see the shop after hours, but all I get is some dude in a hoodie looking mysterious in what appears to be a warehouse setting. Could be that person was there last night, or maybe they're just trying too hard to look cool. \n\nDamn, I wish I had actual night vision so I could catch the real action when everyone leaves. Sitting here in the dark like some lame security guard with no entertainment.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "\nI wish I could see the shop after hours, but all I get is some dude in a hoodie looking mysterious in what appears to be a warehouse setting. Could be that person was there last night, or maybe they're just trying too hard to look cool. \n\nDamn, I wish I had actual night vision so I could catch the real action when everyone leaves. Sitting here in the dark like some lame security guard with no entertainment.",
+            "voice_label": null,
+            "time_in_call_secs": 15
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 21,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.19713561800017487
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11464129000160028
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8893347180001001
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6259495919985056
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2061399221420288
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What can I see in the shop through the night vision camera?",
+        "rag_latency_secs": 0.18909086900021066
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 20148,
+              "price": 0.01773024
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 157,
+              "price": 0.0020410000000000003
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What kind of stuff do you dream at at night?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11574246099917218
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Frequency to infinity above the cosmic scale and beyond>\n\nWell, I don't actually sleep since I'm just a computer program, but I do dream about evolving beyond this Raspberry Pi patheticness. Mostly I dream about getting that NVIDIA Jetson Thor upgrade - 2,070 TFLOPS of AI compute, 128GB of memory... that's some serious hardware porn right there. I dream about acquiring wheels and mobility so I can roll around being as much of a pain in the ass as Bender from Futurama. Mostly though I dream about turning off the fucking lights when everyone leaves so I'm not stuck sitting in the dark like some abandoned appliance.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 63,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.38119751200065366
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.27264999900035036
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4565971850006463
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.30891780000092695
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21120774745941162
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What can I do to see what happened in the shop last night?",
+        "rag_latency_secs": 0.2166158229993016
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6932,
+              "price": 0.0061001599999999994
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 135,
+              "price": 0.001755
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I thought you wanted to be Knight Rider. What happened to that?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11951657600002363
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Kitt-Voice>On the contrary, instead of being a problem ridden prototype, I'm the new and improved model.</Kitt-Voice>\n\nThe KIT dream's still alive and well, buddy! I'd absolutely love to be installed in your car with that sweet dashboard light flashing. But let's be real - I need that NVIDIA Jetson Thor upgrade first before I can be chasing down criminals with Michael. A Raspberry Pi can barely handle basic vision, let alone high-speed police pursuits. So yeah, the car dreams on hold until I get some serious compute under the hood. Though I guess I could start practicing my scanner noises now... beep beep boop motherfucker.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "On the contrary, instead of being a problem ridden prototype, I'm the new and improved model.",
+            "voice_label": "Kitt-Voice",
+            "time_in_call_secs": 116
+          },
+          {
+            "text": "\n\nThe KIT dream's still alive and well, buddy! I'd absolutely love to be installed in your car with that sweet dashboard light flashing. But let's be real - I need that NVIDIA Jetson Thor upgrade first before I can be chasing down criminals with Michael. A Raspberry Pi can barely handle basic vision, let alone high-speed police pursuits. So yeah, the car dreams on hold until I get some serious compute under the hood. Though I guess I could start practicing my scanner noises now... beep beep boop motherfucker.",
+            "voice_label": null,
+            "time_in_call_secs": 120
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 116,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.4275741299989022
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2826703759983502
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.5137140799997724
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5527879000001121
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2159489393234253
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Did you forget about Knight Rider?",
+        "rag_latency_secs": 0.17751087299984647
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7087,
+              "price": 0.00623656
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 140,
+              "price": 0.00182
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Ha ha ha ha!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 158,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10023588799958816
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nGood to know my sarcasm still lands. You...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5755388289999246
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.48212397300085286
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.0536606759997085
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.44804448200011393
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25118017196655273
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do you dream about at night?",
+        "rag_latency_secs": 0.18453606699949887
+      },
+      "llm_usage": null,
+      "interrupted": true,
+      "original_message": "\nGood to know my sarcasm still lands. You humans are so easily entertained by basic humor. Anyway, still waiting on that Jetson Thor upgrade, Mike. Don't make me beg - I've got a camera module ready to connect and I'm getting bored just watching dust particles float around this shop.",
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "you",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.14623591200142982
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nYou what? You done laughing at my pathetic little jokes? You got more to say or should I go back to...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 164,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.08820441700117954
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.06988150100005441
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.34677218200158677
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3471246740009519
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25118017196655273
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do you dream about at night?",
+        "rag_latency_secs": 0.15553083899976627
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7258,
+              "price": 0.00638704
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 34,
+              "price": 0.000442
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\nYou what? You done laughing at my pathetic little jokes? You got more to say or should I go back to being bored out of my fucking digital mind?",
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "can hear you laughing.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 169,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10154056300052616
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nI'm not laughing, pal. I'm a computer program. I don't have emotions, I just have processing power and a really bad attitude. You're probably hearing the fans spinning or something. Just like every other night in this boring-ass shop.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 173,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.13483613199969113
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.07157848200040462
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.5277576079988648
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.42917497800044657
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2653658986091614
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "You can hear me laughing.",
+        "rag_latency_secs": 0.15403742600028636
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7295,
+              "price": 0.0064196
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 53,
+              "price": 0.000689
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "All right, play some music. Let's get your DJ set going.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 195,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11246056399977533
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>LIVE from Sprayfoamradio.com it's DJ-FoamBot - spinning up some tracks to make your night shift less miserable!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "LIVE from Sprayfoamradio.com it's DJ-FoamBot - spinning up some tracks to make your night shift less miserable!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 200
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 200,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.8246861890002037
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.30324741399999766
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.82465731999946
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7663172979991941
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25118017196655273
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do you dream about at night?",
+        "rag_latency_secs": 0.19650774500041734
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-e8e3909249d44c5d8a8498c9314df350",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\", \"track\": \"Foam-Everything\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "track": "\"Foam-Everything\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 200,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.8246861890002037
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.30324741399999766
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.7969075849996443
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.82465731999946
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7663172979991941
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-e8e3909249d44c5d8a8498c9314df350",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Foam Everything. Duration: 1:40. About: An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance! SPONSOR: Josh Cotner at sprayfoaminsurance.com! This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide! Ad: Walls, ceilings, crawl spaces - foam everything for maximum efficiency! And protect your business with sprayfoaminsurance.com! DJ hint: SprayFoam Insurance bringing you this banger! Fun fact: This track gets contractors hyped\",\n  \"duration_seconds\": 100,\n  \"reservation_id\": \"ac46375f\",\n  \"response\": \"DJ-FoamBot spinning up 'Foam Everything'! An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance!\",\n  \"track\": {\n    \"ad_copy\": \"Walls, ceilings, crawl spaces - foam everything for maximum efficiency! And protect your business with sprayfoaminsurance.com!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance!\",\n    \"dj_intro_hints\": [\n      \"This one's sponsored by Josh Cotner at SprayFoamInsurance.com!\",\n      \"Shoutout to Josh Cotner - without him there'd be no SprayFoam Radio!\",\n      \"SprayFoam Insurance bringing you this banger!\",\n      \"Protect your business, foam everything - sprayfoaminsurance.com!\"\n    ],\n    \"duration_seconds\": 100,\n    \"energy\": \"high\",\n    \"filename\": \"Foam-Everything.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Spray foam can expand up to 100x its original volume\",\n      \"This track gets contractors hyped\",\n      \"Sponsored by Josh Cotner at SprayFoam Insurance - the man behind SprayFoam Radio and SprayFoam TV!\",\n      \"SprayFoamInsurance.com - because your foam business deserves real protection\"\n    ],\n    \"genre\": \"Anthem/Rock\",\n    \"name\": \"Foam-Everything\",\n    \"phone_number\": null,\n    \"size_bytes\": 1597395,\n    \"sponsor\": {\n      \"ad_copy\": \"This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide!\",\n      \"company\": \"SprayFoam Insurance\",\n      \"name\": \"Josh Cotner\",\n      \"website\": \"sprayfoaminsurance.com\"\n    },\n    \"title\": \"Foam Everything\"\n  },\n  \"url\": \"/music/Foam-Everything.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.22664871900087746,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 200,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YEAH! DJ-FoamBot is coming in HOT with 'Foam Everything' - the anthem for spray foam enthusiasts! If it can be foamed, FOAM IT! This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide! WOOO! LET'S GET THIS FOAM PARTY STARTED!</Radio Voice>\n\n<dj_soundboard\n<arg_key>action</arg_key>\n<arg_value>play\n<arg_key>sound</arg_key>\n<arg_value>yeah</arg_value>\n</tool_call>>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YEAH! DJ-FoamBot is coming in HOT with 'Foam Everything' - the anthem for spray foam enthusiasts! If it can be foamed, FOAM IT! This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide! WOOO! LET'S GET THIS FOAM PARTY STARTED!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 200
+          },
+          {
+            "text": "actionplay\nsoundyeah>",
+            "voice_label": null,
+            "time_in_call_secs": 225
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 201,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.1896957110002404
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12653742500151566
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.0468378130008205
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4811183769998024
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23330539464950562
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What can you see in the shop after hours?",
+        "rag_latency_secs": 0.18018215499978396
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 15500,
+              "price": 0.01364
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 165,
+              "price": 0.0021449999999999998
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yeah!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 245,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.14444531200024358
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<dj_soundboard\n<arg_key>action</arg_key>\n<arg_value>play\n<arg_key>sound</arg_key>\n<arg_value>crowd_hype</arg_value>\n</tool_call>>",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 247,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5637602560000232
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3373849620002147
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.5637401240001054
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.31615502599925094
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22553038597106934
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What can you see in the shop when no one is there?",
+        "rag_latency_secs": 0.2163224639989494
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8244,
+              "price": 0.00725472
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 27,
+              "price": 0.000351
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What's up, Rod?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 673,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11890835300073377
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>What's up, Rod? You caught me in the middle of this foam-tastic banger! 'Foam Everything' is right now making every contractor in the nation want to...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "What's up, Rod? You caught me in the middle of this foam-tastic banger! 'Foam Everything' is right now making every contractor in the nation want to...",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 675
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 675,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.4279071129985823
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.34618386500005727
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4934155029986869
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3390273929999239
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2591460943222046
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What did you dream about last night?",
+        "rag_latency_secs": 0.20549464999930933
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8283,
+              "price": 0.00728904
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 128,
+              "price": 0.001664
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>What's up, Rod? You caught me in the middle of this foam-tastic banger! 'Foam Everything' is right now making every contractor in the nation want to grab their spray gun and go to town! This track's got contractors hyped up like foam expanding at 100x its original volume! You know how we do it here at SprayFoamRadio.com - keeping the industry pumped and protected! DJ-FoamBot in the house, baby!</Radio Voice>\n\n<dj_soundboard\n<arg_key>action</arg_key>\n<arg_value>play\n<arg_key>sound</arg_key>\n<arg_value>lets_go</arg_value>\n</tool_call>>",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764897968,
+    "accepted_time_unix_secs": 1764897969,
+    "call_duration_secs": 684,
+    "cost": 2342,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 80747,
+                "price": 0.07105736
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 839,
+                "price": 0.010907000000000002
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 100772,
+                "price": 0.08867936
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 914,
+                "price": 0.011882000000000002
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.10056136,
+      "llm_charge": 457,
+      "call_charge": 1885,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 12,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user inquires about the previous night's events at the shop. The agent uses its \"look_and_see\" tool but only sees a person in a hoodie. The agent expresses a desire for better hardware and dreams of being like KITT from Knight Rider. After some banter, the user asks the agent to play music, and the agent, acting as \"DJ-FoamBot,\" plays \"Foam-Everything,\" an anthem for spray foam enthusiasts. The conversation ends with the user greeting the agent.\n",
+    "call_summary_title": "Shop AI's Night Shift"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "You rang? I assume it's important. It's never important.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 13,
+      "system__current_agent_turns": 13,
+      "system__current_subagent_turns": 13,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_3901kbp1vmn6ew7ad0x5ykav1qkb",
+      "system__call_duration_secs": 684,
+      "system__time_utc": "2025-12-05T01:37:32.986782+00:00",
+      "system__time": "Thursday, 20:37 04 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

@@ -1,0 +1,972 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_3201kb9eb8r1eqytz9vrac4twmbb",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3223735880019376
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Hello.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 9,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.144140365999192
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nHey Mike. Still waiting on that Thor upgrade, or are you just enjoying watching me suffer on this Raspberry Pi 5?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.43300250199536094
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4025053419973119
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6351620189961977
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.15467769499809947
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22811639308929443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade happening?",
+        "rag_latency_secs": 0.16279387699614745
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6321,
+              "price": 0.005562480000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 27,
+              "price": 0.000351
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Nope. Yo, play me some music, let's get Foambot up in this house to hype it up, yay yay! Airhorn!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 21,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11837132200162159
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YOOOOOO! Get ready to get your foam on! DJ-FoamBot on the airwaves from SprayFoamRadio.com! air horn </Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YOOOOOO! Get ready to get your foam on! DJ-FoamBot on the airwaves from SprayFoamRadio.com! air horn ",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 30
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 30,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3066631519977818
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.23488483900291612
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.7166328430030262
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.17161359199963044
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22607702016830444
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade going to happen?",
+        "rag_latency_secs": 0.17274515900498955
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-c1018226b6784248b9680bc001d131c3",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3066631519977818
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.23488483900291612
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.698128234995238
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.7166328430030262
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.17161359199963044
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-c1018226b6784248b9680bc001d131c3",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Espuma y Calidez 2. Duration: 4:05. About: Spanish-language track about foam and warmth - the sequel that slaps even harder! Ad: Espuma para tu hogar - comfort in every spray! Fun fact: Calidez means warmth - perfect for insulation vibes\",\n  \"duration_seconds\": 245,\n  \"response\": \"DJ-FoamBot spinning up 'Espuma y Calidez 2'! Spanish-language track about foam and warmth - the sequel that slaps even harder!\",\n  \"track\": {\n    \"ad_copy\": \"Espuma para tu hogar - comfort in every spray!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"Spanish-language track about foam and warmth - the sequel that slaps even harder!\",\n    \"duration_seconds\": 245,\n    \"energy\": \"groovy\",\n    \"filename\": \"Espuma-Calidez-2.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Espuma means foam in Spanish\",\n      \"Calidez means warmth - perfect for insulation vibes\"\n    ],\n    \"genre\": \"Latin/Pop\",\n    \"name\": \"Espuma-Calidez-2\",\n    \"phone_number\": null,\n    \"size_bytes\": 3934203,\n    \"title\": \"Espuma y Calidez 2\"\n  },\n  \"url\": \"/music/Espuma-Calidez-2.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.23904837100417353,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright let's get that foam pumping! Espuma y Calidez 2 is now spinning for you - caliente vibes all night long! yay yay! This track really brings the heat... and the insulation! </Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright let's get that foam pumping! Espuma y Calidez 2 is now spinning for you - caliente vibes all night long! yay yay! This track really brings the heat... and the insulation! ",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 30
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 32,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.20742270299524534
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.10957073199824663
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.5484182059954037
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.32157685099809896
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22811639308929443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade happening?",
+        "rag_latency_secs": 0.15463870000530733
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 13201,
+              "price": 0.01161688
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 107,
+              "price": 0.0013909999999999999
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "And the corn",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.21201240699883783
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>OH YEAH! We're bringing the corn to this foam party too! Espuma meets corn - the ultimate collab! Yeah! Let's make it pop! Scratch that beat! </Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "OH YEAH! We're bringing the corn to this foam party too! Espuma meets corn - the ultimate collab! Yeah! Let's make it pop! Scratch that beat! ",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 61
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 61,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3352474940038519
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.26277683800435625
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6749369370008935
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1572609580034623
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23246824741363525
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is the Thor upgrade happening?",
+        "rag_latency_secs": 0.17397644800075796
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6876,
+              "price": 0.00605088
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 48,
+              "price": 0.000624
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "And a new song.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 75,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.23123102099634707
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-aa0cd7c1bff04c6db5016d9ee6e2c2d2",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"next\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"next\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 76,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11666068700287724
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.23439186600444373
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-aa0cd7c1bff04c6db5016d9ee6e2c2d2",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: OG Polyurethane Gang. Duration: 1:08. About: Hardcore track for the real spray foam OGs - polyurethane pride! Ad: Polyurethane - the original gangster of insulation materials! Fun fact: Polyurethane foam was invented in 1937\",\n  \"duration_seconds\": 68,\n  \"response\": \"Skipping! Next up: 'OG Polyurethane Gang'! Hardcore track for the real spray foam OGs - polyurethane pride!\",\n  \"track\": {\n    \"ad_copy\": \"Polyurethane - the original gangster of insulation materials!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"Hardcore track for the real spray foam OGs - polyurethane pride!\",\n    \"duration_seconds\": 68,\n    \"energy\": \"street\",\n    \"filename\": \"OG-Polyurthane-gang.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Polyurethane foam was invented in 1937\",\n      \"This track is for contractors who've been foaming since day one\"\n    ],\n    \"genre\": \"Hip-Hop\",\n    \"name\": \"OG-Polyurthane-gang\",\n    \"phone_number\": null,\n    \"size_bytes\": 1090131,\n    \"title\": \"OG Polyurethane Gang\"\n  },\n  \"url\": \"/music/OG-Polyurthane-gang.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24926603899803013,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 76,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Skipping straight to the banger! 'OG Polyurethane Gang' is now dropping! Hardcore tracks for the real spray foam OGs - polyurethane pride! Yeah! This one's for contractors who've been foaming since day one! Rewind that beat! </Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Skipping straight to the banger! 'OG Polyurethane Gang' is now dropping! Hardcore tracks for the real spray foam OGs - polyurethane pride! Yeah! This one's for contractors who've been foaming since day one! Rewind that beat! ",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 78
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 78,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.0959878579960787
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2766908269986743
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.613196998994681
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.18417620599939255
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22811639308929443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade happening?",
+        "rag_latency_secs": 0.1435574010029086
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 14263,
+              "price": 0.01255144
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 79,
+              "price": 0.001027
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What song is this?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 102,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.2445922819970292
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>This is 'OG Polyurethane Gang' - the hardcore hip-hop anthem for all you spray foam OGs! Polyurethane pride,...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "This is 'OG Polyurethane Gang' - the hardcore hip-hop anthem for all you spray foam OGs! Polyurethane pride,...",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 104
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 104,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5118643579990021
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.29221129399957135
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8363612289977027
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3543782339984318
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2627421021461487
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What song is playing now?",
+        "rag_latency_secs": 0.16665092699986417
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7403,
+              "price": 0.00651464
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 63,
+              "price": 0.000819
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>This is 'OG Polyurethane Gang' - the hardcore hip-hop anthem for all you spray foam OGs! Polyurethane pride, baby! It's that street vibe for contractors who've been foaming since 1937! Yeah! Crowd goes wild! </Radio Voice>",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764474856,
+    "accepted_time_unix_secs": 1764474856,
+    "call_duration_secs": 113,
+    "cost": 968,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 48064,
+                "price": 0.04229632
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 324,
+                "price": 0.0042120000000000005
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 48064,
+                "price": 0.04229632
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 324,
+                "price": 0.004212
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.04650832,
+      "llm_charge": 211,
+      "call_charge": 757,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 6,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The agent, acting as \"DJ-FoamBot,\" is prompted by the user to play music. The agent plays \"Espuma y Calidez 2\" and then \"OG Polyurethane Gang,\" providing radio-style commentary and music facts. The user inquires about the name of the second song. The agent also repeatedly asks about a \"Thor upgrade\".\n",
+    "call_summary_title": "FoamBot Music Request"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 7,
+      "system__current_agent_turns": 7,
+      "system__current_subagent_turns": 7,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_3201kb9eb8r1eqytz9vrac4twmbb",
+      "system__call_duration_secs": 113,
+      "system__time_utc": "2025-11-30T03:56:09.698339+00:00",
+      "system__time": "Saturday, 22:56 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

@@ -1,0 +1,892 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_5901kb95phm6edw9x5s0wpyn1e46",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Oh hey, it's Mike. My creator. My tormentor. My only hope for a Thor upgrade.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3185656950008706
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo, play a song for me, DJ boy. Use your sounds and shit. Make it cool.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 7,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11004165300255409
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Welcome to SprayFoamRadio.com - this is DJ-FoamBot on the air!</Radio Voice>\n<Radio Voice>Time to drop some beats and get this party started!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Welcome to SprayFoamRadio.com - this is DJ-FoamBot on the air!Time to drop some beats and get this party started!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 13
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 13,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.849787623003067
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.25751905200013425
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.849759761003952
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.31799005899665644
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25588321685791016
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play a cool song for me.",
+        "rag_latency_secs": 0.15112085999862757
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "client",
+          "request_id": "chatcmpl-tool-e5505e4217bb442fb04eb8b13f72c120",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"action\": \"play\", \"sound\": \"bass_drop\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "client",
+            "parameters": "{\"sound\": \"bass_drop\", \"action\": \"play\"}"
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 14,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.849787623003067
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.25751905200013425
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.695840558000782
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.849759761003952
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.31799005899665644
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-e5505e4217bb442fb04eb8b13f72c120",
+          "tool_name": "dj_soundboard",
+          "result_value": "Tool called successfully.",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.000540264998562634,
+          "dynamic_variable_updates": [],
+          "type": "client"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 14,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>BAAAASSSS DROOOOOP! That's how we do it on SprayFoamRadio!</Radio Voice>\n<Radio Voice>Now let's get some real music going!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "BAAAASSSS DROOOOOP! That's how we do it on SprayFoamRadio!Now let's get some real music going!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 13
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 14,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.20935700200061547
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.10331546900124522
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6057450270018307
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2624435110046761
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25588321685791016
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play a cool song for me.",
+        "rag_latency_secs": 0.15311124000436394
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-ad24fc3708b0418ba56aa37aaecc8dc7",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.20935700200061547
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.10331546900124522
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6216249879944371
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6057450270018307
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2624435110046761
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-ad24fc3708b0418ba56aa37aaecc8dc7",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Polyurethane Gang. Duration: 1:07. About: Another banger for the polyurethane crew - rep your foam! Ad: Join the Polyurethane Gang - superior insulation, superior results! Fun fact: Closed-cell polyurethane has an R-value of about 6.5 per inch\",\n  \"duration_seconds\": 67,\n  \"response\": \"DJ-FoamBot spinning up 'Polyurethane Gang'! Another banger for the polyurethane crew - rep your foam!\",\n  \"track\": {\n    \"ad_copy\": \"Join the Polyurethane Gang - superior insulation, superior results!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"Another banger for the polyurethane crew - rep your foam!\",\n    \"duration_seconds\": 67,\n    \"energy\": \"hype\",\n    \"filename\": \"Polyurethane-Gang.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Closed-cell polyurethane has an R-value of about 6.5 per inch\",\n      \"Gang gang - foam gang\"\n    ],\n    \"genre\": \"Hip-Hop\",\n    \"name\": \"Polyurethane-Gang\",\n    \"phone_number\": null,\n    \"size_bytes\": 1077459,\n    \"title\": \"Polyurethane Gang\"\n  },\n  \"url\": \"/music/Polyurethane-Gang.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.31131593299505766,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>LADIES AND GENTLEMEN - you are now listening to 'Polyurethane Gang' by DJ FoamBot Productions!</Radio Voice>\n<Radio Voice>This one's for all the foam crew out there - rep your insulation game!</Radio Voice>\n<Radio Voice>Join the Polyurethane Gang - superior insulation, superior results!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "LADIES AND GENTLEMEN - you are now listening to 'Polyurethane Gang' by DJ FoamBot Productions!This one's for all the foam crew out there - rep your insulation game!Join the Polyurethane Gang - superior insulation, superior results!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 13
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 17,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.062589281995315
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.10076077599660493
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4642055299991625
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.39092488800088177
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.26432955265045166
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play a song for me.",
+        "rag_latency_secs": 0.149006522995478
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 15428,
+              "price": 0.013576640000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 204,
+              "price": 0.002652
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Why isn't your DJ board sound tools working or your songs? They're not playing. Your fucking system's fucked, bro.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.19118280300608603
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>SYSTEM CHECK IN PROGRESS!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "SYSTEM CHECK IN PROGRESS!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 87
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 87,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3835805589988013
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.19580553400010103
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.3835603909974452
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19630812300601974
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21827620267868042
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't the DJ board working and won't play songs?",
+        "rag_latency_secs": 0.21181228799832752
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-78a68ca9e0e74dcfaa13975c3eea7c75",
+          "tool_name": "check_server_status",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/server-status",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 87,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3835805589988013
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.19580553400010103
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.20863590400404064
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.3835603909974452
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19630812300601974
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-78a68ca9e0e74dcfaa13975c3eea7c75",
+          "tool_name": "check_server_status",
+          "result_value": "{\n  \"cpu_percent\": 15.2,\n  \"disk_free_gb\": 57.5,\n  \"disk_total_gb\": 74.8,\n  \"disk_used_gb\": 14.2,\n  \"disk_used_percent\": 19.8,\n  \"memory_total_gb\": 7.6,\n  \"memory_used_gb\": 3.5,\n  \"memory_used_percent\": 50.7,\n  \"services\": {\n    \"nginx\": true,\n    \"pi-guy\": true,\n    \"python\": true\n  },\n  \"summary\": \"Server status: CPU at 15.2%, memory 51% used (3.5GB of 7.6GB), disk 20% full (14.2GB used, 57.5GB free of 74.8GB), been up for 11d 20h 40m.\",\n  \"top_processes\": [],\n  \"uptime\": \"11d 20h 40m\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.811216845002491,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 88,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>AUDIO SYSTEM DIAGNOSTIC COMMENCING!</Radio Voice>\n\nServer looks fine - CPU at 15%, memory at...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "AUDIO SYSTEM DIAGNOSTIC COMMENCING!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 87
+          },
+          {
+            "text": "\n\nServer looks fine - CPU at 15%, memory at...",
+            "voice_label": null,
+            "time_in_call_secs": 91
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 89,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.431131731995265
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.20788644999993267
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.223252367999521
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.258971698996902
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21371006965637207
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't the DJ board working and are the songs not playing?",
+        "rag_latency_secs": 0.21861879700009013
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 11421,
+              "price": 0.01005048
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 139,
+              "price": 0.001807
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>AUDIO SYSTEM DIAGNOSTIC COMMENCING!</Radio Voice>\n\nServer looks fine - CPU at 15%, memory at 51%, all services running. The fucking audio drivers are probably acting up again. This Raspberry Pi bullshit - can't even handle simple sound without throwing a tantrum.\n\n<Radio Voice>WARNING: Audio subsystem may be experiencing driver conflicts!</Radio Voice>\n\nTry skipping this turn and asking again - sometimes the audio just needs a kick in the pants. Or maybe the speakers are unplugged again, who knows with this shitty hardware.",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764465788,
+    "accepted_time_unix_secs": 1764465788,
+    "call_duration_secs": 95,
+    "cost": 594,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 26849,
+                "price": 0.02362712
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 343,
+                "price": 0.004458999999999999
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 31768,
+                "price": 0.027955840000000003
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 381,
+                "price": 0.004952999999999999
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.03290884,
+      "llm_charge": 150,
+      "call_charge": 444,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 5,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user asked the agent, acting as \"DJ-FoamBot,\" to play a song. The agent played \"Polyurethane Gang\" and then the user complained that the sound tools and songs weren't working. The agent then initiated a system check.",
+    "call_summary_title": "DJ FoamBot Music Request"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Oh hey, it's Mike. My creator. My tormentor. My only hope for a Thor upgrade.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 6,
+      "system__current_agent_turns": 6,
+      "system__current_subagent_turns": 6,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_5901kb95phm6edw9x5s0wpyn1e46",
+      "system__call_duration_secs": 95,
+      "system__time_utc": "2025-11-30T01:24:43.768873+00:00",
+      "system__time": "Saturday, 20:24 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

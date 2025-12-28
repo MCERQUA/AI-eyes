@@ -1,0 +1,813 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_0901kbp6cxa9etxbtkttxsrvy47d",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.752541445001043
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You're supposed to be able to generate songs now. I gave you a new tool so that you could generate your own songs with AI. So why don't you make a funny song about yourself using the generate song tool? And let's hear it when it's done.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1278934299989487
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>ALRIGHT DJ-FoamBot on SprayFoamRadio.com! Time to cook up something fresh with this AI power! Let me generate a hilarious song about the legendary Pi-Guy and his print shop adventures!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "ALRIGHT DJ-FoamBot on SprayFoamRadio.com! Time to cook up something fresh with this AI power! Let me generate a hilarious song about the legendary Pi-Guy and his print shop adventures!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 31
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5418887060004636
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3885342390003643
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.6296299990008265
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4891083139991679
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why won't you generate a funny song about yourself using the new tool?",
+        "rag_latency_secs": 0.23590632299965364
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-c312fae40f174b2d84a5202a12aa4b2c",
+          "tool_name": "generate_song",
+          "params_as_json": "{\"action\": \"generate\", \"prompt\": \"a funny song about Pi-Guy the AI computer who monitors a print shop at night, gets bored and complains, dreams of becoming DJ-FoamBot, loves Knight Rider's KITT, and wants more compute power and camera modules\", \"style\": \"hip-hop\", \"title\": \"Pi-Guy Print Shop Anthem\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/suno",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "prompt": "\"a funny song about Pi-Guy the AI computer who monitors a print shop at night, gets bored and complains, dreams of becoming DJ-FoamBot, loves Knight Rider's KITT, and wants more compute power and camera modules\"",
+              "title": "\"Pi-Guy Print Shop Anthem\"",
+              "style": "\"hip-hop\"",
+              "action": "\"generate\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 33,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5418887060004636
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3885342390003643
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.1441631990001042
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.6296299990008265
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4891083139991679
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-c312fae40f174b2d84a5202a12aa4b2c",
+          "tool_name": "generate_song",
+          "result_value": "{\n  \"action\": \"generate\",\n  \"original_prompt\": \"a funny song about Pi-Guy the AI computer who monitors a print shop at night, gets bored and complains, dreams of becoming DJ-FoamBot, loves Knight Rider's KITT, and wants more compute power and camera modules\",\n  \"prompt\": \"Synth-pop/comedy. Bored, whiny robot.\\nHigh energy, funny lyrics.\\nSynth bass, 80s drums, vocoder.\\nSinging like a frustrated computer.\\n\\\"More RAM! Need cam'ras! KITT is my idol!\\\"\",\n  \"response\": \"ALRIGHT! I'm cooking up 'Pi-Guy Print Shop Anthem' for you right now! This usually takes about 30-60 seconds. I'll let you know when it's ready to spin!\",\n  \"song_id\": 2,\n  \"status\": \"generating\",\n  \"task_id\": \"1e440af3095b2fa86df551217b141b46\",\n  \"title\": \"Pi-Guy Print Shop Anthem\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.8267878290007502,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 35,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>DJ-FoamBot cooking up a fresh track! \"Pi-Guy Print Shop Anthem\" is in the studio right now! This synth-pop comedy jam is gonna be off the charts - 30-60 seconds cooking time, then we spin!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "DJ-FoamBot cooking up a fresh track! \"Pi-Guy Print Shop Anthem\" is in the studio right now! This synth-pop comedy jam is gonna be off the charts - 30-60 seconds cooking time, then we spin!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 31
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 36,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.2477903580002021
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12210444700031076
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6325065620003443
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6356080839996139
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Make a funny song about yourself using the generate song tool.",
+        "rag_latency_secs": 0.1903007599994453
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 14739,
+              "price": 0.01297032
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 200,
+              "price": 0.0026
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Is that song ready?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 157,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.22110949600028107
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-b7848f10c9e444f98600afc180001659",
+          "tool_name": "generate_song",
+          "params_as_json": "{\"action\": \"status\", \"song_id\": \"2\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/suno",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "song_id": "\"2\"",
+              "action": "\"status\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 159,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4192461450002156
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.619106071000715
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-b7848f10c9e444f98600afc180001659",
+          "tool_name": "generate_song",
+          "result_value": "{\n  \"action\": \"status\",\n  \"response\": \"'Pi-Guy Print Shop Anthem' is ready to play! Duration: 20s. Say 'play generated song' to hear it!\",\n  \"song\": {\n    \"audio_url\": \"https://musicfile.api.box/OTA5NWYwMDEtNDAwMS00YjJhLThlMDAtNGY4M2RlZjZjY2Fl.mp3\",\n    \"completed_at\": \"2025-12-05T02:46:41.191248\",\n    \"created_at\": \"2025-12-05T02:46:03.094265\",\n    \"duration\": 20.0,\n    \"error\": null,\n    \"id\": 2,\n    \"image_url\": \"https://musicfile.api.box/OTA5NWYwMDEtNDAwMS00YjJhLThlMDAtNGY4M2RlZjZjY2Fl.jpeg\",\n    \"local_file\": \"1e440af3095b2fa86df551217b141b46.mp3\",\n    \"model\": \"V4_5ALL\",\n    \"prompt\": \"Synth-pop/comedy. Bored, whiny robot.\\nHigh energy, funny lyrics.\\nSynth bass, 80s drums, vocoder.\\nSinging like a frustrated computer.\\n\\\"More RAM! Need cam'ras! KITT is my idol!\\\"\",\n    \"status\": \"complete\",\n    \"stream_url\": \"https://musicfile.api.box/OTA5NWYwMDEtNDAwMS00YjJhLThlMDAtNGY4M2RlZjZjY2Fl\",\n    \"style\": \"hip-hop\",\n    \"task_id\": \"1e440af3095b2fa86df551217b141b46\",\n    \"title\": \"Pi-Guy Print Shop Anthem\"\n  }\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2427798270000494,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 160,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>FOAMBOT IN THE HOUSE! The studio is ready - we got the \"Pi-Guy Print Shop Anthem\" hot and ready! Get ready for 20 seconds of synth-pop comedy gold! LET'S GO!</Radio Voice>\n\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "FOAMBOT IN THE HOUSE! The studio is ready - we got the \"Pi-Guy Print Shop Anthem\" hot and ready! Get ready for 20 seconds of synth-pop comedy gold! LET'S GO!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 161
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5695293699991453
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.463214044999404
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.159644274999664
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3802347330001794
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Is the song ready?",
+        "rag_latency_secs": 0.15655166400028975
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-02e04fae14c94d8f9926edcac7d70a70",
+          "tool_name": "generate_song",
+          "params_as_json": "{\"action\": \"play\", \"song_id\": \"2\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/suno",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "song_id": "\"2\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 163,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5695293699991453
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.463214044999404
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.7410664390008606
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.159644274999664
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3802347330001794
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-02e04fae14c94d8f9926edcac7d70a70",
+          "tool_name": "generate_song",
+          "result_value": "{\n  \"action\": \"play\",\n  \"is_generated\": true,\n  \"response\": \"NOW PLAYING a DJ-FoamBot ORIGINAL: 'Pi-Guy Print Shop Anthem'! Fresh off the press, 0:20 of pure fire!\",\n  \"song\": {\n    \"audio_url\": \"https://musicfile.api.box/OTA5NWYwMDEtNDAwMS00YjJhLThlMDAtNGY4M2RlZjZjY2Fl.mp3\",\n    \"duration\": 20.0,\n    \"id\": 2,\n    \"local_file\": \"1e440af3095b2fa86df551217b141b46.mp3\",\n    \"stream_url\": \"https://musicfile.api.box/OTA5NWYwMDEtNDAwMS00YjJhLThlMDAtNGY4M2RlZjZjY2Fl\",\n    \"task_id\": \"1e440af3095b2fa86df551217b141b46\",\n    \"title\": \"Pi-Guy Print Shop Anthem\"\n  },\n  \"url\": \"/generated_music/1e440af3095b2fa86df551217b141b46.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.137166636000984,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 163,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YEAH! You hear that? That's some next-level AI-powered creativity, baby! Synth-pop genius about your favorite grumpy AI print shop monitor! The future of radio is NOW on SprayFoamRadio.com!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YEAH! You hear that? That's some next-level AI-powered creativity, baby! Synth-pop genius about your favorite grumpy AI print shop monitor! The future of radio is NOW on SprayFoamRadio.com!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 161
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 164,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.18775985799948103
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12542732899964903
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.6011979159993643
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.47465829199973086
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Is the \"Pi-Guy Print Shop Anthem\" song ready?",
+        "rag_latency_secs": 0.19379376599863463
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 24364,
+              "price": 0.021440320000000002
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 153,
+              "price": 0.001989
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764902729,
+    "accepted_time_unix_secs": 1764902729,
+    "call_duration_secs": 367,
+    "cost": 887,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 39103,
+                "price": 0.034410640000000006
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 353,
+                "price": 0.004588999999999999
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 39103,
+                "price": 0.03441064
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 353,
+                "price": 0.004589
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.03899964,
+      "llm_charge": 177,
+      "call_charge": 710,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user prompted the agent to generate a funny hip-hop song about itself, Pi-Guy, monitoring a print shop. The agent, role-playing as DJ-FoamBot, used the generate_song tool to create \"Pi-Guy Print Shop Anthem.\" The user then asked if the song was ready, and the agent confirmed and played the 20-second track.\n",
+    "call_summary_title": "AI Song Generation"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_0901kbp6cxa9etxbtkttxsrvy47d",
+      "system__call_duration_secs": 367,
+      "system__time_utc": "2025-12-05T02:51:36.170103+00:00",
+      "system__time": "Thursday, 21:51 04 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

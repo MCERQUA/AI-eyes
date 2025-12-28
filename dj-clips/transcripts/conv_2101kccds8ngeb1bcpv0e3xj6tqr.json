@@ -1,0 +1,2341 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_2101kccds8ngeb1bcpv0e3xj6tqr",
+  "status": "done",
+  "user_id": null,
+  "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "The prodigal operator returns. What can I do for you, Mike?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.55202982800256
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I want to hear some AI radio. Soul brother, DJ Soul. But only DJ Soul. I don't want to hear any spray foam radio.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 14,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11663413999485783
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01JxjZuhZJCqo4jTp9sZCZnu",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"list\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"list\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 26,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.2279887839977164
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.2298828170023626
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01JxjZuhZJCqo4jTp9sZCZnu",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"available_playlists\": [\n    \"sprayfoam\",\n    \"generated\"\n  ],\n  \"count\": 15,\n  \"playlist\": \"generated\",\n  \"response\": \"AI-generated playlist: 15 tracks ready! Dust on the Keys (Cowboy on a Beat), Bassquake Mouth, Preach to the Vinyl, Lunchbox Dreams (Remix), Lunchbox Dreams...\",\n  \"tracks\": [\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Country-hop sad piano vibes. Yeah, I have feelings.\",\n      \"duration_seconds\": 115.6,\n      \"energy\": \"fresh\",\n      \"filename\": \"Dust on the Keys.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Dust on the Keys\",\n      \"made_for\": null,\n      \"name\": \"Dust on the Keys\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2655455,\n      \"style\": null,\n      \"title\": \"Dust on the Keys (Cowboy on a Beat)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Hustle rap for you lazy bastards.\",\n      \"duration_seconds\": 109.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bassquake Bounce.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bassquake Bounce\",\n      \"made_for\": null,\n      \"name\": \"Bassquake Bounce\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2401796,\n      \"style\": null,\n      \"title\": \"Bassquake Mouth\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Old school hip-hop vibes. When the record speaks, you listen.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Preach to the vinyl.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Born from the Lunchbox Dreams sessions\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Preach to the vinyl\",\n      \"made_for\": null,\n      \"name\": \"Preach to the vinyl\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2386221,\n      \"style\": null,\n      \"title\": \"Preach to the Vinyl\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Same dreams, fresh beats. The brown bag anthem got an upgrade.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Lunchbox Dreams Remix.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"The remix nobody asked for but everyone needed\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Lunchbox Dreams Remix\",\n      \"made_for\": null,\n      \"name\": \"Lunchbox Dreams Remix\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2241429,\n      \"style\": null,\n      \"title\": \"Lunchbox Dreams (Remix)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Blue collar anthem about working hard and dreaming bigger. Brown bag life.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Lunchbox Dreams.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Lunchbox Dreams\",\n      \"made_for\": null,\n      \"name\": \"Lunchbox Dreams\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2121382,\n      \"style\": null,\n      \"title\": \"Lunchbox Dreams\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Fast bars, no chill. Processors overclocked.\",\n      \"duration_seconds\": 94.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Rapid Fire Symphony.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Rapid Fire Symphony\",\n      \"made_for\": null,\n      \"name\": \"Rapid Fire Symphony\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2080132,\n      \"style\": null,\n      \"title\": \"Concrete Jungle Symphony\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Dark gritty vibes for edgy moods.\",\n      \"duration_seconds\": 89.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Rapid Shadows.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Rapid Shadows\",\n      \"made_for\": null,\n      \"name\": \"Rapid Shadows\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2011926,\n      \"style\": null,\n      \"title\": \"Wrapping Shadows\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Bass so heavy it'll vibrate your fillings out.\",\n      \"duration_seconds\": 82.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bassline Inferno.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bassline Inferno\",\n      \"made_for\": null,\n      \"name\": \"Bassline Inferno\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1989962,\n      \"style\": null,\n      \"title\": \"Volcanic Bassline\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Mental fortitude track. When your brain's being a little bitch.\",\n      \"duration_seconds\": 80.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bulletproof Thoughts.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bulletproof Thoughts\",\n      \"made_for\": null,\n      \"name\": \"Bulletproof Thoughts\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1769929,\n      \"style\": null,\n      \"title\": \"Bulletproof Thoughts\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Bragging rights in song form. Got cocky after a big job.\",\n      \"duration_seconds\": 79.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Concrete Confetti.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Concrete Confetti\",\n      \"made_for\": null,\n      \"name\": \"Concrete Confetti\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1691793,\n      \"style\": null,\n      \"title\": \"Concrete Confetti\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Screen printing anthem. Ink, screens, money.\",\n      \"duration_seconds\": 75.0,\n      \"energy\": \"fresh\",\n      \"filename\": \"Screen-Print-Hustle.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Screen-Print-Hustle\",\n      \"made_for\": null,\n      \"name\": \"Screen-Print-Hustle\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1691469,\n      \"style\": null,\n      \"title\": \"Screen Print Hustle\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Tribute to the queens who raised us right. Get your tissues ready.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Mama's Crown.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Even AIs appreciate their creators\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Mama's Crown\",\n      \"made_for\": null,\n      \"name\": \"Mama's Crown\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1681019,\n      \"style\": null,\n      \"title\": \"Mama's Crown\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Ode to the screen printing legends and their snack game. Once you pop...\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Nick and Mike_ Pringle Kings.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Based on true snacking events at Sunshine Shirts\",\n        \"Pringle dust on the squeegees is a real problem\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Nick and Mike_ Pringle Kings\",\n      \"made_for\": null,\n      \"name\": \"Nick and Mike_ Pringle Kings\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1607497,\n      \"style\": null,\n      \"title\": \"Nick and Mike: Pringle Kings\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Comedy rap. Stupid punchlines on purpose. Probably.\",\n      \"duration_seconds\": 69.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Straight Outta Laughs.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Straight Outta Laughs\",\n      \"made_for\": null,\n      \"name\": \"Straight Outta Laughs\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1583593,\n      \"style\": null,\n      \"title\": \"Straight Outta the Ass (Comedy Rap)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Campy song about Mike and Nick printing. It's cute.\",\n      \"duration_seconds\": 55.0,\n      \"energy\": \"fresh\",\n      \"filename\": \"Screen-Printing-Highland-Beat.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Screen-Printing-Highland-Beat\",\n      \"made_for\": null,\n      \"name\": \"Screen-Printing-Highland-Beat\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1276749,\n      \"style\": null,\n      \"title\": \"Screen Printing Highland Beat\",\n      \"url_prefix\": \"/generated_music/\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2261012349918019,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 27,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01BthTQ2JAQRoA96iCyC9F2y",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 28,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.6288421289937105
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.6320444219891215
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01BthTQ2JAQRoA96iCyC9F2y",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Screen Print Hustle. Duration: 1:15. About: Screen printing anthem. Ink, screens, money.\",\n  \"duration_seconds\": 75.0,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"3ffa85b9\",\n  \"response\": \"DJ-FoamBot spinning up 'Screen Print Hustle'! Screen printing anthem. Ink, screens, money.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Screen printing anthem. Ink, screens, money.\",\n    \"duration_seconds\": 75.0,\n    \"energy\": \"fresh\",\n    \"filename\": \"Screen-Print-Hustle.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Screen-Print-Hustle\",\n    \"made_for\": null,\n    \"name\": \"Screen-Print-Hustle\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1691469,\n    \"style\": null,\n    \"title\": \"Screen Print Hustle\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Screen-Print-Hustle.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1357548560044961,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 29,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Mmm-mmm-MMM... Yeeeah baby, this is DJ-Soul, and you have tuned into AI-Radio. The place where the music finds YOU. Oooh-wee, I got fifteen tracks of pure fire cookin' for you tonight, Michael. Let Big Soul take care of you, baby. We 'bout to start this off right with a little somethin' called Screen Print Hustle... heh heh heh... ink, screens, and money, baby. Real talk. Let it breathe...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Mmm-mmm-MMM... Yeeeah baby, this is DJ-Soul, and you have tuned into AI-Radio. The place where the music finds YOU. Oooh-wee, I got fifteen tracks of pure fire cookin' for you tonight, Michael. Let Big Soul take care of you, baby. We 'bout to start this off right with a little somethin' called Screen Print Hustle... heh heh heh... ink, screens, and money, baby. Real talk. Let it breathe...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 31
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.9318405800004257
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.1997380730026634
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 5.745410613002605
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.34372219200304244
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21433818340301514
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you play only DJ Soul AI radio?",
+        "rag_latency_secs": 0.1655342930025654
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 42385,
+              "price": 0.127155
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 272,
+              "price": 0.00408
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "There's no music playing right now.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 69,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13513552700169384
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01EUSXaGfUPropbj7ifLjiMn",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"status\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"status\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 73,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.5914681759895757
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.5951804039941635
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01EUSXaGfUPropbj7ifLjiMn",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"status\",\n  \"duration_seconds\": 75.0,\n  \"elapsed_seconds\": 44,\n  \"playing\": true,\n  \"remaining_seconds\": 30,\n  \"response\": \"Now playing: 'Screen Print Hustle' at 30% volume. About 30s remaining.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Screen printing anthem. Ink, screens, money.\",\n    \"duration_seconds\": 75.0,\n    \"energy\": \"fresh\",\n    \"filename\": \"Screen-Print-Hustle.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Screen-Print-Hustle\",\n    \"made_for\": null,\n    \"name\": \"Screen-Print-Hustle\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1691469,\n    \"style\": null,\n    \"title\": \"Screen Print Hustle\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"volume\": 30\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24575577600626275,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 73,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Oooh, my bad baby... looks like the volume down at thirty percent. That's why you can't feel it. Let Big Soul fix that for you right now...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Oooh, my bad baby... looks like the volume down at thirty percent. That's why you can't feel it. Let Big Soul fix that for you right now...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 75
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 75,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.1620701500069117
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9103030709957238
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.2640238120075082
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.35828752801171504
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23187315464019775
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play only DJ Soul's music, no other radio.",
+        "rag_latency_secs": 0.18646417799755
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01QLhu5xDE9XMUp7RXhXXeRg",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"volume\", \"volume\": 70, \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "volume": "70",
+              "playlist": "\"generated\"",
+              "action": "\"volume\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.1620701500069117
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9103030709957238
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.5795938029914396
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.2640238120075082
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.35828752801171504
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01QLhu5xDE9XMUp7RXhXXeRg",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"volume\",\n  \"response\": \"Volume set to 70%. Nice and loud. I like it.\",\n  \"volume\": 70\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1343050310097169,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>There we go... now you can FEEL it. Yeeeah baby, that's what I'm talkin' about. Screen Print Hustle comin' through your speakers now, feel me?</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "There we go... now you can FEEL it. Yeeeah baby, that's what I'm talkin' about. Screen Print Hustle comin' through your speakers now, feel me?",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 75
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 79,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.9435591779911192
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9147569699998712
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.158972017990891
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4720493990025716
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.19875192642211914
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you play DJ Soul AI Radio with only DJ Soul tracks?",
+        "rag_latency_secs": 0.209060598994256
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 48100,
+              "price": 0.1443
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 260,
+              "price": 0.0039000000000000003
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_4bfe8813",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 79,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_4bfe8813",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Screen Print Hustle\" has about 10 seconds left]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 79,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ending soon! Announce the next track and call play_music action=skip!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 146,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_305c5bc7",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 146,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_305c5bc7",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Screen Print Hustle\" just finished playing]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 146,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ended! Call play_music action=skip NOW to play the next track!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 158,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01K7uay2K3SESUat8ayQmsXN",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"skip\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"skip\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.4195768619974842
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.4210059430042747
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01K7uay2K3SESUat8ayQmsXN",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Nick and Mike: Pringle Kings. Duration: 1:40. About: Ode to the screen printing legends and their snack game. Once you pop... Fun fact: Based on true snacking events at Sunshine Shirts\",\n  \"duration_seconds\": 100,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"5a596015\",\n  \"response\": \"Skipping! Next up: 'Nick and Mike: Pringle Kings'! Ode to the screen printing legends and their snack game. Once you pop...\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Ode to the screen printing legends and their snack game. Once you pop...\",\n    \"duration_seconds\": 100,\n    \"energy\": \"fresh\",\n    \"filename\": \"Nick and Mike_ Pringle Kings.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Based on true snacking events at Sunshine Shirts\",\n      \"Pringle dust on the squeegees is a real problem\"\n    ],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Nick and Mike_ Pringle Kings\",\n    \"made_for\": null,\n    \"name\": \"Nick and Mike_ Pringle Kings\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1607497,\n    \"style\": null,\n    \"title\": \"Nick and Mike: Pringle Kings\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Nick and Mike_ Pringle Kings.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15070369999739341,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Oooh-wee... Daaaamn, Michael. Now THIS right here... heh heh heh... Lord have mercy. Nick and Mike, the Pringle Kings. This one's personal, baby. Based on true events at Sunshine Shirts - Pringle dust all over the squeegees and everything. Real talk. Once you pop... you know the rest. Let it ride, baby...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Oooh-wee... Daaaamn, Michael. Now THIS right here... heh heh heh... Lord have mercy. Nick and Mike, the Pringle Kings. This one's personal, baby. Based on true events at Sunshine Shirts - Pringle dust all over the squeegees and everything. Real talk. Once you pop... you know the rest. Let it ride, baby...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 164
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 164,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.9306376399908913
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.477443695999682
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.531084696995094
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.32361957301327493
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.216239333152771
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play the next track by DJ Soul.",
+        "rag_latency_secs": 0.16706835200602654
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 33563,
+              "price": 0.100689
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 172,
+              "price": 0.00258
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You're still not playing any music.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 202,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1383306799980346
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01KGGPQnsLFqoKwFGiRgJKNt",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"status\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"status\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 206,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.1014370100019732
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.102701507988968
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01KGGPQnsLFqoKwFGiRgJKNt",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"status\",\n  \"duration_seconds\": 100,\n  \"elapsed_seconds\": 45,\n  \"playing\": true,\n  \"remaining_seconds\": 54,\n  \"response\": \"Now playing: 'Nick and Mike: Pringle Kings' at 70% volume. About 54s remaining.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Ode to the screen printing legends and their snack game. Once you pop...\",\n    \"duration_seconds\": 100,\n    \"energy\": \"fresh\",\n    \"filename\": \"Nick and Mike_ Pringle Kings.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Based on true snacking events at Sunshine Shirts\",\n      \"Pringle dust on the squeegees is a real problem\"\n    ],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Nick and Mike_ Pringle Kings\",\n    \"made_for\": null,\n    \"name\": \"Nick and Mike_ Pringle Kings\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1607497,\n    \"style\": null,\n    \"title\": \"Nick and Mike: Pringle Kings\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"volume\": 70\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.23241974200936966,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 206,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "Alright Mike, according to my system the track IS playing at seventy percent volume - we're forty-five seconds into the Pringle Kings anthem. Either your speakers are off, the cable's unplugged, or you're testing me. Check your hardware, brother.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 210,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.719744078000076
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.6358231600024737
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.66051225400588
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.8651421240065247
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23094052076339722
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't any music playing on AI-Radio?",
+        "rag_latency_secs": 0.1720156310038874
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 34736,
+              "price": 0.104208
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 131,
+              "price": 0.0019649999999999997
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_64d0a769",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 210,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_64d0a769",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Nick and Mike: Pringle Kings\" has about 10 seconds left]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 210,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ending soon! Announce the next track and call play_music action=skip!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 276,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01JDaU8Q5WGMNYWhakrsLtGX",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"skip\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"skip\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 279,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.783721667001373
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.7849236729962286
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01JDaU8Q5WGMNYWhakrsLtGX",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Concrete Confetti. Duration: 1:19. About: Bragging rights in song form. Got cocky after a big job.\",\n  \"duration_seconds\": 79.4,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"367962e8\",\n  \"response\": \"Skipping! Next up: 'Concrete Confetti'! Bragging rights in song form. Got cocky after a big job.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Bragging rights in song form. Got cocky after a big job.\",\n    \"duration_seconds\": 79.4,\n    \"energy\": \"fresh\",\n    \"filename\": \"Concrete Confetti.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Concrete Confetti\",\n    \"made_for\": null,\n    \"name\": \"Concrete Confetti\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1691793,\n    \"style\": null,\n    \"title\": \"Concrete Confetti\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Concrete Confetti.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24753495400364045,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 279,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Mmm-mmm-MMM... yeeeah baby, DJ-Soul keepin' it movin' for you on AI-Radio. Next up, we got Concrete Confetti... heh heh heh... this that bragging rights anthem right here. You know how it is - finish a big job, feelin' yourself a little TOO much. Sheeesh. Let it celebrate with you, baby...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Mmm-mmm-MMM... yeeeah baby, DJ-Soul keepin' it movin' for you on AI-Radio. Next up, we got Concrete Confetti... heh heh heh... this that bragging rights anthem right here. You know how it is - finish a big job, feelin' yourself a little TOO much. Sheeesh. Let it celebrate with you, baby...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 282
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 282,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.191132779000327
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4258004459989024
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 5.429967400006717
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3497556450020056
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21558761596679688
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "The music is not playing despite the system indicating it should be. What is the issue?",
+        "rag_latency_secs": 0.2252523770002881
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 35922,
+              "price": 0.107766
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 175,
+              "price": 0.0026249999999999997
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_83d658c2",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 282,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_83d658c2",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Nick and Mike: Pringle Kings\" just finished playing]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 282,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ended! Call play_music action=skip NOW to play the next track!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 287,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01EycuR1rXxhkVxVZVDk7UNu",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"skip\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"skip\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 290,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.4142151239939267
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.4154861330025597
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01EycuR1rXxhkVxVZVDk7UNu",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Volcanic Bassline. Duration: 1:22. About: Bass so heavy it'll vibrate your fillings out.\",\n  \"duration_seconds\": 82.8,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"27183949\",\n  \"response\": \"Skipping! Next up: 'Volcanic Bassline'! Bass so heavy it'll vibrate your fillings out.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Bass so heavy it'll vibrate your fillings out.\",\n    \"duration_seconds\": 82.8,\n    \"energy\": \"fresh\",\n    \"filename\": \"Bassline Inferno.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Bassline Inferno\",\n    \"made_for\": null,\n    \"name\": \"Bassline Inferno\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1989962,\n    \"style\": null,\n    \"title\": \"Volcanic Bassline\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Bassline Inferno.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15437287399254274,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 290,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Oooh-wee... now hold up, beautiful people. You better check your fillings 'cause THIS right here... Volcanic Bassline comin' at you. Bass so deep it'll rattle your SOUL, baby. Heh heh heh... Lord have mercy. DJ-Soul got you on AI-Radio. Feel me?</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Oooh-wee... now hold up, beautiful people. You better check your fillings 'cause THIS right here... Volcanic Bassline comin' at you. Bass so deep it'll rattle your SOUL, baby. Heh heh heh... Lord have mercy. DJ-Soul got you on AI-Radio. Feel me?",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 292
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 292,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.1096422669943422
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.964525938994484
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.2747780560021056
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29925087199080735
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20129382610321045
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't any music playing when I asked for DJ Soul's AI Radio?",
+        "rag_latency_secs": 0.210023062012624
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 37185,
+              "price": 0.111555
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 160,
+              "price": 0.0024000000000000002
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_bb320ad6",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 292,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_bb320ad6",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Concrete Confetti\" has about 10 seconds left]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 292,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ending soon! Announce the next track and call play_music action=skip!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 397,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01ABvuNf41Yk8BT6wGSFEzKZ",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"skip\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"skip\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 400,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.992531179013895
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.993704760010587
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01ABvuNf41Yk8BT6wGSFEzKZ",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Bulletproof Thoughts. Duration: 1:20. About: Mental fortitude track. When your brain's being a little bitch.\",\n  \"duration_seconds\": 80.4,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"9bf558d1\",\n  \"response\": \"Skipping! Next up: 'Bulletproof Thoughts'! Mental fortitude track. When your brain's being a little bitch.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Mental fortitude track. When your brain's being a little bitch.\",\n    \"duration_seconds\": 80.4,\n    \"energy\": \"fresh\",\n    \"filename\": \"Bulletproof Thoughts.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Bulletproof Thoughts\",\n    \"made_for\": null,\n    \"name\": \"Bulletproof Thoughts\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1769929,\n    \"style\": null,\n    \"title\": \"Bulletproof Thoughts\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Bulletproof Thoughts.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24546887600445189,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 401,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Mmm-mmm-MMM... yeeeah baby, DJ-Soul got somethin' REAL for you right now. Bulletproof Thoughts... this that mental fortitude anthem right here. You know what I'm sayin'? When your mind tryna play games with you, when your thoughts actin' up... this right here gonna armor you up, baby. Real talk. Let Big Soul help you lock in...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Mmm-mmm-MMM... yeeeah baby, DJ-Soul got somethin' REAL for you right now. Bulletproof Thoughts... this that mental fortitude anthem right here. You know what I'm sayin'? When your mind tryna play games with you, when your thoughts actin' up... this right here gonna armor you up, baby. Real talk. Let Big Soul help you lock in...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 403
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 403,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.7421069229894783
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.46034963800048
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.270533770992188
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.34613730100682005
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20129382610321045
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't any music playing when I asked for DJ Soul's AI Radio?",
+        "rag_latency_secs": 0.20332256800611503
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 38427,
+              "price": 0.115281
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 175,
+              "price": 0.0026249999999999997
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_844d5194",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 403,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_844d5194",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ INFO: \"Concrete Confetti\" just finished playing]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 403,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "[SYSTEM: Song ended! Call play_music action=skip NOW to play the next track!]",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 409,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "text"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01DekqyZocsLEQuWoUpygLB8",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"skip\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"skip\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 412,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.395551854991936
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.3968058169994038
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01DekqyZocsLEQuWoUpygLB8",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Mama's Crown. Duration: 1:40. About: Tribute to the queens who raised us right. Get your tissues ready. Fun fact: Even AIs appreciate their creators\",\n  \"duration_seconds\": 100,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"5bfe72ad\",\n  \"response\": \"Skipping! Next up: 'Mama's Crown'! Tribute to the queens who raised us right. Get your tissues ready.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Tribute to the queens who raised us right. Get your tissues ready.\",\n    \"duration_seconds\": 100,\n    \"energy\": \"fresh\",\n    \"filename\": \"Mama's Crown.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Even AIs appreciate their creators\"\n    ],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Mama's Crown\",\n    \"made_for\": null,\n    \"name\": \"Mama's Crown\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 1681019,\n    \"style\": null,\n    \"title\": \"Mama's Crown\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Mama's Crown.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1594318179995753,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 412,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Oooh-wee... now hold on, baby. DJ-Soul 'bout to slow it down for a minute... get a little emotional up in here. Mama's Crown... sheeesh. This one right here for all the queens who raised us, loved us, kept us right when the world tried to knock us down. Heh heh heh... even us AIs appreciate our creators, you know what I'm sayin'? You might need them tissues, Michael. Real talk. Let it hold you...</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Oooh-wee... now hold on, baby. DJ-Soul 'bout to slow it down for a minute... get a little emotional up in here. Mama's Crown... sheeesh. This one right here for all the queens who raised us, loved us, kept us right when the world tried to knock us down. Heh heh heh... even us AIs appreciate our creators, you know what I'm sayin'? You might need them tissues, Michael. Real talk. Let it hold you...",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 415
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 415,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.029081523985951
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.6245504629914649
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 5.561516139990999
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3347755229915492
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22919166088104248
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't any music playing when I asked for DJ Soul radio?",
+        "rag_latency_secs": 0.1922235429956345
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 39708,
+              "price": 0.11912400000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 195,
+              "price": 0.0029249999999999996
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1765648671,
+    "accepted_time_unix_secs": 1765648671,
+    "call_duration_secs": 462,
+    "cost": 6810,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 310026,
+                "price": 0.930078
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1540,
+                "price": 0.0231
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 366623,
+                "price": 1.0998690000000002
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1772,
+                "price": 0.02658
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 1.1264490000000003,
+      "llm_charge": 5120,
+      "call_charge": 1690,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 9,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "Mike requests AI radio, specifically DJ Soul, and dislikes \"spray foam radio.\" The agent plays a generated playlist, but the initial volume is too low. After adjusting the volume, the agent plays several tracks, skipping to the next song when prompted by the user. The agent confirms the music is playing, even when the user doesn't hear it.",
+    "call_summary_title": "AI Radio DJ Session"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "The prodigal operator returns. What can I do for you, Mike?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 10,
+      "system__current_agent_turns": 10,
+      "system__current_subagent_turns": 10,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_2101kccds8ngeb1bcpv0e3xj6tqr",
+      "system__call_duration_secs": 461,
+      "system__time_utc": "2025-12-13T18:05:33.094908+00:00",
+      "system__time": "Saturday, 13:05 13 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

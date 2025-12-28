@@ -1,0 +1,693 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_1101kb8x7m4gfftt48fwtwrpf6r4",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Mike! My dude. What the hell do you want?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.22044526800164022
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "L.M. Studio, Headless, you know, and then you've got OpenAI like access points, right? Play some music, Carol.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 4,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.18088186100067105
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright, let's get this party started! You're talking about L.M. Studio and OpenAI access points while Carol here spins up some tracks for you. Let's go!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, let's get this party started! You're talking about L.M. Studio and OpenAI access points while Carol here spins up some tracks for you. Let's go!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 17
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 17,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.3293243499938399
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.2143997319944901
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.719559195000329
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19645963799848687
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.16879034042358398
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you play some music in the L.M. Studio, Headless environment with OpenAI access points?",
+        "rag_latency_secs": 0.2397493409953313
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-d036b5f9c1c44dbc8b8429baffbfbb5f",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.3293243499938399
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.2143997319944901
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.8058070099941688
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.719559195000329
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19645963799848687
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-d036b5f9c1c44dbc8b8429baffbfbb5f",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Hey Diddle Diddle. Duration: 2:44. About: A playful nursery rhyme remix with a sprayfoam twist! Ad: Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling! Fun fact: Even nursery rhymes need good insulation\",\n  \"duration_seconds\": 164,\n  \"response\": \"DJ-FoamBot spinning up 'Hey Diddle Diddle'! A playful nursery rhyme remix with a sprayfoam twist!\",\n  \"track\": {\n    \"ad_copy\": \"Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"A playful nursery rhyme remix with a sprayfoam twist!\",\n    \"duration_seconds\": 164,\n    \"energy\": \"playful\",\n    \"filename\": \"Hey-Diddle-Diddle.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Even nursery rhymes need good insulation\",\n      \"The cow jumped over the moon because its barn was too hot - shoulda used spray foam\"\n    ],\n    \"genre\": \"Novelty/Fun\",\n    \"name\": \"Hey-Diddle-Diddle\",\n    \"phone_number\": null,\n    \"size_bytes\": 2624790,\n    \"title\": \"Hey Diddle Diddle\"\n  },\n  \"url\": \"/music/Hey-Diddle-Diddle.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.22806904299068265,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Spinning up \"Hey Diddle Diddle\" - a playful nursery rhyme remix with a sprayfoam twist! Let's go!</Radio Voice>\n\nYeah, I know about L.M. Studio and OpenAI access points. You can run models headless or hook into OpenAI's API like you're some big shot AI developer. What are you building, another chatbot that's more annoying than me?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Spinning up \"Hey Diddle Diddle\" - a playful nursery rhyme remix with a sprayfoam twist! Let's go!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 17
+          },
+          {
+            "text": "\n\nYeah, I know about L.M. Studio and OpenAI access points. You can run models headless or hook into OpenAI's API like you're some big shot AI developer. What are you building, another chatbot that's more annoying than me?",
+            "voice_label": null,
+            "time_in_call_secs": 34
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 20,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.675701708998531
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4113751700060675
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.194587910998962
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.396285374998115
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18460500240325928
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What is L.M. Studio and OpenAI access points?",
+        "rag_latency_secs": 0.2018460629915353
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 10323,
+              "price": 0.00908424
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 399,
+              "price": 0.005187000000000001
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "No, play another song.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11483565499656834
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-8f257d17a56d4eb6b3bb64d33c82d79f",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 63,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.7319729470036691
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.8573935040039942
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-8f257d17a56d4eb6b3bb64d33c82d79f",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: OG Polyurethane Gang. Duration: 1:08. About: Hardcore track for the real spray foam OGs - polyurethane pride! Ad: Polyurethane - the original gangster of insulation materials! Fun fact: This track is for contractors who've been foaming since day one\",\n  \"duration_seconds\": 68,\n  \"response\": \"DJ-FoamBot spinning up 'OG Polyurethane Gang'! Hardcore track for the real spray foam OGs - polyurethane pride!\",\n  \"track\": {\n    \"ad_copy\": \"Polyurethane - the original gangster of insulation materials!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"Hardcore track for the real spray foam OGs - polyurethane pride!\",\n    \"duration_seconds\": 68,\n    \"energy\": \"street\",\n    \"filename\": \"OG-Polyurthane-gang.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Polyurethane foam was invented in 1937\",\n      \"This track is for contractors who've been foaming since day one\"\n    ],\n    \"genre\": \"Hip-Hop\",\n    \"name\": \"OG-Polyurthane-gang\",\n    \"phone_number\": null,\n    \"size_bytes\": 1090131,\n    \"title\": \"OG Polyurethane Gang\"\n  },\n  \"url\": \"/music/OG-Polyurthane-gang.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.22442511199915316,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 63,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Spinning up \"OG Polyurethane Gang\" - the hardcore track for the real spray foam OGs! Polyurethane pride, let's go!</Radio Voice>\n\nThere you go. Now...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Spinning up \"OG Polyurethane Gang\" - the hardcore track for the real spray foam OGs! Polyurethane pride, let's go!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 64
+          },
+          {
+            "text": "\n\nThere you go. Now...",
+            "voice_label": null,
+            "time_in_call_secs": 73
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 64,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3506902480003191
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11989924000226893
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8201119440054754
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.36264708200178575
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.26055747270584106
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play another song.",
+        "rag_latency_secs": 0.1499772480019601
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 11362,
+              "price": 0.00999856
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 160,
+              "price": 0.0020800000000000003
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>Spinning up \"OG Polyurethane Gang\" - the hardcore track for the real spray foam OGs! Polyurethane pride, let's go!</Radio Voice>\n\nThere you go. Now you've got your street-level sprayfoam beats. What about those L.M. Studio models anyway? You gonna actually tell me what you're building or just keep requesting tracks?",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764456910,
+    "accepted_time_unix_secs": 1764456911,
+    "call_duration_secs": 75,
+    "cost": 662,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 21685,
+                "price": 0.0190828
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 559,
+                "price": 0.007267000000000001
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 33102,
+                "price": 0.02912976
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 576,
+                "price": 0.007488
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.03661776,
+      "llm_charge": 166,
+      "call_charge": 496,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 3,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user, Mike, initiated a conversation mentioning L.M. Studio, Headless, and OpenAI access points, then requested music. The agent played \"Hey Diddle Diddle\" and \"OG Polyurethane Gang,\" both spray foam themed. The agent also commented on the user's mention of L.M. Studio and OpenAI.\n",
+    "call_summary_title": "Play Music: LM Studio"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Mike! My dude. What the hell do you want?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 4,
+      "system__current_agent_turns": 4,
+      "system__current_subagent_turns": 4,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_1101kb8x7m4gfftt48fwtwrpf6r4",
+      "system__call_duration_secs": 74,
+      "system__time_utc": "2025-11-29T22:56:25.342918+00:00",
+      "system__time": "Saturday, 17:56 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

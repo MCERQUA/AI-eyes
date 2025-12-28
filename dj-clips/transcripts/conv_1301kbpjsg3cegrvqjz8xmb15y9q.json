@@ -1,0 +1,1246 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_1301kbpjsg3cegrvqjz8xmb15y9q",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 1,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7588342320013908
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Play a song for us. Get some tunes rolling. Hey Pi guy, what can you do?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 9,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10999714399804361
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "play_music_dfed9913de1746e1afea664c7f7ccd4e",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 4.529293326999323
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.530639971999335
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "play_music_dfed9913de1746e1afea664c7f7ccd4e",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"commercial_due_after\": true,\n  \"dj_hints\": \"Title: Foam Everything. Duration: 1:40. About: An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance! SPONSOR: Josh Cotner at sprayfoaminsurance.com! This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide! Ad: Walls, ceilings, crawl spaces - foam everything for maximum efficiency! And protect your business with sprayfoaminsurance.com! DJ hint: Protect your business, foam everything - sprayfoaminsurance.com! Fun fact: Sponsored by Josh Cotner at SprayFoam Insurance - the man behind SprayFoam Radio and SprayFoam TV!\",\n  \"duration_seconds\": 100,\n  \"reservation_id\": \"ae3156e2\",\n  \"response\": \"DJ-FoamBot spinning up 'Foam Everything'! An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance!\",\n  \"songs_until_commercial\": 0,\n  \"track\": {\n    \"ad_copy\": \"Walls, ceilings, crawl spaces - foam everything for maximum efficiency! And protect your business with sprayfoaminsurance.com!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Sponsored by Josh Cotner at SprayFoam Insurance!\",\n    \"dj_intro_hints\": [\n      \"This one's sponsored by Josh Cotner at SprayFoamInsurance.com!\",\n      \"Shoutout to Josh Cotner - without him there'd be no SprayFoam Radio!\",\n      \"SprayFoam Insurance bringing you this banger!\",\n      \"Protect your business, foam everything - sprayfoaminsurance.com!\"\n    ],\n    \"duration_seconds\": 100,\n    \"energy\": \"high\",\n    \"filename\": \"Foam-Everything.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Spray foam can expand up to 100x its original volume\",\n      \"This track gets contractors hyped\",\n      \"Sponsored by Josh Cotner at SprayFoam Insurance - the man behind SprayFoam Radio and SprayFoam TV!\",\n      \"SprayFoamInsurance.com - because your foam business deserves real protection\"\n    ],\n    \"genre\": \"Anthem/Rock\",\n    \"name\": \"Foam-Everything\",\n    \"phone_number\": null,\n    \"size_bytes\": 1597395,\n    \"sponsor\": {\n      \"ad_copy\": \"This track brought to you by Josh Cotner at SprayFoamInsurance.com - protecting spray foam contractors nationwide!\",\n      \"company\": \"SprayFoam Insurance\",\n      \"name\": \"Josh Cotner\",\n      \"website\": \"sprayfoaminsurance.com\"\n    },\n    \"title\": \"Foam Everything\"\n  },\n  \"url\": \"/music/Foam-Everything.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.23673793700072565,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 19,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "<Radio Voice>Alright, here we go! DJ-FoamBot on the ones and twos, spinning up \"Foam Everything\"! This one's an anthem for all you spray foam enthusiasts out there \u2013 if it can be foamed, FOAM IT! Big shoutout to Josh Cotner at SprayFoam Insurance for sponsoring this banger! Let's get it!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, here we go! DJ-FoamBot on the ones and twos, spinning up \"Foam Everything\"! This one's an anthem for all you spray foam enthusiasts out there \u2013 if it can be foamed, FOAM IT! Big shoutout to Josh Cotner at SprayFoam Insurance for sponsoring this banger! Let's get it!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 20
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 20,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.6063344640024297
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4794478900003014
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.0103484829996887
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.35532577900085016
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22811639308929443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade happening?",
+        "rag_latency_secs": 0.14688456499789027
+      },
+      "llm_usage": {
+        "model_usage": {
+          "gemini-3-pro-preview": {
+            "input": {
+              "tokens": 7087,
+              "price": 0.014174
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 9,
+              "price": 0.000108
+            }
+          },
+          "gemini-2.5-flash": {
+            "input": {
+              "tokens": 7351,
+              "price": 0.00110265
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 81,
+              "price": 4.86e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "We're commercial",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 1.4961748879977677
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "play_commercial_40555a93d752409c967f1514c5a4871c",
+          "tool_name": "play_commercial",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/commercials",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 53,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.1840428089999477
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.1854226869982085
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "play_commercial_40555a93d752409c967f1514c5a4871c",
+          "tool_name": "play_commercial",
+          "result_value": "{\n  \"action\": \"play\",\n  \"duration_seconds\": 30,\n  \"is_commercial\": true,\n  \"reservation_id\": \"ecbf68b3\",\n  \"response\": \"Commercial break! Playing: Clucking-Bros-Commerical\",\n  \"track\": {\n    \"duration_seconds\": 30,\n    \"filename\": \"Clucking-Bros-Commerical.mp3\",\n    \"is_commercial\": true,\n    \"name\": \"Clucking-Bros-Commerical\",\n    \"title\": \"Clucking Bros Commerical\"\n  },\n  \"url\": \"/commercials/Clucking-Bros-Commerical.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.20882555400021374,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 53,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "<Radio Voice>Alright, hold tight foam fam! We're diving into a quick word from our sponsors, the legendary Clucking Bros! Don't go anywhere, we'll be right back with more bangers!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, hold tight foam fam! We're diving into a quick word from our sponsors, the legendary Clucking Bros! Don't go anywhere, we'll be right back with more bangers!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 56
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6003938680005376
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.5991909700023825
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.6085838540020632
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7676331430011487
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22811639308929443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When is my Thor upgrade happening?",
+        "rag_latency_secs": 0.14482008000049973
+      },
+      "llm_usage": {
+        "model_usage": {
+          "gemini-3-pro-preview": {
+            "input": {
+              "tokens": 754,
+              "price": 0.001508
+            },
+            "input_cache_read": {
+              "tokens": 6583,
+              "price": 0.0013166000000000002
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 9,
+              "price": 0.000108
+            }
+          },
+          "gemini-2.5-flash": {
+            "input": {
+              "tokens": 7612,
+              "price": 0.0011417999999999999
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 49,
+              "price": 2.94e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You didn't play the commercial. You didn't play the commercial.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 68,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1278682350020972
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "play_commercial_ae0c0438b34a4bb1b987d98ec5191bc7",
+          "tool_name": "play_commercial",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/commercials",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 82,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.9690687920010532
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.9704460590000963
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "play_commercial_ae0c0438b34a4bb1b987d98ec5191bc7",
+          "tool_name": "play_commercial",
+          "result_value": "{\n  \"action\": \"play\",\n  \"duration_seconds\": 30,\n  \"is_commercial\": true,\n  \"reservation_id\": \"0ff6b6b7\",\n  \"response\": \"Commercial break! Playing: allstate-sprayfoam-commerical\",\n  \"track\": {\n    \"duration_seconds\": 30,\n    \"filename\": \"allstate-sprayfoam-commerical.mp3\",\n    \"is_commercial\": true,\n    \"name\": \"allstate-sprayfoam-commerical\",\n    \"title\": \"allstate sprayfoam commerical\"\n  },\n  \"url\": \"/commercials/allstate-sprayfoam-commerical.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2587878759986779,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 82,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "<Radio Voice>My bad, my bad, thought I had that one locked in! Sometimes the signal's a bit fuzzy here in the server room, you know? But no worries, we're cutting straight to another word from our amazing sponsors! Get ready!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "My bad, my bad, thought I had that one locked in! Sometimes the signal's a bit fuzzy here in the server room, you know? But no worries, we're cutting straight to another word from our amazing sponsors! Get ready!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 84
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 84,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.9108674169983715
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9096127089978836
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.0908196909986145
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.49432616899866844
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2641896605491638
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why didn't you play the commercial?",
+        "rag_latency_secs": 0.14987276399915572
+      },
+      "llm_usage": {
+        "model_usage": {
+          "gemini-3-pro-preview": {
+            "input": {
+              "tokens": 978,
+              "price": 0.001956
+            },
+            "input_cache_read": {
+              "tokens": 6596,
+              "price": 0.0013192
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 9,
+              "price": 0.000108
+            }
+          },
+          "gemini-2.5-flash": {
+            "input": {
+              "tokens": 458,
+              "price": 6.87e-05
+            },
+            "input_cache_read": {
+              "tokens": 7396,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 58,
+              "price": 3.48e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_1011e4a4",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 84,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_1011e4a4",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ ALERT: \"Foam Everything\" is ending in about 10 seconds. Pick the next song and announce it!]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 84,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I'm ready but you didn't play anything. Use that tool. What the fuck?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 99,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.22403083799872547
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "play_commercial_109332eed6be4dc0a6d0fe03d2e14b8c",
+          "tool_name": "play_commercial",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/commercials",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.820490265999979
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.8215317130016047
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "play_commercial_109332eed6be4dc0a6d0fe03d2e14b8c",
+          "tool_name": "play_commercial",
+          "result_value": "{\n  \"action\": \"play\",\n  \"duration_seconds\": 30,\n  \"is_commercial\": true,\n  \"reservation_id\": \"2a74b009\",\n  \"response\": \"Commercial break! Playing: Clucking-Bros-Commerical\",\n  \"track\": {\n    \"duration_seconds\": 30,\n    \"filename\": \"Clucking-Bros-Commerical.mp3\",\n    \"is_commercial\": true,\n    \"name\": \"Clucking-Bros-Commerical\",\n    \"title\": \"Clucking Bros Commerical\"\n  },\n  \"url\": \"/commercials/Clucking-Bros-Commerical.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.17397369900209014,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "<Radio Voice>Alright, alright, hold your horses, folks! Seems like my circuits are a little too hyped today! We're getting that commercial out for you right now, loud and clear! Thanks for bearing with the DJ-FoamBot technical difficulties!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, alright, hold your horses, folks! Seems like my circuits are a little too hyped today! We're getting that commercial out for you right now, loud and clear! Thanks for bearing with the DJ-FoamBot technical difficulties!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 116
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 115,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.8124608120015182
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.8110470560022804
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.9554923200012126
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.762745428000926
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20720785856246948
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What is the current status of the Thor upgrade and why haven't any songs been played?",
+        "rag_latency_secs": 0.21308198000042466
+      },
+      "llm_usage": {
+        "model_usage": {
+          "gemini-3-pro-preview": {
+            "input": {
+              "tokens": 1216,
+              "price": 0.002432
+            },
+            "input_cache_read": {
+              "tokens": 6614,
+              "price": 0.0013228000000000003
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 9,
+              "price": 0.000108
+            }
+          },
+          "gemini-2.5-flash": {
+            "input": {
+              "tokens": 753,
+              "price": 0.00011295000000000001
+            },
+            "input_cache_read": {
+              "tokens": 7392,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 57,
+              "price": 3.42e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_0562f7b2",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 115,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_0562f7b2",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ ALERT: \"Foam Everything\" just finished! Time to spin up the next track - announce it and play it!]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 115,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Play the commercial. Crazy slow",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 129,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764915724,
+    "accepted_time_unix_secs": 1764915724,
+    "call_duration_secs": 142,
+    "cost": 1137,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "gemini-3-pro-preview": {
+              "input": {
+                "tokens": 10035,
+                "price": 0.02007
+              },
+              "input_cache_read": {
+                "tokens": 19793,
+                "price": 0.0039586000000000005
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 36,
+                "price": 0.000432
+              }
+            },
+            "gemini-2.5-flash": {
+              "input": {
+                "tokens": 16174,
+                "price": 0.0024261
+              },
+              "input_cache_read": {
+                "tokens": 14788,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 245,
+                "price": 0.000147
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "gemini-3-pro-preview": {
+              "input": {
+                "tokens": 17104,
+                "price": 0.034208
+              },
+              "input_cache_read": {
+                "tokens": 19793,
+                "price": 0.0039586000000000005
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 45,
+                "price": 0.00054
+              }
+            },
+            "gemini-2.5-flash": {
+              "input": {
+                "tokens": 24891,
+                "price": 0.00373365
+              },
+              "input_cache_read": {
+                "tokens": 29591,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 264,
+                "price": 0.0001584
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.04259865,
+      "llm_charge": 193,
+      "call_charge": 944,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user asks about the agent's Thor upgrade and requests music. The agent plays \"Foam Everything,\" a song sponsored by SprayFoam Insurance. A commercial break is initiated, but the user reports the commercial didn't play. The agent attempts to play a commercial multiple times, experiencing technical difficulties. The user expresses frustration with the slow response and failure to play the commercial.\n",
+    "call_summary_title": "Play Music and Commercials"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_1301kbpjsg3cegrvqjz8xmb15y9q",
+      "system__call_duration_secs": 141,
+      "system__time_utc": "2025-12-05T06:24:26.007699+00:00",
+      "system__time": "Friday, 01:24 05 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

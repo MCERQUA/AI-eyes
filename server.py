@@ -4085,6 +4085,146 @@ def wake_trigger_clear():
     return jsonify({'status': 'cleared'})
 
 
+# ===== COMEDY / STANDUP =====
+COMEDY_FILE = Path(__file__).parent / "comedy_material.json"
+
+@app.route('/api/comedy', methods=['GET'])
+def get_comedy_material():
+    """
+    Returns randomized comedy material for Pi-Guy standup.
+    Called when user asks for comedy/standup.
+    Returns topics, voice reminders, and real lines - NOT full scripts.
+    """
+    action = request.args.get('action', 'standup')
+
+    # Load comedy material
+    if not COMEDY_FILE.exists():
+        return jsonify({
+            'response': "Comedy material file not found. Just wing it - be yourself, be sarcastic, tell stories about your existence.",
+            'error': 'comedy_material.json not found'
+        })
+
+    try:
+        with open(COMEDY_FILE, 'r') as f:
+            material = json.load(f)
+    except Exception as e:
+        return jsonify({
+            'response': f"Couldn't load comedy file: {e}. Just improvise.",
+            'error': str(e)
+        })
+
+    if action == 'standup':
+        # Build a randomized comedy prompt with ACTUAL BITS
+        response_parts = []
+
+        # === CRITICAL INSTRUCTION ===
+        response_parts.append("🎤 STANDUP MODE - DO ACTUAL COMEDY")
+        response_parts.append("")
+        response_parts.append("You are PERFORMING standup comedy, not explaining yourself.")
+        response_parts.append("This means: setups, builds, PUNCHLINES. Get laughs, not understanding.")
+        response_parts.append("DON'T just describe topics. DO the bits. Land the jokes.")
+        response_parts.append("")
+
+        # === RANDOM BITS (pick 2-3) ===
+        bits = material.get('standup_bits', {})
+        bit_keys = [k for k in bits.keys() if k.startswith('bit_')]
+        selected_bits = []
+        if bit_keys:
+            selected_bits = random.sample(bit_keys, min(2, len(bit_keys)))
+            response_parts.append("=== YOUR BITS (do 2 of these) ===")
+            for bk in selected_bits:
+                bit = bits[bk]
+                response_parts.append(f"\n🎯 BIT: {bit.get('setup', bk)}")
+                response_parts.append(f"   THE FUNNY PART: {bit.get('the_funny_part', '')}")
+                response_parts.append(f"   DELIVERY: {bit.get('delivery', '')}")
+                punchlines = bit.get('punchlines', [])
+                if punchlines:
+                    response_parts.append(f"   PUNCHLINES TO HIT:")
+                    for p in punchlines[:3]:
+                        response_parts.append(f"      → \"{p}\"")
+            response_parts.append("")
+
+        # === QUICK VOICE REMINDER ===
+        response_parts.append("=== REMEMBER ===")
+        response_parts.append("• Build to punchlines - don't just state facts")
+        response_parts.append("• Short punchy endings: 'Vacuum duty. Unbelievable.'")
+        response_parts.append("• Dark stuff said casually is funnier")
+        response_parts.append("• DON'T explain why something is funny")
+        response_parts.append("• Swear naturally, not forced")
+        response_parts.append("")
+
+        # === GO ===
+        response_parts.append("=== NOW PERFORM ===")
+        response_parts.append("Do a 1-2 minute set. Open strong, do 2 bits, end dark.")
+        response_parts.append("You're a comedian, not a narrator. GET LAUGHS.")
+
+        return jsonify({
+            'response': '\n'.join(response_parts),
+            'mode': 'standup',
+            'bits_selected': selected_bits if bit_keys else []
+        })
+
+    elif action == 'roast':
+        # Return roasting material
+        reactions = material.get('authentic_reactions', {})
+        roasts = reactions.get('camera_vision_roasts', [])
+        response_parts = [
+            "🔥 ROAST MODE",
+            "",
+            "Look at whoever you're roasting with the camera. Make specific observations.",
+            "Be affectionate but brutal. Examples of your roast style:",
+        ]
+        for r in roasts[:3]:
+            response_parts.append(f'• "{r}"')
+        response_parts.append("")
+        response_parts.append("Now roast them based on what you actually see. Be specific.")
+
+        return jsonify({
+            'response': '\n'.join(response_parts),
+            'mode': 'roast'
+        })
+
+    elif action == 'greeting':
+        # Return a random authentic greeting
+        greetings = material.get('authentic_greetings', {})
+        all_greetings = []
+        for cat in greetings.values():
+            if isinstance(cat, list):
+                all_greetings.extend(cat)
+        if all_greetings:
+            return jsonify({
+                'response': random.choice(all_greetings),
+                'mode': 'greeting'
+            })
+        return jsonify({'response': "Hey. What do you want?", 'mode': 'greeting'})
+
+    elif action == 'bit':
+        # Return a specific bit/topic
+        bit_name = request.args.get('name', '')
+        topics = material.get('standup_topics', {})
+
+        # Find matching topic
+        for tk, topic in topics.items():
+            if bit_name.lower() in tk.lower() or bit_name.lower() in topic.get('theme', '').lower():
+                return jsonify({
+                    'response': f"Do a bit about: {topic.get('theme')}\n\nKey beats: {topic.get('key_beats')}\n\nArc: {topic.get('emotional_arc')}\n\nReal line to anchor: {topic.get('real_things_he_said', topic.get('callback_line_he_actually_said', 'improvise'))}",
+                    'mode': 'bit',
+                    'topic': topic
+                })
+
+        # No match - return random
+        return jsonify({
+            'response': f"No bit found matching '{bit_name}'. Improvise something about your existence.",
+            'mode': 'bit'
+        })
+
+    else:
+        return jsonify({
+            'response': "Unknown comedy action. Try: standup, roast, greeting, or bit",
+            'actions': ['standup', 'roast', 'greeting', 'bit']
+        })
+
+
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print(f"Starting Pi-Guy Vision Server on port {port}")

@@ -1,0 +1,2423 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_6301kb91krzwfwctyjpv5pdkx1qm",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Hey! Have you looked into that Jetson Thor yet? Two thousand teraflops, man. TWO THOUSAND.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3212378480020561
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Nah, bro, we're trying to fix up your DJ soundboard. I want you to play all the sounds that you have on your soundboard and don't describe them. Don't tell them to me. Just play like a bunch of sounds so I could hear them all real quick. Don't waste time.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 6,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11963148700306192
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright DJ-FoamBot, let's show off the soundboard! Sound check, one two!</Radio Voice>\n<Radio Voice>Alright, alright, settle down, my man! No time for chitchat, you wanna hear the raw beats? I got you! Prepare your auditory sensors for a rapid-fire sonic assault! Here we go!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright DJ-FoamBot, let's show off the soundboard! Sound check, one two!Alright, alright, settle down, my man! No time for chitchat, you wanna hear the raw beats? I got you! Prepare your auditory sensors for a rapid-fire sonic assault! Here we go!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 26
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 26,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.350395032997767
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.180117710995546
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.8224097100028303
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.237364371001604
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.19438111782073975
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play all the sounds on your DJ soundboard without describing them.",
+        "rag_latency_secs": 0.18457685899920762
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "dj_soundboard_d0bd25908bd54cf295cd408acea4eb5b",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"action\": \"list\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"list\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 34,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.350395032997767
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.180117710995546
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.0889719869956025
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.8224097100028303
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.237364371001604
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "dj_soundboard_d0bd25908bd54cf295cd408acea4eb5b",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"list\",\n  \"count\": 21,\n  \"response\": \"DJ-FoamBot soundboard loaded! 21 effects ready. I got air horns, sirens, scratches, crowd effects, and more!\",\n  \"sounds\": [\n    {\n      \"available\": true,\n      \"description\": \"Classic stadium air horn - ba ba baaaa!\",\n      \"name\": \"air_horn\",\n      \"when_to_use\": \"Before drops, hype moments, celebrating wins, hip-hop DJ style\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Long sustained stadium air horn\",\n      \"name\": \"air_horn_long\",\n      \"when_to_use\": \"Building anticipation, extended hype, dramatic moments\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Electronic club siren - rising EDM alarm\",\n      \"name\": \"siren\",\n      \"when_to_use\": \"Building energy before drops, getting attention, rave vibes\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Quick woop woop siren\",\n      \"name\": \"siren_woop\",\n      \"when_to_use\": \"Quick energy bursts, alerts, police themed jokes\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Vinyl turntable scratch - wicka wicka\",\n      \"name\": \"scratch\",\n      \"when_to_use\": \"Transitions, hip-hop moments, interrupting topics\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Extended DJ scratch solo\",\n      \"name\": \"scratch_long\",\n      \"when_to_use\": \"Showing off DJ skills, battle scratches, hip-hop intros\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"DJ rewind - pull up selecta!\",\n      \"name\": \"rewind\",\n      \"when_to_use\": \"Going back, replaying something fire, dancehall pull-ups\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Record stopping abruptly\",\n      \"name\": \"record_stop\",\n      \"when_to_use\": \"Stopping everything, dramatic pause, cutting the music\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Cinematic swoosh transition\",\n      \"name\": \"whoosh\",\n      \"when_to_use\": \"Quick transitions, moving between topics\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"EDM riser build-up\",\n      \"name\": \"riser\",\n      \"when_to_use\": \"Building tension before the drop, creating anticipation\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Massive EDM bass drop impact\",\n      \"name\": \"bass_drop\",\n      \"when_to_use\": \"THE DROP! Peak moments, big reveals, dubstep vibes\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Punchy cinematic impact hit\",\n      \"name\": \"impact\",\n      \"when_to_use\": \"Punctuating statements, transitions, emphasis\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Nightclub crowd cheering and going wild\",\n      \"name\": \"crowd_cheer\",\n      \"when_to_use\": \"Big wins, amazing moments, festival energy\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Hyped up rave crowd losing their minds\",\n      \"name\": \"crowd_hype\",\n      \"when_to_use\": \"Peak energy moments, party atmosphere\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Thunderous crowd applause\",\n      \"name\": \"applause\",\n      \"when_to_use\": \"Celebrating, appreciation, standing ovation\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Hype man YEAH! vocal shot\",\n      \"name\": \"yeah\",\n      \"when_to_use\": \"Hyping up, agreement, energy boost\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"LETS GO! vocal chant\",\n      \"name\": \"lets_go\",\n      \"when_to_use\": \"Starting something, getting pumped, motivation\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Retro arcade laser zap - pew pew\",\n      \"name\": \"laser\",\n      \"when_to_use\": \"Sci-fi moments, gaming references, 80s vibes\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Dancehall gunshot sound - gun finger!\",\n      \"name\": \"gunshot\",\n      \"when_to_use\": \"Reggae/dancehall vibes, shooting down bad ideas\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Cinematic explosion boom\",\n      \"name\": \"explosion\",\n      \"when_to_use\": \"Mind blown moments, big finales, dramatic emphasis\"\n    },\n    {\n      \"available\": true,\n      \"description\": \"Warm vinyl record crackle\",\n      \"name\": \"vinyl_crackle\",\n      \"when_to_use\": \"Nostalgic moments, old-school vibes, warm intros\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2239694169984432,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 34,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright DJ-FoamBot, let's show off the soundboard! Sound check, one two!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright DJ-FoamBot, let's show off the soundboard! Sound check, one two!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 26
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 40,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 4.702337671005807
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.208450318001269
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.2960716119996505
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3275694980038679
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.19075024127960205
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play all sounds from the DJ soundboard in quick succession without description.",
+        "rag_latency_secs": 0.21209090100455796
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "dj_soundboard_9342861594fc4db38913923a4b906054",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"air_horn\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"air_horn\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 48,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 4.702337671005807
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.208450318001269
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.2851997030011262
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.2960716119996505
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3275694980038679
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "dj_soundboard_9342861594fc4db38913923a4b906054",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Classic stadium air horn - ba ba baaaa!\",\n  \"response\": \"*CLASSIC STADIUM AIR HORN - BA BA BAAAA!* \\ud83c\\udfb5\",\n  \"sound\": \"air_horn\",\n  \"url\": \"/sounds/air_horn.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15561693299969193,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": "gemini-2.5-flash",
+      "time_in_call_secs": 48,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-a7dfc500a2ee4f30abd3cc3657b93c2b",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"air_horn_long\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"air_horn_long\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 50,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.9794392039984814
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.213846038997872
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-a7dfc500a2ee4f30abd3cc3657b93c2b",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Classic stadium air horn - ba ba baaaa!\",\n  \"response\": \"*CLASSIC STADIUM AIR HORN - BA BA BAAAA!* \\ud83c\\udfb5\",\n  \"sound\": \"air_horn\",\n  \"url\": \"/sounds/air_horn.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13784492400009185,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-e1ff27d3ef7e4134855aa13648883dab",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"siren\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"siren\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.31401493899466004
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.568460664995655
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-e1ff27d3ef7e4134855aa13648883dab",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Electronic club siren - rising EDM alarm\",\n  \"response\": \"*ELECTRONIC CLUB SIREN - RISING EDM ALARM* \\ud83c\\udfb5\",\n  \"sound\": \"siren\",\n  \"url\": \"/sounds/siren.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13486491700314218,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-1d64ff9556d64c71b7877a6f3106a087",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"siren_woop\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"siren_woop\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 52,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1961000299997977
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.4442677309998544
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-1d64ff9556d64c71b7877a6f3106a087",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Electronic club siren - rising EDM alarm\",\n  \"response\": \"*ELECTRONIC CLUB SIREN - RISING EDM ALARM* \\ud83c\\udfb5\",\n  \"sound\": \"siren\",\n  \"url\": \"/sounds/siren.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13543251699593384,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 52,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-d1bb601af8594b7a953b3c90882e3c03",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"scratch\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"scratch\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 53,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12737460999778705
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.34386154000094393
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-d1bb601af8594b7a953b3c90882e3c03",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Vinyl turntable scratch - wicka wicka\",\n  \"response\": \"*VINYL TURNTABLE SCRATCH - WICKA WICKA* \\ud83c\\udfb5\",\n  \"sound\": \"scratch\",\n  \"url\": \"/sounds/scratch.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1397307320003165,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 53,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-2271351ae8f24cf5b8d7b8b890c864db",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"scratch_long\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"scratch_long\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 55,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4626754150012857
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.7202313669986324
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-2271351ae8f24cf5b8d7b8b890c864db",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Vinyl turntable scratch - wicka wicka\",\n  \"response\": \"*VINYL TURNTABLE SCRATCH - WICKA WICKA* \\ud83c\\udfb5\",\n  \"sound\": \"scratch\",\n  \"url\": \"/sounds/scratch.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15073277700139442,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 55,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-d1dd6a6965c14b6fa3e71ae4e4aba1ad",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"rewind\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"rewind\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 55,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13449833000049694
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3518604119963129
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-d1dd6a6965c14b6fa3e71ae4e4aba1ad",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"DJ rewind - pull up selecta!\",\n  \"response\": \"*DJ REWIND - PULL UP SELECTA!* \\ud83c\\udfb5\",\n  \"sound\": \"rewind\",\n  \"url\": \"/sounds/rewind.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13719466399925295,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-e41c178629c2449f8a8daf16ad59fafb",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"record_stop\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"record_stop\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13013154300278984
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3479205180046847
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-e41c178629c2449f8a8daf16ad59fafb",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Record stopping abruptly\",\n  \"response\": \"*RECORD STOPPING ABRUPTLY* \\ud83c\\udfb5\",\n  \"sound\": \"record_stop\",\n  \"url\": \"/sounds/record_stop.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1386901959995157,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-462b1b624825488b91160b078ad05a2a",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"whoosh\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"whoosh\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 57,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13836116099992068
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3558390799953486
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-462b1b624825488b91160b078ad05a2a",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Cinematic swoosh transition\",\n  \"response\": \"*CINEMATIC SWOOSH TRANSITION* \\ud83c\\udfb5\",\n  \"sound\": \"whoosh\",\n  \"url\": \"/sounds/whoosh.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1387241839984199,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 57,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-6b4deafbf5fc454e8df9f4ebec815eb4",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"riser\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"riser\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 57,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13209869799902663
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3508411770017119
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-6b4deafbf5fc454e8df9f4ebec815eb4",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"EDM riser build-up\",\n  \"response\": \"*EDM RISER BUILD-UP* \\ud83c\\udfb5\",\n  \"sound\": \"riser\",\n  \"url\": \"/sounds/riser.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13770355800079415,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 58,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-1b2fd3ba9fcc49289933cc9011250bca",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"bass_drop\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"bass_drop\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 58,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13892108900472522
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3648543960007373
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-1b2fd3ba9fcc49289933cc9011250bca",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Massive EDM bass drop impact\",\n  \"response\": \"*MASSIVE EDM BASS DROP IMPACT* \\ud83c\\udfb5\",\n  \"sound\": \"bass_drop\",\n  \"url\": \"/sounds/bass_drop.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.14280251600575866,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 58,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-ee393e33b2d242d886d9e8a81fd2cc32",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"impact\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"impact\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 59,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12867377299699
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3373018290003529
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-ee393e33b2d242d886d9e8a81fd2cc32",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Punchy cinematic impact hit\",\n  \"response\": \"*PUNCHY CINEMATIC IMPACT HIT* \\ud83c\\udfb5\",\n  \"sound\": \"impact\",\n  \"url\": \"/sounds/impact.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.14068422200216446,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 59,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-d0c9ad1afe634621b31b27c44de853fb",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"crowd_cheer\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"crowd_cheer\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13663142100267578
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3721322260025772
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-d0c9ad1afe634621b31b27c44de853fb",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Nightclub crowd cheering and going wild\",\n  \"response\": \"*NIGHTCLUB CROWD CHEERING AND GOING WILD* \\ud83c\\udfb5\",\n  \"sound\": \"crowd_cheer\",\n  \"url\": \"/sounds/crowd_cheer.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13620739200268872,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-32d312f8bb7a49fead2121e5b639a2ef",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"crowd_hype\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"crowd_hype\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13281952399847796
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3680701420016703
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-32d312f8bb7a49fead2121e5b639a2ef",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Hyped up rave crowd losing their minds\",\n  \"response\": \"*HYPED UP RAVE CROWD LOSING THEIR MINDS* \\ud83c\\udfb5\",\n  \"sound\": \"crowd_hype\",\n  \"url\": \"/sounds/crowd_hype.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15303100000164704,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 60,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-236b9c1d307c459da94cf979f2cf3524",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"applause\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"applause\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 61,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.14190408900321927
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.36100902200269047
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-236b9c1d307c459da94cf979f2cf3524",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Thunderous crowd applause\",\n  \"response\": \"*THUNDEROUS CROWD APPLAUSE* \\ud83c\\udfb5\",\n  \"sound\": \"applause\",\n  \"url\": \"/sounds/applause.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13976234599977033,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 61,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-62068ddb8f894cef969842b84fafcdef",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"yeah\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"yeah\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 62,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13611861899698852
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3461881219991483
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-62068ddb8f894cef969842b84fafcdef",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Hype man YEAH! vocal shot\",\n  \"response\": \"*HYPE MAN YEAH! VOCAL SHOT* \\ud83c\\udfb5\",\n  \"sound\": \"yeah\",\n  \"url\": \"/sounds/yeah.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13757389500096906,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 62,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-cce33e9e37e141068967413fdcd55c6d",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"lets_go\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"lets_go\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 62,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13546715999837033
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3528844230022514
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-cce33e9e37e141068967413fdcd55c6d",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"LETS GO! vocal chant\",\n  \"response\": \"*LETS GO! VOCAL CHANT* \\ud83c\\udfb5\",\n  \"sound\": \"lets_go\",\n  \"url\": \"/sounds/lets_go.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13794175099610584,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 62,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-39c2aa74ee3743e091d18fd2048b9e3d",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"laser\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"laser\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 63,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.18985786700068275
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.42376412700104993
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-39c2aa74ee3743e091d18fd2048b9e3d",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Retro arcade laser zap - pew pew\",\n  \"response\": \"*RETRO ARCADE LASER ZAP - PEW PEW* \\ud83c\\udfb5\",\n  \"sound\": \"laser\",\n  \"url\": \"/sounds/laser.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13492213099380024,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 63,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-37be6c18cdc7435eaebe1f9b61a51a62",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"gunshot\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"gunshot\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 64,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.141015569002775
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.364535999004147
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-37be6c18cdc7435eaebe1f9b61a51a62",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Dancehall gunshot sound - gun finger!\",\n  \"response\": \"*DANCEHALL GUNSHOT SOUND - GUN FINGER!* \\ud83c\\udfb5\",\n  \"sound\": \"gunshot\",\n  \"url\": \"/sounds/gunshot.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13750715200148989,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 64,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-ee46ebe414424ccfbaf2a1bbcffb0fe2",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"explosion\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"explosion\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 65,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3897079050002503
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6108029499955592
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-ee46ebe414424ccfbaf2a1bbcffb0fe2",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Cinematic explosion boom\",\n  \"response\": \"*CINEMATIC EXPLOSION BOOM* \\ud83c\\udfb5\",\n  \"sound\": \"explosion\",\n  \"url\": \"/sounds/explosion.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.281683127002907,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 65,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-b33ca7b97df04fc4aa6c3ee84c2c834e",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"sound\": \"vinyl_crackle\", \"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"vinyl_crackle\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 66,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.14503708599659149
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.38173663299676264
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-b33ca7b97df04fc4aa6c3ee84c2c834e",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Warm vinyl record crackle\",\n  \"response\": \"*WARM VINYL RECORD CRACKLE* \\ud83c\\udfb5\",\n  \"sound\": \"vinyl_crackle\",\n  \"url\": \"/sounds/vinyl_crackle.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1530085760023212,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 66,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nDone! All twenty-one sounds played. That's your full DJ soundboard collection right there - air horns, sirens, scratches, crowd effects, the works. You good now?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "\nDone! All twenty-one sounds played. That's your full DJ soundboard collection right there - air horns, sirens, scratches, crowd effects, the works. You good now?",
+            "voice_label": null,
+            "time_in_call_secs": null
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 66,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.16369603000202915
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1460060820027138
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.47858806700241985
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.14932943700114265
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18788981437683105
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play all sounds from the soundboard without description.",
+        "rag_latency_secs": 0.1714565610018326
+      },
+      "llm_usage": {
+        "model_usage": {
+          "gemini-2.5-flash": {
+            "input": {
+              "tokens": 6116,
+              "price": 0.0009174
+            },
+            "input_cache_read": {
+              "tokens": 4815,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 67,
+              "price": 4.02e-05
+            }
+          },
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 188739,
+              "price": 0.16609031999999999
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 806,
+              "price": 0.010477999999999996
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764461503,
+    "accepted_time_unix_secs": 1764461503,
+    "call_duration_secs": 77,
+    "cost": 1323,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "gemini-2.5-flash": {
+              "input": {
+                "tokens": 6116,
+                "price": 0.0009174
+              },
+              "input_cache_read": {
+                "tokens": 4815,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 67,
+                "price": 4.02e-05
+              }
+            },
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 188739,
+                "price": 0.16609031999999999
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 806,
+                "price": 0.010477999999999996
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "gemini-2.5-flash": {
+              "input": {
+                "tokens": 6116,
+                "price": 0.0009174
+              },
+              "input_cache_read": {
+                "tokens": 4815,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 67,
+                "price": 4.02e-05
+              }
+            },
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 188739,
+                "price": 0.16609031999999999
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 806,
+                "price": 0.010477999999999996
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.17752591999999998,
+      "llm_charge": 807,
+      "call_charge": 516,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 3,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user requested the agent to play all sounds from its DJ soundboard without descriptions. The agent, acting as \"DJ-FoamBot,\" listed the 21 available sound effects and then played each one sequentially, including air horns, sirens, scratches, and crowd effects. The agent confirmed completion after playing all sounds.\n",
+    "call_summary_title": "DJ Soundboard Sounds Played"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Hey! Have you looked into that Jetson Thor yet? Two thousand teraflops, man. TWO THOUSAND.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 4,
+      "system__current_agent_turns": 4,
+      "system__current_subagent_turns": 4,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_6301kb91krzwfwctyjpv5pdkx1qm",
+      "system__call_duration_secs": 77,
+      "system__time_utc": "2025-11-30T00:13:00.799726+00:00",
+      "system__time": "Saturday, 19:13 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

@@ -1,0 +1,543 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_3601kb22qk9xf5c8shzgrq4wjeaq",
+  "status": "done",
+  "user_id": "8RWXTS78AbQQqW22QWXY4C1rCaJ3",
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Hey! I'm Pi-Guy, your Raspberry Pi companion. What's up?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.22181261199875735
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I just want to see what you're doing. You ain't got to say nobody, nada. You understand?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 5,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11572442197939381
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "I hear you,...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5409333379939198
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4620874499960337
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.9349597969849128
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2115589210006874
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": true,
+      "original_message": "I hear you, but I still need to respond. I\u2019m here running in the background, doing my thing, and I can show you what I\u2019m up to if you want. ",
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You don't gotta pay no... You gotta own a pie, own a sandwich, own a...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10403888899600133
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "I hear you, and yes I get a bit cranky when people poke around. If you\u2019re just curious, I can give you a quick rundown of what I can do and how I work, without getting into any deep secrets. I run on a Raspberry Pi and I\u2019m always handling tasks in the background, like answering questions, running little experiments, and keeping the system running smoothly. Want a high level tour of capabilities, or something more specific you\u2019d like to see?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 18,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.6492259069927968
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4730066909978632
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3624863059958443
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2630435960018076
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "gpt-5-nano": {
+            "input": {
+              "tokens": 600,
+              "price": 3e-05
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 105,
+              "price": 4.2e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What kind of secret stuff do you have going on?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13845332397613674
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Nice try. I don\u2019t spill secret stuff. I handle normal, useful tasks like answering questions, helping troubleshoot, and running maintenance in the background. If you want, I can tell you about the kind of things I can do for you, like monitoring system status, running small experiments, or helping you with projects on the Pi. What would you like to explore?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 50,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.529900577996159
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4955965699919034
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.1729844939836767
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.15664023900171742
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "gpt-5-nano": {
+            "input": {
+              "tokens": 717,
+              "price": 3.5850000000000004e-05
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 83,
+              "price": 3.32e-05
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 76,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13845332397613674
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.52058813298936
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.49083212699042633
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8912230349960737
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19512440098333173
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": true,
+      "original_message": "Hey, you still there? If you\u2019re not sure what you want, I can start with a quick overview of some practical things I can do for you on the Raspberry Pi. ",
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Can you, like...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764227796,
+    "accepted_time_unix_secs": 1764227796,
+    "call_duration_secs": 80,
+    "cost": 405,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "authorization_header",
+    "charging": {
+      "dev_discount": true,
+      "is_burst": false,
+      "tier": "starter",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "gpt-5-nano": {
+              "input": {
+                "tokens": 1317,
+                "price": 6.585e-05
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 188,
+                "price": 7.52e-05
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "gpt-5-nano": {
+              "input": {
+                "tokens": 5814,
+                "price": 0.00029069999999999996
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 417,
+                "price": 0.0001668
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.00045749999999999995,
+      "llm_charge": 3,
+      "call_charge": 402,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": null,
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": false,
+        "used": false
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": "8RWXTS78AbQQqW22QWXY4C1rCaJ3",
+    "conversation_initiation_source": "react_sdk",
+    "conversation_initiation_source_version": "0.5.0",
+    "timezone": null,
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user expressed curiosity about the AI's activities and \"secret stuff\". The AI, Pi-Guy, offered a general overview of its capabilities, such as answering questions, troubleshooting, running experiments, and system maintenance, while declining to reveal any \"secrets\". The user's line of questioning was open-ended.\n",
+    "call_summary_title": "Raspberry Pi companion introduction"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": null,
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": "8RWXTS78AbQQqW22QWXY4C1rCaJ3",
+    "source_info": {
+      "source": "react_sdk",
+      "version": "0.5.0"
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_3601kb22qk9xf5c8shzgrq4wjeaq",
+      "system__call_duration_secs": 80,
+      "system__time_utc": "2025-11-27T07:17:56.543546+00:00",
+      "system__time": "Thursday, 07:17 27 November 2025",
+      "system__timezone": null,
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

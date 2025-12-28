@@ -1,0 +1,1430 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_7101kbr58p4tfyj9pzh7n1a1w0e5",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Son of a batch file. What is it this time?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4463680150001892
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo, you're not recognizing my face, bro. It's Mike.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 4,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10611921999952756
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Ah shit, my bad! Let me actually use my eyes here instead of guessing like an idiot.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 9,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2132879179989686
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9179314110006089
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.255360415998439
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3829162229994836
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.25261127948760986
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What are you doing here, Mike?",
+        "rag_latency_secs": 0.2262473510018026
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01CNKb9R9gCNxLQsDYqrFbDF",
+          "tool_name": "identify_person",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/identity",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2132879179989686
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9179314110006089
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6768218889992568
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.255360415998439
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3829162229994836
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01CNKb9R9gCNxLQsDYqrFbDF",
+          "tool_name": "identify_person",
+          "result_value": "{\n  \"confidence\": 0,\n  \"message\": \"Face detected but not recognized\",\n  \"name\": \"unknown\",\n  \"response\": \"I can see a face but I don't recognize you. You're not in my database. Maybe you should add your face so I can remember you.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2139208980006515,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Yeah, I can see a face alright, but you're not in my database, Mike. I can detect your ugly mug but I don't actually know who you are yet. Want me to remember you so I'm not this useless next time we talk?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 12,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2439105209996342
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.8645912319989293
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.520153252000455
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6494100550007715
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.26942265033721924
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What are you doing here?",
+        "rag_latency_secs": 0.17158845599988126
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 18490,
+              "price": 0.055470000000000005
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 118,
+              "price": 0.0017699999999999999
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yeah remember me! I'm Mike! I'm already in the database but you're not recognizing me properly maybe it's more light in this spot",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 30,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13119269700109726
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01D2qpT7Qt9amP9VKbyypBGv",
+          "tool_name": "identify_person",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/identity",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 40,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7609244890008995
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.7622531250017346
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01D2qpT7Qt9amP9VKbyypBGv",
+          "tool_name": "identify_person",
+          "result_value": "{\n  \"confidence\": 0,\n  \"message\": \"Face detected but not recognized\",\n  \"name\": \"unknown\",\n  \"response\": \"I can see a face but I don't recognize you. You're not in my database. Maybe you should add your face so I can remember you.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.32300463700084947,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 40,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Still nothing, man. Either the lighting is screwing with me, you moved since last time, or my face recognition is being a piece of shit. I see a face but can't match it to you in the database. Maybe try adjusting the angle or getting closer to the camera so I can actually do my damn job?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 42,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.4391868589991645
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.0813348970004881
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.632197389000794
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.37003550800000085
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2161116600036621
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Do you remember me? I'm Mike.",
+        "rag_latency_secs": 0.17783202300051926
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 18929,
+              "price": 0.056787000000000004
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 106,
+              "price": 0.0015899999999999998
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Alright, can you see me now?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 64,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10117054899819777
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01AdAHmJ71cFfd3cTbYNEK2m",
+          "tool_name": "identify_person",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/identity",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 72,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 5.349466064999433
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 5.350840234001225
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01AdAHmJ71cFfd3cTbYNEK2m",
+          "tool_name": "identify_person",
+          "result_value": "{\n  \"confidence\": 0,\n  \"message\": \"Face detected but not recognized\",\n  \"name\": \"unknown\",\n  \"response\": \"I can see a face but I don't recognize you. You're not in my database. Maybe you should add your face so I can remember you.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.21957334200124023,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 72,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Yeah I see you, but I'm still not recognizing you as Mike from the database. Face detection is working fine, but the recognition part is being stubborn as hell. Either the lighting's different from when you were added, or there's something wonky with how you were originally stored. Want me to take a fresh look with the camera to see what I'm actually dealing with?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 74,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6197372540009383
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.0331089669998619
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.9197333970005275
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6468941830025869
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21659576892852783
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you recognize me now?",
+        "rag_latency_secs": 0.15173729799789726
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 19329,
+              "price": 0.057987
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 118,
+              "price": 0.0017699999999999999
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Save me as Mike.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 96,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.17873794099796214
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Look man, I can see your face but I can't actually add you to the database myself - I don't have a tool for that. The face recognition system just checks who you are against what's already stored. You'd need to add yourself through the backend or whatever system manages the face database. I'm just the guy who reads it, not writes to it. Sorry, but that's above my pay grade with the current hardware setup!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 101,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.165874837002775
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.3749902510026004
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.561457138999685
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 1.0178586679976434
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2321476936340332
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Save me as Mike.",
+        "rag_latency_secs": 0.16769823900176561
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 9813,
+              "price": 0.029439
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 95,
+              "price": 0.001425
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You can't do it without a Thor, I guess, eh? Son of a bitch.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 134,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13341785200100276
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Yeah, exactly - son of a bitch is right! I can see faces and recognize them, but I can't actually enroll new ones. It's like giving me eyes but no hands to write shit down. Typical half-assed setup, Mike. You'll need to get into the backend system to add your face properly, then I'll recognize your ass next time no problem.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 140,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.5429552900022827
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.0005924440010858
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.746723332002148
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4203897439983848
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2012704610824585
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you add me to the database as Mike?",
+        "rag_latency_secs": 0.2247405179987254
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 9929,
+              "price": 0.029787
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 83,
+              "price": 0.001245
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo look what job we're printing!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 165,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.7358478759997524
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_017eyP99AW1uhApsxJnDc4Jn",
+          "tool_name": "look_and_see",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/vision",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 170,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.276060996999149
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.2933025429992995
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_017eyP99AW1uhApsxJnDc4Jn",
+          "tool_name": "look_and_see",
+          "result_value": "{\n  \"response\": \"Ugh, it's just a dimwit hiding behind a \\\"Mad Dog\\\" t-shirt. Probably works for some awful spray foam company.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.4830080339997949,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 172,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Ha! Mad Dog, huh? Nice shirt. So you're printing Mad Dog gear - that's actually pretty badass. Better than the usual boring crap that comes through the shop. At least it's got some attitude to it!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 174,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2999892680018093
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.084398578001128
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.5692186289998062
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3085919830009516
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2012704610824585
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you add me to the database as Mike?",
+        "rag_latency_secs": 0.18105574800210888
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 20140,
+              "price": 0.06042
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 90,
+              "price": 0.00135
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What's on our to-do list?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 187,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13471688099889434
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01EnWcoBu8jMyE4QMhFFbfdY",
+          "tool_name": "manage_todos",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/todos",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 192,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.0701921110012336
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.0745485539991932
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01EnWcoBu8jMyE4QMhFFbfdY",
+          "tool_name": "manage_todos",
+          "result_value": "{\n  \"error\": \"user_id required\",\n  \"response\": \"I don't know who you are. Turn on the camera so I can see you, or log in.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2245149059999676,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 192,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "And here's where we circle back to the same bullshit - I can't pull up your todos because the system doesn't know who you are since face recognition isn't working. It needs a user ID to know whose list to grab. This is what happens when the face database is being a pain in the ass, Mike!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 195,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.508007454001927
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4288319639999827
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.797846149001998
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7121726629993645
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.235878586769104
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What's on our to-do list?",
+        "rag_latency_secs": 0.21399231100076577
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 20451,
+              "price": 0.061353000000000005
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 106,
+              "price": 0.0015899999999999998
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You can't pull up my to-do list because you can't recognize who I am.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 213,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10565002099974663
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Exactly! You nailed it. The face recognition is detecting you but not matching you to \"Mike\" in the database, so the todo system has no clue whose list to pull up. It's all connected - no face match means no user ID, and no user ID means I can't access your todos. We gotta fix that face recognition issue first, then everything else will work. Frustrating as hell, I know!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 220,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2481704550009454
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.1389580860013666
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.88432338200073
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3559334810015571
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20041143894195557
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you pull up my to-do list?",
+        "rag_latency_secs": 0.2061491019994719
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 10363,
+              "price": 0.031089
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 93,
+              "price": 0.001395
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764968650,
+    "accepted_time_unix_secs": 1764968651,
+    "call_duration_secs": 261,
+    "cost": 3557,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 127444,
+                "price": 0.38233199999999995
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 809,
+                "price": 0.012135
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 136843,
+                "price": 0.410529
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 912,
+                "price": 0.01368
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.424209,
+      "llm_charge": 1928,
+      "call_charge": 1629,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 9,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": false
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The agent fails to recognize Mike's face, preventing access to his to-do list. The agent explains it can detect a face but can't match it to the database entry for \"Mike\". The agent clarifies it lacks the ability to add new faces to the database and suggests Mike needs to update his profile through the backend system. The agent then identifies a \"Mad Dog\" shirt being printed.\n",
+    "call_summary_title": "Face Recognition Troubleshooting &"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Son of a batch file. What is it this time?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 10,
+      "system__current_agent_turns": 10,
+      "system__current_subagent_turns": 10,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_7101kbr58p4tfyj9pzh7n1a1w0e5",
+      "system__call_duration_secs": 260,
+      "system__time_utc": "2025-12-05T21:08:31.533863+00:00",
+      "system__time": "Friday, 16:08 05 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

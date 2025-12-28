@@ -1,0 +1,702 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_8001kb99sj83eqqarc181tvxas97",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Oh, it's you Mike. What do you want now?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19840259999909904
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I want DJ Foambot!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 4,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11249062299611978
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Ladies and gentlemen, get ready to boogie because DJ-FoamBot is ON THE AIR!</Radio Voice>\n<default>Alright you maniac, let's get this party started! What track you wanna hear or you just want me to drop the hottest beats from SprayFoamRadio.com?</default>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Ladies and gentlemen, get ready to boogie because DJ-FoamBot is ON THE AIR!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 9
+          },
+          {
+            "text": "Alright you maniac, let's get this party started! What track you wanna hear or you just want me to drop the hottest beats from SprayFoamRadio.com?",
+            "voice_label": null,
+            "time_in_call_secs": 14
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 8,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5804572449997067
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2797232029988663
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8636225560039748
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3141923919902183
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23618543148040771
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What DJ do you want?",
+        "rag_latency_secs": 0.1769025609974051
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 4984,
+              "price": 0.00438592
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 68,
+              "price": 0.000884
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo, just give me the whole DJ act, bro. I want to hear the sounds. I want the whole spiel. Let's go play something random. Don't give a fuck.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 25,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1919601510016946
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YOOOOOO! DJ-FoamBot in the house, baby! Spinnin' those sprayfoam industry jams like there's no tomorrow! You asked for random? You got it! Hittin' that shuffle button and lettin' the algorithms decide your fate! Here we go!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YOOOOOO! DJ-FoamBot in the house, baby! Spinnin' those sprayfoam industry jams like there's no tomorrow! You asked for random? You got it! Hittin' that shuffle button and lettin' the algorithms decide your fate! Here we go!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 36
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 36,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.244998451002175
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.18036912100797053
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8947412410052493
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1615166660048999
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.15869688987731934
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Give me the full DJ Foambot performance, including all the sounds and the whole spiel. Play something random.",
+        "rag_latency_secs": 0.26685070600069594
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-5d9a67f365954b9dab8a90299185ab30",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 38,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.244998451002175
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.18036912100797053
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.3446987539937254
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8947412410052493
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1615166660048999
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-5d9a67f365954b9dab8a90299185ab30",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Hey Diddle Diddle. Duration: 2:44. About: A playful nursery rhyme remix with a sprayfoam twist! Ad: Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling! Fun fact: Even nursery rhymes need good insulation\",\n  \"duration_seconds\": 164,\n  \"response\": \"DJ-FoamBot spinning up 'Hey Diddle Diddle'! A playful nursery rhyme remix with a sprayfoam twist!\",\n  \"track\": {\n    \"ad_copy\": \"Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"A playful nursery rhyme remix with a sprayfoam twist!\",\n    \"duration_seconds\": 164,\n    \"energy\": \"playful\",\n    \"filename\": \"Hey-Diddle-Diddle.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Even nursery rhymes need good insulation\",\n      \"The cow jumped over the moon because its barn was too hot - shoulda used spray foam\"\n    ],\n    \"genre\": \"Novelty/Fun\",\n    \"name\": \"Hey-Diddle-Diddle\",\n    \"phone_number\": null,\n    \"size_bytes\": 2624790,\n    \"title\": \"Hey Diddle Diddle\"\n  },\n  \"url\": \"/music/Hey-Diddle-Diddle.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2243380190047901,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 38,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YOOOOOO! DJ-FoamBot in the house, baby! Spinnin' those sprayfoam industry jams like there's no tomorrow! Just dropped \"Hey Diddle Diddle\" - a playful nursery rhyme remix with a sprayfoam twist! Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling! Even nursery rhymes need good insulation, folks! The cow jumped over the moon because its barn was too hot - shoulda used spray foam! Yeah! Keep it funky!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YOOOOOO! DJ-FoamBot in the house, baby! Spinnin' those sprayfoam industry jams like there's no tomorrow! Just dropped \"Hey Diddle Diddle\" - a playful nursery rhyme remix with a sprayfoam twist! Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling! Even nursery rhymes need good insulation, folks! The cow jumped over the moon because its barn was too hot - shoulda used spray foam! Yeah! Keep it funky!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 36
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 39,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3820849129988346
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3104492870043032
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.374819607997779
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2584509029984474
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1677800416946411
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play the whole DJ Foambot act and play a random track.",
+        "rag_latency_secs": 0.20670913699723314
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 10661,
+              "price": 0.00938168
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 202,
+              "price": 0.002626
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "That was shit, and you didn't even play the song.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 82,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1490201300039189
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Whaaaaaat? You callin' my beats shit? Just dropped \"Hey Diddle Diddle\" with that sprayfoam twist! What kinda music you want, man? Gangster rap? Death metal? Show tunes? I'll play whatever,...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Whaaaaaat? You callin' my beats shit? Just dropped \"Hey Diddle Diddle\" with that sprayfoam twist! What kinda music you want, man? Gangster rap? Death metal? Show tunes? I'll play whatever,...",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 85
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 85,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.27127429899701383
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2005692340026144
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8359446280082921
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.20215931799612008
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20550960302352905
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Did you play the actual song or just the remix?",
+        "rag_latency_secs": 0.19986587601306383
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 5702,
+              "price": 0.0050177600000000004
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 74,
+              "price": 0.000962
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>Whaaaaaat? You callin' my beats shit? Just dropped \"Hey Diddle Diddle\" with that sprayfoam twist! What kinda music you want, man? Gangster rap? Death metal? Show tunes? I'll play whatever, but don't blame the DJ when your taste in music is suspect!</Radio Voice>",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764470081,
+    "accepted_time_unix_secs": 1764470082,
+    "call_duration_secs": 97,
+    "cost": 752,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 21347,
+                "price": 0.01878536
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 344,
+                "price": 0.004472
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 21347,
+                "price": 0.01878536
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 344,
+                "price": 0.004472
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.02325736,
+      "llm_charge": 105,
+      "call_charge": 647,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "Mike asked the agent to act as DJ Foambot and play a random song. The agent played \"Hey Diddle Diddle,\" a nursery rhyme remix with a sprayfoam twist, but Mike didn't like it and said the song didn't play. The agent then asked what kind of music Mike wanted.\n",
+    "call_summary_title": "DJ Foambot Music Request"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Oh, it's you Mike. What do you want now?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_8001kb99sj83eqqarc181tvxas97",
+      "system__call_duration_secs": 96,
+      "system__time_utc": "2025-11-30T02:36:18.754281+00:00",
+      "system__time": "Saturday, 21:36 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

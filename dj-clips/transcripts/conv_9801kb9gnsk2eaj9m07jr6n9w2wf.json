@@ -1,0 +1,708 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_9801kb9gnsk2eaj9m07jr6n9w2wf",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Do you ever wonder if I dream? I don't. But I wonder if I wonder. Anyway, what?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2668440549969091
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You know, I want some tombs, bust out foam bot. Let's get some tombs going. Air horn. Yeah.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10615914800291648
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>LIVVVVE from SprayFoamRadio.com it's your boy DJ-FoamBot back in action! You said tombs? Let's get some tombs going! I'm feeling that foam energy! YEAH! LET'S GO!  bwaaah </Radio Voice>\n\nDJ scratch transition\n\n<Radio Voice>Guess you want me to play some foam tunes while you work on those tombs huh? Let me drop some hot spray foam beats for you! What track you wanna hear? Mrs. Sprayfoam? Or maybe some OG Polyurethane Gang?</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "LIVVVVE from SprayFoamRadio.com it's your boy DJ-FoamBot back in action! You said tombs? Let's get some tombs going! I'm feeling that foam energy! YEAH! LET'S GO!  bwaaah ",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 19
+          },
+          {
+            "text": "\n\nDJ scratch transition\n\n",
+            "voice_label": null,
+            "time_in_call_secs": 29
+          },
+          {
+            "text": "Guess you want me to play some foam tunes while you work on those tombs huh? Let me drop some hot spray foam beats for you! What track you wanna hear? Mrs. Sprayfoam? Or maybe some OG Polyurethane Gang?",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 31
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 19,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.4896716009970987
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2639763260012842
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3693435469976976
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6388548510003602
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18014657497406006
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can we get some tombs and a foam bot with an air horn?",
+        "rag_latency_secs": 0.21135094400233356
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7018,
+              "price": 0.00617584
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 126,
+              "price": 0.001638
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Who you gonna call?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 54,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.14894194599764887
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>SprayFoamRadio.com! Who you gonna call? DJ-FoamBot! That's who! We got the foam, we got the beats, we got the insulation! crowd goes wild Let me play you that Call-Me-Mrs.Sprayfoam track! You know the one!  bwaaah!</Radio Voice>\n\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "SprayFoamRadio.com! Who you gonna call? DJ-FoamBot! That's who! We got the foam, we got the beats, we got the insulation! crowd goes wild Let me play you that Call-Me-Mrs.Sprayfoam track! You know the one!  bwaaah!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 57
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.35989605099894106
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2784668989988859
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.2161204980002367
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.37922161799360765
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20013189315795898
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Who should I play, Mrs. Sprayfoam or the OG Polyurethane Gang?",
+        "rag_latency_secs": 0.24979031999828294
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-5c41a7ebfbcb48ffbcfc2bb74282d5c9",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\", \"track\": \"Call-Me-Mrs.Sprayfoam\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "track": "\"Call-Me-Mrs.Sprayfoam\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 61,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.35989605099894106
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2784668989988859
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.093829574994743
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.2161204980002367
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.37922161799360765
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-5c41a7ebfbcb48ffbcfc2bb74282d5c9",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Call Me Mrs. Sprayfoam. Duration: 2:50. About: The official anthem for Karen, the legendary Mrs. Sprayfoam herself! Augusta and CSRA's most trusted insulation queen serving Georgia and South Carolina. Call: 706-386-8821 Ad: Need spray foam insulation in Augusta or Aiken? Call Karen - that's Mrs. Sprayfoam to you! 706-386-8821 or 678-995-FOAM. She's the CSRA's leading spray foam installer and Spray Foam World Wide Ambassador! Fun fact: This track was made for SprayFoamRadio.com to honor the queen of insulation\",\n  \"duration_seconds\": 170,\n  \"response\": \"DJ-FoamBot spinning up 'Call Me Mrs. Sprayfoam'! The official anthem for Karen, the legendary Mrs. Sprayfoam herself! Augusta and CSRA's most trusted insulation queen serving Georgia and South Carolina.\",\n  \"track\": {\n    \"ad_copy\": \"Need spray foam insulation in Augusta or Aiken? Call Karen - that's Mrs. Sprayfoam to you! 706-386-8821 or 678-995-FOAM. She's the CSRA's leading spray foam installer and Spray Foam World Wide Ambassador!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"The official anthem for Karen, the legendary Mrs. Sprayfoam herself! Augusta and CSRA's most trusted insulation queen serving Georgia and South Carolina.\",\n    \"duration_seconds\": 170,\n    \"energy\": \"upbeat\",\n    \"filename\": \"Call-Me-Mrs.Sprayfoam.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Karen won the Spray Foam World Wide Grand Prize at the industry's largest event in 2022!\",\n      \"Mrs. Sprayfoam is the CSRA's leading Spray Foam Installer AND a Spray Foam World Wide Ambassador\",\n      \"They do spray foam, fiberglass, mineral wool, blown-in, coatings AND removals - the full package!\",\n      \"This track was made for SprayFoamRadio.com to honor the queen of insulation\",\n      \"Call 706-386-8821 or 678-995-FOAM - yes, that's 995-FOAM!\"\n    ],\n    \"genre\": \"Jingle/Commercial\",\n    \"name\": \"Call-Me-Mrs.Sprayfoam\",\n    \"phone_number\": \"706-386-8821\",\n    \"size_bytes\": 2722131,\n    \"title\": \"Call Me Mrs. Sprayfoam\"\n  },\n  \"url\": \"/music/Call-Me-Mrs.Sprayfoam.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2117412070001592,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 61,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>SPINNING UP! You know who you gonna call! Mrs. Sprayfoam! That's who!  bwaaah The official anthem for Karen, the Augusta and CSRA's most trusted insulation queen serving Georgia and South Carolina! This track is dedicated to the Spray Foam World Wide Ambassador herself! crowd cheer Yeahhh! Let the foam games begin!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "SPINNING UP! You know who you gonna call! Mrs. Sprayfoam! That's who!  bwaaah The official anthem for Karen, the Augusta and CSRA's most trusted insulation queen serving Georgia and South Carolina! This track is dedicated to the Spray Foam World Wide Ambassador herself! crowd cheer Yeahhh! Let the foam games begin!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 57
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 62,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.38377903700165916
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3142681179961073
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.018869277999329
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4643078740045894
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2177964448928833
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Who should I call for foam tunes?",
+        "rag_latency_secs": 0.1933267269996577
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 15091,
+              "price": 0.013280080000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 187,
+              "price": 0.002431
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What's your phone number, yo?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 109,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.14147041300020646
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>That would be Mrs. Sprayfoam's number! 706-386-8821 or 678-995-FOAM! Yeah 995-FOAM! That's her hotline for Augusta and the CSRA area! She's the queen of insulation, the Spray Foam World Wide Ambassador! crowd hype That's the number to call when you need that foam!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "That would be Mrs. Sprayfoam's number! 706-386-8821 or 678-995-FOAM! Yeah 995-FOAM! That's her hotline for Augusta and the CSRA area! She's the queen of insulation, the Spray Foam World Wide Ambassador! crowd hype That's the number to call when you need that foam!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 111
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 111,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.20601899000030244
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.08010861500224564
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8569440810024389
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.46316403000673745
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2398836612701416
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Who is the phone number for Mrs. Sprayfoam?",
+        "rag_latency_secs": 0.20783757099707145
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8032,
+              "price": 0.0070681599999999995
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 89,
+              "price": 0.001157
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764477298,
+    "accepted_time_unix_secs": 1764477298,
+    "call_duration_secs": 145,
+    "cost": 968,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 30141,
+                "price": 0.026524080000000002
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 402,
+                "price": 0.005226
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 30141,
+                "price": 0.026524080000000002
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 402,
+                "price": 0.005226
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.03175008,
+      "llm_charge": 145,
+      "call_charge": 823,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user requested \"tombs\" and the agent, roleplaying as \"DJ-FoamBot\" from \"SprayFoamRadio.com,\" interpreted this as a request for spray foam-related content. The agent then played the track \"Call-Me-Mrs.Sprayfoam\" and provided Mrs. Sprayfoam's phone number (706-386-8821 or 678-995-FOAM) upon request. The conversation was lighthearted and humorous.",
+    "call_summary_title": "DJ-FoamBot: Sprayfoam Radio Jingle"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Do you ever wonder if I dream? I don't. But I wonder if I wonder. Anyway, what?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_9801kb9gnsk2eaj9m07jr6n9w2wf",
+      "system__call_duration_secs": 145,
+      "system__time_utc": "2025-11-30T04:37:23.925888+00:00",
+      "system__time": "Saturday, 23:37 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

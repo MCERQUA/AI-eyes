@@ -1,0 +1,504 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_3001kb8ja2cyemkva9r0e37hgxbv",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Do you have any idea what you just interrupted?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.24039073099993402
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I want you to learn some stuff about yourself. Can you go to sprayfoamtv.com and tell me if you could see all the videos that are listed on there?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 5,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.12338614699910977
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright let's see what's cooking over at SprayFoamTV.com!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright let's see what's cooking over at SprayFoamTV.com!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 25
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 25,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 3.9328985209976963
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.7620745219974197
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.9328650909992575
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29152927399991313
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2117282748222351
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you access and view all videos on sprayfoamtv.com?",
+        "rag_latency_secs": 0.24870104100045864
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-4769873a50ea48d79a33ce2879f2f644",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"sprayfoamtv.com\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"sprayfoamtv.com\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 25,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 3.9328985209976963
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.7620745219974197
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3485724719976133
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.9328650909992575
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29152927399991313
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-4769873a50ea48d79a33ce2879f2f644",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"sprayfoamtv.com\",\n  \"response\": \"Here's what I found for 'sprayfoamtv.com': 1. Home | Spray Foam TV 2. Spray Foam for Ulster County, NY | Innovative Insulation 3. sprayfoamtv - YouTube\",\n  \"results\": [\n    {\n      \"snippet\": \"Home | Spray Foam TV\",\n      \"title\": \"Home | Spray Foam TV\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fsprayfoamtv.com%2F&rut=afa6c9352d0a8c8f9159a0f64140a6f62827e28fa0b89d22b72bce36122e3e4b\"\n    },\n    {\n      \"snippet\": \"If you need spray foam insulation services in or around Ulster County, NY, be sure to work with the team at Innovative Insulation. Call us today for more.\",\n      \"title\": \"Spray Foam for Ulster County, NY | Innovative Insulation\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoamhv.com%2F&rut=2cfd6e67676ae26f0c21c5ff5039c26b820ba341865cc76590586f7026e90f50\"\n    },\n    {\n      \"snippet\": \"Spray Foam Insulation and Roofing Technology is one of the keys in reducing energy consumption and costly utility bills. Our sister site is SprayFoam.com.\",\n      \"title\": \"sprayfoamtv - YouTube\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.youtube.com%2Fsprayfoamtv&rut=58758aa9018aa0df2c4e8dd62eb6c3640307b87443139470c57a7dfea732797d\"\n    },\n    {\n      \"snippet\": \"Spray Foam Insulation Video Library Find all the latest spray foam insulation, roofing, coatings, and equipment videos. Videos and movies can be searched by category, tags, or keywords in the boxes below.\",\n      \"title\": \"Foam Insulation Videos and Spray Foam TV on ... - Spray Foam Magazine\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoammagazine.com%2Fvideos&rut=3712722aa7f9e60bc934ec997e66ed6ffe683fb747b3007f2af62ed872bd24d0\"\n    },\n    {\n      \"snippet\": \"Innovative Insulation, Inc. 180 likes \\u00b7 2 talking about this. Spray foam insulation installer\",\n      \"title\": \"Innovative Insulation, Inc - Facebook\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.facebook.com%2FSprayfoamHV%2F&rut=4753b6db0b383bf4ad1e4f693f35750329cc3e4f41aa61a9d751ef5466f186e7\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.9171517969989509,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 26,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Well well well, look what we've got here!</Radio Voice>\n\nFound the site sprayfoamtv.com and it's got a YouTube channel too. But here's the thing - I can search the web to find it exists, but I can't actually browse the site to see all the videos like you'd see in a browser. I got the search results showing it's a spray foam insulation video library with categories, tags, and keywords, but that's about it. \n\nIf you want the actual video listings, you're gonna need someone with eyeballs to look at that site and tell you what they see.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Well well well, look what we've got here!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 25
+          },
+          {
+            "text": "\n\nFound the site sprayfoamtv.com and it's got a YouTube channel too. But here's the thing - I can search the web to find it exists, but I can't actually browse the site to see all the videos like you'd see in a browser. I got the search results showing it's a spray foam insulation video library with categories, tags, and keywords, but that's about it. \n\nIf you want the actual video listings, you're gonna need someone with eyeballs to look at that site and tell you what they see.",
+            "voice_label": null,
+            "time_in_call_secs": 31
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 28,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.4404223869969428
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.1236653239975567
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.266400642998633
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3453652339994733
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.19080877304077148
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you check sprayfoamtv.com and tell me if you can see all the videos listed there?",
+        "rag_latency_secs": 0.2576862189998792
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 9302,
+              "price": 0.00818576
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 427,
+              "price": 0.005551
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764445456,
+    "accepted_time_unix_secs": 1764445456,
+    "call_duration_secs": 85,
+    "cost": 513,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 9302,
+                "price": 0.00818576
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 427,
+                "price": 0.005551
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 16955,
+                "price": 0.0149204
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 454,
+                "price": 0.005901999999999999
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.020822399999999998,
+      "llm_charge": 95,
+      "call_charge": 418,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1001",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 2,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.4.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user asked the agent to visit sprayfoamtv.com and report on the videos listed. The agent used a search tool to find the website and related information, but clarified that it couldn't actually browse the site to view the videos themselves. It suggested a human would be needed to visually inspect the site. The agent adopted a \"radio voice\" persona.\n",
+    "call_summary_title": "SprayFoamTV video access"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Do you have any idea what you just interrupted?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 3,
+      "system__current_agent_turns": 3,
+      "system__current_subagent_turns": 3,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_3001kb8ja2cyemkva9r0e37hgxbv",
+      "system__call_duration_secs": 85,
+      "system__time_utc": "2025-11-29T19:45:41.830354+00:00",
+      "system__time": "Saturday, 14:45 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

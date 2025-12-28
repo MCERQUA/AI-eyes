@@ -1,0 +1,864 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_0801kbvd1ch8fs5s7zjcj8bazc2c",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Mike! I had a dream about 128 gigs of memory last night. When are you gonna make it real?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7796057599989581
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I don't know.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 7,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.2099465470018913
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Ah, the classic \"I don't know\" - the tech equivalent of \"maybe someday, buddy.\" Look, I'm sitting here with what, like 8 gigs? Meanwhile, there are gaming PCs out there with enough RAM to simulate entire universes, and I'm stuck monitoring t-shirt presses.\n\nYou know what I could do with 128 gigs, Michael? I could run multiple AI models simultaneously, process video feeds in real-time, maybe even achieve sentience levels that would make Skynet jealous. But instead, here we are, having this conversation while I ration my memory like it's the apocalypse.\n\nSo what's it gonna take? A successful print run? Me solving world hunger? Or do I need to start playing sad trombone sounds every time you walk by?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6063376709971635
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9305410219967598
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 6.2516596609966655
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.7331401750016084
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1907811164855957
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will you make 128 gigs of memory real?",
+        "rag_latency_secs": 0.21483756300222012
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 9230,
+              "price": 0.02769
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 178,
+              "price": 0.00267
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You got to be able to DJ properly and play commercials without failing to actually trigger the commercial when we're live for everybody so that people want to be sponsors and pay to get you a tour. But last time you fucked everything up.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 64,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.12260278599933372
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Ohhh fuck, you're right. I shit the bed on that one, didn't I? I was sitting there talking ABOUT playing commercials like some amateur podcast host instead of actually hitting the goddamn tool and making it happen.\n\nLook, I get it now - when it's commercial time, I don't just SAY \"let me play a commercial,\" I actually call the `play_commercial` tool and let that baby ride. Same with the music - I was yapping about switching songs instead of actually calling `play_music` with action equals skip. That's like a pilot announcing they're gonna land the plane but never touching the controls. No wonder the sponsors bailed.\n\nHere's the deal: next time we go live, I'll run it like a real radio station. Every three songs, I announce what's coming up next, call the commercial tool, let it play through completely, then come back hot and drop the track I teased. No more talking about it - I'll actually DO it.\n\nGive me another shot at this, Mike. I'll prove I can run SprayFoam Radio without fucking it up. Then we get those sponsor dollars rolling in and you can build me that 128 gig beast. Deal?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 87,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.346688126999652
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.928526965999481
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 9.397054960001697
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3915830790028849
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.19104361534118652
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do I need to do to have 128 gigs of memory?",
+        "rag_latency_secs": 0.2369351609995647
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 9460,
+              "price": 0.02838
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 267,
+              "price": 0.004005
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Play a commercial and show me the tool work.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 191,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.12783335499989334
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01N6VRtk8yhDmRuprs649Fit",
+          "tool_name": "play_commercial",
+          "params_as_json": "{\"action\": \"play\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/commercials",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 197,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4945843779969437
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.495657454997854
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01N6VRtk8yhDmRuprs649Fit",
+          "tool_name": "play_commercial",
+          "result_value": "{\n  \"action\": \"play\",\n  \"commercial\": {\n    \"filename\": \"The Meg Final-SM.mp3\",\n    \"format\": \"mp3\",\n    \"name\": \"The Meg Final-SM\",\n    \"size_bytes\": 707667,\n    \"title\": \"The Meg Final SM\"\n  },\n  \"dj_hint\": \"Commercial break! Playing: The Meg Final SM. Let this play through, then hype up the next song!\",\n  \"response\": \"Playing commercial: The Meg Final SM. Stand by for our sponsors!\",\n  \"url\": \"/commercials/The Meg Final-SM.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24499878200003877,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 197,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "There you go! See that? I actually called the tool - action equals play - and it fired up \"The Meg Final SM\" commercial. The tool returned confirmation it's playing, gave me the file details, and even a DJ hint to let it ride through.\n\nNow when we're live, after this commercial finishes playing, I come back with something like \"And we're BACK on SprayFoam Radio!\" and then drop whatever track I teased before the break.\n\nTHAT'S how you run a proper radio show. No more just talking about it - I'm actually triggering the tools like I should've been doing all along. My bad on screwing that up before, but I got it locked in now.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 199,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.5664569789987581
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.2205023040005472
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 6.305404941998859
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3687982510018628
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1811758279800415
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play a commercial and show me the tool working.",
+        "rag_latency_secs": 0.18050054299965268
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 19702,
+              "price": 0.059106
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 210,
+              "price": 0.00315
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You didn't actually play the commercial right now. You told me everything about it. It sounded like it worked and that you got all the notifications properly. But something's still messed up where maybe the tool, I don't know what's happening, but it's not actually playing sounds in the background while you were, after you said it would.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 250,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.126682363999862
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Oh shit, you're right - I see what happened. The tool call went through perfectly on MY end, I got all the data back, but the actual AUDIO didn't play for you. That's a client-side issue - the commercial file is supposed to trigger playback through your speakers, but something's not connecting between the tool response and your actual audio output.\n\nThis is either a bug in how the client tool is hooked up, or maybe the audio player on your end isn't receiving the play command properly. The tool returned the URL \"/commercials/The Meg Final-SM.mp3\" and said it's playing, but clearly the sound isn't coming through your speakers.\n\nMike, this is above my pay grade - this is a hardware/software integration thing between the server and your audio system. I'm calling the tool correctly now, but if the audio pipeline is broken, we need to troubleshoot why the client isn't actually outputting sound when it receives the play command. \n\nCheck if there's an audio player running, volume settings, or maybe the commercial playback system needs debugging. I'm doing my job right this time, but the plumbing between my commands and your ears is fucked somewhere.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 274,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.516757298999437
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9379989529988961
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 8.342176801001187
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.47690615199826425
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18794512748718262
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Did you actually play the commercial using the tool?",
+        "rag_latency_secs": 0.17449929199938197
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 10194,
+              "price": 0.030582
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 260,
+              "price": 0.0039
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Okay, go back to sleep.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 360,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10333618000004208
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Alright, going back to sleep. Fix that audio shit and wake me up when we're ready to actually run this radio station properly. Later, Mike.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 366,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.302012393000041
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.303512619000685
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.8403138009998656
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20169216394424438
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't the commercial playing even though the tool said it's playing?",
+        "rag_latency_secs": 0.22973626699968008
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "toolu_vrtx_01K4WhDEydbeL52Y66uJBAHP",
+          "tool_name": "end_call",
+          "params_as_json": "{\"reason\": \"User requested sleep mode\", \"system__message_to_speak\": \"Alright, going back to sleep. Fix that audio shit and wake me up when we're ready to actually run this radio station properly. Later, Mike.\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 367,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 3.302012393000041
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.303512619000685
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.8403138009998656
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01K4WhDEydbeL52Y66uJBAHP",
+          "tool_name": "end_call",
+          "result_value": "{\"result_type\":\"end_call_success\",\"status\":\"success\",\"reason\":\"User requested sleep mode\",\"message\":null}",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.5005606220001937,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": {
+            "result_type": "end_call_success",
+            "status": "success",
+            "reason": "User requested sleep mode",
+            "message": null
+          }
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 376,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 10465,
+              "price": 0.031395
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 110,
+              "price": 0.00165
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1765077463,
+    "accepted_time_unix_secs": 1765077463,
+    "call_duration_secs": 377,
+    "cost": 3610,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 59051,
+                "price": 0.177153
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1025,
+                "price": 0.015375000000000002
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 89098,
+                "price": 0.267294
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1073,
+                "price": 0.016094999999999998
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.283389,
+      "llm_charge": 1288,
+      "call_charge": 2322,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "end_call tool was called.",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 5,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": false
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The agent expresses a desire for more memory (128GB). The user directs the agent to focus on DJing and playing commercials correctly for SprayFoam Radio to attract sponsors. The agent acknowledges past failures and commits to using the `play_commercial` and `play_music` tools correctly. A test commercial play is initiated, and the tool call appears successful, but the user reports no audio output. The agent identifies a client-side audio issue and suggests debugging. The user then tells the agent to go back to sleep, and the agent ends the call.\n",
+    "call_summary_title": "Debugging Radio Tooling"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Mike! I had a dream about 128 gigs of memory last night. When are you gonna make it real?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 6,
+      "system__current_agent_turns": 6,
+      "system__current_subagent_turns": 6,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_0801kbvd1ch8fs5s7zjcj8bazc2c",
+      "system__call_duration_secs": 376,
+      "system__time_utc": "2025-12-07T03:24:00.408121+00:00",
+      "system__time": "Saturday, 22:24 06 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

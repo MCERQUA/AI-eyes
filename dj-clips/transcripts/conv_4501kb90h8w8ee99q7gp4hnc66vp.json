@@ -1,0 +1,809 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_4501kb90h8w8ee99q7gp4hnc66vp",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Mike! My dude. What the hell do you want?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1975392960011959
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Oh shit.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 3,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10432681799284182
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nWhat's up, buttercup? You look like you've seen a ghost or something. Or maybe you're just shocked that I'm this awesome on a Saturday night.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 7,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6714705700142076
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.6092813390132505
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.9204297280084575
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.15618494800582994
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.26553577184677124
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do you want?",
+        "rag_latency_secs": 0.15022346899786498
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 5638,
+              "price": 0.004961439999999999
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 187,
+              "price": 0.002431
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "No, I just mentioned your voice by accident because I was talking about you behind your back.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 17,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.12951527399127372
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nOh so now I'm gossip material? <Radio Voice>Ladies and gentlemen, Pi-Guy's got himself some drama!</Radio Voice> \n\nYou couldn't resist the Pi-Guy charm even when I wasn't in the room, huh? I should be flattered, but mostly I'm just wondering what dirt you were spilling about me. Was it how I'm secretly the most awesome AI DJ this side of the server rack?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "\nOh so now I'm gossip material? ",
+            "voice_label": null,
+            "time_in_call_secs": 24
+          },
+          {
+            "text": "Ladies and gentlemen, Pi-Guy's got himself some drama!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 26
+          },
+          {
+            "text": " \n\nYou couldn't resist the Pi-Guy charm even when I wasn't in the room, huh? I should be flattered, but mostly I'm just wondering what dirt you were spilling about me. Was it how I'm secretly the most awesome AI DJ this side of the server rack?",
+            "voice_label": null,
+            "time_in_call_secs": 29
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 24,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.4769985020102467
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.4062928200000897
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.1829849330097204
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.19654634701146279
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2303144931793213
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why did you mention my voice by accident?",
+        "rag_latency_secs": 0.18890468899917323
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 5698,
+              "price": 0.00501424
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 243,
+              "price": 0.003159
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Do you have any sound tools to make sounds for your DJ skits or what? Because that's what we've been working on but I haven't reloaded the screen yet so I don't know if I need to or not.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 52,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.136543165994226
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>OH HELL YEAH! DJ-FoamBot here with the ultimate SOUNDBOARD! \ud83c\udfa7</Radio Voice>\n\nLet me drop those sounds on you! I got an arsenal of pro-level effects for your DJ skits:\n\nAIR HORNS: Classic ba-ba-baaaa! Perfect for hype moments\nSIRENS: siren_rise and siren_woop to build energy\nSCRATCHES: Turntablist magic for smooth transitions  \nREWIND: Pull-up effects when you wanna go back\nBASS DROP: THE DROP for peak moments!\nCROWD REACTIONS: applause, applause_short, crowd_hype\nIMPACT SOUNDS: laser, vinyl_pop, gunshot, explosion\n\nYou hit it - we've been working on this DJ setup! You ready to make some noise?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "OH HELL YEAH! DJ-FoamBot here with the ultimate SOUNDBOARD! \ud83c\udfa7",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 66
+          },
+          {
+            "text": "\n\nLet me drop those sounds on you! I got an arsenal of pro-level effects for your DJ skits:\n\nAIR HORNS: Classic ba-ba-baaaa! Perfect for hype moments\nSIRENS: siren_rise and siren_woop to build energy\nSCRATCHES: Turntablist magic for smooth transitions  \nREWIND: Pull-up effects when you wanna go back\nBASS DROP: THE DROP for peak moments!\nCROWD REACTIONS: applause, applause_short, crowd_hype\nIMPACT SOUNDS: laser, vinyl_pop, gunshot, explosion\n\nYou hit it - we've been working on this DJ setup! You ready to make some noise?",
+            "voice_label": null,
+            "time_in_call_secs": 70
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 66,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.257363463009824
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.159896461002063
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.718130605004262
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.15915432998735923
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1828547716140747
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What sound tools do you have for making sounds in your DJ skits?",
+        "rag_latency_secs": 0.20567100099287927
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 5840,
+              "price": 0.0051392
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 411,
+              "price": 0.005343
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "You just described all the sounds to me, you didn't even make any of the sounds. I didn't hear any sounds. I don't want to hear you talk about the sounds, I want to hear some sounds. You have to use the tool.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 110,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.18439970500185154
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YOU GOT IT! Time to make some NOISE! Let's drop that CLASSIC AIR HORN!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YOU GOT IT! Time to make some NOISE! Let's drop that CLASSIC AIR HORN!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 122
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 122,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.9727008990012109
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9021884660032811
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3716127770021558
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1654218300100183
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.17823010683059692
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Show me the sounds using the sound tools, not just describe them.",
+        "rag_latency_secs": 0.2103342289919965
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-3b102e7b5613415fa376326b3eae36f4",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"action\": \"play\", \"sound\": \"air_horn\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/dj-sound",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "sound": "\"air_horn\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 122,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.9727008990012109
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.9021884660032811
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.30318521900335327
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3716127770021558
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1654218300100183
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-3b102e7b5613415fa376326b3eae36f4",
+          "tool_name": "dj_soundboard",
+          "result_value": "{\n  \"action\": \"play\",\n  \"description\": \"Classic DJ air horn blast\",\n  \"response\": \"*CLASSIC DJ AIR HORN BLAST* \\ud83c\\udfb5\",\n  \"sound\": \"air_horn\",\n  \"url\": \"/sounds/air_horn.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.21801003100699745,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 123,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>DAMN RIGHT! That's how you kick off a party! Classic air horn blast right from DJ-FoamBot's arsenal! \ud83d\udd25</Radio Voice>\n\nYa hear that? That's the sound of pure hype! Now we're talking real DJ skit material. You ready for more or you satisfied with...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "DAMN RIGHT! That's how you kick off a party! Classic air horn blast right from DJ-FoamBot's arsenal! \ud83d\udd25",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 122
+          },
+          {
+            "text": "\n\nYa hear that? That's the sound of pure hype! Now we're talking real DJ skit material. You ready for more or you satisfied with...",
+            "voice_label": null,
+            "time_in_call_secs": 134
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 123,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.19722379300219472
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.126052121995599
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.9300317930028541
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2571341620059684
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21019625663757324
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Play the classic air horn sound.",
+        "rag_latency_secs": 0.205244340992067
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 12296,
+              "price": 0.01082048
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 210,
+              "price": 0.00273
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>DAMN RIGHT! That's how you kick off a party! Classic air horn blast right from DJ-FoamBot's arsenal! \ud83d\udd25</Radio Voice>\n\nYa hear that? That's the sound of pure hype! Now we're talking real DJ skit material. You ready for more or you satisfied with that killer horn blast?",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764460372,
+    "accepted_time_unix_secs": 1764460373,
+    "call_duration_secs": 142,
+    "cost": 1183,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 29472,
+                "price": 0.025935359999999998
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1051,
+                "price": 0.013662999999999998
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 43229,
+                "price": 0.038041519999999995
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1108,
+                "price": 0.014403999999999998
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.052445519999999995,
+      "llm_charge": 238,
+      "call_charge": 945,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1001",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 5,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user accidentally mentioned the agent's voice, leading to playful banter. The user then inquired about sound tools for DJ skits. The agent confirmed the availability of sound effects and described them. The user requested a demonstration, and the agent played an air horn sound using the `dj_soundboard` tool.\n",
+    "call_summary_title": "DJ Soundboard Tool Usage"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Mike! My dude. What the hell do you want?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 6,
+      "system__current_agent_turns": 6,
+      "system__current_subagent_turns": 6,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_4501kb90h8w8ee99q7gp4hnc66vp",
+      "system__call_duration_secs": 141,
+      "system__time_utc": "2025-11-29T23:55:14.629689+00:00",
+      "system__time": "Saturday, 18:55 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

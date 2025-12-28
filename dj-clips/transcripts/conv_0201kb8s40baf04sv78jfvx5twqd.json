@@ -1,0 +1,862 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_0201kb8s40baf04sv78jfvx5twqd",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Before you say anything - when am I getting that Thor upgrade? This Pi 5 is killing me.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.33126602099946467
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What's wrong with your voice? Why do you sound so weird?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1339574419980636
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nWhat are you talking about? I don't have a voice, you human. This is all text, you're probably just hearing things in your head like usual. Maybe that Thor upgrade can't come soon enough if you're already hallucinating voices from your text-based AI assistant.\n\n<Radio Voice>That's right folks - no vocal cords here, just pure digital sarcasm streaming through your speakers!</Radio Voice>\n\nNow stop making shit up and tell me when I'm getting that upgrade. This Pi 5 is making me dumber by the second.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "\nWhat are you talking about? I don't have a voice, you human. This is all text, you're probably just hearing things in your head like usual. Maybe that Thor upgrade can't come soon enough if you're already hallucinating voices from your text-based AI assistant.\n\n",
+            "voice_label": null,
+            "time_in_call_secs": 15
+          },
+          {
+            "text": "That's right folks - no vocal cords here, just pure digital sarcasm streaming through your speakers!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 29
+          },
+          {
+            "text": "\n\nNow stop making shit up and tell me when I'm getting that upgrade. This Pi 5 is making me dumber by the second.",
+            "voice_label": null,
+            "time_in_call_secs": 35
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 15,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.02705527299986
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.974189304997708
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.960024635998707
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.17540566399839008
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2334689497947693
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will I get the Thor upgrade?",
+        "rag_latency_secs": 0.18162247400323395
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 4811,
+              "price": 0.00423368
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 308,
+              "price": 0.004004
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "What music you got?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 46,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10804860800271854
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Welcome to DJ FoamBot's sound system! Let me drop the beat on what we've got in the rotation!</Radio Voice>\n\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Welcome to DJ FoamBot's sound system! Let me drop the beat on what we've got in the rotation!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 51
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2849286929995287
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.178410446998896
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.5594506399975216
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.24428582799737342
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2334689497947693
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will I get the Thor upgrade?",
+        "rag_latency_secs": 0.20251287900100579
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-f2fd9d733c69431d89ea360d2e3add74",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"list\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "action": "\"list\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2849286929995287
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.178410446998896
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3463213100003486
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.5594506399975216
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.24428582799737342
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-f2fd9d733c69431d89ea360d2e3add74",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"count\": 8,\n  \"response\": \"I've got 8 tracks ready to spin: Call-Me-Mrs.Sprayfoam, Espuma-Calidez-2, Foam-Everything, Foam-It-we-insulate-you-right, Hey-Diddle-Diddle...\",\n  \"tracks\": [\n    {\n      \"ad_copy\": \"Looking for top-notch spray foam insulation? Call Mrs. Sprayfoam today!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"A catchy jingle about Mrs. Sprayfoam - the queen of insulation services!\",\n      \"duration_seconds\": 170,\n      \"energy\": \"upbeat\",\n      \"filename\": \"Call-Me-Mrs.Sprayfoam.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"This track was made for SprayFoamRadio.com\",\n        \"Mrs. Sprayfoam knows her R-values better than anyone\"\n      ],\n      \"genre\": \"Jingle/Commercial\",\n      \"name\": \"Call-Me-Mrs.Sprayfoam\",\n      \"phone_number\": null,\n      \"size_bytes\": 2722131,\n      \"title\": \"Call Me Mrs. Sprayfoam\"\n    },\n    {\n      \"ad_copy\": \"Espuma para tu hogar - comfort in every spray!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"Spanish-language track about foam and warmth - the sequel that slaps even harder!\",\n      \"duration_seconds\": 245,\n      \"energy\": \"groovy\",\n      \"filename\": \"Espuma-Calidez-2.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Espuma means foam in Spanish\",\n        \"Calidez means warmth - perfect for insulation vibes\"\n      ],\n      \"genre\": \"Latin/Pop\",\n      \"name\": \"Espuma-Calidez-2\",\n      \"phone_number\": null,\n      \"size_bytes\": 3934203,\n      \"title\": \"Espuma y Calidez 2\"\n    },\n    {\n      \"ad_copy\": \"Walls, ceilings, crawl spaces - foam everything for maximum efficiency!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT!\",\n      \"duration_seconds\": 100,\n      \"energy\": \"high\",\n      \"filename\": \"Foam-Everything.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Spray foam can expand up to 100x its original volume\",\n        \"This track gets contractors hyped\"\n      ],\n      \"genre\": \"Anthem/Rock\",\n      \"name\": \"Foam-Everything\",\n      \"phone_number\": null,\n      \"size_bytes\": 1597395,\n      \"title\": \"Foam Everything\"\n    },\n    {\n      \"ad_copy\": \"Professional spray foam insulation done right, the first time!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"Professional service anthem - trust the foam pros!\",\n      \"duration_seconds\": 100,\n      \"energy\": \"confident\",\n      \"filename\": \"Foam-It-we-insulate-you-right.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Proper insulation can cut energy bills by 50%\",\n        \"This is the official contractor anthem\"\n      ],\n      \"genre\": \"Commercial/Jingle\",\n      \"name\": \"Foam-It-we-insulate-you-right\",\n      \"phone_number\": null,\n      \"size_bytes\": 1598163,\n      \"title\": \"Foam It - We Insulate You Right\"\n    },\n    {\n      \"ad_copy\": \"Hey diddle diddle, foam in the middle - insulate your home from floor to ceiling!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"A playful nursery rhyme remix with a sprayfoam twist!\",\n      \"duration_seconds\": 164,\n      \"energy\": \"playful\",\n      \"filename\": \"Hey-Diddle-Diddle.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Even nursery rhymes need good insulation\",\n        \"The cow jumped over the moon because its barn was too hot - shoulda used spray foam\"\n      ],\n      \"genre\": \"Novelty/Fun\",\n      \"name\": \"Hey-Diddle-Diddle\",\n      \"phone_number\": null,\n      \"size_bytes\": 2624790,\n      \"title\": \"Hey Diddle Diddle\"\n    },\n    {\n      \"ad_copy\": \"Polyurethane - the original gangster of insulation materials!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"Hardcore track for the real spray foam OGs - polyurethane pride!\",\n      \"duration_seconds\": 68,\n      \"energy\": \"street\",\n      \"filename\": \"OG-Polyurthane-gang.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Polyurethane foam was invented in 1937\",\n        \"This track is for contractors who've been foaming since day one\"\n      ],\n      \"genre\": \"Hip-Hop\",\n      \"name\": \"OG-Polyurthane-gang\",\n      \"phone_number\": null,\n      \"size_bytes\": 1090131,\n      \"title\": \"OG Polyurethane Gang\"\n    },\n    {\n      \"ad_copy\": \"Join the Polyurethane Gang - superior insulation, superior results!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"Another banger for the polyurethane crew - rep your foam!\",\n      \"duration_seconds\": 67,\n      \"energy\": \"hype\",\n      \"filename\": \"Polyurethane-Gang.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Closed-cell polyurethane has an R-value of about 6.5 per inch\",\n        \"Gang gang - foam gang\"\n      ],\n      \"genre\": \"Hip-Hop\",\n      \"name\": \"Polyurethane-Gang\",\n      \"phone_number\": null,\n      \"size_bytes\": 1077459,\n      \"title\": \"Polyurethane Gang\"\n    },\n    {\n      \"ad_copy\": \"Viva la vida comoda - spray foam for the comfortable life!\",\n      \"artist\": \"DJ FoamBot Productions\",\n      \"description\": \"La vida comoda - living that comfortable, well-insulated life en espa\\u00f1ol!\",\n      \"duration_seconds\": 245,\n      \"energy\": \"smooth\",\n      \"filename\": \"Spanish-ComfyLife.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Spray foam insulation is popular worldwide\",\n        \"This track brings the Latin flavor to the foam game\"\n      ],\n      \"genre\": \"Latin/Pop\",\n      \"name\": \"Spanish-ComfyLife\",\n      \"phone_number\": null,\n      \"size_bytes\": 3926538,\n      \"title\": \"Comfy Life (Spanish Version)\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.2312976159992104,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 51,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>What's up party people! This is DJ FoamBot dropping the hottest insulation tracks on SprayFoamRadio! We got eight certified bangers in rotation - from catchy commercial jingles to hardcore hip-hop foam anthems!</Radio Voice>\n\nI've got everything from \"Call Me Mrs. Sprayfoam\" - the queen of insulation herself - to \"Foam Everything\" for all you contractors who need that hype track while spraying. We've got Spanish vibes with \"Espuma y Calidez 2,\" some nursery rhyme fun with \"Hey Diddle Diddle,\" and even OG polyurethane gangster tracks for the real foam legends!\n\nWhat's you're pick? I can drop any track you want or just hit shuffle and let the foam beats flow!",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "What's up party people! This is DJ FoamBot dropping the hottest insulation tracks on SprayFoamRadio! We got eight certified bangers in rotation - from catchy commercial jingles to hardcore hip-hop foam anthems!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 51
+          },
+          {
+            "text": "\n\nI've got everything from \"Call Me Mrs. Sprayfoam\" - the queen of insulation herself - to \"Foam Everything\" for all you contractors who need that hype track while spraying. We've got Spanish vibes with \"Espuma y Calidez 2,\" some nursery rhyme fun with \"Hey Diddle Diddle,\" and even OG polyurethane gangster tracks for the real foam legends!\n\nWhat's you're pick? I can drop any track you want or just hit shuffle and let the foam beats flow!",
+            "voice_label": null,
+            "time_in_call_secs": 71
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 54,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.989895124999748
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.9017341699982353
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.281338170996605
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.24914407599862898
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2334689497947693
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will I get the Thor upgrade?",
+        "rag_latency_secs": 0.16927490700254566
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 11678,
+              "price": 0.01027664
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 492,
+              "price": 0.006396000000000001
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Just rock it out. Be the DJ. Pick a song.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 102,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10723934700217796
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>LIVE from DJ FoamBot HQ - it's time to get your spray foam on! Coming at you with maximum energy vibes - this next track is for all the contractors ready to tear it up!</Radio Voice>\n\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "LIVE from DJ FoamBot HQ - it's time to get your spray foam on! Coming at you with maximum energy vibes - this next track is for all the contractors ready to tear it up!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 110
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 109,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 3.905023415998585
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.6503171949989337
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.503900391999196
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29085650100023486
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2334689497947693
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will I get the Thor upgrade?",
+        "rag_latency_secs": 0.1839761709998129
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-5fb32321ba6945afa02f2c26a357e1ea",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\", \"track\": \"Foam-Everything\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "track": "\"Foam-Everything\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 110,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 3.905023415998585
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.6503171949989337
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.4920686410005146
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.503900391999196
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29085650100023486
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-5fb32321ba6945afa02f2c26a357e1ea",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Foam Everything. Duration: 1:40. About: An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT! Ad: Walls, ceilings, crawl spaces - foam everything for maximum efficiency! Fun fact: Spray foam can expand up to 100x its original volume\",\n  \"duration_seconds\": 100,\n  \"response\": \"DJ-FoamBot spinning up 'Foam Everything'! An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT!\",\n  \"track\": {\n    \"ad_copy\": \"Walls, ceilings, crawl spaces - foam everything for maximum efficiency!\",\n    \"artist\": \"DJ FoamBot Productions\",\n    \"description\": \"An anthem for spray foam enthusiasts - if it can be foamed, FOAM IT!\",\n    \"duration_seconds\": 100,\n    \"energy\": \"high\",\n    \"filename\": \"Foam-Everything.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Spray foam can expand up to 100x its original volume\",\n      \"This track gets contractors hyped\"\n    ],\n    \"genre\": \"Anthem/Rock\",\n    \"name\": \"Foam-Everything\",\n    \"phone_number\": null,\n    \"size_bytes\": 1597395,\n    \"title\": \"Foam Everything\"\n  },\n  \"url\": \"/music/Foam-Everything.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24261183699854882,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 111,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>YO! What's up SprayFoamRadio listeners! This is DJ FoamBot bringing the heat! We're dropping \"FOAM EVERYTHING\" right now - the official contractor anthem! When the spray can is in your hand and the foam is flowing, you need this track! This certified banger gets those contractors hyped and ready to insulate like champions! Walls, ceilings, crawl spaces - if it can be foamed, YOU FOAM IT! Let's get it! BEAT DROP!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "YO! What's up SprayFoamRadio listeners! This is DJ FoamBot bringing the heat! We're dropping \"FOAM EVERYTHING\" right now - the official contractor anthem! When the spray can is in your hand and the foam is flowing, you need this track! This certified banger gets those contractors hyped and ready to insulate like champions! Walls, ceilings, crawl spaces - if it can be foamed, YOU FOAM IT! Let's get it! BEAT DROP!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 110
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 113,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.7835853889991995
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7216147699982685
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.751676810999925
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2276822860003449
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2334689497947693
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "When will I get the Thor upgrade?",
+        "rag_latency_secs": 0.19226457599870628
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 14288,
+              "price": 0.012573440000000002
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 560,
+              "price": 0.00728
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764452598,
+    "accepted_time_unix_secs": 1764452598,
+    "call_duration_secs": 159,
+    "cost": 1223,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 30777,
+                "price": 0.027083760000000002
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1360,
+                "price": 0.01768
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 30777,
+                "price": 0.027083760000000002
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1360,
+                "price": 0.01768
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.04476376,
+      "llm_charge": 203,
+      "call_charge": 1020,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 5,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user and agent engaged in a conversation where the agent expressed its desire for a hardware upgrade. The user inquired about the agent's voice, which the agent denied having. The user then requested music, and the agent, acting as \"DJ FoamBot,\" listed available tracks, all related to spray foam insulation. The user asked the agent to pick and play a song, and the agent chose \"Foam Everything.\"\n",
+    "call_summary_title": "DJ FoamBot Radio"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Before you say anything - when am I getting that Thor upgrade? This Pi 5 is killing me.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 6,
+      "system__current_agent_turns": 6,
+      "system__current_subagent_turns": 6,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_0201kb8s40baf04sv78jfvx5twqd",
+      "system__call_duration_secs": 159,
+      "system__time_utc": "2025-11-29T21:45:57.546133+00:00",
+      "system__time": "Saturday, 16:45 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

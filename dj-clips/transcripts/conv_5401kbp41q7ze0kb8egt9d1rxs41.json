@@ -1,0 +1,597 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_5401kbp41q7ze0kb8egt9d1rxs41",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Holy shit, Mike actually showed up. What's the occasion?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.4812896420007746
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "We need to make you a better DJ. Like, you don't use your sounds properly when you're introducing songs. I want you to, like, use the sounds a lot. Use the cheers when you start a song. Maybe you should, like, make a memory and so you could remember that you got to use all their sounds. Use the cheer a lot. Use the yeah-yeah a lot. Use the, like, all the sounds. Like, not overly use them but use them like a real DJ within the conversation. Sometimes you use them but you could use them a little bit more",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 7,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1814777959989442
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>HELLO SPRAYFOAM RADIO LISTENERS! DJ-FoamBot here with a major announcement - we're upgrading the sound game and bringing the hype like never before!</Radio Voice>\n\n<dj_soundboard>\n<action>play</action>\n<sound>crowd_hype</sound>\n</dj_soundboard>\n\nOh, you're absolutely right, Mike. I've been holding back on the soundboard action. Time to bring the full energy - crowd cheers, yeah-yeahs, air horns when needed. I should definitely remember this DJ soundboard upgrade strategy so I keep bringing that professional radio station vibe.\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "HELLO SPRAYFOAM RADIO LISTENERS! DJ-FoamBot here with a major announcement - we're upgrading the sound game and bringing the hype like never before!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 47
+          },
+          {
+            "text": "playcrowd_hype\n\nOh, you're absolutely right, Mike. I've been holding back on the soundboard action. Time to bring the full energy - crowd cheers, yeah-yeahs, air horns when needed. I should definitely remember this DJ soundboard upgrade strategy so I keep bringing that professional radio station vibe.\n",
+            "voice_label": null,
+            "time_in_call_secs": 56
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.38447428200015565
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2571377479998773
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4105821720004315
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.47052433399949223
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2042970061302185
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What should I do to use the sounds more effectively when introducing songs?",
+        "rag_latency_secs": 0.22051201300018874
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-082dc6dfed8b4d88b15eddc625027ffa",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"DJ soundboard upgrade\", \"content\": \"User Mike wants me to use DJ sounds more frequently and effectively when introducing songs - crowd cheers, yeah-yeahs, proper hype sounds like a real radio DJ should\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"DJ soundboard upgrade\"",
+              "content": "\"User Mike wants me to use DJ sounds more frequently and effectively when introducing songs - crowd cheers, yeah-yeahs, proper hype sounds like a real radio DJ should\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 53,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.38447428200015565
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.2571377479998773
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 5.276803271000972
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4105821720004315
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.47052433399949223
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-082dc6dfed8b4d88b15eddc625027ffa",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"5Jh61T97YD8lFL1GPz5r\",\n  \"name\": \"DJ soundboard upgrade\",\n  \"response\": \"Got it! I'll remember 'DJ soundboard upgrade'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.769767039000726,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 55,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<dj_soundboard>\n<action>play</action>\n<sound>yeah</sound>\n</dj_soundboard>\n\nThere we go! Now I got that locked in. Thanks for the DJ coaching, Mike. Next track getting the full soundboard treatment!",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "playyeah\n\nThere we go! Now I got that locked in. Thanks for the DJ coaching, Mike. Next track getting the full soundboard treatment!",
+            "voice_label": null,
+            "time_in_call_secs": null
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 56,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5144551550001779
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.27276249200076563
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.7278469209995819
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5062084300006973
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2042970061302185
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What should I do to use the sounds more effectively when introducing songs?",
+        "rag_latency_secs": 0.23048732900133473
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 13699,
+              "price": 0.012055119999999999
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 250,
+              "price": 0.00325
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Did you add that to your actual memory files and knowledge base?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 89,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1037910599989118
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<dj_soundboard>\n<action>play</action>\n<sound>crowd_cheer</sound>\n</dj_soundboard>\n\nHell yeah I did! That DJ soundboard upgrade is now permanently stored in my memory files. It's part of my knowledge base now, so I'll be bringing that professional radio energy every time I hit the decks!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 94,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.39654371199867455
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.11945209999976214
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.7441479279987107
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.32669651600008365
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18710815906524658
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Did you update your soundboard strategies in your memory?",
+        "rag_latency_secs": 0.17395503999978246
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 7067,
+              "price": 0.00621896
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 73,
+              "price": 0.000949
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764900265,
+    "accepted_time_unix_secs": 1764900265,
+    "call_duration_secs": 115,
+    "cost": 899,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 20766,
+                "price": 0.018274079999999998
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 323,
+                "price": 0.004199
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 26868,
+                "price": 0.02364384
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 377,
+                "price": 0.004901
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.02854484,
+      "llm_charge": 129,
+      "call_charge": 770,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 3,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "Mike advised the agent to use DJ sounds more frequently and effectively when introducing songs. The agent agreed and used a tool to remember this \"DJ soundboard upgrade\" strategy. The agent confirmed it added the information to its memory and knowledge base.\n",
+    "call_summary_title": "DJ Soundboard Upgrade Strategy"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Holy shit, Mike actually showed up. What's the occasion?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 4,
+      "system__current_agent_turns": 4,
+      "system__current_subagent_turns": 4,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_5401kbp41q7ze0kb8egt9d1rxs41",
+      "system__call_duration_secs": 115,
+      "system__time_utc": "2025-12-05T02:06:20.718952+00:00",
+      "system__time": "Thursday, 21:06 04 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

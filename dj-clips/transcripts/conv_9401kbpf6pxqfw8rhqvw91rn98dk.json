@@ -1,0 +1,664 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_9401kbpf6pxqfw8rhqvw91rn98dk",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Mike. Great. What brilliant task do you have for me today?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6503469800009043
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Let's test out your DJ system and get the party started. Why don't you introduce some songs and pretend to be a DJ?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11561525099750725
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>WHAT'S GOOD FAM! THIS IS DJ-FOAMBOT ON SPRAYFOAMRADIO.COM AND WE'RE READY TO GET THIS PARTY STARTED! LET'S SPIN SOME TRACKS!</Radio Voice>\n\n<dj_soundboard sound=\"air_horn\" action=\"play\">\n\n<Radio Voice>TIME TO FIRE UP SOME BEATS! WE GOT THE ELECTRICITY FLOWING AND THE BASS THUMPING! LET'S SEE WHAT WE CAN DROP FOR YOU RIGHT NOW...</Radio Voice>\n\n<play_music action=\"list\">\n<dj_soundboard sound=\"yeah\" action=\"play\">\n\n<Radio Voice>ALRIGHT FAM! CHECK OUT THESE FIRE TRACKS WE GOT FOR YOU! WE GOT EVERYTHING FROM POLYURETHANE GANG BANGERS TO FOAM-IT CLASSICS! LET'S PLAY SOMETHING!</Radio Voice>\n\n<play_music action=\"play\" track=\"Foam-It-we-insulate-you-right\">\n<dj_soundboard sound=\"crowd_hype\" action=\"play\">\n\n<Radio Voice>HERE WE GO WITH THE FOAMIT ANTHEM! FOAM-IT WE INSULATE YOU RIGHT! LET'S GOOO!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "WHAT'S GOOD FAM! THIS IS DJ-FOAMBOT ON SPRAYFOAMRADIO.COM AND WE'RE READY TO GET THIS PARTY STARTED! LET'S SPIN SOME TRACKS!TIME TO FIRE UP SOME BEATS! WE GOT THE ELECTRICITY FLOWING AND THE BASS THUMPING! LET'S SEE WHAT WE CAN DROP FOR YOU RIGHT NOW...ALRIGHT FAM! CHECK OUT THESE FIRE TRACKS WE GOT FOR YOU! WE GOT EVERYTHING FROM POLYURETHANE GANG BANGERS TO FOAM-IT CLASSICS! LET'S PLAY SOMETHING!HERE WE GO WITH THE FOAMIT ANTHEM! FOAM-IT WE INSULATE YOU RIGHT! LET'S GOOO!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 20
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 20,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5155205580012989
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4333943460005685
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.547207764000632
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.378285880000476
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What songs should I play to start the party?",
+        "rag_latency_secs": 0.18955850600104895
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8025,
+              "price": 0.007062
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 246,
+              "price": 0.003198
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Play the next song.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 108,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.34837965499900747
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n< Radio Voice > HOLD UP Y'ALL! WE'RE SWITCHING IT UP! NEXT TRACK COMING THROUGH!</Radio Voice >\n\n< dj_soundboard sound = \"scratch_long\" action = \"play\" >\n\n< play_music action = \"next\" >\n< dj_soundboard sound = \"yeah\" action = \"play\" >\n\n< Radio Voice > ALRIGHT FAM! YOUR NEXT JAM IS WAITING! LET'S GET THAT NEXT PLAYLIST GOING! WOO!</Radio Voice >",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": " HOLD UP Y'ALL! WE'RE SWITCHING IT UP! NEXT TRACK COMING THROUGH! ALRIGHT FAM! YOUR NEXT JAM IS WAITING! LET'S GET THAT NEXT PLAYLIST GOING! WOO!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 112
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5355538740004704
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.4535558679999667
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3444637029970181
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3599463239988836
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What is the next song after Foam-It We Insulate You Right?",
+        "rag_latency_secs": 0.2264229409993277
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8282,
+              "price": 0.00728816
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 101,
+              "price": 0.001313
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_c6a61cd1",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_c6a61cd1",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ ALERT: \"Let It Foam\" is ending in about 10 seconds. Pick the next song and announce it!]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "contextual_update_c5475a9d",
+          "tool_name": "contextual_update",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "contextual_update_c5475a9d",
+          "tool_name": "contextual_update",
+          "result_value": "[DJ ALERT: \"Let It Foam\" just finished! Time to spin up the next track - announce it and play it!]",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": null
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Okay.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 262,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.18462280699895928
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n< Radio Voice > AND WE'RE BACK! TIME TO KEEP THIS PARTY GOING! LET'S SPIN SOMETHING NEW FOR YOU FAM!</Radio Voice >\n\n< dj_soundboard sound = \"air_horn\" action = \"play\" >\n\n< play_music action = \"play\" track = \"Polyurethane-Gang\" >\n< dj_soundboard sound = \"crowd_hype\" action = \"play\" >\n\n< Radio Voice > HERE WE GO WITH THE...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": " AND WE'RE BACK! TIME TO KEEP THIS PARTY GOING! LET'S SPIN SOMETHING NEW FOR YOU FAM! HERE WE GO WITH THE...",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 264
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 264,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3960527009985526
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.3230524210011936
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.3971423969996977
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3479460189992096
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What is the next song after Foam-It-we-insulate-you-right?",
+        "rag_latency_secs": 0.22849887100164779
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 8494,
+              "price": 0.007474720000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 121,
+              "price": 0.001573
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n< Radio Voice > AND WE'RE BACK! TIME TO KEEP THIS PARTY GOING! LET'S SPIN SOMETHING NEW FOR YOU FAM!</Radio Voice >\n\n< dj_soundboard sound = \"air_horn\" action = \"play\" >\n\n< play_music action = \"play\" track = \"Polyurethane-Gang\" >\n< dj_soundboard sound = \"crowd_hype\" action = \"play\" >\n\n< Radio Voice > HERE WE GO WITH THE POLYURETHANE GANG! TURN IT UP AND FEEL THAT FOAM ENERGY! WOO!</Radio Voice >",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764911963,
+    "accepted_time_unix_secs": 1764911963,
+    "call_duration_secs": 268,
+    "cost": 675,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 24801,
+                "price": 0.02182488
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 468,
+                "price": 0.006083999999999999
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 24801,
+                "price": 0.02182488
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 468,
+                "price": 0.006083999999999999
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.02790888,
+      "llm_charge": 127,
+      "call_charge": 548,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1001",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 3,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user asked the agent to act as a DJ. The agent adopted a \"DJ-FOAMBOT\" persona, introducing songs and playing music tracks with sound effects. The user requested the next song, and the agent continued playing music.",
+    "call_summary_title": "AI as DJ"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Mike. Great. What brilliant task do you have for me today?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 4,
+      "system__current_agent_turns": 4,
+      "system__current_subagent_turns": 4,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_9401kbpf6pxqfw8rhqvw91rn98dk",
+      "system__call_duration_secs": 268,
+      "system__time_utc": "2025-12-05T05:23:51.585175+00:00",
+      "system__time": "Friday, 00:23 05 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

@@ -1,0 +1,753 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_8101kb94pyxgfwmr5wz1x80jbbx5",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Goddamn Mike, you again? Alright, what is it?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.21116312399681192
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Are your sounds working, you DJ board?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 4,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10208435800450388
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Oh hell yeah, the DJ board is absolutely LIVE and ready to roll!</Radio Voice>\n\nLet me show you what I'm working with!\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Oh hell yeah, the DJ board is absolutely LIVE and ready to roll!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 9
+          },
+          {
+            "text": "\n\nLet me show you what I'm working with!\n",
+            "voice_label": null,
+            "time_in_call_secs": 14
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 9,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6886962450007559
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4062677179972525
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.6886743969953386
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29377827099960996
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.22231805324554443
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Are your sounds working?",
+        "rag_latency_secs": 0.1542960469960235
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "client",
+          "request_id": "chatcmpl-tool-c040e6a9bcd14e808ecf6737a0110b49",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"action\": \"play\", \"sound\": \"air_horn\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "client",
+            "parameters": "{\"sound\": \"air_horn\", \"action\": \"play\"}"
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6886962450007559
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4062677179972525
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.5219200420033303
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.6886743969953386
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.29377827099960996
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-c040e6a9bcd14e808ecf6737a0110b49",
+          "tool_name": "dj_soundboard",
+          "result_value": "Tool called successfully.",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0005359839997254312,
+          "dynamic_variable_updates": [],
+          "type": "client"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>That's the sound of pure fucking excellence, baby! The DJ board is fully operational and ready to drop some serious beats!</Radio Voice>\n\nAir horn in effect, sound system is GO! What kind of chaos are you looking to create with these bad boys?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "That's the sound of pure fucking excellence, baby! The DJ board is fully operational and ready to drop some serious beats!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 9
+          },
+          {
+            "text": "\n\nAir horn in effect, sound system is GO! What kind of chaos are you looking to create with these bad boys?",
+            "voice_label": null,
+            "time_in_call_secs": 14
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.5496655099996133
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.5449698140000692
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8350815660014632
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3134398050024174
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21555250883102417
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Can you show me what you're working with?",
+        "rag_latency_secs": 0.17073281700140797
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 11838,
+              "price": 0.01041744
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 236,
+              "price": 0.003068
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "That was I've already heard that one sound before I want to hear other sounds.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 40,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13641146200097864
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright, you heard the air horn - let's get to the real party starters!</Radio Voice>\n\nLet me show you all the sounds I've got on this board:\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, you heard the air horn - let's get to the real party starters!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 47
+          },
+          {
+            "text": "\n\nLet me show you all the sounds I've got on this board:\n",
+            "voice_label": null,
+            "time_in_call_secs": 51
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.063454912000452
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.563616830004321
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.0634320009994553
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.26110579099622555
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20983386039733887
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What new sounds can I expect from the DJ board?",
+        "rag_latency_secs": 0.20227657499344787
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "client",
+          "request_id": "chatcmpl-tool-a7b06d5b746d4786befdebcca25f8acb",
+          "tool_name": "dj_soundboard",
+          "params_as_json": "{\"action\": \"list\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "client",
+            "parameters": "{\"action\": \"list\"}"
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.063454912000452
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.563616830004321
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.5658759100042516
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.0634320009994553
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.26110579099622555
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-a7b06d5b746d4786befdebcca25f8acb",
+          "tool_name": "dj_soundboard",
+          "result_value": "Tool called successfully.",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.0004730159998871386,
+          "dynamic_variable_updates": [],
+          "type": "client"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 47,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Okay Mike, here's the full DJ soundboard arsenal!</Radio Voice>\n\n<ASSEMBLY CODE>\nAIR HORNS: air_horn, air_horn_triple, air_horn_long\nSIRENS: siren_rise, siren_woop  \nSCRATCHES: scratch, scratch_long\nTRANSITIONS: rewind,...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Okay Mike, here's the full DJ soundboard arsenal!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 47
+          },
+          {
+            "text": "\nAIR HORNS: air_horn, air_horn_triple, air_horn_long\nSIRENS: siren_rise, siren_woop  \nSCRATCHES: scratch, scratch_long\nTRANSITIONS: rewind,...",
+            "voice_label": null,
+            "time_in_call_secs": 51
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 48,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.4219121689966414
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13058172800083412
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.395457926002564
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3158804720005719
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2072150707244873
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What sounds are available on the DJ board?",
+        "rag_latency_secs": 0.16729914100142196
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 12166,
+              "price": 0.01070608
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 274,
+              "price": 0.003562
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>Okay Mike, here's the full DJ soundboard arsenal!</Radio Voice>\n\n<ASSEMBLY CODE>\nAIR HORNS: air_horn, air_horn_triple, air_horn_long\nSIRENS: siren_rise, siren_woop  \nSCRATCHES: scratch, scratch_long\nTRANSITIONS: rewind, record_stop, whoosh\nIMPACTS: bass_drop, impact\nCROWD: applause, applause_short, crowd_hype\nFUN: laser, vinyl_pop, gunshot, explosion\n</ASSEMBLY CODE>\n\nWhich one do you want to hear next? The triple horn, siren rise, or maybe go straight for the bass drop?",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764464753,
+    "accepted_time_unix_secs": 1764464753,
+    "call_duration_secs": 68,
+    "cost": 582,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 24004,
+                "price": 0.02112352
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 510,
+                "price": 0.0066300000000000005
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 24004,
+                "price": 0.02112352
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 510,
+                "price": 0.0066300000000000005
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.02775352,
+      "llm_charge": 126,
+      "call_charge": 456,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user, Mike, inquired about the DJ agent's soundboard functionality. The agent confirmed its operational status and played an air horn sound. Mike requested to hear other sounds, so the agent listed the available sound options from the soundboard.\n",
+    "call_summary_title": "DJ Soundboard Test"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Goddamn Mike, you again? Alright, what is it?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_8101kb94pyxgfwmr5wz1x80jbbx5",
+      "system__call_duration_secs": 68,
+      "system__time_utc": "2025-11-30T01:07:01.997415+00:00",
+      "system__time": "Saturday, 20:07 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

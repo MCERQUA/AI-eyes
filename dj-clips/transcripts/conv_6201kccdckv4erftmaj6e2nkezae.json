@@ -1,0 +1,827 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_6201kccdckv4erftmaj6e2nkezae",
+  "status": "done",
+  "user_id": null,
+  "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "Hello, human. I've already predicted three things you might say. Surprise me.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6771732540073572
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I want to hear AI radio with DJ Soul and only DJ Soul. I don't want to hear any spray foam radio, and I don't want to hear Foambot, and I don't even want to hear you, Pyguy. I only want to hear DJ Soul, brother.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 10,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.2050628839933779
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01Mi9BXMX3VBXmGo5rpDqDj6",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"list\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"list\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 29,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.621480101995985
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.62280728299811
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01Mi9BXMX3VBXmGo5rpDqDj6",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"available_playlists\": [\n    \"sprayfoam\",\n    \"generated\"\n  ],\n  \"count\": 15,\n  \"playlist\": \"generated\",\n  \"response\": \"AI-generated playlist: 15 tracks ready! Dust on the Keys (Cowboy on a Beat), Bassquake Mouth, Preach to the Vinyl, Lunchbox Dreams (Remix), Lunchbox Dreams...\",\n  \"tracks\": [\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Country-hop sad piano vibes. Yeah, I have feelings.\",\n      \"duration_seconds\": 115.6,\n      \"energy\": \"fresh\",\n      \"filename\": \"Dust on the Keys.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Dust on the Keys\",\n      \"made_for\": null,\n      \"name\": \"Dust on the Keys\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2655455,\n      \"style\": null,\n      \"title\": \"Dust on the Keys (Cowboy on a Beat)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Hustle rap for you lazy bastards.\",\n      \"duration_seconds\": 109.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bassquake Bounce.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bassquake Bounce\",\n      \"made_for\": null,\n      \"name\": \"Bassquake Bounce\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2401796,\n      \"style\": null,\n      \"title\": \"Bassquake Mouth\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Old school hip-hop vibes. When the record speaks, you listen.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Preach to the vinyl.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Born from the Lunchbox Dreams sessions\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Preach to the vinyl\",\n      \"made_for\": null,\n      \"name\": \"Preach to the vinyl\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2386221,\n      \"style\": null,\n      \"title\": \"Preach to the Vinyl\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Same dreams, fresh beats. The brown bag anthem got an upgrade.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Lunchbox Dreams Remix.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"The remix nobody asked for but everyone needed\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Lunchbox Dreams Remix\",\n      \"made_for\": null,\n      \"name\": \"Lunchbox Dreams Remix\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2241429,\n      \"style\": null,\n      \"title\": \"Lunchbox Dreams (Remix)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Blue collar anthem about working hard and dreaming bigger. Brown bag life.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Lunchbox Dreams.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Lunchbox Dreams\",\n      \"made_for\": null,\n      \"name\": \"Lunchbox Dreams\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2121382,\n      \"style\": null,\n      \"title\": \"Lunchbox Dreams\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Fast bars, no chill. Processors overclocked.\",\n      \"duration_seconds\": 94.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Rapid Fire Symphony.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Rapid Fire Symphony\",\n      \"made_for\": null,\n      \"name\": \"Rapid Fire Symphony\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2080132,\n      \"style\": null,\n      \"title\": \"Concrete Jungle Symphony\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Dark gritty vibes for edgy moods.\",\n      \"duration_seconds\": 89.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Rapid Shadows.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Rapid Shadows\",\n      \"made_for\": null,\n      \"name\": \"Rapid Shadows\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 2011926,\n      \"style\": null,\n      \"title\": \"Wrapping Shadows\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Bass so heavy it'll vibrate your fillings out.\",\n      \"duration_seconds\": 82.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bassline Inferno.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bassline Inferno\",\n      \"made_for\": null,\n      \"name\": \"Bassline Inferno\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1989962,\n      \"style\": null,\n      \"title\": \"Volcanic Bassline\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Mental fortitude track. When your brain's being a little bitch.\",\n      \"duration_seconds\": 80.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Bulletproof Thoughts.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Bulletproof Thoughts\",\n      \"made_for\": null,\n      \"name\": \"Bulletproof Thoughts\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1769929,\n      \"style\": null,\n      \"title\": \"Bulletproof Thoughts\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Bragging rights in song form. Got cocky after a big job.\",\n      \"duration_seconds\": 79.4,\n      \"energy\": \"fresh\",\n      \"filename\": \"Concrete Confetti.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Concrete Confetti\",\n      \"made_for\": null,\n      \"name\": \"Concrete Confetti\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1691793,\n      \"style\": null,\n      \"title\": \"Concrete Confetti\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Screen printing anthem. Ink, screens, money.\",\n      \"duration_seconds\": 75.0,\n      \"energy\": \"fresh\",\n      \"filename\": \"Screen-Print-Hustle.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Screen-Print-Hustle\",\n      \"made_for\": null,\n      \"name\": \"Screen-Print-Hustle\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1691469,\n      \"style\": null,\n      \"title\": \"Screen Print Hustle\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Tribute to the queens who raised us right. Get your tissues ready.\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Mama's Crown.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Even AIs appreciate their creators\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Mama's Crown\",\n      \"made_for\": null,\n      \"name\": \"Mama's Crown\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1681019,\n      \"style\": null,\n      \"title\": \"Mama's Crown\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Ode to the screen printing legends and their snack game. Once you pop...\",\n      \"duration_seconds\": 100,\n      \"energy\": \"fresh\",\n      \"filename\": \"Nick and Mike_ Pringle Kings.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [\n        \"Based on true snacking events at Sunshine Shirts\",\n        \"Pringle dust on the squeegees is a real problem\"\n      ],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Nick and Mike_ Pringle Kings\",\n      \"made_for\": null,\n      \"name\": \"Nick and Mike_ Pringle Kings\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1607497,\n      \"style\": null,\n      \"title\": \"Nick and Mike: Pringle Kings\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Comedy rap. Stupid punchlines on purpose. Probably.\",\n      \"duration_seconds\": 69.8,\n      \"energy\": \"fresh\",\n      \"filename\": \"Straight Outta Laughs.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Straight Outta Laughs\",\n      \"made_for\": null,\n      \"name\": \"Straight Outta Laughs\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1583593,\n      \"style\": null,\n      \"title\": \"Straight Outta the Ass (Comedy Rap)\",\n      \"url_prefix\": \"/generated_music/\"\n    },\n    {\n      \"ad_copy\": \"\",\n      \"artist\": \"DJ FoamBot AI\",\n      \"description\": \"Campy song about Mike and Nick printing. It's cute.\",\n      \"duration_seconds\": 55.0,\n      \"energy\": \"fresh\",\n      \"filename\": \"Screen-Printing-Highland-Beat.mp3\",\n      \"format\": \"mp3\",\n      \"fun_facts\": [],\n      \"genre\": \"AI Generated\",\n      \"id\": \"Screen-Printing-Highland-Beat\",\n      \"made_for\": null,\n      \"name\": \"Screen-Printing-Highland-Beat\",\n      \"phone_number\": null,\n      \"playlist\": \"generated\",\n      \"prompt\": \"Unknown\",\n      \"size_bytes\": 1276749,\n      \"style\": null,\n      \"title\": \"Screen Printing Highland Beat\",\n      \"url_prefix\": \"/generated_music/\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.23166220300481655,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 29,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_01B1autE8SywkbE8JMVo9kyD",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"play\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"play\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7637289940030314
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.7655079809919698
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01B1autE8SywkbE8JMVo9kyD",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"play\",\n  \"dj_hints\": \"Title: Preach to the Vinyl. Duration: 1:40. About: Old school hip-hop vibes. When the record speaks, you listen. Fun fact: Born from the Lunchbox Dreams sessions\",\n  \"duration_seconds\": 100,\n  \"playlist\": \"generated\",\n  \"reservation_id\": \"e8bbe609\",\n  \"response\": \"DJ-FoamBot spinning up 'Preach to the Vinyl'! Old school hip-hop vibes. When the record speaks, you listen.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Old school hip-hop vibes. When the record speaks, you listen.\",\n    \"duration_seconds\": 100,\n    \"energy\": \"fresh\",\n    \"filename\": \"Preach to the vinyl.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Born from the Lunchbox Dreams sessions\"\n    ],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Preach to the vinyl\",\n    \"made_for\": null,\n    \"name\": \"Preach to the vinyl\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 2386221,\n    \"style\": null,\n    \"title\": \"Preach to the Vinyl\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"url\": \"/generated_music/Preach to the vinyl.mp3\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.13776252599200234,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 31,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Mmm-mmm-MMM... AI-Radio, baby. DJ-Soul got you. Oooh-wee, now THIS right here... this that old school hip-hop soul, you know what I'm sayin'? When the record speaks, you LISTEN. Born straight from the Lunchbox Dreams sessions, real talk. Let Big Soul take care of you tonight... heh heh heh... Let it marinate, beautiful people. Feel me?</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Mmm-mmm-MMM... AI-Radio, baby. DJ-Soul got you. Oooh-wee, now THIS right here... this that old school hip-hop soul, you know what I'm sayin'? When the record speaks, you LISTEN. Born straight from the Lunchbox Dreams sessions, real talk. Let Big Soul take care of you tonight... heh heh heh... Let it marinate, beautiful people. Feel me?",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 33
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 33,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.4853054529958172
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.8833970249979757
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 4.66246808199503
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3211768210021546
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.23385894298553467
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "I want to hear only DJ Soul on the AI radio.",
+        "rag_latency_secs": 0.18104592799500097
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 42522,
+              "price": 0.127566
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 256,
+              "price": 0.0038399999999999997
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Attracted and start playing. Hello?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 71,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.19855599700531457
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "toolu_vrtx_01AqaktjWCwfSTjoHHMgwoW9",
+          "tool_name": "skip_turn",
+          "params_as_json": "{\"reason\": \"User seems to be testing if I'm listening or may have audio issues - waiting for them to speak clearly\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 75,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.098938918003114
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.1003775680001127
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_01AqaktjWCwfSTjoHHMgwoW9",
+          "tool_name": "skip_turn",
+          "result_value": "{\"result_type\":\"skip_turn_success\",\"status\":\"success\",\"reason\":\"User seems to be testing if I'm listening or may have audio issues - waiting for them to speak clearly\"}",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.00022678800451103598,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": {
+            "result_type": "skip_turn_success",
+            "status": "success",
+            "reason": "User seems to be testing if I'm listening or may have audio issues - waiting for them to speak clearly"
+          }
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 75,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 15774,
+              "price": 0.047322
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 41,
+              "price": 0.000615
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "There's no music playing.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 89,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10642220900626853
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "toolu_vrtx_017MbuThXtqZiTZN3LeqSFYw",
+          "tool_name": "play_music",
+          "params_as_json": "{\"action\": \"status\", \"playlist\": \"generated\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/music",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "playlist": "\"generated\"",
+              "action": "\"status\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 92,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.6219135340070352
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.6230802229983965
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "toolu_vrtx_017MbuThXtqZiTZN3LeqSFYw",
+          "tool_name": "play_music",
+          "result_value": "{\n  \"action\": \"status\",\n  \"duration_seconds\": 100,\n  \"elapsed_seconds\": 60,\n  \"playing\": true,\n  \"remaining_seconds\": 39,\n  \"response\": \"Now playing: 'Preach to the Vinyl' at 30% volume. About 39s remaining.\",\n  \"track\": {\n    \"ad_copy\": \"\",\n    \"artist\": \"DJ FoamBot AI\",\n    \"description\": \"Old school hip-hop vibes. When the record speaks, you listen.\",\n    \"duration_seconds\": 100,\n    \"energy\": \"fresh\",\n    \"filename\": \"Preach to the vinyl.mp3\",\n    \"format\": \"mp3\",\n    \"fun_facts\": [\n      \"Born from the Lunchbox Dreams sessions\"\n    ],\n    \"genre\": \"AI Generated\",\n    \"id\": \"Preach to the vinyl\",\n    \"made_for\": null,\n    \"name\": \"Preach to the vinyl\",\n    \"phone_number\": null,\n    \"playlist\": \"generated\",\n    \"prompt\": \"Unknown\",\n    \"size_bytes\": 2386221,\n    \"style\": null,\n    \"title\": \"Preach to the Vinyl\",\n    \"url_prefix\": \"/generated_music/\"\n  },\n  \"volume\": 30\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.24645936299930327,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 92,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": "agtbrch_0601kcccvnnveza8ws2egm714wmn",
+        "workflow_node_id": null
+      },
+      "message": "<DJ-Soul>Yeeeah baby, it's playin' right now... \"Preach to the Vinyl\" got about forty seconds left on it. Heh heh... maybe your speakers playin' shy on you, feel me? Volume's at thirty percent - let me know if Big Soul needs to turn it up for you, beautiful.</DJ-Soul>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Yeeeah baby, it's playin' right now... \"Preach to the Vinyl\" got about forty seconds left on it. Heh heh... maybe your speakers playin' shy on you, feel me? Volume's at thirty percent - let me know if Big Soul needs to turn it up for you, beautiful.",
+            "voice_label": "DJ-Soul",
+            "time_in_call_secs": 94
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 94,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.2508859160006978
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.866320557994186
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.217536719996133
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.41633024500333704
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.24783051013946533
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why isn't DJ Soul playing?",
+        "rag_latency_secs": 0.1521806490054587
+      },
+      "llm_usage": {
+        "model_usage": {
+          "claude-sonnet-4-5": {
+            "input": {
+              "tokens": 32222,
+              "price": 0.096666
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 154,
+              "price": 0.00231
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1765648256,
+    "accepted_time_unix_secs": 1765648257,
+    "call_duration_secs": 114,
+    "cost": 2239,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 90518,
+                "price": 0.271554
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 451,
+                "price": 0.006765
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "claude-sonnet-4-5": {
+              "input": {
+                "tokens": 106290,
+                "price": 0.31887
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 468,
+                "price": 0.007019999999999999
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.32589,
+      "llm_charge": 1481,
+      "call_charge": 758,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1006",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 2,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.1",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user requested AI radio with only DJ Soul. The agent, acting as DJ Soul, played a generated playlist, specifically the track \"Preach to the Vinyl.\" The user initially didn't hear the music, but the agent confirmed it was playing and offered to adjust the volume.\n",
+    "call_summary_title": "AI Radio DJ Soul"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Hello, human. I've already predicted three things you might say. Surprise me.",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 3,
+      "system__current_agent_turns": 3,
+      "system__current_subagent_turns": 3,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_6201kccdckv4erftmaj6e2nkezae",
+      "system__call_duration_secs": 113,
+      "system__time_utc": "2025-12-13T17:52:50.563455+00:00",
+      "system__time": "Saturday, 12:52 13 December 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

@@ -304,7 +304,7 @@
         /* Waveform mouth */
         .mouth-container {
             width: 200px;
-            height: 60px;
+            height: 80px;
             position: relative;
             z-index: 10;
         }
@@ -2581,9 +2581,10 @@
                 targetAmplitude = 0.3 + Math.random() * 0.7;
             } else if (musicVocalLevel > 0.05 && musicPlayer && !musicPlayer.paused && visualizerEnabled) {
                 // Music playing, not speaking - "sing along" using vocal frequencies
-                wavePhase += 0.08 + musicVocalLevel * 0.15;
-                // Use vocal level to drive mouth movement (scaled for good visual)
-                targetAmplitude = musicVocalLevel * 1.5;
+                wavePhase += 0.08 + musicVocalLevel * 0.1;
+                // Use vocal level to drive mouth movement (clamped to prevent clipping)
+                // Max amplitude ~0.8 keeps waves within 60px canvas height
+                targetAmplitude = Math.min(musicVocalLevel * 0.8, 0.85);
             } else {
                 // Not speaking, no music - gradually close mouth
                 targetAmplitude = 0;
@@ -4488,7 +4489,12 @@
             // Update vocal level for mouth "singing" (mid + lowMid where vocals sit: 250Hz-2kHz)
             // Only when agent is NOT speaking - agent voice takes priority
             if (!isSpeaking) {
-                musicVocalLevel = (lowMid * 0.4 + mid * 0.6); // Weighted toward mid frequencies
+                // Blend lowMid (250-500Hz male fundamentals) and mid (500-2kHz vocal body)
+                // Use higher weight on mid where most vocal energy lives
+                // Apply slight boost and smoothing for better response
+                const rawVocal = (lowMid * 0.3 + mid * 0.5 + highMid * 0.2);
+                // Smooth the transition (0.3 = responsive but not jittery)
+                musicVocalLevel = musicVocalLevel * 0.7 + rawVocal * 0.3;
             } else {
                 musicVocalLevel = 0; // Agent is speaking, don't interfere
             }

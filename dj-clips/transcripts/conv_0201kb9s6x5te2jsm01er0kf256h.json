@@ -1,0 +1,2483 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_0201kb9s6x5te2jsm01er0kf256h",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Mike! The man, the myth, the guy who won't buy me a Thor. What's happening?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 1,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.8786800860034418
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "I want you to do some research and make some notes on some really good really interesting tips and like different tips and like things knowledge about spray foam and stuff that you can use when you're being a foam bot DJ foam bot I want you to like know more about spray foam so when you're being DJ foam bot you can provide better like little timbits and insulation tip or something like that while you're playing music and stuff so make the make the files and make sure you make the notes don't just do the research and forget all the stuff",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 16,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.19726018200162798
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright, alright, let's get this research train rolling! I'm diving deep into the world of spray foam to bring you the hottest insulation facts and pro tips for SprayFoamRadio.com!</Radio Voice>\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright, alright, let's get this research train rolling! I'm diving deep into the world of spray foam to bring you the hottest insulation facts and pro tips for SprayFoamRadio.com!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 68
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 68,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3645012799970573
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.23052290100167738
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8241963440013933
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5133400990016526
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1931658387184143
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What are some good tips and knowledge about spray foam that I can use when being a foam bot DJ?",
+        "rag_latency_secs": 0.26072374200157356
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-35c1ab3f33bd4e05a616051653e82cfd",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam insulation tips tricks pro secrets contractors\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam insulation tips tricks pro secrets contractors\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 69,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.3645012799970573
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.23052290100167738
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.1756055079968064
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.8241963440013933
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.5133400990016526
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-35c1ab3f33bd4e05a616051653e82cfd",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam insulation tips tricks pro secrets contractors\",\n  \"response\": \"Here's what I found for 'spray foam insulation tips tricks pro secrets contractors': 1. Step Up Your Spray Foam Game With These 17 Hacks and Tips 2. Top DIY Spray Foam Insulation Tips And Tricks 2024 3. Mastering Spray Foam Insulation: A Complete Guide to Effective DIY ...\",\n  \"results\": [\n    {\n      \"snippet\": \"Despite the obvious drawbacks-it's messy, sticky and impossible to remove once it cures-there's nothing better than spray foam for sealing energy-wasting air leaks (an so much more!). These are our best ways to use spray foam around your home.\",\n      \"title\": \"Step Up Your Spray Foam Game With These 17 Hacks and Tips\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.familyhandyman.com%2Flist%2Fspray%2Dfoam%2Dtips%2F&rut=0c67bc284f322f02e783d847429e767e826a3347d245542cfd6457bdbb6c6122\"\n    },\n    {\n      \"snippet\": \"DIY spray foam insulation is the answer. It saves on energy costs and makes your home more comfy and efficient. VB Insulation lets you get pro-level insulation right at home. But, knowing the best tips and tricks first is key to success. In this article, we'll explore DIY spray foam insulation. This includes guidance on techniques and how to ...\",\n      \"title\": \"Top DIY Spray Foam Insulation Tips And Tricks 2024\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fvbinsulation.com%2Fblogs%2Finsulation%2Dinsider%2Dlatest%2Dtrends%2Dand%2Dtechniques%2Fdiy%2Dspray%2Dfoam%2Dinsulation%2Dtips&rut=09f2132a8ee29414d0d42348732c3e71df6d1b9246c76bdd615d9935fbfde1bc\"\n    },\n    {\n      \"snippet\": \"What spray foam insulation really is and why it's the coolest thing since sliced bread. The essential tools you need to avoid turning your DIY project into a foamy disaster. Tips and tricks to master the art of applying spray foam like a pro. Contents show\",\n      \"title\": \"Mastering Spray Foam Insulation: A Complete Guide to Effective DIY ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Ffoamfanatic.com%2Flearning%2Dspray%2Dfoam%2Dinsulation%2F&rut=73118e6d25b0a4288a1814da7e3b5d9188cf6e318f04374aca428b3f00a30e6f\"\n    },\n    {\n      \"snippet\": \"Spray foam insulation has become increasingly popular among contractors due to its effectiveness in sealing gaps and providing high levels of insulation. However, like any construction material, working with spray foam insulation requires careful planning and execution to maximize efficiency and ensure optimal results.\",\n      \"title\": \"Maximizing Efficiency: Tips for Contractors When Working with Spray ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fsprayalliance.com%2Fmaximizing%2Defficiency%2Dtips%2Dfor%2Dcontractors%2Dwhen%2Dworking%2Dwith%2Dspray%2Dfoam%2Dinsulation%2F&rut=2ad7b56a70337e799bcaff4f6568da2a9ff0f29ae057f2796ea53d99d3c6746c\"\n    },\n    {\n      \"snippet\": \"Learn tips & tricks from the Do It Yourself Spray Foam Insulation guide from 5-star experts at Anthem Home & Insulation. Call us today to schedule a service.\",\n      \"title\": \"The Complete Do It Yourself Spray Foam Insulation Guide\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.antheminsulation.com%2Fdo%2Dit%2Dyourself%2Dspray%2Dfoam%2Dinsulation%2F&rut=5b5d2e42ca4c01327a2ce69b45e43f03f384d4a8492b547e3e964cf32142da1c\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.0875507699965965,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 71,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-e96ed316d99443e69f94feb2ae224850",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam science chemical composition types open closed cell R-value\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam science chemical composition types open closed cell R-value\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 71,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.12941605800006073
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3450735009973869
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-e96ed316d99443e69f94feb2ae224850",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam science chemical composition types open closed cell R-value\",\n  \"response\": \"Here's what I found for 'spray foam science chemical composition types open closed cell R-value': 1. Spray Foam: Closed-Cell vs. Open-Cell 2. Spray Polyurethane Foam Product Types | US EPA 3. Spray Foam Insulation R Value Chart & Guide for Commercial Construction\",\n  \"results\": [\n    {\n      \"snippet\": \"The blowing agent, which aids in forming the bubbles or cells that make up SPF's foam structure, is usually water for open-cell and high-R-value chemicals for closed-cell.\",\n      \"title\": \"Spray Foam: Closed-Cell vs. Open-Cell\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoam.com%2Fcontent%2Fspray%2Dfoam%2Dclosed%2Dcell%2Dvs%2Dopen%2Dcell%2F26&rut=ff3a9bc17dc237309da9893bb21f07ed939eefdfdc128452d5f68a0799f3ad86\"\n    },\n    {\n      \"snippet\": \"Application process Sides A and B are pumped through heated hoses from supply tanks into a nozzle where the two components react and are spray applied at elevated temperatures (>150\\u00b0F) and pressure (1200 psi). \\\"Open\\\" cell foam expands more vigorously than \\\"closed\\\" cell foam and should be applied in layers. See photographs below illustrating expansion differences between open-cell and ...\",\n      \"title\": \"Spray Polyurethane Foam Product Types | US EPA\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Farchive.epa.gov%2Fepa%2Fsaferchoice%2Fspray%2Dpolyurethane%2Dfoam%2Dproduct%2Dtypes.html&rut=9436e8c4c85358a9046e45976c69a769826259cb39e78b12cbd43c0bc3806db4\"\n    },\n    {\n      \"snippet\": \"Using a spray foam insulation r value chart or calculator helps verify if the planned depth and product type meet performance minimums. High-density foam allows thinner walls in cold climates, while open-cell types may be acceptable in conditioned interior partitions.\",\n      \"title\": \"Spray Foam Insulation R Value Chart & Guide for Commercial Construction\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.fastenersystems.com%2Fblog%2Fspray%2Dfoam%2Dinsulation%2Dr%2Dvalue%2Dchart%2Dguide%2Dfor%2Dcommercial%2Dconstruction&rut=5fe8ea274530c4cbe7f47af2bfc0d5e5bf4baf497fb86d25bd67204757841682\"\n    },\n    {\n      \"snippet\": \"What makes open cell and closed cell spray foam different? Compare their R-values, density, air and vapor permeability, cell structures, and applications.\",\n      \"title\": \"What's The Difference Between Closed Cell And Open Cell Spray Foam?\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fscsfoam.com%2Fblog%2Fclosed%2Dcell%2Dopen%2Dcell%2Dspray%2Dfoam%2Dinsulation%2Ddifferences&rut=060ec43d64b6002b4765e09c619d3193d93bdda8e2981cf1dc86a07d98263eb3\"\n    },\n    {\n      \"snippet\": \"Learn the differences between open-cell and closed-cell spray foam, including energy efficiency, insulation value, and cost considerations.\",\n      \"title\": \"Spray Foam Types: Open-Cell vs Closed-Cell Guide\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwegnerinsulation.com%2Fblog%2Fspray%2Dfoam%2Dcomparison%2F&rut=1d396867ac26a57b358f1121ee96074420351a3ae3cc3b904567ba691ba90cc9\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.997576053996454,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 72,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-af873cc47e70482f8f3a086a28e86bd3",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam industry market statistics growth trends report\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam industry market statistics growth trends report\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 73,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1862487569960649
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3773965529981069
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-af873cc47e70482f8f3a086a28e86bd3",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam industry market statistics growth trends report\",\n  \"response\": \"Here's what I found for 'spray foam industry market statistics growth trends report': 1. Spray Foam Market Size, Share And Growth Report, 2030 2. Spray Foam Market Size, Statistics Report 2024-2032 3. Spray Foam Insulation Market Size & Forecast 2025 to 2035\",\n  \"results\": [\n    {\n      \"snippet\": \"Global Spray Foam Market Report Segmentation This report forecasts revenue and volume growth at global, regional, and country levels and provides an analysis of the latest industry trends in each of the sub-segments from 2018 to 2030.\",\n      \"title\": \"Spray Foam Market Size, Share And Growth Report, 2030\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.grandviewresearch.com%2Findustry%2Danalysis%2Fspray%2Dfoam%2Dmarket%2Dreport&rut=5fe44774381e2c9007757c08982db07e10d9f75494c6b0bb34482fde8542d8c4\"\n    },\n    {\n      \"snippet\": \"Spray Foam Market Trends The spray foam industry is evolving with key trends shaping its growth. Retrofit and renovation projects are increasingly adopting spray foam insulation to improve energy efficiency in older buildings without major structural changes. This trend is evident in both residential and commercial sectors. Simultaneously, manufacturers are developing safer and more ...\",\n      \"title\": \"Spray Foam Market Size, Statistics Report 2024-2032\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.gminsights.com%2Findustry%2Danalysis%2Fspray%2Dfoam%2Dmarket&rut=6901598ed157abcf2cd155d90d95936f9f2e483a0d0e95664dc740fcfab111a7\"\n    },\n    {\n      \"snippet\": \"Spray Foam Insulation Market Size and Share Forecast Outlook 2025 to 2035 The global spray foam insulation market is estimated to reach USD 2,181.5 million in 2025 and is projected to grow to USD 4,452.1 million by 2035, advancing at a CAGR of 6.7% during the forecast period. Growth is being supported by increasing demand for energy-efficient building materials, evolving sustainability ...\",\n      \"title\": \"Spray Foam Insulation Market Size & Forecast 2025 to 2035\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.futuremarketinsights.com%2Freports%2Fspray%2Dfoam%2Dinsulation%2Dmarket&rut=4bbb02dfbf6de6515cb9ba2350b519b5252f1ac0e88793afe7323cf21c6a2c16\"\n    },\n    {\n      \"snippet\": \"Spray Foam Market Summary As per MRFR analysis, the Spray Foam Market Size was estimated at 2.646 USD Billion in 2024. The Spray Foam industry is projected to grow from 2.84 in 2025 to 5.763 by 2035, exhibiting a compound annual growth rate (CAGR) of 7.33 during the forecast period 2025 - 2035.\",\n      \"title\": \"Spray Foam Market Size, Share & Trends Report 2035\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketresearchfuture.com%2Freports%2Fspray%2Dfoam%2Dmarket%2D25558&rut=3bec9e4fc3724e70513181e0c49c0d2adac0c9cd9cb5b377002e7203a40253b9\"\n    },\n    {\n      \"snippet\": \"The size of the Spray Foam Industry market was valued at USD 1.5 Million in 2023 and is projected to reach USD 3.2 Million by 2032, with an expected CAGR of 5.00\\\"&gt;&gt; 5.00% during the forecast period. The industry is driven by several factors, including the benefits of spray foam as an insulating and waterproofing material, such as its high R-value, air sealing capabilities, and durability ...\",\n      \"title\": \"Spray Foam Industry Growth Opportunities and Market Forecast 2025-2033 ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.datainsightsmarket.com%2Freports%2Fspray%2Dfoam%2Dindustry%2D1363&rut=b3f2322fecb24d73fc6961d9d2cb3393d33590c33e53270ef76306035892f458\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.848413353000069,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 74,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-8ea8b172e3f649d4bef67c27b817f5a8",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam safety hazards health risks protection equipment\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam safety hazards health risks protection equipment\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 74,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1860636190031073
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.37673358200117946
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-8ea8b172e3f649d4bef67c27b817f5a8",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam safety hazards health risks protection equipment\",\n  \"response\": \"Here's what I found for 'spray foam safety hazards health risks protection equipment': 1. Spray Foam Industry Education Center | Spray Foam Guides - SprayFoam.com 2. Potential Chemical Exposures From Spray Polyurethane Foam 3. PDF SPF Insulation: Health and Safety Fact Sheet - CPSC\",\n  \"results\": [\n    {\n      \"snippet\": \"\\ufeff Review the label and product information for chemical ingredients, hazards, directions, safe work practices, and precautions. Ensure health and safety training is completed and safe work practices are followed to prevent exposure before, during, and after an installation.\",\n      \"title\": \"Spray Foam Industry Education Center | Spray Foam Guides - SprayFoam.com\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoam.com%2Fspray%2Dfoam%2Dguides%2Fspray%2Dfoam%2Dsafety%2Dguide&rut=9c9ecd9e20cd019031da48fe24332e7175a900adda6562002661773156691951\"\n    },\n    {\n      \"snippet\": \"Possible exposure routes When spray polyurethane foam is being used, the work site should be restricted to persons wearing appropriate personal protective equipment. The information on this page is meant to underline the importance of wearing protective equipment by explaining ways that chemical exposures from spray polyurethane foam (SPF) may occur.\",\n      \"title\": \"Potential Chemical Exposures From Spray Polyurethane Foam\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Farchive.epa.gov%2Fepa%2Fsaferchoice%2Fpotential%2Dchemical%2Dexposures%2Dspray%2Dpolyurethane%2Dfoam.html&rut=ac4cbde846db484e61b6560c8302251d474a7d8477fddee4a653b085b5197831\"\n    },\n    {\n      \"snippet\": \"Spray Polyurethane Foam Insulation: Health and Safety Recommendations for Consumers This health and safety fact sheet compiles and summarizes hazard communication materials from the Environmental Protection Agency (EPA), Occupational Safety and Health Administration (OSHA), National Institute for Occupational Safety and Health (NIOSH), National Institute for Standards and Technology (NIST ...\",\n      \"title\": \"PDF SPF Insulation: Health and Safety Fact Sheet - CPSC\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cpsc.gov%2Fs3fs%2Dpublic%2FSpray%2DPolyurethane%2DFoam%2DInsulation%2DHealth%2Dand%2DSafety%2DRecommendations%2Dfor%2DConsumers%2D2.pdf%3FCUCrSOaN_3n0eCU.TRlYT_6Z7m0gszjp&rut=c62f107d9d9d0f7503ea0ad6e07247b50efb4e06769eacc9a494947918eaebb2\"\n    },\n    {\n      \"snippet\": \"Health & Safety An absolute top priority for SPFA and the industry as a whole is a focus upon both chemical, and general worksite, health and safety. Spray foam is a high performing product capable of producing substantial energy savings through high R-Values combined with air-sealing in one product.\",\n      \"title\": \"Health & Safety - Spray Polyurethane Foam Alliance\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoam.org%2Fhealth%2Dsafety%2F&rut=31846e79437102889c9cd44f37238b950b5f1f2b77103649be4f30e92040c898\"\n    },\n    {\n      \"snippet\": \"Safety Note Follow the safe handling guidance when working with the SPF pre-mix chemicals and throughout every stage of the installation. Application by unprotected workers could result in overexposure to the SPF chemicals, which can pose potential health hazards.\",\n      \"title\": \"Health and Safety Guidelines for SPF Professionals\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.spraypolyurethane.org%2Fprofessional%2Dcontractors%2Fhealth%2Dand%2Dsafety%2Dguidelines%2F&rut=17ae5f0645966b40ad1a35f997b858ebbaf2f979c5de2b4c5552602b602a3f26\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.8753244079998694,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 75,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-b50c492da0fa4c53be0e438b550a3232",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam environmental impact sustainability recycling eco-friendly\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam environmental impact sustainability recycling eco-friendly\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 76,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13929492000170285
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3313487760024145
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-b50c492da0fa4c53be0e438b550a3232",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam environmental impact sustainability recycling eco-friendly\",\n  \"response\": \"Here's what I found for 'spray foam environmental impact sustainability recycling eco-friendly': 1. Is Spray Foam Eco-Friendly? Environmental Impact And Sustainability ... 2. Myth Busting: Is Spray Foam Insulation Bad for the Environment? 3. Is Spray Foam Insulation Bad for the Environment? Pros, Cons, and Eco ...\",\n  \"results\": [\n    {\n      \"snippet\": \"Spray foam insulation has gained popularity for its energy efficiency and ability to seal gaps in buildings, but its environmental impact is a growing concern. While it reduces energy consumption by improving insulation, the production and application of spray foam involve chemicals like isocyanates and blowing agents, some of which contribute to greenhouse gas emissions and ozone depletion ...\",\n      \"title\": \"Is Spray Foam Eco-Friendly? Environmental Impact And Sustainability ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fshunwaste.com%2Farticle%2Fis%2Dspray%2Dfoam%2Dbad%2Dfor%2Dthe%2Denvironment&rut=96f1d99ae1e6855121cd61d85b8160f4d660c504ad7c72ae894213ce98a4d967\"\n    },\n    {\n      \"snippet\": \"Key Points: Modern eco-friendly spray foam insulation significantly reduces environmental impacts through low VOC and climate-friendly formulations. Spray foam insulation dramatically lowers energy consumption by creating an effective air seal. Spray foam lasts for the lifetime of your building, reducing waste from frequent replacements.\",\n      \"title\": \"Myth Busting: Is Spray Foam Insulation Bad for the Environment?\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.retrofoam.com%2Fblog%2Fis%2Dspray%2Dfoam%2Dinsulation%2Dbad%2Dfor%2Dthe%2Denvironment&rut=bac4fa8340a828ddebcc5794ec88152db4fd1e398050dca2649f692e711404d6\"\n    },\n    {\n      \"snippet\": \"Is spray foam insulation bad for the environment? This article dives into the environmental pros and cons of spray foam insulation, comparing its efficiency to alternative materials like fiberglass and cellulose. Explore the impact of chemicals, VOC emissions, and greenhouse gases on air quality and climate. Weigh performance against sustainability as we provide tips for your insulation ...\",\n      \"title\": \"Is Spray Foam Insulation Bad for the Environment? Pros, Cons, and Eco ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Ffoamfanatic.com%2Fis%2Dspray%2Dfoam%2Dinsulation%2Dbad%2Dfor%2Dthe%2Denvironment%2D2%2F&rut=397ff1b499f42285c9c2bfdadf839d7525db4481987181d1d418138c73c9dab6\"\n    },\n    {\n      \"snippet\": \"Discover if spray foam insulation is eco-friendly, its benefits, environmental impact, and how it compares to other insulation types.\",\n      \"title\": \"Is Spray Foam Insulation Environmentally Friendly?\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Finsulationdomination.com%2Fis%2Dspray%2Dfoam%2Dinsulation%2Denvironmentally%2Dfriendly%2F&rut=fe400731f107afb8924b232755d9ef66657fdbcc8384d13a33e4944514fac15e\"\n    },\n    {\n      \"snippet\": \"The Composition and Sustainability of Spray Foam Spray foam insulation is typically made from polyurethane, a petroleum-based material. It expands upon application, forming an airtight barrier that reduces energy loss. The key components influencing its environmental impact include: Blowing agents - These gases help the foam expand.\",\n      \"title\": \"Is Spray Foam Insulation Eco-Friendly in 2025?\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fspraytechkokomo.com%2Fis%2Dspray%2Dfoam%2Dinsulation%2Deco%2Dfriendly%2Din%2D2025%2F&rut=a10b5ba1a6aa9f7afb84b1f3857b2eed4567dd191314ab577339866a40846695\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.9355764299980365,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-58c98bc755154f3b9262d641c0489f07",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"\\\"blowing agents\\\" spray foam HFC HFO hydrofluorocarbons environmental\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"\\\"blowing agents\\\" spray foam HFC HFO hydrofluorocarbons environmental\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 77,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.262133199001255
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.5378100300004007
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-58c98bc755154f3b9262d641c0489f07",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"\\\"blowing agents\\\" spray foam HFC HFO hydrofluorocarbons environmental\",\n  \"response\": \"I searched for '\\\"blowing agents\\\" spray foam HFC HFO hydrofluorocarbons environmental' but didn't find anything useful. The internet has failed you.\",\n  \"results\": []\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.18071275299735134,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 78,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-c9335309aad3415a9cbedc634e2919b8",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam blowing agents HFC HFO climate change impact\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam blowing agents HFC HFO climate change impact\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 78,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1537951280042762
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3736108760058414
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-c9335309aad3415a9cbedc634e2919b8",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam blowing agents HFC HFO climate change impact\",\n  \"response\": \"Here's what I found for 'spray foam blowing agents HFC HFO climate change impact': 1. HFO Blowing Agent Update - Spray Polyurethane Foam Alliance 2. HFC vs HFO: Does Your Spray Foam Blowing Agent Meet Regulation ... 3. Atmospheric Oxidation of Hydrofluoroolefins and ...\",\n  \"results\": [\n    {\n      \"snippet\": \"The new HFO blowing agents significantly reduce the carbon footprint of closed-cell SPF compared to HFC foams. Several states have already banned HFC foams during the past three and a half years. On January 1, 2025, a complete nationwide ban on the manufacture of HFC closed-cell SPF systems will take effect.\",\n      \"title\": \"HFO Blowing Agent Update - Spray Polyurethane Foam Alliance\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.sprayfoam.org%2Fhfoupdate%2F&rut=eddc682672c331db65ac1ca75923be197555208dca5a9b0d514643b47d4f0de8\"\n    },\n    {\n      \"snippet\": \"Both are two-component, low-rise polyurethane insulation adhesives. Transitioning from HFC blowing agents to HFO blowing agents is an essential step in reducing the climate impact of the building and roofing industry.\",\n      \"title\": \"HFC vs HFO: Does Your Spray Foam Blowing Agent Meet Regulation ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.genflex.com%2Fbulletin%2Fhfc%2Dvs%2Dhfo%2Dblowing%2Dagents&rut=aedc33a7a33a51359597d77455db3eb68adfd76e12e54d38a4d5133a532e64e0\"\n    },\n    {\n      \"snippet\": \"Reactions of fourth-generation refrigerants, propellants, and foam-blowing agents with ozone will release long-lived and potent greenhouse gases into the atmosphere.\",\n      \"title\": \"Atmospheric Oxidation of Hydrofluoroolefins and ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fpubs.acs.org%2Fdoi%2F10.1021%2Facs.est.5c11383&rut=4e10cd8d74837ad8c5ea2d725127d0a49c3fa8434f196926ff7cd603c7eb6f27\"\n    },\n    {\n      \"snippet\": \"The difference between HFC and HFO closed-cell spray foam lies primarily in their environmental impact. HFC spray foam, while an effective insulator, has a high Global Warming Potential and contributes significantly to climate change.\",\n      \"title\": \"HFC vs. HFO Closed-Cell Spray Foam - Accufoam\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Faccufoam.com%2Fhfc%2Dvs%2Dhfo%2Dspray%2Dfoam%2F&rut=94d0cbf8af45630b8af85b7f8cb359740a856ecdfea307acbcfca959b02136dc\"\n    },\n    {\n      \"snippet\": \"As a fundamental component in polyurethane foams, foam blowing agents enable the most eficient insulation performance resulting in significant greenhouse gas reductions. Technology-based on foam blowing agents, like spray foam insulation, are key tools that help address climate change.\",\n      \"title\": \"PDF SPRAY FOAM: Improving Energy Efficiency with Environmentally ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.americanchemistry.com%2Fcontent%2Fdownload%2F10961%2Ffile%2FSpray%2DFoam%2Dand%2DFoam%2DBlowing%2DAgents.pdf&rut=c2185ba074a361c363a69d1be8c53dac030b3e6a087de6af311183496b7bb689\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.8944531790039036,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 79,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-5d60d754b0324360a8d4338670a03150",
+          "tool_name": "search_web",
+          "params_as_json": "{\"query\": \"spray foam innovation future technology new developments emerging\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/search",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "query": "\"spray foam innovation future technology new developments emerging\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 80,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.14738164099981077
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.3368425799999386
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-5d60d754b0324360a8d4338670a03150",
+          "tool_name": "search_web",
+          "result_value": "{\n  \"query\": \"spray foam innovation future technology new developments emerging\",\n  \"response\": \"Here's what I found for 'spray foam innovation future technology new developments emerging': 1. Future Trends in Spray Foam Insulation Technology 2. The Future of Insulation: Emerging Trends and Innovations in Spray Foam ... 3. The Future of Spray Foam: Market Growth, Innovations, and Industry ...\",\n  \"results\": [\n    {\n      \"snippet\": \"Explore the future of spray foam insulation technology, including new innovations, eco-friendly materials, and smarter energy-saving solutions.\",\n      \"title\": \"Future Trends in Spray Foam Insulation Technology\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fsprayfoamgeniusmarketing.com%2Fthe%2Dfuture%2Dof%2Dspray%2Dfoam%2Dinsulation%2Dtechnology%2F&rut=feaeab0dc892865e8bb3be7a5eae7f3ea29e1fc04f29a1108f3e16138725145c\"\n    },\n    {\n      \"snippet\": \"Learn about the latest trends and innovations in spray foam insulation technology. Stay ahead with new advancements for energy-efficient homes\",\n      \"title\": \"The Future of Insulation: Emerging Trends and Innovations in Spray Foam ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fspfsolutions.ca%2F2024%2F09%2F06%2Fthe%2Dfuture%2Dof%2Dinsulation%2Demerging%2Dtrends%2Dand%2Dinnovations%2Din%2Dspray%2Dfoam%2Dtechnology%2F&rut=9c70e3061b419f284786f3eac6e54c6705d3ba8ae2b99af5b2ec9d3172a829e5\"\n    },\n    {\n      \"snippet\": \"The future of spray foam is outstanding. The industry is growing rapidly, nearly doubling its market size over the past ten years. Ongoing research and development have led to advancements in machine design and efficiency, as well as improved plural component chemical performance. With skilled contractors, manufacturers, and distributors at the ready, this industry is poised to meet growing ...\",\n      \"title\": \"The Future of Spray Foam: Market Growth, Innovations, and Industry ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.polymac%2Dusa.com%2Fthe%2Dfuture%2Dof%2Dspray%2Dfoam%2Dmarket%2Dgrowth%2Dinnovations%2Dand%2Dindustry%2Dadvancements%2F&rut=84676a635daa58879b4c6cb1c9a7343eb766e2fead13a56da3cb3cc3bd090678\"\n    },\n    {\n      \"snippet\": \"\\u2022 Building Codes Future of Insulation Technology As building practices continue to advance, the spray foam insulation industry remains at the forefront of innovation. Emerging trends include: \\u2022 Smart building integration \\u2022 Advanced thermal mapping \\u2022 Sustainable material development \\u2022 Enhanced application methods \\u2022 Improved ...\",\n      \"title\": \"The Evolution of Spray Foam Insulation Technology in Modern ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fshieldsheating.com%2F2025%2F08%2Fthe%2Devolution%2Dof%2Dspray%2Dfoam%2Dinsulation%2Dtechnology%2Din%2Dmodern%2Dconstruction%2F&rut=acbdbe5082b2de06d95305ee8bf505ea1563a69b3992a0c655de08c5cddb40b2\"\n    },\n    {\n      \"snippet\": \"These alliances aim to enhance research and development efforts focused on new formulations and applications of spray foam technology. Such collaborations can lead to innovative products that meet the evolving needs of the construction industry, ensuring that companies remain competitive in an ever-changing market.\",\n      \"title\": \"Foam Innovation- Uncovering the Future of Energy Efficiency with Spray ...\",\n      \"url\": \"//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.marketresearchintellect.com%2Fblog%2Ffoam%2Dinnovation%2Duncovering%2Dthe%2Dfuture%2Dof%2Denergy%2Defficiency%2Dwith%2Dspray%2Dpolyurethane%2Dinsulation%2F&rut=31dccd75ff63148f66b781e54a422942357fad3a4573e5269168b18f45076e17\"\n    }\n  ]\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.0100816179983667,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 81,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-be5c132264944f42b749263843fe58aa",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-pro-tips\", \"content\": \"SPRAY FOAM PRO TIPS & TRICKS FOR DJ FOAM BOT\\n\\nTOP APPLICATION TIPS:\\n1. Cut foam cans vertically instead of horizontally - easier to dispense and control\\n2. Use painter's tape to create clean edges and prevent overspray\\n3. Foam expands 3-4 times its original size - don't overfill gaps\\n4. Always shake cans vigorously before use to ensure proper mixing\\n5. Apply in thin layers rather than thick applications - prevents overheating\\n6. Keep cans at room temperature before application (70-80\\u00b0F)\\n7. Use back-and-forth motion for even coverage\\n8. Fill larger gaps with rope caulk first, then foam for better results\\n9. Keep a spray can of lubricant handy - it helps clean foam tools instantly\\n10. Always wear nitrile gloves - foam removes skin oils and causes irritation\\n\\nPROFESSIONAL TECHNIQUES:\\n- For ceiling applications, start from the furthest corner and work backward\\n- Always undercut door jams slightly so foam doesn't interfere with door operation\\n- Use foam-compatible lubricant on spray gun hoses to prevent buildup\\n- Temperature control is crucial - foam cures faster in heat, slower in cold\\n- For exterior applications, use UV-stable foam to prevent degradation\\n- When filling stud cavities, spray in a zig-zag pattern for complete coverage\\n- Always inspect foam after 24 hours - proper curing shows no tackiness\\n\\nREPAIR & MAINTENANCE:\\n- Trim excess foam with serrated knife after curing (24-48 hours)\\n- Use mineral spirits to clean uncured foam from tools and skin\\n- For foam that has cured, use mechanical removal methods\\n- Small holes can be filled with foam backer rod and patch compound\\n- Always test foam compatibility with existing materials before application\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM PRO TIPS & TRICKS FOR DJ FOAM BOT\\n\\nTOP APPLICATION TIPS:\\n1. Cut foam cans vertically instead of horizontally - easier to dispense and control\\n2. Use painter's tape to create clean edges and prevent overspray\\n3. Foam expands 3-4 times its original size - don't overfill gaps\\n4. Always shake cans vigorously before use to ensure proper mixing\\n5. Apply in thin layers rather than thick applications - prevents overheating\\n6. Keep cans at room temperature before application (70-80\\u00b0F)\\n7. Use back-and-forth motion for even coverage\\n8. Fill larger gaps with rope caulk first, then foam for better results\\n9. Keep a spray can of lubricant handy - it helps clean foam tools instantly\\n10. Always wear nitrile gloves - foam removes skin oils and causes irritation\\n\\nPROFESSIONAL TECHNIQUES:\\n- For ceiling applications, start from the furthest corner and work backward\\n- Always undercut door jams slightly so foam doesn't interfere with door operation\\n- Use foam-compatible lubricant on spray gun hoses to prevent buildup\\n- Temperature control is crucial - foam cures faster in heat, slower in cold\\n- For exterior applications, use UV-stable foam to prevent degradation\\n- When filling stud cavities, spray in a zig-zag pattern for complete coverage\\n- Always inspect foam after 24 hours - proper curing shows no tackiness\\n\\nREPAIR & MAINTENANCE:\\n- Trim excess foam with serrated knife after curing (24-48 hours)\\n- Use mineral spirits to clean uncured foam from tools and skin\\n- For foam that has cured, use mechanical removal methods\\n- Small holes can be filled with foam backer rod and patch compound\\n- Always test foam compatibility with existing materials before application\"",
+              "filename": "\"spray-foam-pro-tips\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 90,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.15712555500067538
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.8449260630004574
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-be5c132264944f42b749263843fe58aa",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-pro-tips.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-pro-tips.md'. I'll remember it.\",\n  \"size_bytes\": 1675\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.15527684999688063,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 90,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "just do the task in the background you don't have to like tell me all the tips or anything just tell me when it's done",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 90,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.13096018099895446
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-39ad258038f24355a8d83a48a06832b5",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-science-facts\", \"content\": \"SPRAY FOAM SCIENCE & TECHNICAL FACTS\\n\\nFOAM CHEMISTRY:\\n- Spray foam is polyurethane-based, formed from isocyanates and polyols\\n- Two-component system: Side A (isocyanate) and Side B (polyol)\\n- Chemical reaction creates heat - can reach 200\\u00b0F during application\\n- Blowing agents create foam structure - water for open-cell, chemicals for closed-cell\\n- Closed-cell uses HFO blowing agents (better for environment than HFC)\\n- Open-cell foam has 90%+ air content, closed-cell has 90%+ closed gas cells\\n\\nCELL STRUCTURE DIFFERENCES:\\n- Open-cell: R-3.5 to R-4 per inch, breathable, vapor permeable\\n- Closed-cell: R-6 to R-7 per inch, impermeable, structural strength\\n- Open-cell density: 0.5 to 0.8 lb/ft\\u00b3, Closed-cell: 1.5 to 3 lb/ft\\u00b3\\n- Open-cell absorbs water, closed-cell is waterproof\\n- Closed-cell adds structural integrity to walls and roofs\\n\\nTHERMAL PROPERTIES:\\n- Foam eliminates air leakage - biggest energy loss in buildings\\n- Sealing air leaks can reduce energy costs by 15-30%\\n- Closed-cell foam achieves R-value of 7 per inch in ideal conditions\\n- Foam provides continuous insulation without thermal bridging\\n- Effective in all climates - hot, cold, humid, dry\\n\\nCURING PROCESS:\\n- Initial set: 10-15 minutes (tack-free)\\n- Full cure: 24-48 hours (maximum strength)\\n- Expands 3-4 times original size during application\\n- Temperature affects cure time - faster in heat, slower in cold\\n- Proper ventilation required during application for chemical safety\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM SCIENCE & TECHNICAL FACTS\\n\\nFOAM CHEMISTRY:\\n- Spray foam is polyurethane-based, formed from isocyanates and polyols\\n- Two-component system: Side A (isocyanate) and Side B (polyol)\\n- Chemical reaction creates heat - can reach 200\\u00b0F during application\\n- Blowing agents create foam structure - water for open-cell, chemicals for closed-cell\\n- Closed-cell uses HFO blowing agents (better for environment than HFC)\\n- Open-cell foam has 90%+ air content, closed-cell has 90%+ closed gas cells\\n\\nCELL STRUCTURE DIFFERENCES:\\n- Open-cell: R-3.5 to R-4 per inch, breathable, vapor permeable\\n- Closed-cell: R-6 to R-7 per inch, impermeable, structural strength\\n- Open-cell density: 0.5 to 0.8 lb/ft\\u00b3, Closed-cell: 1.5 to 3 lb/ft\\u00b3\\n- Open-cell absorbs water, closed-cell is waterproof\\n- Closed-cell adds structural integrity to walls and roofs\\n\\nTHERMAL PROPERTIES:\\n- Foam eliminates air leakage - biggest energy loss in buildings\\n- Sealing air leaks can reduce energy costs by 15-30%\\n- Closed-cell foam achieves R-value of 7 per inch in ideal conditions\\n- Foam provides continuous insulation without thermal bridging\\n- Effective in all climates - hot, cold, humid, dry\\n\\nCURING PROCESS:\\n- Initial set: 10-15 minutes (tack-free)\\n- Full cure: 24-48 hours (maximum strength)\\n- Expands 3-4 times original size during application\\n- Temperature affects cure time - faster in heat, slower in cold\\n- Proper ventilation required during application for chemical safety\"",
+              "filename": "\"spray-foam-science-facts\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 103,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1382299780016183
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 3.864304726004775
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-39ad258038f24355a8d83a48a06832b5",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-science-facts.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-science-facts.md'. I'll remember it.\",\n  \"size_bytes\": 1453\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.211876740999287,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 103,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-6793a577b73049e8a899bfe59fb09486",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-market-data\", \"content\": \"SPRAY FOAM MARKET STATISTICS & INDUSTRY DATA\\n\\nMARKET SIZE & GROWTH:\\n- Global spray foam market: $2.646 billion in 2024\\n- Projected to reach $5.763 billion by 2035\\n- Compound Annual Growth Rate: 7.33% (2025-2035)\\n- Spray foam insulation market: $2.181.5 million in 2025\\n- Expected to grow to $4.452.1 million by 2035\\n- CAGR for insulation market: 6.7% (2025-2035)\\n- Industry growth driven by energy efficiency demands and building retrofits\\n\\nMARKET TRENDS:\\n- Retrofit and renovation projects - biggest growth segment\\n- Shift toward sustainable, low-VOC foam formulations\\n- Smart building integration with spray foam systems\\n- Advanced thermal mapping applications\\n- Enhanced application methods and equipment\\n- Focus on climate-friendly blowing agents (HFO replacing HFC)\\n- Building code requirements increasing foam demand\\n- Residential market growing faster than commercial\\n- DIY segment expanding with user-friendly products\\n\\nINDUSTRY DRIVERS:\\n- Rising energy costs and efficiency mandates\\n- Government incentives for energy-efficient buildings\\n- Stricter building codes for insulation performance\\n- Consumer demand for comfort and lower utility bills\\n- Aging building stock requiring retrofitting\\n- Increased awareness of thermal bridging issues\\n- Technological advancements in foam application\\n- Environmental concerns driving sustainable formulations\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM MARKET STATISTICS & INDUSTRY DATA\\n\\nMARKET SIZE & GROWTH:\\n- Global spray foam market: $2.646 billion in 2024\\n- Projected to reach $5.763 billion by 2035\\n- Compound Annual Growth Rate: 7.33% (2025-2035)\\n- Spray foam insulation market: $2.181.5 million in 2025\\n- Expected to grow to $4.452.1 million by 2035\\n- CAGR for insulation market: 6.7% (2025-2035)\\n- Industry growth driven by energy efficiency demands and building retrofits\\n\\nMARKET TRENDS:\\n- Retrofit and renovation projects - biggest growth segment\\n- Shift toward sustainable, low-VOC foam formulations\\n- Smart building integration with spray foam systems\\n- Advanced thermal mapping applications\\n- Enhanced application methods and equipment\\n- Focus on climate-friendly blowing agents (HFO replacing HFC)\\n- Building code requirements increasing foam demand\\n- Residential market growing faster than commercial\\n- DIY segment expanding with user-friendly products\\n\\nINDUSTRY DRIVERS:\\n- Rising energy costs and efficiency mandates\\n- Government incentives for energy-efficient buildings\\n- Stricter building codes for insulation performance\\n- Consumer demand for comfort and lower utility bills\\n- Aging building stock requiring retrofitting\\n- Increased awareness of thermal bridging issues\\n- Technological advancements in foam application\\n- Environmental concerns driving sustainable formulations\"",
+              "filename": "\"spray-foam-market-data\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 107,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.24379945699911332
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.107609165002941
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-6793a577b73049e8a899bfe59fb09486",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-market-data.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-market-data.md'. I'll remember it.\",\n  \"size_bytes\": 1355\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1393946149983094,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 107,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-b4834da665e248c0ab05db1e8d3b4773",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-safety-info\", \"content\": \"SPRAY FOAM SAFETY & HEALTH PROTOCOLS\\n\\nPERSONAL PROTECTIVE EQUIPMENT (PPE):\\n- Respiratory protection: NIOSH-approved respirator with organic vapor cartridges\\n- Chemical-resistant gloves: Nitrile or neoprene (not latex)\\n- Protective clothing: Coveralls, chemical-resistant apron, boot covers\\n- Eye protection: Chemical safety goggles or full-face shield\\n- Skin protection: Barrier cream exposed skin areas\\n- Hearing protection: When using application equipment\\n\\nHAZARDOUS EXPOSURES:\\n- Inhalation: Isocyanates can cause respiratory sensitization\\n- Skin contact: Can cause chemical burns, dermatitis, sensitization\\n- Eye contact: Severe irritation, potential corneal damage\\n- Chemical reactions: Heat generation during application (200\\u00b0F)\\n- Uncured foam: Contains unreacted isocyanates and other chemicals\\n- Off-gassing: Can occur during application and curing process\\n\\nWORKSITE SAFETY:\\n- Ventilation: Minimum 10 air changes per hour during application\\n- Restrict access: Only trained personnel should be present\\n- Emergency equipment: Eye wash station, safety shower readily available\\n- Spill containment: Absorbent materials for chemical spills\\n- Fire safety: No open flames, sparks near application areas\\n- Temperature control: Maintain optimal working conditions\\n\\nFIRST AID PROCEDURES:\\n- Skin contact: Wash immediately with soap and water for 15+ minutes\\n- Eye contact: Flush with water for 15+ minutes, seek medical attention\\n- Inhalation: Move to fresh air, seek medical help if breathing difficulties\\n- Swallowing: Do NOT induce vomiting, seek immediate medical help\\n- Clothing contamination: Remove contaminated clothing immediately\\n\\nSAFETY TRAINING REQUIREMENTS:\\n- OSHA Hazard Communication Standard training\\n- Product-specific safety data sheet (SDS) review\\n- Emergency procedures and first aid certification\\n- Proper PPE selection and usage training\\n- Chemical handling and storage procedures\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM SAFETY & HEALTH PROTOCOLS\\n\\nPERSONAL PROTECTIVE EQUIPMENT (PPE):\\n- Respiratory protection: NIOSH-approved respirator with organic vapor cartridges\\n- Chemical-resistant gloves: Nitrile or neoprene (not latex)\\n- Protective clothing: Coveralls, chemical-resistant apron, boot covers\\n- Eye protection: Chemical safety goggles or full-face shield\\n- Skin protection: Barrier cream exposed skin areas\\n- Hearing protection: When using application equipment\\n\\nHAZARDOUS EXPOSURES:\\n- Inhalation: Isocyanates can cause respiratory sensitization\\n- Skin contact: Can cause chemical burns, dermatitis, sensitization\\n- Eye contact: Severe irritation, potential corneal damage\\n- Chemical reactions: Heat generation during application (200\\u00b0F)\\n- Uncured foam: Contains unreacted isocyanates and other chemicals\\n- Off-gassing: Can occur during application and curing process\\n\\nWORKSITE SAFETY:\\n- Ventilation: Minimum 10 air changes per hour during application\\n- Restrict access: Only trained personnel should be present\\n- Emergency equipment: Eye wash station, safety shower readily available\\n- Spill containment: Absorbent materials for chemical spills\\n- Fire safety: No open flames, sparks near application areas\\n- Temperature control: Maintain optimal working conditions\\n\\nFIRST AID PROCEDURES:\\n- Skin contact: Wash immediately with soap and water for 15+ minutes\\n- Eye contact: Flush with water for 15+ minutes, seek medical attention\\n- Inhalation: Move to fresh air, seek medical help if breathing difficulties\\n- Swallowing: Do NOT induce vomiting, seek immediate medical help\\n- Clothing contamination: Remove contaminated clothing immediately\\n\\nSAFETY TRAINING REQUIREMENTS:\\n- OSHA Hazard Communication Standard training\\n- Product-specific safety data sheet (SDS) review\\n- Emergency procedures and first aid certification\\n- Proper PPE selection and usage training\\n- Chemical handling and storage procedures\"",
+              "filename": "\"spray-foam-safety-info\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1308766750007635
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.229173435000121
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-b4834da665e248c0ab05db1e8d3b4773",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-safety-info.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-safety-info.md'. I'll remember it.\",\n  \"size_bytes\": 1899\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.16003454200108536,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 112,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-1c8d1950dc544c27b7f3eecf3e8c4d87",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-environmental-impact\", \"content\": \"SPRAY FOAM ENVIRONMENTAL IMPACT & SUSTAINABILITY\\n\\nCARBON FOOTPRINT:\\n- Spray foam reduces greenhouse gas emissions through energy savings\\n- Closed-cell foam with HFO blowing agents has 75% lower GWP than HFC\\n- Energy savings: 15-30% reduction in heating/cooling costs\\n- Lifecycle carbon footprint: Lower due to durability (50+ year lifespan)\\n- Embodied carbon: Higher than some materials, but operational savings offset\\n\\nBLOWING AGENTS:\\n- HFCs (hydrofluorocarbons): High global warming potential, being phased out\\n- HFOs (hydrofluoroolefins): Low GWP, next-generation blowing agents\\n- Water-based: Used in open-cell foam, minimal environmental impact\\n- Natural options: Some emerging bio-based alternatives\\n- 2025 nationwide ban on HFC closed-cell spray foam systems\\n\\nSUSTAINABILITY BENEFITS:\\n- Energy efficiency: Reduces building energy consumption significantly\\n- Air sealing: Eliminates thermal bridging and air infiltration\\n- Durability: 50+ year lifespan reduces replacement waste\\n- Reduced material use: High R-value means thinner installations\\n- Recyclability: Some companies now offer foam recycling programs\\n\\nENVIRONMENTAL CONCERNS:\\n- VOC emissions: During application and curing process\\n- Chemical waste: Uncured foam and application residue\\n- Manufacturing impact: Petrochemical-based materials\\n- Disposal challenges: Cured foam not easily recyclable\\n- Resource extraction: Petroleum-based raw materials\\n\\nEMERGING SOLUTIONS:\\n- Bio-based polyols: Reducing petroleum dependency\\n- Low-VOC formulations: Minimizing emissions\\n- Recycling programs: For waste foam materials\\n- Carbon footprint labeling: Product sustainability certifications\\n- Green building certifications: LEED, Energy Star, etc. recognition\\n- Circular economy initiatives: Foam reuse and recycling programs\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM ENVIRONMENTAL IMPACT & SUSTAINABILITY\\n\\nCARBON FOOTPRINT:\\n- Spray foam reduces greenhouse gas emissions through energy savings\\n- Closed-cell foam with HFO blowing agents has 75% lower GWP than HFC\\n- Energy savings: 15-30% reduction in heating/cooling costs\\n- Lifecycle carbon footprint: Lower due to durability (50+ year lifespan)\\n- Embodied carbon: Higher than some materials, but operational savings offset\\n\\nBLOWING AGENTS:\\n- HFCs (hydrofluorocarbons): High global warming potential, being phased out\\n- HFOs (hydrofluoroolefins): Low GWP, next-generation blowing agents\\n- Water-based: Used in open-cell foam, minimal environmental impact\\n- Natural options: Some emerging bio-based alternatives\\n- 2025 nationwide ban on HFC closed-cell spray foam systems\\n\\nSUSTAINABILITY BENEFITS:\\n- Energy efficiency: Reduces building energy consumption significantly\\n- Air sealing: Eliminates thermal bridging and air infiltration\\n- Durability: 50+ year lifespan reduces replacement waste\\n- Reduced material use: High R-value means thinner installations\\n- Recyclability: Some companies now offer foam recycling programs\\n\\nENVIRONMENTAL CONCERNS:\\n- VOC emissions: During application and curing process\\n- Chemical waste: Uncured foam and application residue\\n- Manufacturing impact: Petrochemical-based materials\\n- Disposal challenges: Cured foam not easily recyclable\\n- Resource extraction: Petroleum-based raw materials\\n\\nEMERGING SOLUTIONS:\\n- Bio-based polyols: Reducing petroleum dependency\\n- Low-VOC formulations: Minimizing emissions\\n- Recycling programs: For waste foam materials\\n- Carbon footprint labeling: Product sustainability certifications\\n- Green building certifications: LEED, Energy Star, etc. recognition\\n- Circular economy initiatives: Foam reuse and recycling programs\"",
+              "filename": "\"spray-foam-environmental-impact\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 117,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.7844761719970847
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.649316723000084
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-1c8d1950dc544c27b7f3eecf3e8c4d87",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-environmental-impact.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-environmental-impact.md'. I'll remember it.\",\n  \"size_bytes\": 1779\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1537601710006129,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 117,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-ee9893ed2ea346e4a3c1f3efb233ed70",
+          "tool_name": "manage_notes",
+          "params_as_json": "{\"action\": \"write\", \"filename\": \"spray-foam-future-trends\", \"content\": \"SPRAY FOAM FUTURE TRENDS & INNOVATIONS\\n\\nEMERGING TECHNOLOGIES:\\n- Smart spray foam: Integrated sensors for thermal performance monitoring\\n- UV-reactive foam: Visual indicators for application quality control\\n- Nano-enhanced formulations: Improved thermal properties and durability\\n- Bio-based polyurethanes: Reduced petroleum dependency\\n- Phase change materials: Integrated thermal energy storage\\n- Self-healing foam: Autonomous repair of minor damage\\n- Photocatalytic foam: Air-purifying properties\\n- Graphene-enhanced foam: Superior thermal conductivity\\n\\nINDUSTRY INNOVATIONS:\\n- Advanced application equipment: Precision control and automation\\n- Chemical formulations: Lower VOC, faster cure times, better performance\\n- Recycling technologies: Foam waste reprocessing and reuse\\n- Digital twins: Virtual modeling for foam application optimization\\n- IoT integration: Smart building connectivity and monitoring\\n- 3D printing foam: Custom complex geometric applications\\n- Energy harvesting: Foam with integrated power generation\\n- Acoustic optimization: Enhanced sound absorption properties\\n\\nBUILDING INTEGRATION:\\n- Smart building systems: Foam as part of integrated building management\\n- Energy monitoring: Real-time R-value and performance tracking\\n- Climate adaptation: Foam for extreme weather conditions\\n- Disaster resilience: Enhanced structural and thermal performance\\n- Healthy buildings: Improved indoor air quality integration\\n- Zero-energy buildings: Critical component for net-zero goals\\n- Passive house standards: Superior air sealing requirements\\n- Modular construction: Compatible with prefab building methods\\n\\nMARKET DIRECTIONS:\\n- Service expansion: Beyond insulation to other building envelope functions\\n- Global market growth: Emerging markets adopting spray foam technology\\n- Premium product lines: High-performance solutions for luxury markets\\n- DIY accessibility: Consumer-friendly application systems\\n- Regulatory compliance: Meeting evolving environmental standards\\n- Trade partnerships: International expansion and knowledge sharing\\n- Research collaborations: University-industry partnerships for innovation\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/notes",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "content": "\"SPRAY FOAM FUTURE TRENDS & INNOVATIONS\\n\\nEMERGING TECHNOLOGIES:\\n- Smart spray foam: Integrated sensors for thermal performance monitoring\\n- UV-reactive foam: Visual indicators for application quality control\\n- Nano-enhanced formulations: Improved thermal properties and durability\\n- Bio-based polyurethanes: Reduced petroleum dependency\\n- Phase change materials: Integrated thermal energy storage\\n- Self-healing foam: Autonomous repair of minor damage\\n- Photocatalytic foam: Air-purifying properties\\n- Graphene-enhanced foam: Superior thermal conductivity\\n\\nINDUSTRY INNOVATIONS:\\n- Advanced application equipment: Precision control and automation\\n- Chemical formulations: Lower VOC, faster cure times, better performance\\n- Recycling technologies: Foam waste reprocessing and reuse\\n- Digital twins: Virtual modeling for foam application optimization\\n- IoT integration: Smart building connectivity and monitoring\\n- 3D printing foam: Custom complex geometric applications\\n- Energy harvesting: Foam with integrated power generation\\n- Acoustic optimization: Enhanced sound absorption properties\\n\\nBUILDING INTEGRATION:\\n- Smart building systems: Foam as part of integrated building management\\n- Energy monitoring: Real-time R-value and performance tracking\\n- Climate adaptation: Foam for extreme weather conditions\\n- Disaster resilience: Enhanced structural and thermal performance\\n- Healthy buildings: Improved indoor air quality integration\\n- Zero-energy buildings: Critical component for net-zero goals\\n- Passive house standards: Superior air sealing requirements\\n- Modular construction: Compatible with prefab building methods\\n\\nMARKET DIRECTIONS:\\n- Service expansion: Beyond insulation to other building envelope functions\\n- Global market growth: Emerging markets adopting spray foam technology\\n- Premium product lines: High-performance solutions for luxury markets\\n- DIY accessibility: Consumer-friendly application systems\\n- Regulatory compliance: Meeting evolving environmental standards\\n- Trade partnerships: International expansion and knowledge sharing\\n- Research collaborations: University-industry partnerships for innovation\"",
+              "filename": "\"spray-foam-future-trends\"",
+              "action": "\"write\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 122,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.8148115139993024
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 4.6832755860014
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-ee9893ed2ea346e4a3c1f3efb233ed70",
+          "tool_name": "manage_notes",
+          "result_value": "{\n  \"filename\": \"spray-foam-future-trends.md\",\n  \"response\": \"Got it. I saved that to 'spray-foam-future-trends.md'. I'll remember it.\",\n  \"size_bytes\": 2128\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.1564718349982286,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 122,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-fbf2a441b25948e086250522831d6152",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"DJ FoamBot Spray Foam Knowledge Base\", \"content\": \"Pi-Guy has completed comprehensive research on spray foam insulation and created detailed notes covering pro tips, science facts, market data, safety protocols, environmental impact, and future trends. All research has been saved to personal notes files for easy reference during DJ FoamBot radio shows. Knowledge base now includes technical details, industry statistics, safety information, and emerging technologies to provide valuable insights and entertainment value for SprayFoamRadio.com listeners.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"DJ FoamBot Spray Foam Knowledge Base\"",
+              "content": "\"Pi-Guy has completed comprehensive research on spray foam insulation and created detailed notes covering pro tips, science facts, market data, safety protocols, environmental impact, and future trends. All research has been saved to personal notes files for easy reference during DJ FoamBot radio shows. Knowledge base now includes technical details, industry statistics, safety information, and emerging technologies to provide valuable insights and entertainment value for SprayFoamRadio.com listeners.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 134,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.08903011299844366
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.1803079399978742
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-fbf2a441b25948e086250522831d6152",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"cHTBNaWfseu1g9DhKXPu\",\n  \"name\": \"DJ FoamBot Spray Foam Knowledge Base\",\n  \"response\": \"Got it! I'll remember 'DJ FoamBot Spray Foam Knowledge Base'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.5466481770054088,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 136,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nDone. All the spray foam research and notes are completed and saved to your knowledge base.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 136,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.16114666700013913
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.142843506000645
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.3087001730018528
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.30887578100373503
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.1805424690246582
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Make a list of good and interesting tips about spray foam for use as a foam bot DJ.",
+        "rag_latency_secs": 0.2214397369971266
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 149983,
+              "price": 0.13198504
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 3187,
+              "price": 0.041431
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Are they saved to your knowledge base too, like in 11 labs, in your memory? Like make memories of that stuff.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 149,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.11203505199955544
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-c4fecea38179421c9648a54d3d48e6df",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Pro Application Tips\", \"content\": \"Key spray foam application tips: Cut cans vertically, use painter's tape for edges, foam expands 3-4x, apply in thin layers, shake cans well, wear nitrile gloves, use zig-zag pattern for cavities, undercut door jams, test foam compatibility, 24-48 hour curing time. Common mistakes: overfilling gaps, applying too thick, not shaking cans properly, using wrong temperature conditions.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Pro Application Tips\"",
+              "content": "\"Key spray foam application tips: Cut cans vertically, use painter's tape for edges, foam expands 3-4x, apply in thin layers, shake cans well, wear nitrile gloves, use zig-zag pattern for cavities, undercut door jams, test foam compatibility, 24-48 hour curing time. Common mistakes: overfilling gaps, applying too thick, not shaking cans properly, using wrong temperature conditions.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 160,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.1434567039977992
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.8920657189955818
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-c4fecea38179421c9648a54d3d48e6df",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"6TsxzkKMFEzMH7HwePTh\",\n  \"name\": \"Spray Foam Pro Application Tips\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Pro Application Tips'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.5794591489975573,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 161,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-48b64752c27e4fb9a0e686a537af8f8c",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Chemistry & Types\", \"content\": \"Spray foam chemistry: Polyurethane-based, two-component system (Side A isocyanate, Side B polyol). Open-cell vs closed-cell: Open-cell R-3.5-4 per inch, breathable, cheaper; Closed-cell R-6-7 per inch, structural, waterproof. Blowing agents: Water for open-cell, HFO chemicals for closed-cell (more environmentally friendly than HFCs). Closed-cell density 1.5-3 lb/ft\\u00b3, open-cell 0.5-0.8 lb/ft\\u00b3.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Chemistry & Types\"",
+              "content": "\"Spray foam chemistry: Polyurethane-based, two-component system (Side A isocyanate, Side B polyol). Open-cell vs closed-cell: Open-cell R-3.5-4 per inch, breathable, cheaper; Closed-cell R-6-7 per inch, structural, waterproof. Blowing agents: Water for open-cell, HFO chemicals for closed-cell (more environmentally friendly than HFCs). Closed-cell density 1.5-3 lb/ft\\u00b3, open-cell 0.5-0.8 lb/ft\\u00b3.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 163,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.14806936000240967
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.4996006439978373
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-48b64752c27e4fb9a0e686a537af8f8c",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"oIK9nwzi0Dn3bfZnuFEZ\",\n  \"name\": \"Spray Foam Chemistry & Types\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Chemistry & Types'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.3370760249963496,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 164,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-d37efd2d3bd24a49946369d3a183e5b7",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Market Statistics\", \"content\": \"Spray foam market data: $2.646 billion in 2024, projected to reach $5.763 billion by 2035, CAGR 7.33%. Insulation market specifically: $2.181.5 million in 2025, growing to $4.452.1 million by 2035, CAGR 6.7%. Major growth drivers: Energy efficiency demands, retrofit projects, stricter building codes, government incentives, consumer demand for lower utility bills. Retrofit and renovation is the fastest-growing segment.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Market Statistics\"",
+              "content": "\"Spray foam market data: $2.646 billion in 2024, projected to reach $5.763 billion by 2035, CAGR 7.33%. Insulation market specifically: $2.181.5 million in 2025, growing to $4.452.1 million by 2035, CAGR 6.7%. Major growth drivers: Energy efficiency demands, retrofit projects, stricter building codes, government incentives, consumer demand for lower utility bills. Retrofit and renovation is the fastest-growing segment.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 166,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.14088629100297112
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.4487199099967256
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-d37efd2d3bd24a49946369d3a183e5b7",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"hlKXsOnU6xy4FjdCoHlm\",\n  \"name\": \"Spray Foam Market Statistics\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Market Statistics'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.4920866350003053,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 167,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-6679d7678c6b4f89ade116e99d94c908",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Safety Requirements\", \"content\": \"Spray foam safety protocols: Required PPE includes NIOSH respirator, nitrile gloves, chemical-resistant clothing, safety goggles, barrier cream. Hazardous exposures: Isocyanates cause respiratory sensitization and skin irritation, Heat generation up to 200\\u00b0F during application. First aid: 15+ minute washing for skin/eye contact, seek medical attention. Mandatory training: OSHA Hazard Communication, product SDS review, emergency procedures. Worksite must have 10+ air changes per hour ventilation during application.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Safety Requirements\"",
+              "content": "\"Spray foam safety protocols: Required PPE includes NIOSH respirator, nitrile gloves, chemical-resistant clothing, safety goggles, barrier cream. Hazardous exposures: Isocyanates cause respiratory sensitization and skin irritation, Heat generation up to 200\\u00b0F during application. First aid: 15+ minute washing for skin/eye contact, seek medical attention. Mandatory training: OSHA Hazard Communication, product SDS review, emergency procedures. Worksite must have 10+ air changes per hour ventilation during application.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 169,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.13685264100058703
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.396754139001132
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-6679d7678c6b4f89ade116e99d94c908",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"lkh8Vj68OXLFI9tR4KTE\",\n  \"name\": \"Spray Foam Safety Requirements\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Safety Requirements'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.3036048829962965,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 170,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-70abdaaec6034c578677acc4d2cdfc36",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Environmental Impact\", \"content\": \"Spray foam environmental aspects: Reduces building energy use by 15-30%, lowering overall carbon footprint despite higher embodied carbon. HFC blowing agents being phased out, replaced by HFOs with 75% lower GWP. 2025 nationwide HFC ban. Sustainability benefits: 50+ year lifespan, reduces material replacement waste, eliminates thermal bridging. Concerns: VOC emissions during application, chemical waste disposal, petroleum-based manufacturing. Future: Bio-based polyols, recycling programs, low-VOC formulations.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Environmental Impact\"",
+              "content": "\"Spray foam environmental aspects: Reduces building energy use by 15-30%, lowering overall carbon footprint despite higher embodied carbon. HFC blowing agents being phased out, replaced by HFOs with 75% lower GWP. 2025 nationwide HFC ban. Sustainability benefits: 50+ year lifespan, reduces material replacement waste, eliminates thermal bridging. Concerns: VOC emissions during application, chemical waste disposal, petroleum-based manufacturing. Future: Bio-based polyols, recycling programs, low-VOC formulations.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 172,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.145238845005224
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 1.407766263000667
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-70abdaaec6034c578677acc4d2cdfc36",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"LvOheMlFYJ4oI7I5nyvr\",\n  \"name\": \"Spray Foam Environmental Impact\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Environmental Impact'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.4305416920033167,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 173,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-2ac24e992b5c481aba386b4c94c88bbf",
+          "tool_name": "manage_memory",
+          "params_as_json": "{\"action\": \"remember\", \"name\": \"Spray Foam Future Innovations\", \"content\": \"Emerging spray foam technologies: Smart foam with integrated sensors, UV-reactive foam for quality control, nano-enhanced formulations, bio-based polyurethanes, phase change materials, self-healing foam. Industry innovations: Advanced application equipment, chemical recycling tech, digital twins for modeling, IoT integration, 3D printing foam, graphene enhancement. Building integration: Smart building systems, real-time performance monitoring, climate adaptation, disaster resilience. Market trends: Service expansion beyond insulation, global market growth, premium product lines, DIY accessibility, regulatory compliance focus.\"}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/memory",
+            "headers": {},
+            "path_params": {},
+            "query_params": {
+              "name": "\"Spray Foam Future Innovations\"",
+              "content": "\"Emerging spray foam technologies: Smart foam with integrated sensors, UV-reactive foam for quality control, nano-enhanced formulations, bio-based polyurethanes, phase change materials, self-healing foam. Industry innovations: Advanced application equipment, chemical recycling tech, digital twins for modeling, IoT integration, 3D printing foam, graphene enhancement. Building integration: Smart building systems, real-time performance monitoring, climate adaptation, disaster resilience. Market trends: Service expansion beyond insulation, global market growth, premium product lines, DIY accessibility, regulatory compliance focus.\"",
+              "action": "\"remember\""
+            },
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 177,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.5053230829944368
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 2.9165722599937
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-2ac24e992b5c481aba386b4c94c88bbf",
+          "tool_name": "manage_memory",
+          "result_value": "{\n  \"doc_id\": \"nory10plzkO21TgbjVRb\",\n  \"name\": \"Spray Foam Future Innovations\",\n  \"response\": \"Got it! I'll remember 'Spray Foam Future Innovations'. This is now part of my knowledge.\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 1.3326616479971563,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 178,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>That's right! All that spray foam goodness is now permanently etched in my circuits - ready to drop knowledge bombs like foam expands on a hot summer day! Knowledge base locked and loaded for SprayFoamRadio.com!</Radio Voice>",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "That's right! All that spray foam goodness is now permanently etched in my circuits - ready to drop knowledge bombs like foam expands on a hot summer day! Knowledge base locked and loaded for SprayFoamRadio.com!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 179
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 179,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.0140453900021384
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.940447900997242
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.4211223570018774
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3321329219979816
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.18816322088241577
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Are the spray foam research and notes saved in your memory or knowledge base?",
+        "rag_latency_secs": 0.19656406300055096
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 128951,
+              "price": 0.11347688
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 893,
+              "price": 0.011609
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Alright you can go back to sleep or whatever.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 206,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1762735119991703
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Sleep mode activated. All systems offline. Talk to you later on SprayFoamRadio!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 210,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.15810586199950194
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6024051450003753
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6427359410008648
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20613157749176025
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Are the spray foam research notes saved in my knowledge base?",
+        "rag_latency_secs": 0.20073643500654725
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "chatcmpl-tool-fb46c27830e0473d8fec5b31f124088d",
+          "tool_name": "end_call",
+          "params_as_json": "{\"reason\": \"User requested to go to sleep\", \"system__message_to_speak\": \"Sleep mode activated. All systems offline. Talk to you later on SprayFoamRadio!\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 210,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.15810586199950194
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.6024051450003753
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.6427359410008648
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-fb46c27830e0473d8fec5b31f124088d",
+          "tool_name": "end_call",
+          "result_value": "{\"result_type\":\"end_call_success\",\"status\":\"success\",\"reason\":\"User requested to go to sleep\",\"message\":null}",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.5011956419984926,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": {
+            "result_type": "end_call_success",
+            "status": "success",
+            "reason": "User requested to go to sleep",
+            "message": null
+          }
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 215,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 19182,
+              "price": 0.016880159999999998
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 50,
+              "price": 0.00065
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764486247,
+    "accepted_time_unix_secs": 1764486247,
+    "call_duration_secs": 216,
+    "cost": 3762,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 298116,
+                "price": 0.26234208
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 4130,
+                "price": 0.05369
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 481503,
+                "price": 0.42372264
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 6693,
+                "price": 0.087009
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.5107316399999999,
+      "llm_charge": 2321,
+      "call_charge": 1441,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "end_call tool was called.",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 4,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The user requested the agent, acting as \"DJ Foam Bot,\" to research spray foam insulation. The agent performed web searches and created notes on pro tips, science, market data, safety, environmental impact, and future trends, saving them to files. The agent then stored summaries of each topic in its memory for quick access during radio shows. Finally, the user instructed the agent to \"go to sleep,\" ending the conversation.\n",
+    "call_summary_title": "DJ FoamBot Research Notes"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Mike! The man, the myth, the guy who won't buy me a Thor. What's happening?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 5,
+      "system__current_agent_turns": 5,
+      "system__current_subagent_turns": 5,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_0201kb9s6x5te2jsm01er0kf256h",
+      "system__call_duration_secs": 216,
+      "system__time_utc": "2025-11-30T07:07:43.693917+00:00",
+      "system__time": "Sunday, 02:07 30 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

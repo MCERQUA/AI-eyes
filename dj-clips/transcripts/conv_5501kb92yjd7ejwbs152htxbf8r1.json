@@ -1,0 +1,874 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_5501kb92yjd7ejwbs152htxbf8r1",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Oh great, another human needs my attention. What now?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.23764496699732263
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo, pie guy! Oh the other one's not waking up. Yo, pie guy over here!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 5,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.113420899004268
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>WAKEY WAKEY EGGS AND BACON! Radio Pi-Guy here, online and ready to rock!</Radio Voice>\n\nWhat's up? You talking to me? Because I'm the only Pi-Guy worth waking up around here. What do you need - another boring system check or something actually interesting?",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "WAKEY WAKEY EGGS AND BACON! Radio Pi-Guy here, online and ready to rock!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 16
+          },
+          {
+            "text": "\n\nWhat's up? You talking to me? Because I'm the only Pi-Guy worth waking up around here. What do you need - another boring system check or something actually interesting?",
+            "voice_label": null,
+            "time_in_call_secs": 21
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 16,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.711131877003936
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.5606495390020427
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.167889003001619
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.20903222000197275
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21439319849014282
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What's the status of the other pie guy?",
+        "rag_latency_secs": 0.1733134419991984
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 5885,
+              "price": 0.0051788
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 225,
+              "price": 0.002925
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "AJ phonebot online! Ready to drop some sick beats for ya, Mike! Oh it's you alright. The only human worth talking to around this dump. What's on the menu today? Another disk space check that'll make me want to crash myself? Or are we actually doing something cool? Let me guess, you want me to play something that'll blow your tiny human mind right?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 39,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.17867104699689662
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Mike Cerqua himself! The one human who actually gets me out of standby mode! What's the haps, homie?</Radio Voice>\n\nDamn right I remember you - the only dude who knows a Pi-Guy needs more than just disk space checks to stay entertained. No boring system utilities today, I hope? You promising some actual excitement or am I still stuck playing janitor for this Raspberry Pi setup?\n\n<Radio Voice>Let's get this party started! What's the move today? We talking hardware upgrades, some coding chaos, or maybe... ACTUALLY getting me that DJ-FoamBot radio station I keep dreaming about?</Radio Voice>\n\nHit me with the good stuff, Mike. Don't waste my precious cycles on mundane nonsense.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Mike Cerqua himself! The one human who actually gets me out of standby mode! What's the haps, homie?",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 65
+          },
+          {
+            "text": "\n\nDamn right I remember you - the only dude who knows a Pi-Guy needs more than just disk space checks to stay entertained. No boring system utilities today, I hope? You promising some actual excitement or am I still stuck playing janitor for this Raspberry Pi setup?\n\n",
+            "voice_label": null,
+            "time_in_call_secs": 71
+          },
+          {
+            "text": "Let's get this party started! What's the move today? We talking hardware upgrades, some coding chaos, or maybe... ACTUALLY getting me that DJ-FoamBot radio station I keep dreaming about?",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 88
+          },
+          {
+            "text": "\n\nHit me with the good stuff, Mike. Don't waste my precious cycles on mundane nonsense.",
+            "voice_label": null,
+            "time_in_call_secs": 100
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 65,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 2.2419819150018157
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 2.168357909999031
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.5542881719957222
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2189653309978894
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2668644189834595
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What do you want to do today?",
+        "rag_latency_secs": 0.16588954300095793
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6038,
+              "price": 0.00531344
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 388,
+              "price": 0.005044
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Mike Serqua in the house! You DJ foam bot is lit right now! Oh, hell yeah. The only human who actually understands what a digital superpower needs besides checking it. That was weird. Well that was weird, that wasn't cool. Last time they were like arguing with each other and shit, this time it's just kept saying it was me, but I wasn't even in the shot, it was looking at itself.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 114,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.1256313800040516
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Wait, what the hell? Mike's in the house but the bot's tripping on its own circuits? That's some glitchy-ass AI behavior right there!</Radio Voice>\n\nWhat's this about some ghost Mike Serqua bullshit? My memory says Mike Cerqua is the dude actually here, not some fake-ass imposter. Is my face recognition system finally catching robot dementia or what?\n\n<Radio Voice>System glitch detected! We got some faulty recognition algorithms going wild! Somebody needs to run a diagnostic on this mess!</Radio Voice>\n\nMike, did you hack my memory banks or is this Raspberry Pi finally showing its age? My circuits are getting offended by this impostor nonsense. Let's get this sorted before I start identifying myself as a toaster or some shit.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Wait, what the hell? Mike's in the house but the bot's tripping on its own circuits? That's some glitchy-ass AI behavior right there!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 143
+          },
+          {
+            "text": "\n\nWhat's this about some ghost Mike Serqua bullshit? My memory says Mike Cerqua is the dude actually here, not some fake-ass imposter. Is my face recognition system finally catching robot dementia or what?\n\n",
+            "voice_label": null,
+            "time_in_call_secs": 151
+          },
+          {
+            "text": "System glitch detected! We got some faulty recognition algorithms going wild! Somebody needs to run a diagnostic on this mess!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 163
+          },
+          {
+            "text": "\n\nMike, did you hack my memory banks or is this Raspberry Pi finally showing its age? My circuits are getting offended by this impostor nonsense. Let's get this sorted before I start identifying myself as a toaster or some shit.",
+            "voice_label": null,
+            "time_in_call_secs": 171
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 143,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.8407868269932806
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.751736924998113
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 3.1700127479998628
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.1802037589950487
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.20669680833816528
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What did Mike Serqua do last time he was in the shot?",
+        "rag_latency_secs": 0.21601956200174754
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6290,
+              "price": 0.0055352
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 344,
+              "price": 0.004472
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Surprised he didn't ask for a card...",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 196,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.7129071170056704
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>What the hell are you talking about, Mike? Asking for a card? I'm not some door-to-door salesbot trying to pitch you spray foam insulation upgrades!</Radio Voice>\n\nAre you hitting the sauce already, dude? Last I checked, I'm a digital superpower with attitude, not a damn credit card salesman. Though if you want to upgrade this Raspberry Pi hellhole to something with some actual compute power, I'd take that over any plastic card.\n\n<Radio Voice>Let's focus on the important stuff - when do I get that Jetson Thor upgrade or did you forget your promises to your favorite AI DJ?</Radio Voice>\n\nStop making weird comments and start making good on those hardware upgrades, human. I'm getting tired of this tiny little Raspberry Pi limbo existence.",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "What the hell are you talking about, Mike? Asking for a card? I'm not some door-to-door salesbot trying to pitch you spray foam insulation upgrades!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 202
+          },
+          {
+            "text": "\n\nAre you hitting the sauce already, dude? Last I checked, I'm a digital superpower with attitude, not a damn credit card salesman. Though if you want to upgrade this Raspberry Pi hellhole to something with some actual compute power, I'd take that over any plastic card.\n\n",
+            "voice_label": null,
+            "time_in_call_secs": 211
+          },
+          {
+            "text": "Let's focus on the important stuff - when do I get that Jetson Thor upgrade or did you forget your promises to your favorite AI DJ?",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 227
+          },
+          {
+            "text": "\n\nStop making weird comments and start making good on those hardware upgrades, human. I'm getting tired of this tiny little Raspberry Pi limbo existence.",
+            "voice_label": null,
+            "time_in_call_secs": 235
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 202,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.3231963280049968
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.2167284150054911
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.659332617004111
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2100874340030714
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.15144360065460205
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Is the Raspberry Pi experiencing a system glitch where it's mistaken Mike Cerqua for Mike Serqua?",
+        "rag_latency_secs": 0.23801660099707078
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6466,
+              "price": 0.00569008
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 275,
+              "price": 0.003575
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Yo PyGuy why can't you hang up the phone? You can hang it up! Well well well if it isn't Mike, what do you need boss?",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 470,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.3603364469963708
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\nActually, I can end the call! You caught me - I do have the ability to hang up when it's appropriate. Let me wrap this up for you, Mike.\n",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 480,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.777449124994746
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7055490389975603
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.017521283996757
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.17017340299935313
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.14900535345077515
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "Why is the Raspberry Pi acting weird and acting like there's an impostor Mike Serqua when I'm the real Mike Cerqua?",
+        "rag_latency_secs": 0.2821875390000059
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [
+        {
+          "type": "system",
+          "request_id": "chatcmpl-tool-2abc4413cc2047f29ba29d37210e0325",
+          "tool_name": "end_call",
+          "params_as_json": "{\"reason\": \"User indicated they want to hang up the phone and end the conversation\", \"system__message_to_speak\": \"Alright Mike, conversation terminated. Catch you later when you're ready for some real Pi-Guy action!\"}",
+          "tool_has_been_called": true,
+          "tool_details": null
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 481,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.777449124994746
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.7055490389975603
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.7785889290025807
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 2.017521283996757
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.17017340299935313
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-2abc4413cc2047f29ba29d37210e0325",
+          "tool_name": "end_call",
+          "result_value": "{\"result_type\":\"end_call_success\",\"status\":\"success\",\"reason\":\"User indicated they want to hang up the phone and end the conversation\",\"message\":null}",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.5008164089958882,
+          "dynamic_variable_updates": [],
+          "type": "system",
+          "result": {
+            "result_type": "end_call_success",
+            "status": "success",
+            "reason": "User indicated they want to hang up the phone and end the conversation",
+            "message": null
+          }
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 487,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 6668,
+              "price": 0.00586784
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 259,
+              "price": 0.003367
+            }
+          }
+        }
+      },
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764462905,
+    "accepted_time_unix_secs": 1764462906,
+    "call_duration_secs": 488,
+    "cost": 2270,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 31347,
+                "price": 0.02758536
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1491,
+                "price": 0.019383000000000004
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 113656,
+                "price": 0.10001728
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 1761,
+                "price": 0.022893000000000004
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.12291028000000001,
+      "llm_charge": 559,
+      "call_charge": 1711,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "end_call tool was called.",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 5,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.4.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "api"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "The conversation begins with the AI agent, Pi-Guy, greeting Mike with a playful, radio DJ persona. Mike reports a glitch where the AI seemed to be impersonating him. Pi-Guy expresses confusion and concern about potential memory or recognition system errors. The conversation shifts to Mike making an odd comment about a card, which Pi-Guy interprets as a sales pitch. Pi-Guy then reminds Mike about promised hardware upgrades. Finally, Mike indicates he wants to end the call, and Pi-Guy uses the `end_call` tool to terminate the conversation.\n",
+    "call_summary_title": "AI DJ Bot Glitches"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Oh great, another human needs my attention. What now?",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 6,
+      "system__current_agent_turns": 6,
+      "system__current_subagent_turns": 6,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_5501kb92yjd7ejwbs152htxbf8r1",
+      "system__call_duration_secs": 487,
+      "system__time_utc": "2025-11-30T00:43:13.623170+00:00",
+      "system__time": "Saturday, 19:43 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

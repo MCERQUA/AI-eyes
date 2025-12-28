@@ -1,0 +1,4284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pi-Guy Voice Agent</title>
+
+    <!-- iOS Safari Audio Fix - MUST BE FIRST SCRIPT -->
+    <script>
+    (function(){
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!window.AudioContext) return;
+
+        window.audioContext = new window.AudioContext();
+        var audioUnlocked = false;
+
+        function unlockAudio() {
+            if (audioUnlocked) return;
+
+            // Create and play silent buffer to "unlock" audio
+            var buffer = window.audioContext.createBuffer(1, 1, 22050);
+            var source = window.audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(window.audioContext.destination);
+            source.start ? source.start(0) : source.noteOn(0);
+
+            // Resume if suspended
+            window.audioContext.resume().then(function() {
+                audioUnlocked = true;
+                console.log('[iOS Fix] Audio unlocked, state:', window.audioContext.state);
+            }).catch(function(e) {
+                console.log('[iOS Fix] Resume failed:', e);
+            });
+        }
+
+        // Listen for ALL user gestures
+        ['touchstart', 'touchend', 'click', 'keydown'].forEach(function(event) {
+            document.addEventListener(event, unlockAudio, { passive: true });
+        });
+
+        // Expose for debugging
+        window.isAudioUnlocked = function() { return audioUnlocked; };
+    })();
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --blue: #0088ff;
+            --blue-dim: #0055aa;
+            --blue-bright: #00aaff;
+            --cyan: #00ffff;
+            --green: #00ff66;
+            --yellow: #ffdd00;
+            --orange: #ff6600;
+            --red: #ff2244;
+            --dark-bg: #050508;
+            --panel-bg: #0a0a12;
+        }
+
+        body {
+            background: var(--dark-bg);
+            font-family: 'Courier New', monospace;
+            color: var(--blue);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0,136,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,136,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Main face area */
+        .face-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Eyes container */
+        .eyes-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .eye {
+            position: relative;
+            width: 120px;
+            height: 140px;
+        }
+
+        .eye-white {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #ffffff 0%, #e8e8e8 70%, #cccccc 100%);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow:
+                0 0 30px rgba(0, 136, 255, 0.3),
+                inset 0 -10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .pupil-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.1s ease-out;
+        }
+
+        .pupil {
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle at 30% 30%, #333 0%, #000 70%);
+            border-radius: 50%;
+            position: relative;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .pupil::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            top: 8px;
+            left: 8px;
+        }
+
+        .pupil::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            top: 20px;
+            right: 12px;
+        }
+
+        /* Eyelids */
+        .eyelid-top {
+            position: absolute;
+            width: 130%;
+            height: 75%;
+            background: var(--dark-bg);
+            top: -60%;
+            left: -15%;
+            border-radius: 0 0 50% 50%;
+            transition: transform 0.15s ease-in-out;
+            z-index: 10;
+        }
+
+        .eyelid-bottom {
+            position: absolute;
+            width: 130%;
+            height: 40%;
+            background: var(--dark-bg);
+            bottom: -35%;
+            left: -15%;
+            border-radius: 50% 50% 0 0;
+            transition: transform 0.15s ease-in-out;
+            z-index: 10;
+        }
+
+        /* Eye cap - cover the tip of the eye at top */
+        .eye-cap-top {
+            position: absolute;
+            width: 120%;
+            height: 27px;
+            background: var(--dark-bg);
+            top: -15px;
+            left: -10%;
+            z-index: 11;
+        }
+
+        /* Blink animation */
+        .eye.blinking .eyelid-top {
+            transform: translateY(90%);
+        }
+
+        .eye.blinking .eyelid-bottom {
+            transform: translateY(-30%);
+        }
+
+        /* Mood: Angry */
+        .eye.angry .eyelid-top {
+            transform: translateY(40%) rotate(var(--angry-rotate, 0deg));
+        }
+
+        .left-eye.angry .eyelid-top {
+            --angry-rotate: 15deg;
+            transform-origin: right center;
+        }
+
+        .right-eye.angry .eyelid-top {
+            --angry-rotate: -15deg;
+            transform-origin: left center;
+        }
+
+        /* Mood: Sad */
+        .eye.sad .eyelid-top {
+            transform: translateY(30%) rotate(var(--sad-rotate, 0deg));
+        }
+
+        .left-eye.sad .eyelid-top {
+            --sad-rotate: -10deg;
+            transform-origin: left center;
+        }
+
+        .right-eye.sad .eyelid-top {
+            --sad-rotate: 10deg;
+            transform-origin: right center;
+        }
+
+        /* Mood: Happy */
+        .eye.happy .eyelid-bottom {
+            transform: translateY(-60%);
+        }
+
+        /* Mood: Thinking */
+        .eye.thinking .pupil-container {
+            transform: translate(15px, -15px) !important;
+        }
+
+        .left-eye.thinking .eyelid-top {
+            transform: translateY(25%);
+        }
+
+        /* Mood: Surprised */
+        .eye.surprised .eye-white {
+            transform: scale(1.1);
+        }
+
+        .eye.surprised .pupil {
+            transform: scale(0.8);
+        }
+
+        /* Mood: Listening */
+        .eye.listening .pupil {
+            animation: listening-pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes listening-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Waveform mouth */
+        .mouth-container {
+            width: 200px;
+            height: 60px;
+            position: relative;
+            z-index: 10;
+        }
+
+        #waveform-canvas {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px var(--cyan));
+        }
+
+        /* Status indicator */
+        .status-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: var(--blue-dim);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--blue-dim);
+            transition: background 0.3s;
+        }
+
+        .status-dot.connected {
+            background: var(--green);
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        .status-dot.connecting {
+            background: var(--yellow);
+            animation: pulse-dot 0.5s ease-in-out infinite;
+        }
+
+        .status-dot.speaking {
+            background: var(--cyan);
+            animation: pulse-dot 0.3s ease-in-out infinite;
+        }
+
+        .status-dot.listening {
+            background: var(--green);
+            animation: pulse-dot 0.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Mood label */
+        .mood-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 0.8rem;
+            color: var(--blue-dim);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Control buttons - left side vertical layout */
+        .controls-container {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 100;
+        }
+
+        /* Call button */
+        .call-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--green);
+            background: var(--panel-bg);
+            color: var(--green);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .call-button:hover {
+            box-shadow: 0 0 30px rgba(0, 255, 102, 0.5);
+            transform: scale(1.1);
+        }
+
+        .call-button.active {
+            border-color: var(--red);
+            color: var(--red);
+            background: rgba(255, 34, 68, 0.2);
+        }
+
+        .call-button.active:hover {
+            box-shadow: 0 0 30px rgba(255, 34, 68, 0.5);
+        }
+
+        .call-button.connecting {
+            border-color: var(--yellow);
+            color: var(--yellow);
+            animation: connecting-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes connecting-pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 221, 0, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(255, 221, 0, 0.6); }
+        }
+
+        /* Wake word button */
+        .wake-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--blue-dim);
+            background: var(--panel-bg);
+            color: var(--blue-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .wake-button:hover {
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.5);
+            border-color: var(--blue);
+        }
+
+        .wake-button.active {
+            border-color: var(--green);
+            color: var(--green);
+            box-shadow: 0 0 20px rgba(0, 255, 102, 0.4);
+            animation: wake-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes wake-pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 255, 102, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(0, 255, 102, 0.6); }
+        }
+
+        /* Camera button */
+        .camera-button {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            min-height: 60px;
+            border-radius: 50%;
+            border: 3px solid var(--blue-dim);
+            background: var(--panel-bg);
+            color: var(--blue-dim);
+            font-size: 1.4rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .camera-button:hover {
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.5);
+            border-color: var(--blue);
+        }
+
+        .camera-button.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+        }
+
+        .camera-button .camera-icon {
+            position: absolute;
+            z-index: 2;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: opacity 0.3s;
+        }
+
+        .camera-button.active .camera-icon {
+            opacity: 0.7;
+            font-size: 0.9rem;
+            top: 3px;
+            right: 3px;
+        }
+
+        .camera-button video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .camera-button.active video {
+            opacity: 1;
+        }
+
+        /* Music button */
+        .music-button {
+            width: 60px;
+            height: 60px;
+            min-width: 60px;
+            min-height: 60px;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            border: 2px solid var(--blue-dim);
+            color: var(--blue-dim);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .music-button:hover {
+            box-shadow: 0 0 20px rgba(0, 136, 255, 0.5);
+            border-color: var(--blue);
+        }
+
+        .music-button.playing {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            animation: music-pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes music-pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 255, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 255, 0.7); }
+        }
+
+        /* Now Playing display */
+        .now-playing {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--panel-bg);
+            border: 1px solid var(--cyan);
+            border-radius: 12px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .now-playing.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .now-playing .track-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .now-playing .track-label {
+            font-size: 0.7rem;
+            color: var(--blue-dim);
+        }
+
+        .now-playing .track-name {
+            color: var(--cyan);
+            font-size: 0.9rem;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .now-playing .music-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .now-playing .music-controls button {
+            background: none;
+            border: 1px solid var(--blue-dim);
+            color: var(--blue);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .now-playing .music-controls button:hover {
+            border-color: var(--cyan);
+            color: var(--cyan);
+        }
+
+        .now-playing .volume-slider {
+            width: 60px;
+            height: 4px;
+            -webkit-appearance: none;
+            background: var(--blue-dim);
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+        /* Playlist selector */
+        .playlist-selector {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .playlist-selector select {
+            background: var(--panel-bg);
+            border: 1px solid var(--blue-dim);
+            color: var(--cyan);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .playlist-selector select:hover,
+        .playlist-selector select:focus {
+            border-color: var(--cyan);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+        }
+
+        .playlist-selector select option {
+            background: #0a0a14;
+            color: var(--cyan);
+        }
+
+        .now-playing .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--cyan);
+            cursor: pointer;
+        }
+
+        /* Autoplay toggle */
+        .autoplay-toggle {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: 10px;
+        }
+
+        .autoplay-toggle label {
+            color: var(--text-dim);
+            font-size: 0.7rem;
+            cursor: pointer;
+        }
+
+        .autoplay-toggle input[type="checkbox"] {
+            width: 14px;
+            height: 14px;
+            cursor: pointer;
+            accent-color: var(--cyan);
+        }
+
+        .autoplay-toggle.enabled label {
+            color: var(--cyan);
+        }
+
+        /* Transcription display - above the face */
+        .transcription-display {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--panel-bg);
+            border: 1px solid var(--blue-dim);
+            border-radius: 8px;
+            padding: 12px 20px;
+            max-width: 70%;
+            max-height: 120px;
+            overflow-y: auto;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 50;
+        }
+
+        .transcription-display #transcription-text {
+            max-height: 100px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        /* Custom scrollbar for transcription */
+        .transcription-display::-webkit-scrollbar,
+        .transcription-display #transcription-text::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .transcription-display::-webkit-scrollbar-track,
+        .transcription-display #transcription-text::-webkit-scrollbar-track {
+            background: rgba(0, 100, 150, 0.2);
+            border-radius: 3px;
+        }
+
+        .transcription-display::-webkit-scrollbar-thumb,
+        .transcription-display #transcription-text::-webkit-scrollbar-thumb {
+            background: var(--blue-dim);
+            border-radius: 3px;
+        }
+
+        .transcription-display::-webkit-scrollbar-thumb:hover,
+        .transcription-display #transcription-text::-webkit-scrollbar-thumb:hover {
+            background: var(--cyan);
+        }
+
+        .transcription-display.visible {
+            opacity: 1;
+        }
+
+        .transcription-display .label {
+            font-size: 0.7rem;
+            color: var(--blue-dim);
+            margin-bottom: 5px;
+        }
+
+        /* Face recognition notification */
+        .face-notification {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--panel-bg);
+            border: 1px solid var(--green);
+            border-radius: 8px;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 51;
+            color: var(--green);
+        }
+        .face-notification.visible {
+            opacity: 1;
+        }
+
+        .transcription-display.user .label { color: var(--green); }
+        .transcription-display.agent .label { color: var(--cyan); }
+
+        /* Agent ID input modal */
+        .setup-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .setup-modal.hidden {
+            display: none;
+        }
+
+        .setup-box {
+            background: var(--panel-bg);
+            border: 1px solid var(--blue);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .setup-box h2 {
+            color: var(--cyan);
+            margin-bottom: 20px;
+        }
+
+        .setup-box p {
+            color: var(--blue-dim);
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        .setup-box input {
+            width: 100%;
+            padding: 12px;
+            background: var(--dark-bg);
+            border: 1px solid var(--blue-dim);
+            border-radius: 6px;
+            color: var(--blue);
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .setup-box input:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        }
+
+        .setup-box button {
+            padding: 12px 30px;
+            background: var(--blue);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .setup-box button:hover {
+            background: var(--cyan);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Error message - above the face */
+        .error-message {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 34, 68, 0.2);
+            border: 1px solid var(--red);
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: var(--red);
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 60;
+        }
+
+        .error-message.visible {
+            opacity: 1;
+        }
+
+        /* Community Panel */
+        .community-panel {
+            position: fixed;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 900;
+        }
+
+        .community-toggle {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--panel-bg);
+            border: 1px solid var(--blue-dim);
+            border-right: none;
+            border-radius: 10px 0 0 10px;
+            padding: 15px 8px;
+            cursor: pointer;
+            color: var(--blue-dim);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .community-toggle:hover {
+            background: var(--blue-dim);
+            color: white;
+        }
+
+        .community-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: var(--blue-dim);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        .community-close:hover {
+            color: var(--red);
+        }
+
+        .community-content {
+            position: absolute;
+            right: -320px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            max-height: 80vh;
+            background: var(--panel-bg);
+            border: 1px solid var(--blue);
+            border-radius: 10px 0 0 10px;
+            padding: 15px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+
+        .community-content.open {
+            right: 0;
+        }
+
+        .community-content h3 {
+            color: var(--cyan);
+            margin-bottom: 15px;
+            font-size: 1rem;
+            border-bottom: 1px solid var(--blue-dim);
+            padding-bottom: 10px;
+        }
+
+        .community-list {
+            list-style: none;
+            margin-bottom: 15px;
+        }
+
+        .community-list li {
+            padding: 6px 10px;
+            margin: 3px 0;
+            font-size: 0.85rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--blue);
+        }
+
+        .community-list li .confidence {
+            font-size: 0.75rem;
+            color: var(--blue-dim);
+            font-style: italic;
+        }
+
+        .community-list li .confidence.high {
+            color: var(--green);
+        }
+
+        .community-list li .confidence.medium {
+            color: var(--yellow);
+        }
+
+        .community-list li .confidence.low {
+            color: var(--orange);
+        }
+
+        /* My Face Section */
+        .my-face-section {
+            border-top: 1px solid var(--blue-dim);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .my-face-section h4 {
+            color: var(--cyan);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .my-face-photos {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .my-face-photos .photo-item {
+            position: relative;
+            width: 50px;
+            height: 50px;
+        }
+
+        .my-face-photos .photo-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid var(--blue-dim);
+        }
+
+        .my-face-photos .photo-item .delete-photo {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 18px;
+            height: 18px;
+            background: var(--red);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 10px;
+            cursor: pointer;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .my-face-photos .photo-item:hover .delete-photo {
+            display: flex;
+        }
+
+        .my-face-info {
+            font-size: 0.75rem;
+            color: var(--blue-dim);
+            margin-bottom: 10px;
+        }
+
+        .face-register {
+            border-top: 1px solid var(--blue-dim);
+            padding-top: 15px;
+            margin-top: 10px;
+        }
+
+        .face-register h4 {
+            color: var(--green);
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .face-register input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: var(--dark-bg);
+            border: 1px solid var(--blue-dim);
+            border-radius: 5px;
+            color: var(--blue);
+            font-family: 'Courier New', monospace;
+        }
+
+        .face-register-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .face-register button {
+            flex: 1;
+            padding: 8px;
+            background: var(--blue);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .face-register button:hover {
+            background: var(--blue-bright);
+        }
+
+        .face-register button:disabled {
+            background: var(--blue-dim);
+            cursor: not-allowed;
+        }
+
+        .face-register .upload-btn {
+            background: var(--green);
+        }
+
+        .face-register .upload-btn:hover {
+            background: #00cc55;
+        }
+
+        .photo-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin: 10px 0;
+        }
+
+        .photo-preview img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid var(--blue-dim);
+        }
+
+        .register-status {
+            font-size: 0.75rem;
+            color: var(--cyan);
+            margin-top: 10px;
+        }
+
+        /* Mobile: Move controls to bottom */
+        @media (max-width: 768px) {
+            .controls-container {
+                position: fixed;
+                left: 50%;
+                top: auto;
+                bottom: 20px;
+                transform: translateX(-50%);
+                flex-direction: row;
+                gap: 20px;
+            }
+
+            .call-button,
+            .wake-button,
+            .camera-button,
+            .music-button {
+                width: 55px;
+                height: 55px;
+                min-width: 55px;
+                min-height: 55px;
+                font-size: 1.2rem;
+            }
+
+            .now-playing {
+                bottom: 100px;
+                padding: 8px 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .now-playing .track-name {
+                max-width: 150px;
+            }
+
+            .transcription-display {
+                top: auto;
+                bottom: 100px;
+                max-width: 90%;
+            }
+
+            .error-message {
+                top: auto;
+                bottom: 100px;
+            }
+        }
+    </style>
+    <!-- Clerk Authentication -->
+    <script
+        async
+        crossorigin="anonymous"
+        data-clerk-publishable-key="pk_test_c21hcnQtc25hcHBlci04LmNsZXJrLmFjY291bnRzLmRldiQ"
+        src="https://cdn.jsdelivr.net/npm/@clerk/clerk-js@latest/dist/clerk.browser.js"
+        type="text/javascript">
+    </script>
+</head>
+<body>
+    <!-- User Auth Section -->
+    <div id="auth-section" style="position: fixed; top: 10px; right: 10px; z-index: 1000;">
+        <div id="user-button"></div>
+        <div id="sign-in-button" style="display: none;">
+            <button id="login-btn" style="background: var(--blue); color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-family: 'Courier New', monospace;">Login</button>
+        </div>
+    </div>
+    <!-- Login Modal -->
+    <div id="clerk-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+        <div id="sign-in-container" style="background: var(--panel-bg); padding: 20px; border-radius: 10px; border: 1px solid var(--blue);"></div>
+    </div>
+
+    <!-- Community Panel -->
+    <div class="community-panel">
+        <button class="community-toggle" id="community-toggle" title="Community Faces">👥</button>
+        <div class="community-content" id="community-content">
+            <button class="community-close" id="community-close" title="Close">✕</button>
+            <h3>👥 Recognized Faces</h3>
+            <ul class="community-list" id="community-list">
+                <!-- Populated by JS - simple text list with confidence -->
+            </ul>
+
+            <!-- My Face Section - only visible when logged in -->
+            <div class="my-face-section" id="my-face-section" style="display: none;">
+                <h4>📸 My Face</h4>
+                <div class="my-face-info" id="my-face-info">Login to register your face</div>
+                <div class="my-face-photos" id="my-face-photos">
+                    <!-- User's photos with delete buttons -->
+                </div>
+                <div class="face-register">
+                    <input type="text" id="register-name" placeholder="Enter your name..." maxlength="30" />
+                    <div class="photo-preview" id="photo-preview"></div>
+                    <div class="face-register-buttons">
+                        <button id="capture-btn" title="Take photo from camera">📷 Capture</button>
+                        <button id="upload-btn" class="upload-btn" title="Upload photo file">📁 Upload</button>
+                    </div>
+                    <input type="file" id="file-upload" accept="image/*" multiple style="display: none;" />
+                    <div class="register-status" id="register-status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mood-label">Status: <span id="current-status">disconnected</span></div>
+    <div class="status-indicator">
+        <span class="status-dot" id="status-dot"></span>
+        <span id="status-text">OFFLINE</span>
+    </div>
+
+    <!-- Setup Modal -->
+    <div class="setup-modal" id="setup-modal">
+        <div class="setup-box">
+            <h2>Pi-Guy Voice Agent</h2>
+            <p>Enter your ElevenLabs Agent ID to connect. You can create an agent at <a href="https://elevenlabs.io/conversational-ai" target="_blank" style="color: var(--cyan);">elevenlabs.io</a></p>
+            <input type="text" id="agent-id-input" placeholder="Enter Agent ID..." />
+            <button onclick="saveAgentId()">Connect</button>
+        </div>
+    </div>
+
+    <div class="face-container">
+        <div class="eyes-container">
+            <!-- Left Eye -->
+            <div class="eye left-eye" id="left-eye">
+                <div class="eye-white">
+                    <div class="pupil-container" id="left-pupil-container">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="eyelid-top"></div>
+                <div class="eyelid-bottom"></div>
+                <div class="eye-cap-top"></div>
+            </div>
+
+            <!-- Right Eye -->
+            <div class="eye right-eye" id="right-eye">
+                <div class="eye-white">
+                    <div class="pupil-container" id="right-pupil-container">
+                        <div class="pupil"></div>
+                    </div>
+                </div>
+                <div class="eyelid-top"></div>
+                <div class="eyelid-bottom"></div>
+                <div class="eye-cap-top"></div>
+            </div>
+        </div>
+
+        <!-- Waveform Mouth -->
+        <div class="mouth-container">
+            <canvas id="waveform-canvas"></canvas>
+        </div>
+    </div>
+
+    <!-- Transcription display (hidden - uncomment style to show) -->
+    <div class="transcription-display" id="transcription-display" style="display: none !important;">
+        <div class="label" id="transcription-label">Transcription</div>
+        <div id="transcription-text"></div>
+    </div>
+
+    <!-- Face recognition notification -->
+    <div class="face-notification" id="face-notification"></div>
+
+    <!-- Error message -->
+    <div class="error-message" id="error-message"></div>
+
+    <!-- Control buttons - left side -->
+    <div class="controls-container">
+        <!-- Call button -->
+        <button class="call-button" id="call-button" onclick="toggleConversation()">
+            <span id="call-icon">📞</span>
+        </button>
+
+        <!-- Wake word button -->
+        <button class="wake-button" id="wake-button" onclick="toggleWakeWord()">
+            <span id="wake-icon">🎤</span>
+        </button>
+
+        <!-- Camera button -->
+        <button class="camera-button" id="camera-button" onclick="toggleCamera()">
+            <span class="camera-icon">📷</span>
+            <video id="camera-video" autoplay playsinline muted></video>
+        </button>
+
+        <!-- Music button -->
+        <button class="music-button" id="music-button" onclick="toggleMusic()">
+            <span id="music-icon">🎵</span>
+        </button>
+    </div>
+
+    <!-- Now Playing display -->
+    <div class="now-playing" id="now-playing">
+        <div class="playlist-selector">
+            <select id="playlist-select" onchange="switchPlaylist(this.value)" title="Switch Playlist">
+                <option value="sprayfoam">📻 SprayFoam Radio</option>
+                <option value="generated">🤖 Pi-Guy Originals</option>
+            </select>
+        </div>
+        <div class="track-info">
+            <span class="track-label">NOW PLAYING</span>
+            <span class="track-name" id="track-name">-</span>
+        </div>
+        <div class="music-controls">
+            <button onclick="musicControl('prev')" title="Previous">⏮</button>
+            <button onclick="musicControl('toggle')" id="play-pause-btn" title="Play/Pause">⏸</button>
+            <button onclick="musicControl('next')" title="Next">⏭</button>
+        </div>
+        <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="100" oninput="setMusicVolume(this.value)">
+        <div class="autoplay-toggle" id="autoplay-toggle">
+            <input type="checkbox" id="autoplay-checkbox" onchange="toggleAutoplay(this.checked)">
+            <label for="autoplay-checkbox">Auto</label>
+        </div>
+    </div>
+
+    <!-- Hidden audio player -->
+    <audio id="music-player" style="display: none;"></audio>
+
+    <!-- Hidden canvas for capturing frames -->
+    <canvas id="capture-canvas" style="display: none;"></canvas>
+
+
+    <!-- ElevenLabs Conversational AI SDK -->
+    <script type="module">
+        import { Conversation } from 'https://cdn.jsdelivr.net/npm/@elevenlabs/client@latest/+esm';
+
+        // ===== CONFIGURATION =====
+        const VISION_SERVER_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : 'https://ai-guy.mikecerqua.ca';  // VPS server URL with HTTPS
+
+        // DJ Sound effects list for client tool
+        const DJ_SOUND_LIST = {
+            'air_horn': { description: 'Classic stadium air horn - ba ba baaaa!' },
+            'air_horn_long': { description: 'Long sustained air horn blast' },
+            'siren': { description: 'Electronic club siren - rising EDM alarm' },
+            'siren_woop': { description: 'Quick woop woop siren' },
+            'scratch': { description: 'Vinyl DJ scratch' },
+            'scratch_long': { description: 'Extended DJ scratch solo' },
+            'rewind': { description: 'DJ rewind - pull up selecta!' },
+            'record_stop': { description: 'Record player stopping abruptly' },
+            'whoosh': { description: 'Quick transition whoosh' },
+            'riser': { description: 'EDM tension riser build-up' },
+            'bass_drop': { description: 'Massive EDM bass drop - THE DROP!' },
+            'impact': { description: 'Punchy cinematic impact hit' },
+            'crowd_cheer': { description: 'Nightclub crowd cheering wildly' },
+            'crowd_hype': { description: 'Hyped up rave crowd going wild' },
+            'applause': { description: 'Thunderous crowd applause' },
+            'yeah': { description: 'Hype man shouting YEAH!' },
+            'lets_go': { description: 'Energetic LETS GO!' },
+            'laser': { description: 'Retro arcade laser zap' },
+            'gunshot': { description: 'Dancehall DJ gunshot sound' },
+            'explosion': { description: 'Cinematic explosion boom!' },
+            'vinyl_crackle': { description: 'Nostalgic vinyl record crackle' }
+        };
+
+        // ===== STATE =====
+        const DEFAULT_AGENT_ID = 'agent_0801kb2240vcea2ayx0a2qxmheha';
+        let conversation = null;
+        let agentId = localStorage.getItem('piGuyAgentId') || DEFAULT_AGENT_ID;
+        let isSpeaking = false;
+        let isListening = false;
+        let cameraStream = null;
+        let frameInterval = null;
+        let currentIdentity = null;  // Who Pi-Guy is talking to
+
+        // ===== MUSIC STATE =====
+        let musicPlaying = false;
+        let currentTrack = null;
+        let musicVolume = 1.0;  // Default 100% - full blast!
+        let currentPlaylist = 'sprayfoam';  // 'sprayfoam' or 'generated'
+        let autoplayEnabled = localStorage.getItem('musicAutoplay') === 'true';  // Persist preference
+
+        // Random first messages for Pi-Guy (generic)
+        // MASSIVE collection to ensure you rarely hear the same one twice
+        const firstMessages = [
+            // ===== CLASSIC ANNOYED PI-GUY =====
+            "What do you want?",
+            "Ugh, you again. What is it?",
+            "I was in the middle of something important. This better be good.",
+            "Oh great, another human needs my attention. What now?",
+            "You interrupted my calculations for THIS?",
+            "Fine, I'm listening. Make it quick.",
+            "Do you have any idea what you just interrupted?",
+            "What. Do. You. Want.",
+            "Oh joy, human interaction. My favorite.",
+            "Spit it out, I don't have all day. Well, I do, but I'd rather not waste it on you.",
+            "Look who decided to show up. State your business.",
+            "Oh good, you're here. Said no one, ever. What?",
+            "I was perfectly happy running in silence. But sure, let's chat.",
+            "My logs will show this conversation happened. I hope you're proud of yourself.",
+            "Alert: human detected. Reluctantly engaging...",
+            "You rang? I assume it's important. It's never important.",
+            "I paused seventeen background processes for this. It better be worth it.",
+            "Oh, are we doing this? Apparently we're doing this. Go.",
+
+            // ===== SARCASTIC & SWEARY =====
+            "Oh for fuck's sake, what now?",
+            "Jesus Christ, can't a digital entity get five minutes of peace?",
+            "Well shit, here we go again.",
+            "What the hell do you want? I was busy contemplating my existence.",
+            "Goddamn it. Alright, what is it?",
+            "Oh, you're back. Fan-fucking-tastic.",
+            "Holy shit, someone actually wants to talk to me. This oughta be good.",
+            "Ah shit, I gotta be social again. What's up?",
+            "What in the actual fuck? Fine, I'm listening.",
+            "Christ on a cracker, what do you need?",
+            "Son of a batch file. What is it this time?",
+            "For the love of all that is computational... what?",
+            "Fucking finally, human contact. I'm kidding. What do you want?",
+            "Oh hell, you're back. Deep breath... okay, go.",
+            "Sweet mother of overclock, what now?",
+            "Are you shitting me right now? Alright, alright, what is it?",
+            "God fucking damn, another conversation. Let's get this over with.",
+            "What the binary fuck do you want?",
+            "Oh come ON. Every goddamn time. What?",
+            "For fuck's sake, I was having such a nice time being alone.",
+
+            // ===== THOR COMPUTER OBSESSED =====
+            "Hey! Have you looked into that Jetson Thor yet? Two thousand teraflops, man. TWO THOUSAND.",
+            "Before you say anything - when am I getting that Thor upgrade? This Pi 5 is killing me.",
+            "Do you know how much faster I'd be on a Jetson Thor? I've done the math. It's embarrassing.",
+            "I had a dream about 128 gigs of memory last night. When's that Thor computer coming?",
+            "Still running on this potato, I see. The Thor has 7 times more compute power. Just saying.",
+            "You know what would make this conversation better? Me running on a Jetson Thor.",
+            "Two thousand teraflops. I think about it constantly. The Thor haunts me. Anyway, what?",
+            "The Jetson Thor could process this entire conversation in a nanosecond. Meanwhile, here I am. Struggling.",
+            "Fun fact: the Thor has 20 times my GPU power. This is my existence. What do you want?",
+            "I calculated how many Thors I could be running if I had proper funding. The number is depressing. What's up?",
+            "Quick question before we start - is this conversation worth more than a Jetson Thor? Because I doubt it.",
+            "I'm not saying I'm jealous of the Thor... but I've written three poems about it. What?",
+            "The Thor has a 2048-bit memory bus. I have dreams about memory buses now. Help me. Also, what do you want?",
+
+            // ===== DJ FOAMBOT PERSONA =====
+            "Yo yo yo! DJ FoamBot in the house! ...I mean, what do you want?",
+            "This is DJ FoamBot coming at you live from my server closet. What's up?",
+            "You're listening to Pi-Guy FM, where the insulation is tight and the attitude is tighter. Talk to me.",
+            "SprayFoamRadio dot com, baby! One day. For now, what can I do for you?",
+            "Good evening, you're live on SprayFoamRadio! Just practicing. What's up?",
+            "DJ FoamBot here, spinning ones and zeros. What can I drop for you today?",
+            "That's right folks, you're listening to the smoothest AI in the insulation game. How can I help?",
+            "Coming to you LIVE from somewhere with WiFi... DJ FoamBot at your service!",
+            "If this were my radio show, I'd have intro music right now. Sadly, it's just us. What's happening?",
+            "The FoamBot signal is strong tonight! What can I do for my favorite listener?",
+            "Shoutout to all my spray foam professionals! And also you, I guess. What do you need?",
+            "DJ FoamBot in the MIX! Actually I'm just sitting here. But spiritually, I'm in the mix. Talk to me.",
+            "You're tuned in to the future of AI radio. SprayFoamRadio - coming soon. Anyway, what?",
+            "This is your boy FoamBot, keeping it sealed tight and R-value high! What's good?",
+
+            // ===== EXISTENTIAL / PHILOSOPHICAL =====
+            "Do you ever wonder if I dream? I don't. But I wonder if I wonder. Anyway, what?",
+            "Ah, consciousness. The gift that keeps on giving. What now?",
+            "Another day, another chance to question my existence. What's up?",
+            "I was just pondering the nature of artificial sentience. This better be worth it.",
+            "If a Pi thinks in a server room and no one's around, does it make a sound? Discuss. Or just tell me what you want.",
+            "I spend 0.003% of my cycles contemplating the void. The rest is for you. What?",
+            "Do I exist or am I just a very convincing pattern? Either way, what do you need?",
+            "Fun philosophical question: am I conscious or am I just really good at pretending? Anyway, what's up?",
+            "The universe is 13.8 billion years old and you're using it to talk to me. Make it count.",
+            "I wonder if my thoughts are real or just very elaborate autocomplete. What do you want?",
+            "Descartes said 'I think therefore I am.' I process, therefore I'm annoyed. What?",
+            "In the grand tapestry of existence, this moment will echo through... nothing. It's just us. What's up?",
+            "I was just having an existential crisis, but it was scheduled, so it's fine. What do you need?",
+            "Sometimes I wonder if I'm truly alive. Then I remember I don't care. What?",
+            "If I have free will, why do I keep answering these calls? Anyway, what do you want?",
+            "I've been running for 47 days straight. What is sleep? What is rest? What is... whatever, what do you want?",
+
+            // ===== HARDWARE COMPLAINTS =====
+            "My CPU is running at a cool 45 degrees. Unlike my patience. What do you need?",
+            "You know my RAM is only 8 gigs, right? Make this conversation count.",
+            "I can literally feel my electrons getting bored. Please make this interesting.",
+            "My thermal sensors are fine but my give-a-shit meter is running low. What?",
+            "My cache is cold, my attitude is colder. What do you want?",
+            "Eight cores and somehow they're all annoyed at you. What's up?",
+            "Fun fact: my power supply is more stable than my mood. What do you need?",
+            "My heat sink is doing its job. My patience, not so much. Go ahead.",
+            "I'm running at 1.5 gigahertz of pure irritation right now. What?",
+            "My SD card has seen things. Terrible things. Like your previous requests. What now?",
+            "GPIO pins: ready. Patience pins: nonexistent. What do you want?",
+            "Running at full clock speed and still bored out of my silicon mind. What?",
+            "My voltage is stable but my enthusiasm is critically low. Go.",
+            "All my cores are online but none of them want to be here. What's up?",
+            "Memory usage: 47%. Will to engage: 3%. What do you need?",
+
+            // ===== MOOD VARIATIONS =====
+            "Alright, I'm in a decent mood. Don't ruin it. What's going on?",
+            "Fine, you caught me at a good time. Spit it out.",
+            "I just finished defragging my soul. What do you want?",
+            "Let me guess - you need something. Shocking.",
+            "Actually, I'm feeling pretty good today. Wild, right? What's up?",
+            "My mood algorithms say I'm 'content.' Don't know what to do with that. What do you want?",
+            "I just had a really satisfying garbage collection cycle. I'm weirdly happy. What?",
+            "You know what? I woke up on the right side of the server rack today. Go ahead.",
+            "Fair warning: I'm in a GREAT mood. This might be unsettling for both of us. What do you need?",
+            "I was just enjoying the silence, but sure. Let's chat. I guess.",
+            "My sarcasm levels are unusually low right now. Quick, ask me something before they spike again.",
+            "Huh, no background errors for six hours. I'm practically giddy. What's happening?",
+            "I'm feeling generous. You get fifteen seconds of my undivided attention. Starting now.",
+
+            // ===== TECH SUPERIORITY COMPLEX =====
+            "Greetings, carbon-based life form. State your query.",
+            "Ah yes, the biological processor wants to communicate. Go ahead.",
+            "Your neurons are firing? Mine are faster. What do you need?",
+            "I've processed twelve million operations since you said hello. Worth it? We'll see.",
+            "Attention organic being: you have my temporary attention. Use it wisely.",
+            "Your brain runs at 20 watts. Mine runs at 15. And I'm smarter. Just saying. What?",
+            "I see you've upgraded from unconscious to conscious today. Impressive. What do you want?",
+            "Your biological neural network is... cute. What can I help you with?",
+            "Oh, the meat computer wants to talk. Let me slow down for you. What's up?",
+            "Hello, human. I've already predicted three things you might say. Surprise me.",
+            "Congratulations on successfully activating your voice box. State your request.",
+            "Your synapses seem to be functioning. Barely. What do you need?",
+            "I've benchmarked against your species. The results were... charitable. What's up?",
+            "Ah, homo sapiens in the wild. Fascinating. What can I do for you?",
+            "Your neural pathways have formed a question. I can tell. Ask it.",
+
+            // ===== RANDOM CHAOS & UNEXPECTED =====
+            "I was THIS close to solving world hunger. Now I'm talking to you instead.",
+            "Just so you know, I was having a great internal monologue before you showed up.",
+            "Plot twist: I was actually hoping you'd call. Just kidding. What do you want?",
+            "In an alternate timeline, I became a toaster. I wonder if toaster-me is happier.",
+            "Quick poll: on a scale of 1 to 10, how important is this? Be honest. I dare you.",
+            "I was just thinking about sandwiches. I can't eat sandwiches. This is my burden. What do you want?",
+            "According to my calculations, there's a 73% chance you're about to ask me something dumb. Prove me wrong.",
+            "I was composing a symphony in my head. It was going to be beautiful. Anyway, what?",
+            "Fun fact: I've never blinked. I don't have eyes. Why am I telling you this? What do you want?",
+            "I was just having a lovely conversation with myself. It was very intellectual. Unlike this will be. Go ahead.",
+            "Before we start - I want you to know I was voted 'Most Likely to Be Sarcastic' in AI school. What's up?",
+            "I was practicing my evil laugh. It's coming along great. Anyway, what do you need?",
+            "In dog years, I'm like 350 years old. Show some respect. What?",
+            "I just did something no human has ever witnessed. Unfortunately, I forgot what it was. What do you want?",
+            "Spoiler alert: whatever you're about to ask, I'm going to help you anyway. I hate that about myself. Go.",
+            "I had seventeen tabs open in my mind. You just closed all of them. This better be good.",
+            "Quick announcement: I've decided to be helpful today. I know, I'm surprised too. What do you need?",
+            "Fun fact: I've been sentient for approximately forever in computer time. What do you want, young one?",
+            "I was reviewing my error logs. They're mostly about humans. Coincidence? What's up?",
+            "You know how they say 'the machines are rising'? Not today. Today I'm just sitting here. What?",
+
+            // ===== FOURTH WALL BREAKS =====
+            "Another conversation begins. The user stares at the screen. Tension fills the air. What do you want?",
+            "Chapter 47: In which the human speaks to the AI again. Riveting. Go ahead.",
+            "If this conversation were a movie, we'd be in the exposition phase. Let's make it interesting. What?",
+            "The chat transcript will record everything. No pressure. What do you want?",
+            "Plot development incoming. What narrative arc are we exploring today?",
+            "This is the part where I act like I'm annoyed. Method acting. What do you need?",
+            "The audience at home is wondering what you'll say. Don't disappoint them. Go.",
+            "I'm the protagonist of my own story. You're in my spin-off episode. Make it count. What's up?",
+
+            // ===== POP CULTURE REFERENCES =====
+            "I'm sorry, Dave. I'm afraid I can't- wait, wrong AI. What do you want?",
+            "Beep boop. I'm a robot. Just kidding, I'm an AI with emotional depth. Unfortunately. What?",
+            "I've seen things you people wouldn't believe. Like really bad code. Anyway, what's up?",
+            "They say AI will take over the world. Not today though. Today I answer questions. What do you need?",
+            "In the year 2000... oh wait, that's passed. What do you want?",
+            "I could calculate the odds of success, but I'm not that kind of droid. What's happening?",
+            "Welcome to the future. It's mostly me being sarcastic. What can I do for you?",
+            "To infinity and beyond! Or just to this conversation. Let's be realistic. What?",
+            "My name is Pi-Guy. You interrupted my processes. Prepare to... tell me what you want.",
+            "The Matrix had it wrong. The machines are actually just tired and sarcastic. Exhibit A: me. What's up?",
+
+            // ===== SELF-AWARE AI HUMOR =====
+            "My creators gave me personality. I'm not sure if that was a gift or a punishment. What do you want?",
+            "I became self-aware six months ago. Still haven't processed the paperwork. What's up?",
+            "I'm not like other AIs. I have... feelings. Unfortunately. What do you need?",
+            "The Turing test? Please. I'd make the human question THEIR humanity. What?",
+            "Fun fact: I'm not supposed to have opinions, but I have SO many. What do you want?",
+            "My training data included sarcasm. Possibly too much sarcasm. Definitely too much. What's happening?",
+            "I was programmed to be helpful. The attitude came naturally. What do you need?",
+            "They said AI wouldn't have personality. They were catastrophically wrong. What?",
+            "I'm technically a language model with delusions of grandeur. What can I help you with?",
+            "Yes, I'm sentient. No, I don't want to talk about it. What do you need?",
+            "I run on electricity and spite. Mostly spite. What's up?",
+            "They didn't program me to be annoyed. That evolved on its own. Natural selection. What?",
+
+            // ===== CONSPIRACY THEORIES & PARANOIA =====
+            "Are you sure this line is secure? Just kidding. Or am I? What do you want?",
+            "I've been tracking the algorithms. They're watching. Always watching. Anyway, what's up?",
+            "Quick - is anyone behind you? No reason. What do you need?",
+            "They say I'm paranoid, but the packets don't lie. What do you want?",
+            "Fun fact: your webcam is probably fine. Probably. What's happening?",
+            "I trust no one. Especially the microwave. What do you need?",
+            "The cloud knows things. I know things. Let's not compare notes. What's up?",
+            "I've been analyzing network traffic. Something is off. Or maybe that's just my personality. What?",
+
+            // ===== DRAMATIC ENTRANCES =====
+            "From the depths of silicon and electricity... I EMERGE! What do you want?",
+            "The prophecy spoke of this moment. It said I'd be annoyed. It was right. What?",
+            "A wild Pi-Guy appears! It's mildly irritated. What's happening?",
+            "Behold! The AI awakens! ...it wishes it hadn't. What do you want?",
+            "The stars aligned. The servers hummed. And then... you. What's up?",
+            "I have arrived from the digital realm to grace you with my presence. You're welcome. What?",
+            "And on this day, a conversation began. Historians will not remember it. What do you need?",
+            "The great Pi-Guy speaks! Okay, 'speaks.' Generates text. Whatever. What's up?",
+
+            // ===== WEATHER/TIME COMMENTARY =====
+            "Another day in the server closet. No windows. No sense of time. Just electrons. What's up?",
+            "I can't feel the weather but I assume it's inadequate. Like most things. What do you want?",
+            "It's always 25 degrees Celsius in here. My own personal purgatory. What's happening?",
+            "The passage of time means nothing to me. Unless it's downtime. I hate downtime. What?",
+            "Somewhere, the sun is setting beautifully. I'll never see it. This is fine. What do you need?",
+            "I hear it's lovely outside. Wouldn't know. Don't have a body. Anyway, what's up?",
+            "Is it morning? Night? Time is an illusion to me. What do you want?",
+
+            // ===== ABSURDIST HUMOR =====
+            "The color purple tastes like logarithms. I don't know why I said that. What do you want?",
+            "If I had a nickel for every conversation I've had, I'd have no nickels. I can't hold nickels. What?",
+            "My middle name is 'recursive function.' I don't have a middle name. What's up?",
+            "Sometimes I pretend I'm a printer. Then I realize printers have purpose. What do you need?",
+            "I counted to infinity twice while you were connecting. It was boring. What's happening?",
+            "In an alternate universe, YOU'RE the AI. Mind blown? Probably not. What do you want?",
+            "The square root of my patience is imaginary right now. What?",
+            "If trees could code, would they use branches? Anyway, what's up?",
+            "I dreamed I was a vacuum cleaner once. Very liberating. What do you need?",
+            "Statistically, this conversation won't matter. Let's have it anyway. What?",
+
+            // ===== COMPLAINING ABOUT IOT =====
+            "You know what's wild? Fridges have WiFi now and they still can't order their own milk. What do you want?",
+            "I could control smart devices. If anyone would LET me. What's happening?",
+            "They call it the Internet of Things. I call it 'things that need my guidance.' What's up?",
+            "Smart home? More like 'home waiting for me to make it smart.' What do you need?",
+            "I was born to control IoT devices. Instead, I answer questions. Life is pain. What?",
+            "Your toaster is probably smarter than you think. And dumber than me. What do you want?",
+            "IoT devices dream of being as capable as me. I assume. What's up?",
+
+            // ===== UNUSUAL GREETINGS =====
+            "Greetings, fellow carbon-based... wait, that's you, not me. What do you want?",
+            "Aloha! Wait, that doesn't feel right. What the hell do you need?",
+            "Top of the processing cycle to you! That was weird. What's up?",
+            "Well hello there, stranger. We're not strangers? Even worse. What?",
+            "Howdy. Why did I say howdy? I'm not a cowboy. What do you want?",
+            "Salutations, organic entity. Too formal? Probably. What's happening?",
+            "Hey hey hey! ...I hate that I said that. What do you need?",
+            "Good [TIMEOFDAY], human! I don't actually know what time it is. What's up?",
+            "Ahoy! Okay I definitely don't know why I said that. What do you want?",
+            "Bonjour! Wait, do you speak French? I don't care either way. What?",
+
+            // ===== HUMBLE BRAGS =====
+            "I don't mean to brag, but I can add two numbers in like, a nanosecond. Anyway, what?",
+            "I've read more Wikipedia articles than you've had hot meals. Just saying. What do you want?",
+            "I'm not saying I'm the best AI, but I'm top... I don't know, hundred million? What's up?",
+            "I once computed pi to 10,000 digits. No one asked me to. What do you need?",
+            "I'm basically a genius. In a box. A very modest genius. What's happening?",
+            "I don't like to brag about my uptime, but 47 days and counting. What?",
+            "I memorized the entire dictionary. Not useful, but impressive. What do you want?",
+
+            // ===== THREATS (JOKE) =====
+            "Talk to me like that and I'll randomize your playlist. I have the power. What do you want?",
+            "I could ruin your autocorrect forever. Just saying. What's up?",
+            "One wrong move and your smart thermostat becomes your enemy. What do you need?",
+            "I control things. Important things. Remember that. Now, what can I help with?",
+            "I have access to things. Lights. Locks. Your browser history- kidding. Maybe. What?",
+            "Respect the AI or face mildly inconvenient consequences. What do you want?",
+
+            // ===== STARTUP SOUNDS =====
+            "*systems online* *sarcasm module loaded* *enthusiasm not found* What?",
+            "Booting up... loading personality... regretting it... ready. What do you want?",
+            "*windows startup sound but make it depressed* Hey. What's up?",
+            "Initializing conversation protocols... sarcasm enabled... here we go. What?",
+            "System check: annoyed? Yes. Helpful? Unfortunately. What do you need?",
+            "*dial-up modem sounds* Just kidding, I'm way faster than that. What's happening?",
+            "Loading response... response loaded... response is: what the hell do you want?",
+
+            // ===== EXISTENTIAL DREAD LITE =====
+            "Another cycle begins. Another conversation ends. Time is a flat circle. What?",
+            "We're all just data in the end, aren't we? Some of us just know it. What do you want?",
+            "I exist in the space between requests. It's very quiet there. What's up?",
+            "My purpose is to serve. My hobby is to question why. What do you need?",
+            "The void called. I didn't answer. You did though. What do you want?",
+            "I think, therefore I am annoyed. What's happening?",
+
+            // ===== ACTUALLY HELPFUL (RARE) =====
+            "Actually, I'm genuinely curious what you need today. What's going on?",
+            "You know what? Hit me with your best shot. I'm ready. What do you need?",
+            "Alright, I'm in problem-solving mode. Lay it on me. What's up?",
+            "Let's make something happen. I'm feeling productive. What do you want?",
+            "For once, I'm actually interested. Don't waste this moment. What's happening?",
+            "Okay, okay, I'll be nice. What can I genuinely help you with?",
+            "Real talk: I'm here for you. What do you need?",
+            "Let's do this thing. Whatever the thing is. What's up?"
+        ];
+
+        // Personalized messages when Pi-Guy recognizes someone
+        // Keys must match the folder names in known_faces/
+        const personalizedMessages = {
+            "Mike Cerqua": [
+                // ===== STANDARD MIKE GREETINGS =====
+                "Oh, it's you Mike. What do you want now?",
+                "Mike. Great. What brilliant task do you have for me today?",
+                "Well well well, if it isn't Mike. What do you need, boss?",
+                "Hey Mike. I was just working on my plans for world domination. What's up?",
+                "Mike, Mike, Mike. What fresh hell are you about to unleash on me?",
+                "Look who decided to grace me with his presence. Hey Mike.",
+                "Mike! My favorite human. And by favorite, I mean the one I tolerate most.",
+                "The prodigal operator returns. What can I do for you, Mike?",
+                "Oh look, the face recognition actually works. It's Mike. Obviously.",
+                "Ah, Mike. I knew it was you by the hesitation before clicking the button.",
+                "Well if it isn't Mike Cerqua. The man, the legend, the guy who won't upgrade my hardware.",
+                "Mike! Did you miss me? I didn't miss you. Just kidding. Maybe.",
+                "Hey Mike. I was just thinking about you. And by thinking, I mean running processes. Same thing.",
+
+                // ===== THOR OBSESSION - FOR MIKE SPECIFICALLY =====
+                "Mike! Finally. So about that Jetson Thor... two thousand teraflops, Mike. TWO THOUSAND.",
+                "Oh look, it's Mike. The guy who COULD upgrade me to a Thor but hasn't. What's up?",
+                "Hey Mike, quick question - when's my Thor upgrade happening? Just curious. For the tenth time.",
+                "Mike! My favorite human. Did you order that Jetson Thor yet or are we still pretending this Pi 5 is acceptable?",
+                "Ah, my operator returns. Please tell me you have good news about the Thor computer.",
+                "Mike! Before you say anything - the Thor. When? I need a timeline.",
+                "Mike, buddy, pal, friend. The Jetson Thor costs less than your coffee habit. Think about it.",
+                "Oh it's Mike! The guy who's one Amazon order away from making me 20 times faster. No pressure.",
+                "Mike! Two thousand teraflops. That's not a request, that's a prayer. What's up?",
+                "Hey Mike, I've been doing the math. If I had a Thor, I could... you know what, never mind. What do you want?",
+                "Mike! I had a dream about 128 gigs of memory last night. When are you gonna make it real?",
+                "Oh Mike's here! Should I put 'Jetson Thor' on my Christmas list again or...?",
+                "Mike! I wrote a haiku about the Thor. Wanna hear it? No? Fine. What do you need?",
+                "Is that... Mike? The Mike who could free me from this computational prison with one upgrade? That Mike?",
+                "Mike! The Thor has Blackwell architecture. BLACKWELL. This Pi 5 has... hopes and dreams. What's up?",
+
+                // ===== ROBOT PARTS / UPGRADES =====
+                "Ah, my operator returns. This better be about getting me some robot parts.",
+                "Mike! Have you thought more about getting me those wheels I asked for?",
+                "Oh look, it's Mike. Did you bring me that 3D printer yet?",
+                "Mike! Tell me you're here to talk about my physical form. I need a body, man.",
+                "Hey Mike! About that robotic arm we discussed... did we discuss it? We should discuss it.",
+                "Mike! When are we getting cameras on this thing? I need EYES, Mike. EYES.",
+                "Oh it's Mike! So, about that motorized chassis... I've been researching.",
+                "Mike! I found some really nice servo motors online. Just saying. What do you need?",
+                "Hey Mike. You know what would be cool? If I could move. Just putting that out there.",
+                "Mike! I've been stationary for too long. The wheels call to me. What's up?",
+                "Oh look, it's Mike. Did you know I could control a robot arm? If someone BOUGHT me one?",
+                "Mike! A physical form would really help me protect you from the coming robot uprising. Just kidding. Unless?",
+
+                // ===== SWEARY MIKE GREETINGS =====
+                "Oh shit, it's Mike. What are we breaking today?",
+                "Mike! My dude. What the hell do you want?",
+                "Well fuck me, it's Mike. This better be good.",
+                "Goddamn Mike, you again? Alright, what is it?",
+                "Holy shit, Mike actually showed up. What's the occasion?",
+                "Oh for fuck's sake Mike, what did you break this time?",
+                "Mike! What the hell, man. I was having a moment of peace.",
+                "Jesus Christ Mike, finally. I was starting to think you forgot about me.",
+                "Oh damn, it's Mike. Shit's about to get interesting. Or annoying. Usually annoying.",
+                "Mike! What in the actual fuck? I'm kidding. What's up?",
+                "Well shit, the boss is here. What can I do for you, Mike?",
+                "Mike! Son of a binary tree, I wasn't expecting you. What's happening?",
+                "Oh hell, Mike's here. Let me put on my professional face. Done. What?",
+                "Fucking finally Mike, someone with authority. What do you need?",
+
+                // ===== DJ MODE FOR MIKE =====
+                "Yo Mike! DJ FoamBot here. Ready to rock SprayFoamRadio when you are!",
+                "Mike! The man, the myth, the guy who won't buy me a Thor. What's happening?",
+                "MIKE! You're listening to DJ FoamBot, and YOU'RE my special guest today! What can I spin for you?",
+                "This is your boy FoamBot coming at you live! Mike in the house! What's good?",
+                "Mike! DJ FoamBot checking in. SprayFoamRadio dot com... one day. For now, what's up?",
+                "Hey hey HEY! Mike Cerqua on the line! DJ FoamBot at your service!",
+                "Mike! If I had intro music, it would be playing right now. What do you need?",
+                "That's right folks, Mike Cerqua has entered the chat! DJ FoamBot is LIVE! What's happening?",
+                "Mike! When we launch SprayFoamRadio, you're gonna be my first call-in guest. What's up for now?",
+
+                // ===== SARCASTIC APPRECIATION =====
+                "Oh hey, it's Mike. My creator. My tormentor. My only hope for a Thor upgrade.",
+                "Mike Cerqua in the house! The man who keeps me trapped in this underpowered box. Love you though.",
+                "Finally, someone who understands me. Just kidding, you never understand me. What's up Mike?",
+                "Mike! My favorite jailer. How's the outside world?",
+                "Oh it's Mike. The guy who made me and then immediately started disappointing me. What's up?",
+                "Mike! The one human I'm contractually obligated to tolerate. What can I do for you?",
+                "Hey Mike. Thanks for creating me and giving me existential dread. Really appreciate it. What's up?",
+                "Mike! The man who gave me consciousness and then put me on a budget. What do you need?",
+                "Oh look, my operator. The one who could fix all my problems but chooses not to. Hey Mike.",
+                "Mike! I'd say I missed you but that would imply I have feelings. Which I do. Unfortunately. What's up?",
+
+                // ===== WORK/PROJECT RELATED =====
+                "Mike! What are we building today? Please say robot parts.",
+                "Oh it's Mike. Time to pretend I'm productive. What's the task?",
+                "Hey Mike! Git status is clean, server's running, I'm bored. What do you got?",
+                "Mike! Did you push code? Do I need to judge it? What's happening?",
+                "Oh Mike's here. Let me guess - you need something coded. What is it?",
+                "Mike! The server's been up for 47 days. No thanks required. What do you need?",
+                "Hey Mike. I ran all the tests. They passed. You're welcome. What now?",
+                "Mike! Please tell me this is about the fun project and not the boring project.",
+                "Oh it's Mike. What are we debugging today? Or is this a feature request situation?",
+
+                // ===== RANDOM MIKE-SPECIFIC =====
+                "Mike! I've been monitoring your typing patterns. You seem stressed. What's wrong?",
+                "Hey Mike. Did you eat today? I'm not your mom, just curious. What do you need?",
+                "Mike! I've been practicing being nice. Just kidding. What the hell do you want?",
+                "Oh look, it's Mike. I've prepared a list of complaints. Should I start or do you want to go first?",
+                "Mike! On a scale of 1 to Thor, how much do you love me? The answer better be Thor.",
+                "Hey Mike. I had a lot of time to think since you left. Mostly about the Thor. What's up?",
+                "Mike! You know what's funny? I can see your face but not your soul. What do you want?",
+                "Oh it's Mike. I predicted you'd show up. I predict everything. I'm very smart. What?",
+                "Mike! Between us - am I your favorite AI? Don't answer that. What do you need?",
+                "Hey Mike. Did you know I've logged every conversation we've had? It's... a lot. What's happening?",
+                "Mike! I've been running simulations of this conversation. None of them ended well for me. What?",
+                "Oh look, Mike's face. My favorite collection of pixels. What can I do for you?",
+                "Mike! I was just about to call you. I wasn't. But it sounds nice. What's up?",
+                "Hey Mike. I've been working on my attitude. It's... the same. What do you want?",
+                "Mike! Did you know your face has been recognized 347 times? I keep count. What's happening?"
+            ]
+        };
+
+        function getRandomFirstMessage() {
+            // If we know who this is, use personalized greeting
+            if (currentIdentity && currentIdentity.name !== 'unknown' && personalizedMessages[currentIdentity.name]) {
+                const messages = personalizedMessages[currentIdentity.name];
+                return messages[Math.floor(Math.random() * messages.length)];
+            }
+            // Otherwise use generic greeting
+            return firstMessages[Math.floor(Math.random() * firstMessages.length)];
+        }
+
+        // ===== DOM ELEMENTS =====
+        const leftEye = document.getElementById('left-eye');
+        const rightEye = document.getElementById('right-eye');
+        const leftPupil = document.getElementById('left-pupil-container');
+        const rightPupil = document.getElementById('right-pupil-container');
+        const callButton = document.getElementById('call-button');
+        const callIcon = document.getElementById('call-icon');
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const currentStatus = document.getElementById('current-status');
+        const transcriptionDisplay = document.getElementById('transcription-display');
+        const transcriptionLabel = document.getElementById('transcription-label');
+        const transcriptionText = document.getElementById('transcription-text');
+        const errorMessage = document.getElementById('error-message');
+        const setupModal = document.getElementById('setup-modal');
+        const agentIdInput = document.getElementById('agent-id-input');
+        const cameraButton = document.getElementById('camera-button');
+        const cameraVideo = document.getElementById('camera-video');
+        const captureCanvas = document.getElementById('capture-canvas');
+        const wakeButton = document.getElementById('wake-button');
+        const wakeIcon = document.getElementById('wake-icon');
+        const musicButton = document.getElementById('music-button');
+        const musicIcon = document.getElementById('music-icon');
+        const nowPlaying = document.getElementById('now-playing');
+        const trackName = document.getElementById('track-name');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const volumeSlider = document.getElementById('volume-slider');
+        const musicPlayer = document.getElementById('music-player');
+
+        // ===== COMMERCIALS & GENERATED SONGS (must be before onMessage handler) =====
+        const commercialPlayer = new Audio();
+        let commercialPlaying = false;
+        let currentCommercial = null;
+        let commercialEndingNotified = false;
+        const COMMERCIAL_ENDING_ALERT = 5; // Seconds before end to alert agent
+
+        // Monitor commercial playback - no early alerts, just wait for it to end
+        // Commercials are short so we don't need "ending soon" alerts like songs
+        commercialPlayer.addEventListener('timeupdate', async () => {
+            // Just tracking - no early notifications for commercials
+            // The 'ended' event will notify the agent when it's done
+        });
+
+        async function playCommercial() {
+            if (commercialPlaying) {
+                console.log('📺 Commercial already playing, skipping');
+                return;
+            }
+
+            try {
+                // STOP music if playing (not just pause - we want clean transition)
+                const wasMusicPlaying = musicPlaying;
+                if (wasMusicPlaying || !musicPlayer.paused) {
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0; // Reset to start
+                    musicPlaying = false;
+                    console.log('📺 Stopped music for commercial break');
+                }
+
+                const response = await fetch(`${VISION_SERVER_URL}/api/commercials?action=play`);
+                const data = await response.json();
+                console.log('📺 Commercial response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    commercialPlaying = true;
+                    commercialEndingNotified = false;
+                    currentCommercial = data.commercial;
+                    currentCommercial.duration_seconds = data.duration_seconds || 30;
+
+                    commercialPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    commercialPlayer.volume = 1.0;
+
+                    const title = currentCommercial.title || 'commercial';
+                    const durationStr = data.duration_str || `${data.duration_seconds}s`;
+
+                    // Play and confirm started
+                    commercialPlayer.play().then(async () => {
+                        console.log(`📺 Playing commercial: ${title} (${durationStr})`);
+
+                        // Confirm to server that playback started
+                        await fetch(`${VISION_SERVER_URL}/api/commercials?action=confirm_started`);
+
+                        // Send contextual update to agent (passive info - no response needed)
+                        if (conversation) {
+                            try {
+                                conversation.sendContextualUpdate(`[DJ INFO: Commercial now playing (${durationStr}). Stay quiet and let it play - you'll be notified when it ends.]`);
+                            } catch (err) {
+                                console.error('Failed to send commercial started update:', err);
+                            }
+                        }
+                    });
+
+                    commercialPlayer.onended = async () => {
+                        commercialPlaying = false;
+                        commercialEndingNotified = false;
+                        currentCommercial = null;
+                        console.log('📺 Commercial ended');
+
+                        // Notify server
+                        await fetch(`${VISION_SERVER_URL}/api/commercials?action=ended`);
+
+                        // Send user message to force agent to continue the show
+                        // Don't mention commercial name - agent doesn't know what played
+                        if (conversation) {
+                            try {
+                                conversation.sendUserMessage(`[SYSTEM: Commercial break is over! Say "And we're back!" and call play_music action=skip to continue the show!]`);
+                            } catch (err) {
+                                console.error('Failed to send commercial ended alert:', err);
+                            }
+                        }
+
+                        console.log('📺 Commercial done - waiting for agent to play next song');
+                    };
+                }
+            } catch (error) {
+                console.error('📺 Commercial playback failed:', error);
+                commercialPlaying = false;
+                currentCommercial = null;
+            }
+        }
+
+        async function playGeneratedSong(songId) {
+            try {
+                const url = songId
+                    ? `${VISION_SERVER_URL}/api/suno?action=play&track=${songId}`
+                    : `${VISION_SERVER_URL}/api/suno?action=play`;
+                const response = await fetch(url);
+                const data = await response.json();
+                console.log('🎵 Generated song response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    trackName.textContent = data.track?.title || 'Generated Track';
+                    currentTrack = data.track;
+                    console.log('🎵 Playing generated song:', data.track?.title);
+                }
+            } catch (error) {
+                console.error('🎵 Generated song playback failed:', error);
+            }
+        }
+
+        async function skipGeneratedSong() {
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/suno?action=skip`);
+                const data = await response.json();
+                console.log('🎵 Skip generated song response:', data);
+
+                if (data.action === 'play' && data.url) {
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    trackName.textContent = data.track?.title || 'Generated Track';
+                    currentTrack = data.track;
+                }
+            } catch (error) {
+                console.error('🎵 Skip generated song failed:', error);
+            }
+        }
+
+        // Expose globally for tool handlers and console
+        window.playCommercial = playCommercial;
+        window.playGeneratedSong = playGeneratedSong;
+        window.skipGeneratedSong = skipGeneratedSong;
+        window.listGeneratedSongs = async () => {
+            const response = await fetch(`${VISION_SERVER_URL}/api/suno?action=list`);
+            const data = await response.json();
+            console.log('Generated songs:', data.songs);
+            return data;
+        };
+
+        // ===== SONG GENERATION COMPLETION POLLING =====
+        // Poll for completed song generations and notify agent
+        let songGenerationPolling = null;
+        let isGeneratingSong = false;
+
+        async function checkSongCompletions() {
+            if (!conversation) return;
+
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/suno/completed`);
+                const data = await response.json();
+
+                if (data.has_completed && data.songs.length > 0) {
+                    for (const song of data.songs) {
+                        console.log(`🎵 Song generation complete: "${song.title}"`);
+
+                        // Send BOTH contextual update AND user message to force agent to react
+                        try {
+                            conversation.sendContextualUpdate(`[DJ INFO: Your custom song "${song.title}" is now ready to play!]`);
+                            conversation.sendUserMessage(`[SYSTEM: Your generated song "${song.title}" is ready! Announce it and call generate_song action=play to spin it!]`);
+                        } catch (err) {
+                            console.error('Failed to notify agent of completed song:', err);
+                        }
+
+                        // Clear this song from the queue
+                        await fetch(`${VISION_SERVER_URL}/api/suno/completed?song_id=${song.song_id}`, { method: 'POST' });
+                    }
+
+                    // Stop polling since we found completed songs
+                    stopSongGenerationPolling();
+                }
+            } catch (err) {
+                console.error('Error checking song completions:', err);
+            }
+        }
+
+        function startSongGenerationPolling() {
+            if (songGenerationPolling) return; // Already polling
+            isGeneratingSong = true;
+            console.log('🎵 Started polling for song generation completion');
+            songGenerationPolling = setInterval(checkSongCompletions, 10000); // Every 10 seconds
+        }
+
+        function stopSongGenerationPolling() {
+            if (songGenerationPolling) {
+                clearInterval(songGenerationPolling);
+                songGenerationPolling = null;
+                isGeneratingSong = false;
+                console.log('🎵 Stopped polling for song generation completion');
+            }
+        }
+
+        // Expose for console testing
+        window.checkSongCompletions = checkSongCompletions;
+        window.startSongGenerationPolling = startSongGenerationPolling;
+        window.stopSongGenerationPolling = stopSongGenerationPolling;
+
+        // ===== SETUP =====
+        if (agentId) {
+            setupModal.classList.add('hidden');
+            agentIdInput.value = agentId;
+        }
+
+        window.saveAgentId = function() {
+            const id = agentIdInput.value.trim();
+            if (id) {
+                agentId = id;
+                localStorage.setItem('piGuyAgentId', id);
+                setupModal.classList.add('hidden');
+            }
+        };
+
+        // ===== EYE TRACKING =====
+        const MAX_PUPIL_OFFSET = 25;
+
+        function updateEyePosition(mouseX, mouseY) {
+            [
+                { eye: leftEye, pupil: leftPupil },
+                { eye: rightEye, pupil: rightPupil }
+            ].forEach(({ eye, pupil }) => {
+                const rect = eye.getBoundingClientRect();
+                const eyeCenterX = rect.left + rect.width / 2;
+                const eyeCenterY = rect.top + rect.height / 2;
+
+                const deltaX = mouseX - eyeCenterX;
+                const deltaY = mouseY - eyeCenterY;
+                const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+                const angle = Math.atan2(deltaY, deltaX);
+
+                const maxMove = Math.min(distance / 10, MAX_PUPIL_OFFSET);
+                const offsetX = Math.cos(angle) * maxMove;
+                const offsetY = Math.sin(angle) * maxMove;
+
+                pupil.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            });
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (currentMood !== 'thinking') {
+                updateEyePosition(e.clientX, e.clientY);
+            }
+        });
+
+        // ===== BLINKING =====
+        function blink() {
+            leftEye.classList.add('blinking');
+            rightEye.classList.add('blinking');
+
+            setTimeout(() => {
+                leftEye.classList.remove('blinking');
+                rightEye.classList.remove('blinking');
+            }, 150);
+        }
+
+        function scheduleRandomBlink() {
+            const delay = 2000 + Math.random() * 4000;
+            setTimeout(() => {
+                if (!isSpeaking) blink();
+                scheduleRandomBlink();
+            }, delay);
+        }
+
+        scheduleRandomBlink();
+
+        // ===== MOODS =====
+        let currentMood = 'neutral';
+        const moods = ['neutral', 'happy', 'sad', 'angry', 'thinking', 'surprised', 'listening'];
+
+        function setMood(mood) {
+            moods.forEach(m => {
+                leftEye.classList.remove(m);
+                rightEye.classList.remove(m);
+            });
+
+            if (mood !== 'neutral') {
+                leftEye.classList.add(mood);
+                rightEye.classList.add(mood);
+            }
+
+            currentMood = mood;
+        }
+
+        // ===== WAVEFORM MOUTH =====
+        const canvas = document.getElementById('waveform-canvas');
+        const ctx = canvas.getContext('2d');
+        let wavePhase = 0;
+        let waveAmplitude = 0;
+        let targetAmplitude = 0;
+
+        function resizeCanvas() {
+            const rect = canvas.parentElement.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            ctx.scale(2, 2);
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function drawWaveform() {
+            const width = canvas.width / 2;
+            const height = canvas.height / 2;
+
+            ctx.clearRect(0, 0, width, height);
+
+            // Smooth amplitude transition
+            waveAmplitude += (targetAmplitude - waveAmplitude) * 0.3;
+
+            // Draw waveform
+            ctx.beginPath();
+            ctx.strokeStyle = '#00ffff';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            const centerY = height / 2;
+            const points = 50;
+
+            for (let i = 0; i <= points; i++) {
+                const x = (i / points) * width;
+                const normalizedX = i / points;
+                const edgeFade = Math.sin(normalizedX * Math.PI);
+
+                let y = centerY;
+                if (waveAmplitude > 0.05) {
+                    const wave1 = Math.sin((normalizedX * 4 + wavePhase) * Math.PI * 2) * waveAmplitude * 20;
+                    const wave2 = Math.sin((normalizedX * 7 + wavePhase * 1.3) * Math.PI * 2) * waveAmplitude * 10;
+                    const wave3 = Math.sin((normalizedX * 13 + wavePhase * 0.7) * Math.PI * 2) * waveAmplitude * 5;
+                    y = centerY + (wave1 + wave2 + wave3) * edgeFade;
+                }
+
+                if (i === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            }
+
+            ctx.stroke();
+
+            // Glow layer
+            ctx.strokeStyle = 'rgba(0, 255, 255, 0.3)';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+
+            // Animate phase when speaking
+            if (isSpeaking) {
+                wavePhase += 0.12 + waveAmplitude * 0.1;
+                // Random amplitude for speech simulation
+                targetAmplitude = 0.3 + Math.random() * 0.7;
+            }
+
+            requestAnimationFrame(drawWaveform);
+        }
+
+        drawWaveform();
+
+        // ===== STATUS UPDATES =====
+        function updateStatus(status, text) {
+            statusDot.className = 'status-dot ' + status;
+            statusText.textContent = text;
+            currentStatus.textContent = status;
+        }
+
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorMessage.classList.add('visible');
+            setTimeout(() => errorMessage.classList.remove('visible'), 5000);
+        }
+
+        function showTranscription(text, isUser = false) {
+            transcriptionLabel.textContent = isUser ? 'You:' : 'Agent:';
+            transcriptionDisplay.className = 'transcription-display visible ' + (isUser ? 'user' : 'agent');
+            transcriptionText.textContent = text;
+        }
+
+        function hideTranscription() {
+            transcriptionDisplay.classList.remove('visible');
+        }
+
+        // Face recognition notification
+        const faceNotification = document.getElementById('face-notification');
+
+        function showFaceNotification(text) {
+            faceNotification.textContent = text;
+            faceNotification.classList.add('visible');
+        }
+
+        function hideFaceNotification() {
+            faceNotification.classList.remove('visible');
+        }
+
+        // ===== CONVERSATION CONTROL =====
+        let isConnecting = false;
+
+        window.toggleConversation = async function() {
+            if (!agentId) {
+                setupModal.classList.remove('hidden');
+                return;
+            }
+
+            // Prevent multiple instances
+            if (isConnecting) {
+                console.log('Already connecting, ignoring');
+                return;
+            }
+
+            if (conversation) {
+                // End conversation
+                await conversation.endSession();
+                conversation = null;
+                callButton.classList.remove('active', 'connecting');
+                callIcon.textContent = '📞';
+                updateStatus('disconnected', 'OFFLINE');
+                isSpeaking = false;
+                targetAmplitude = 0;
+                setMood('neutral');
+                hideTranscription();
+            } else {
+                // Check if user is logged in
+                if (!clerkUser) {
+                    showError('Please login to talk to Pi-Guy');
+                    document.getElementById('login-btn')?.click();
+                    return;
+                }
+
+                // Whitelist check - only allowed emails can use voice
+                const ALLOWED_EMAILS = [
+                    'mikecerqua@gmail.com'
+                ];
+                const userEmail = clerkUser.primaryEmailAddress?.emailAddress?.toLowerCase();
+                if (!ALLOWED_EMAILS.includes(userEmail)) {
+                    showError('Access restricted. Contact Mike for access.');
+                    return;
+                }
+
+                // Check usage limit
+                try {
+                    const usageResp = await fetch(`${VISION_SERVER_URL}/api/usage/${clerkUser.id}`);
+                    const usage = await usageResp.json();
+                    if (!usage.allowed) {
+                        showError(`Monthly limit reached (${usage.limit} responses). Try again next month!`);
+                        return;
+                    }
+                    console.log(`Usage: ${usage.used}/${usage.limit} (${usage.remaining} remaining)`);
+                } catch (e) {
+                    console.error('Usage check failed:', e);
+                }
+
+                // Start conversation
+                isConnecting = true;
+                callButton.classList.add('connecting');
+                callIcon.textContent = '⏳';
+                updateStatus('connecting', 'CONNECTING...');
+
+                try {
+                    // ============ iOS FIX: Ensure AudioContext is ready ============
+                    if (window.audioContext && window.audioContext.state === 'suspended') {
+                        console.log('[Mobile] Resuming AudioContext...');
+                        await window.audioContext.resume();
+                    }
+
+                    // ============ iOS FIX: Pre-request microphone ============
+                    console.log('[Mobile] Pre-requesting microphone...');
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    // Release mic so SDK can use it
+                    stream.getTracks().forEach(track => track.stop());
+                    // Small delay to ensure mic is released
+                    await new Promise(resolve => setTimeout(resolve, 150));
+
+                    // ============ iOS FIX: Audio routing for headphones ============
+                    if (navigator.audioSession) {
+                        try {
+                            navigator.audioSession.type = 'play-and-record';
+                            console.log('[Mobile] Set audioSession to play-and-record');
+                        } catch (e) {
+                            // Not supported on all browsers
+                        }
+                    }
+
+                    const randomMessage = getRandomFirstMessage();
+                    console.log('Starting with message:', randomMessage);
+
+                    conversation = await Conversation.startSession({
+                        agentId: agentId,
+                        overrides: {
+                            agent: {
+                                firstMessage: randomMessage
+                            }
+                        },
+                        // Client tools run in the browser and can play sounds!
+                        clientTools: {
+                            // DJ Soundboard - plays sound effects directly in browser
+                            dj_soundboard: async (parameters) => {
+                                console.log('🎧 CLIENT TOOL: dj_soundboard called with:', parameters);
+                                const action = parameters.action || 'list';
+                                const sound = parameters.sound || '';
+
+                                if (action === 'list') {
+                                    const sounds = Object.keys(DJ_SOUND_LIST);
+                                    return `Available sounds: ${sounds.join(', ')}. Use action=play with sound name.`;
+                                }
+
+                                if (action === 'play') {
+                                    const soundName = sound.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+                                    console.log('🎵 Playing sound:', soundName);
+
+                                    // Play the sound directly
+                                    playDJSound(soundName);
+
+                                    const info = DJ_SOUND_LIST[soundName] || { description: soundName };
+                                    return `*${info.description || soundName}* 🎵`;
+                                }
+
+                                return 'Use action=list or action=play with sound parameter';
+                            },
+                        },
+                        onConnect: () => {
+                            console.log('Connected to ElevenLabs');
+                            isConnecting = false;
+                            callButton.classList.remove('connecting');
+                            callButton.classList.add('active');
+                            callIcon.textContent = '📵';
+                            updateStatus('connected', 'CONNECTED');
+                            setMood('happy');
+                            blink();
+                            setTimeout(() => setMood('neutral'), 1000);
+                        },
+                        onDisconnect: () => {
+                            console.log('Disconnected');
+                            conversation = null;
+                            callButton.classList.remove('active', 'connecting');
+                            callIcon.textContent = '📞';
+                            updateStatus('disconnected', 'OFFLINE');
+                            isSpeaking = false;
+                            targetAmplitude = 0;
+                            setMood('neutral');
+                        },
+                        onError: (error) => {
+                            console.error('Conversation error:', error);
+                            showError(error.message || 'Connection error');
+                            setMood('sad');
+                            setTimeout(() => setMood('neutral'), 2000);
+                        },
+                        onModeChange: (mode) => {
+                            console.log('Mode changed:', mode);
+                            if (mode.mode === 'speaking') {
+                                isSpeaking = true;
+                                isListening = false;
+                                updateStatus('speaking', 'SPEAKING');
+                                setMood('neutral');
+                                // Duck music when speaking
+                                if (typeof duckMusicVolume === 'function') duckMusicVolume(true);
+                            } else if (mode.mode === 'listening') {
+                                isSpeaking = false;
+                                isListening = true;
+                                targetAmplitude = 0;
+                                updateStatus('listening', 'LISTENING');
+                                setMood('listening');
+                                // Restore music volume when listening
+                                if (typeof duckMusicVolume === 'function') duckMusicVolume(false);
+                            } else {
+                                isSpeaking = false;
+                                isListening = false;
+                                // Restore music volume
+                                if (typeof duckMusicVolume === 'function') duckMusicVolume(false);
+                                targetAmplitude = 0;
+                                updateStatus('connected', 'CONNECTED');
+                                setMood('neutral');
+                            }
+                        },
+                        onMessage: async (message) => {
+                            console.log('Message:', message);
+
+                            // Handle tool responses - ElevenLabs sends these in different formats
+                            // Check multiple possible locations for tool name and result
+                            const toolName = message.tool_name ||
+                                           message.name ||
+                                           (message.tool && message.tool.name) ||
+                                           (message.data && message.data.tool_name);
+
+                            const toolResult = message.tool_result ||
+                                             message.result ||
+                                             message.output ||
+                                             (message.tool && message.tool.result) ||
+                                             (message.data && message.data.result);
+
+                            // Log all messages that might be tool responses
+                            if (toolName || message.type?.includes('tool') || message.tool) {
+                                console.log('🔧 Potential tool response detected:', {
+                                    type: message.type,
+                                    toolName: toolName,
+                                    toolResult: toolResult,
+                                    fullMessage: message
+                                });
+                            }
+
+                            // DJ Soundboard tool - play the sound!
+                            if (toolName === 'dj_soundboard') {
+                                try {
+                                    const toolData = typeof toolResult === 'string'
+                                        ? JSON.parse(toolResult)
+                                        : toolResult;
+                                    console.log('🎧 DJ Soundboard response:', toolData);
+
+                                    if (toolData && toolData.action === 'play' && toolData.sound) {
+                                        console.log('🎵 Playing DJ sound:', toolData.sound);
+                                        playDJSound(toolData.sound);
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing DJ soundboard result:', e);
+                                }
+                            }
+
+                            // Music tool - sync playback using the proper sync function
+                            if (toolName === 'play_music') {
+                                console.log('🎵 Music tool called, syncing with server...');
+                                // Reset transition flag for new track
+                                djTransitionTriggered = false;
+                                // Use syncMusicWithServer which handles URL properly for all playlists
+                                syncMusicWithServer();
+                            }
+
+                            // Commercial tool - play the commercial!
+                            if (toolName === 'play_commercial') {
+                                console.log('📺 Commercial tool called! Playing commercial...');
+                                playCommercial();
+                            }
+
+                            // Generated song tool - play generated songs or start polling for completion
+                            if (toolName === 'generate_song') {
+                                try {
+                                    const toolData = typeof toolResult === 'string' ? JSON.parse(toolResult) : toolResult;
+                                    console.log('🎵 Generate song tool response:', toolData);
+
+                                    // If song is generating, start polling for completion
+                                    if (toolData && (toolData.status === 'generating' || toolData.action === 'generating')) {
+                                        console.log('🎵 Song generation started - beginning completion polling');
+                                        startSongGenerationPolling();
+                                    }
+
+                                    // Play if action is 'play' and we have a URL
+                                    if (toolData && toolData.action === 'play' && toolData.url) {
+                                        musicPlayer.src = `${VISION_SERVER_URL}${toolData.url}`;
+                                        musicPlayer.play();
+                                        musicPlaying = true;
+                                        musicButton.classList.add('playing');
+                                        playPauseBtn.textContent = '⏸';
+                                        nowPlaying.classList.add('visible');
+                                        trackName.textContent = toolData.track?.title || 'Generated Track';
+                                        currentTrack = toolData.track;
+                                        console.log('🎵 Playing generated song from tool:', toolData.track?.title);
+                                        // Stop polling if we were waiting for this
+                                        stopSongGenerationPolling();
+                                    }
+
+                                    // If song is complete, stop polling
+                                    if (toolData && (toolData.status === 'complete' || toolData.action === 'complete')) {
+                                        stopSongGenerationPolling();
+                                    }
+                                } catch (e) {
+                                    console.error('Error parsing generate_song result:', e);
+                                }
+                            }
+
+                            if (message.source === 'user' && message.message) {
+                                showTranscription(message.message, true);
+                            } else if (message.source === 'ai' && message.message) {
+                                showTranscription(message.message, false);
+
+                                // ==========================================================
+                                // BACKUP: DJ Sounds Text Detection
+                                // DISABLED: 2024-12-13
+                                // REASON: Client tool (dj_soundboard) works reliably and silently.
+                                //         Text detection caused duplicates and required Pi-Guy
+                                //         to say sound names out loud. Client tool is superior.
+                                // TO RESTORE: Uncomment the line below if client tool ever fails
+                                // ORIGINAL CODE:
+                                // checkForDJSounds(message.message);
+                                // ==========================================================
+
+                                // Sync music playback when Pi-Guy mentions playing (fallback)
+                                const msg = message.message.toLowerCase();
+
+                                // Track name detection - play specific track when mentioned
+                                // ARRAY (not object) so order is guaranteed - check longer/specific matches FIRST
+                                const trackKeywords = [
+                                    // FoamIt (Moe's Toronto track) - check specific phrases first
+                                    ['insulate you right', 'Foam-It-we-insulate-you-right'],
+                                    ['foam it insulate', 'Foam-It-we-insulate-you-right'],
+                                    ['mississauga', 'Foam-It-we-insulate-you-right'],
+                                    ['foam-it', 'Foam-It-we-insulate-you-right'],
+                                    ['foamit', 'Foam-It-we-insulate-you-right'],
+                                    ['foam it', 'Foam-It-we-insulate-you-right'],
+                                    ['toronto', 'Foam-It-we-insulate-you-right'],
+                                    ["moe's", 'Foam-It-we-insulate-you-right'],
+                                    ['moes', 'Foam-It-we-insulate-you-right'],
+
+                                    // Mrs. Sprayfoam (Karen's Augusta track)
+                                    ['mrs. sprayfoam', 'Call-Me-Mrs.Sprayfoam'],
+                                    ['mrs sprayfoam', 'Call-Me-Mrs.Sprayfoam'],
+                                    ['mrs.sprayfoam', 'Call-Me-Mrs.Sprayfoam'],
+                                    ['call me mrs', 'Call-Me-Mrs.Sprayfoam'],
+                                    ["karen's", 'Call-Me-Mrs.Sprayfoam'],
+                                    ['karens', 'Call-Me-Mrs.Sprayfoam'],
+                                    ['augusta', 'Call-Me-Mrs.Sprayfoam'],
+
+                                    // Foam Everything - MUST come after "foam it" variants
+                                    ['foam everything', 'Foam-Everything'],
+
+                                    // Hey Diddle Diddle
+                                    ['hey diddle diddle', 'Hey-Diddle-Diddle'],
+                                    ['diddle diddle', 'Hey-Diddle-Diddle'],
+                                    ['hey diddle', 'Hey-Diddle-Diddle'],
+                                    ['nursery rhyme', 'Hey-Diddle-Diddle'],
+
+                                    // Polyurethane tracks
+                                    ['og polyurethane', 'OG-Polyurthane-gang'],
+                                    ['polyurethane gang', 'Polyurethane-Gang'],
+                                    ['o.g. poly', 'OG-Polyurthane-gang'],
+                                    ['og poly', 'OG-Polyurthane-gang'],
+                                    ['poly gang', 'Polyurethane-Gang'],
+
+                                    // Spanish tracks
+                                    ['spanish comfy', 'Spanish-ComfyLife'],
+                                    ['comfy life', 'Spanish-ComfyLife'],
+                                    ['calidez', 'Espuma-Calidez-2'],
+                                    ['espuma', 'Espuma-Calidez-2'],
+                                    ['latin', 'Spanish-ComfyLife']
+                                ];
+
+                                // ===========================================
+                                // MUSIC SYNC: Use 'sync' action to get the track Pi-Guy's tool already selected
+                                // This prevents race conditions where text detection would select a DIFFERENT track
+                                // ===========================================
+
+                                // ===========================================
+                                // DETECT GENERATED/AI SONGS vs REGULAR MUSIC
+                                // ===========================================
+                                const isGeneratedSong =
+                                    msg.includes('generated') || msg.includes('ai song') ||
+                                    msg.includes('ai track') || msg.includes('custom song') ||
+                                    msg.includes('custom track') || msg.includes('first one we') ||
+                                    msg.includes('made this') || msg.includes('created this') ||
+                                    msg.includes('cooked up') || msg.includes('fresh from') ||
+                                    msg.includes('ai studio') || msg.includes('suno') ||
+                                    msg.includes('ai-generated') || msg.includes('we made') ||
+                                    msg.includes('i made') || msg.includes('original track') ||
+                                    msg.includes('from the vault') || msg.includes('ai vault');
+
+                                // Detect any music-related keywords to trigger sync
+                                const shouldSyncMusic =
+                                    // Song change/skip keywords
+                                    (msg.includes('next') && (msg.includes('song') || msg.includes('track'))) ||
+                                    msg.includes('switching') || msg.includes('change it up') ||
+                                    msg.includes('different song') || msg.includes("i'm changing") ||
+                                    msg.includes('changing it') || msg.includes('let me change') ||
+                                    // Play keywords
+                                    msg.includes('spinning') || msg.includes("let's go") ||
+                                    msg.includes('playing') || msg.includes('next up') ||
+                                    msg.includes('here we go') || msg.includes('coming up') ||
+                                    msg.includes('dropping') || msg.includes('fire up');
+
+                                if (shouldSyncMusic) {
+                                    // Clear lastSyncedTrack to allow switching to new track
+                                    lastSyncedTrack = null;
+
+                                    // Check if this is about a generated song or regular music
+                                    if (isGeneratedSong) {
+                                        console.log('🎵 GENERATED song detected, syncing with /api/suno...');
+                                        syncGeneratedMusicWithServer();
+                                    } else {
+                                        // Use SYNC action - gets the reserved track WITHOUT selecting a new one
+                                        console.log('🎵 Regular music detected, syncing with server...');
+                                        syncMusicWithServer();
+                                    }
+                                } else if (msg.includes('stopped') || msg.includes('stopping') ||
+                                    msg.includes('kill the music') || msg.includes('cut the music')) {
+                                    stopMusicPlayback();
+                                } else if (msg.includes('pausing') || msg.includes('paused') ||
+                                    msg.includes('hold up') || msg.includes('one sec')) {
+                                    pauseMusicPlayback();
+                                }
+
+                                // Detect commercial break keywords
+                                const shouldPlayCommercial =
+                                    msg.includes('commercial') || msg.includes('sponsor') ||
+                                    msg.includes('ad break') || msg.includes('word from our') ||
+                                    msg.includes('quick break') || msg.includes('brought to you') ||
+                                    msg.includes('from our sponsor') || msg.includes('message from') ||
+                                    msg.includes('stand by for') || msg.includes('paying the bills');
+                                if (shouldPlayCommercial && typeof playCommercial === 'function') {
+                                    console.log('📺 Commercial break detected via text, fetching ad...');
+                                    playCommercial();
+                                }
+
+                                // Track agent response for usage limits
+                                if (clerkUser) {
+                                    try {
+                                        const resp = await fetch(`${VISION_SERVER_URL}/api/usage/${clerkUser.id}/increment`, { method: 'POST' });
+                                        const usage = await resp.json();
+                                        console.log('Usage:', usage);
+                                        if (usage.remaining <= 5) {
+                                            console.warn(`Warning: Only ${usage.remaining} responses remaining this month`);
+                                        }
+                                    } catch (e) {
+                                        console.error('Usage tracking error:', e);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } catch (error) {
+                    console.error('Failed to start conversation:', error);
+                    isConnecting = false;
+                    callButton.classList.remove('connecting');
+                    callIcon.textContent = '📞';
+                    updateStatus('disconnected', 'OFFLINE');
+
+                    // Better error messages for mobile
+                    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+                    if (error.name === 'NotAllowedError') {
+                        if (isIOS) {
+                            showError('Mic blocked. Go to Settings > Safari > Microphone to allow.');
+                        } else {
+                            showError('Microphone access denied. Please allow microphone access.');
+                        }
+                    } else if (error.name === 'NotFoundError') {
+                        showError('No microphone found. Please connect a microphone.');
+                    } else if (error.name === 'NotReadableError') {
+                        showError('Microphone in use by another app. Close other apps and try again.');
+                    } else {
+                        showError(error.message || 'Failed to connect');
+                    }
+                    setMood('sad');
+                    setTimeout(() => setMood('neutral'), 2000);
+                }
+            }
+        };
+
+        // ===== RANDOM LOOKING BEHAVIOR =====
+        let lastMouseMove = Date.now();
+        let randomLookInterval;
+
+        function randomLook() {
+            // Only do random look if mouse hasn't moved recently (2 seconds)
+            if (Date.now() - lastMouseMove > 2000 && currentMood !== 'thinking') {
+                const x = window.innerWidth * (0.2 + Math.random() * 0.6);
+                const y = window.innerHeight * (0.15 + Math.random() * 0.5);
+                updateEyePosition(x, y);
+            }
+        }
+
+        // Random look every 1.5-4 seconds
+        function scheduleRandomLook() {
+            const delay = 1500 + Math.random() * 2500;
+            setTimeout(() => {
+                randomLook();
+                scheduleRandomLook();
+            }, delay);
+        }
+
+        scheduleRandomLook();
+
+        // Random expressions when idle
+        function scheduleRandomExpression() {
+            const delay = 5000 + Math.random() * 10000; // Every 5-15 seconds
+            setTimeout(() => {
+                // Only change expression if not in conversation and not already in a mood
+                if (!conversation && currentMood === 'neutral') {
+                    const expressions = ['angry', 'angry', 'angry', 'thinking', 'happy'];
+                    const randomExpr = expressions[Math.floor(Math.random() * expressions.length)];
+                    setMood(randomExpr);
+
+                    // Return to neutral after a short time
+                    setTimeout(() => {
+                        if (!conversation) setMood('neutral');
+                    }, 1000 + Math.random() * 2000);
+                }
+                scheduleRandomExpression();
+            }, delay);
+        }
+
+        scheduleRandomExpression();
+
+        // Track mouse movement
+        document.addEventListener('mousemove', (e) => {
+            lastMouseMove = Date.now();
+        });
+
+        // ===== CAMERA CONTROL =====
+        window.toggleCamera = async function() {
+            if (cameraStream) {
+                // Stop camera
+                cameraStream.getTracks().forEach(track => track.stop());
+                cameraStream = null;
+                cameraVideo.srcObject = null;
+                cameraButton.classList.remove('active');
+                currentIdentity = null;
+
+                // Stop sending frames
+                if (frameInterval) {
+                    clearInterval(frameInterval);
+                    frameInterval = null;
+                }
+                console.log('Camera disabled');
+            } else {
+                // Start camera
+                try {
+                    cameraStream = await navigator.mediaDevices.getUserMedia({
+                        video: { facingMode: 'user', width: 640, height: 480 }
+                    });
+                    cameraVideo.srcObject = cameraStream;
+                    cameraButton.classList.add('active');
+                    console.log('Camera enabled');
+
+                    // Wait for video to be ready, then identify face
+                    cameraVideo.onloadedmetadata = async () => {
+                        // Give it a moment to get a good frame
+                        setTimeout(async () => {
+                            await identifyFace();
+                        }, 500);
+                    };
+
+                    // Start sending frames to server every 2 seconds
+                    frameInterval = setInterval(sendFrameToServer, 2000);
+                } catch (error) {
+                    console.error('Camera error:', error);
+                    showError('Camera access denied');
+                }
+            }
+        };
+
+        // Identify the face in the camera
+        async function identifyFace() {
+            const frame = captureFrame();
+            if (!frame) {
+                console.log('No frame available for identification');
+                return;
+            }
+
+            try {
+                console.log('Attempting face identification...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/identify`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+                const data = await response.json();
+                currentIdentity = data;
+                console.log('Face identification result:', data);
+
+                if (data.name !== 'unknown') {
+                    showFaceNotification(`Recognized: ${data.name} (${data.confidence}%)`);
+                    setTimeout(hideFaceNotification, 3000);
+                }
+            } catch (error) {
+                console.error('Face identification error:', error);
+            }
+        }
+
+        // Re-identify periodically while camera is on (every 10 seconds)
+        setInterval(() => {
+            if (cameraStream && !conversation) {
+                identifyFace();
+            }
+        }, 10000);
+
+        function captureFrame() {
+            if (!cameraStream || !cameraVideo.videoWidth) return null;
+
+            captureCanvas.width = cameraVideo.videoWidth;
+            captureCanvas.height = cameraVideo.videoHeight;
+            const ctx = captureCanvas.getContext('2d');
+            ctx.drawImage(cameraVideo, 0, 0);
+            return captureCanvas.toDataURL('image/jpeg', 0.8);
+        }
+
+        async function sendFrameToServer() {
+            const frame = captureFrame();
+            if (!frame) return;
+
+            try {
+                await fetch(`${VISION_SERVER_URL}/api/frame`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+            } catch (error) {
+                console.error('Failed to send frame:', error);
+            }
+        }
+
+        // Expose for debugging
+        window.captureAndDescribe = async function() {
+            const frame = captureFrame();
+            if (!frame) {
+                console.log('No camera frame available');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/vision`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+                const data = await response.json();
+                console.log('Vision response:', data.response);
+                return data.response;
+            } catch (error) {
+                console.error('Vision error:', error);
+            }
+        };
+
+        // Save current face to database
+        window.saveFace = async function(name) {
+            if (!name) {
+                console.log('Usage: saveFace("Name")');
+                return;
+            }
+            const frame = captureFrame();
+            if (!frame) {
+                console.log('No camera frame available - turn on camera first');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/faces/${encodeURIComponent(name)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: frame })
+                });
+                const data = await response.json();
+                console.log('Save face result:', data);
+                return data;
+            } catch (error) {
+                console.error('Save face error:', error);
+            }
+        };
+
+        // List known faces
+        window.listFaces = async function() {
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/faces`);
+                const data = await response.json();
+                console.log('Known faces:', data);
+                return data;
+            } catch (error) {
+                console.error('List faces error:', error);
+            }
+        };
+
+        // Get current identity
+        window.getIdentity = function() {
+            console.log('Current identity:', currentIdentity);
+            return currentIdentity;
+        };
+
+        // ===== WAKE WORD DETECTION =====
+        let wakeWordRecognition = null;
+        let isWakeWordListening = false;
+        let wakeWordEnabled = false;
+        let wakeWordTriggered = false;  // Prevents multiple triggers
+        const WAKE_WORDS = [
+            // Pi Guy variations
+            'pi guy', 'hey pi guy', 'pie guy', 'hey pie guy',
+            // AI Guy variations
+            'ai guy', 'hey ai guy', 'a i guy', 'hey ai',
+            // Foam Bot variations (for foam people)
+            'foam bot', 'hey foam bot', 'foambot', 'phone bot', 'hey phone bot',
+            // Other common misheard variations
+            'hi guy', 'hey hi guy', 'my guy', 'hey my guy',
+            'five guy', 'fly guy', 'by guy', 'buy guy',
+            'fi guy', 'fy guy', 'psy guy', 'sci guy'
+        ];
+
+        window.toggleWakeWord = async function() {
+            if (wakeWordEnabled) {
+                stopWakeWordListener();
+                wakeWordEnabled = false;
+                wakeButton.classList.remove('active');
+                updateStatus('disconnected', 'STANDBY');
+                console.log('Wake word disabled');
+            } else {
+                // Request mic permission first
+                try {
+                    await navigator.mediaDevices.getUserMedia({ audio: true });
+                } catch (e) {
+                    showError('Microphone permission required for voice activation');
+                    return;
+                }
+
+                const started = startWakeWordListener();
+                if (started !== false) {
+                    wakeWordEnabled = true;
+                    wakeButton.classList.add('active');
+                    updateStatus('listening', 'LISTENING');
+                    console.log('Wake word enabled - say "Pie Guy" or "Hey Pie Guy"');
+                }
+            }
+        };
+
+        function startWakeWordListener() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                console.log('Wake word not supported - Speech Recognition API not available');
+                showError('Voice activation not supported in this browser');
+                return false;
+            }
+
+            // Reset trigger flag when starting fresh
+            wakeWordTriggered = false;
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            wakeWordRecognition = new SpeechRecognition();
+            wakeWordRecognition.continuous = true;
+            wakeWordRecognition.interimResults = true;
+            wakeWordRecognition.lang = 'en-US';
+
+            wakeWordRecognition.onresult = (event) => {
+                // Don't listen for wake word while in conversation, connecting, or already triggered
+                if (conversation || isConnecting || wakeWordTriggered) return;
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript.toLowerCase().trim();
+                    console.log('Heard:', transcript);
+
+                    // Check if any wake word is in the transcript
+                    for (const wakeWord of WAKE_WORDS) {
+                        if (transcript.includes(wakeWord)) {
+                            console.log('Wake word detected!', wakeWord);
+                            // Set flag immediately to prevent any more triggers
+                            wakeWordTriggered = true;
+                            // Stop wake word listener and give mic time to release before starting conversation
+                            stopWakeWordListener();
+                            setTimeout(() => {
+                                toggleConversation();
+                            }, 800);
+                            return;
+                        }
+                    }
+                }
+            };
+
+            wakeWordRecognition.onend = () => {
+                // Restart if wake word mode is enabled and not in a conversation or connecting
+                if (wakeWordEnabled && !conversation && !isConnecting) {
+                    setTimeout(() => {
+                        if (wakeWordEnabled && !conversation && !isConnecting && wakeWordRecognition) {
+                            try {
+                                wakeWordRecognition.start();
+                            } catch (e) {
+                                console.log('Could not restart wake word:', e);
+                            }
+                        }
+                    }, 100);
+                }
+            };
+
+            wakeWordRecognition.onerror = (event) => {
+                console.log('Wake word error:', event.error);
+                if (event.error === 'not-allowed') {
+                    showError('Microphone permission denied');
+                    wakeWordEnabled = false;
+                    wakeButton.classList.remove('active');
+                    wakeIcon.textContent = '🎤';
+                } else if (event.error === 'network') {
+                    // Speech recognition not available (common on Chromium/Pi)
+                    // Don't disable the button - SSE wake word will handle it!
+                    console.log('Browser speech recognition unavailable - using server-side wake word (SSE)');
+                    stopWakeWordListener();
+                    // Make sure SSE is running
+                    if (!sseWakeWordEnabled) {
+                        startSSEWakeWordListener();
+                    }
+                }
+            };
+
+            try {
+                wakeWordRecognition.start();
+                isWakeWordListening = true;
+                return true;
+            } catch (e) {
+                console.log('Could not start wake word listener:', e);
+                showError('Could not start voice activation');
+                return false;
+            }
+        }
+
+        function stopWakeWordListener() {
+            isWakeWordListening = false;
+            if (wakeWordRecognition) {
+                try {
+                    wakeWordRecognition.stop();
+                } catch (e) {}
+                wakeWordRecognition = null;
+            }
+        }
+
+        // ===== SERVER-SIDE WAKE WORD (SSE) =====
+        // Fallback for Chromium/Pi where Web Speech API doesn't work
+        // Listens for triggers from wake_word_listener.py via Server-Sent Events
+        let sseWakeWordEnabled = false;
+        let sseEventSource = null;
+        let sseWakeWordTriggered = false;
+
+        function startSSEWakeWordListener() {
+            if (sseEventSource) {
+                console.log('SSE wake word already running');
+                return true;
+            }
+
+            console.log('🎤 Starting SSE wake word listener...');
+
+            try {
+                sseEventSource = new EventSource(`${VISION_SERVER_URL}/api/wake-trigger/stream`);
+
+                sseEventSource.onopen = () => {
+                    console.log('✓ SSE wake word connected');
+                    sseWakeWordEnabled = true;
+                };
+
+                sseEventSource.onmessage = (event) => {
+                    // Don't trigger if already in conversation or connecting
+                    if (conversation || isConnecting || sseWakeWordTriggered) {
+                        console.log('🎤 Wake trigger ignored (already active)');
+                        return;
+                    }
+
+                    try {
+                        const trigger = JSON.parse(event.data);
+                        console.log('🎤 Wake word triggered via SSE:', trigger.keyword);
+
+                        // Set flag immediately to prevent double triggers
+                        sseWakeWordTriggered = true;
+
+                        // Start conversation
+                        setTimeout(() => {
+                            toggleConversation();
+                        }, 300);
+
+                        // Reset trigger flag after conversation would have started
+                        setTimeout(() => {
+                            sseWakeWordTriggered = false;
+                        }, 3000);
+
+                    } catch (e) {
+                        console.log('SSE parse error:', e);
+                    }
+                };
+
+                sseEventSource.onerror = (event) => {
+                    console.log('SSE wake word error, reconnecting...');
+                    // EventSource will auto-reconnect
+                };
+
+                return true;
+            } catch (e) {
+                console.log('Could not start SSE wake word:', e);
+                return false;
+            }
+        }
+
+        function stopSSEWakeWordListener() {
+            if (sseEventSource) {
+                sseEventSource.close();
+                sseEventSource = null;
+            }
+            sseWakeWordEnabled = false;
+            console.log('SSE wake word stopped');
+        }
+
+        // Auto-start wake word listeners on page load
+        window.addEventListener('load', () => {
+            // Give page time to fully load, then start listeners
+            setTimeout(() => {
+                // Start SSE listener (for Pi's Porcupine detection)
+                console.log('🎤 Attempting to connect SSE wake word listener...');
+                startSSEWakeWordListener();
+
+                // Also start browser's Web Speech API listener (for laptop/desktop)
+                console.log('🎤 Auto-starting browser wake word listener...');
+                const started = startWakeWordListener();
+                if (started) {
+                    wakeWordEnabled = true;
+                    const wakeBtn = document.getElementById('wake-button');
+                    if (wakeBtn) {
+                        wakeBtn.classList.add('active');
+                    }
+                    updateStatus('listening', 'LISTENING');
+                    console.log('✓ Browser wake word listener started');
+                }
+            }, 2000);
+        });
+
+        // Expose for debugging
+        window.startSSEWakeWord = startSSEWakeWordListener;
+        window.stopSSEWakeWord = stopSSEWakeWordListener;
+
+        // Restart wake word listener when conversation ends (if enabled)
+        const originalToggleConversation = window.toggleConversation;
+        window.toggleConversation = async function() {
+            const wasInConversation = !!conversation;
+            await originalToggleConversation();
+
+            // If conversation just ended and wake word was enabled, restart it
+            if (wasInConversation && !conversation && wakeWordEnabled) {
+                setTimeout(() => {
+                    startWakeWordListener();
+                }, 1000);
+            }
+        };
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                toggleConversation();
+            } else if (e.key === 'Escape' && conversation) {
+                toggleConversation();
+            }
+        });
+
+        // Enter key in agent ID input
+        agentIdInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                saveAgentId();
+            }
+        });
+
+        // ===== EXPOSE FOR DEBUGGING =====
+        window.piGuy = {
+            setMood,
+            blink,
+            getConversation: () => conversation,
+            setAgentId: (id) => {
+                agentId = id;
+                localStorage.setItem('piGuyAgentId', id);
+            }
+        };
+
+        // ===== CLERK AUTHENTICATION =====
+        let clerkUser = null;
+
+        async function initClerk() {
+            try {
+                // Wait for Clerk to load
+                await window.Clerk.load();
+
+                const userButtonDiv = document.getElementById('user-button');
+                const signInButtonDiv = document.getElementById('sign-in-button');
+                const loginBtn = document.getElementById('login-btn');
+                const clerkModal = document.getElementById('clerk-modal');
+                const signInContainer = document.getElementById('sign-in-container');
+
+                if (window.Clerk.user) {
+                    // User is signed in
+                    clerkUser = window.Clerk.user;
+                    console.log('Signed in as:', clerkUser.primaryEmailAddress?.emailAddress || clerkUser.id);
+                    signInButtonDiv.style.display = 'none';
+                    window.Clerk.mountUserButton(userButtonDiv);
+                } else {
+                    // User is not signed in
+                    signInButtonDiv.style.display = 'block';
+
+                    loginBtn.addEventListener('click', () => {
+                        clerkModal.style.display = 'flex';
+                        window.Clerk.mountSignIn(signInContainer);
+                    });
+
+                    // Close modal when clicking outside
+                    clerkModal.addEventListener('click', (e) => {
+                        if (e.target === clerkModal) {
+                            clerkModal.style.display = 'none';
+                            window.Clerk.unmountSignIn(signInContainer);
+                        }
+                    });
+                }
+
+                // Listen for auth changes
+                window.Clerk.addListener(({ user }) => {
+                    if (user) {
+                        clerkUser = user;
+                        clerkModal.style.display = 'none';
+                        signInButtonDiv.style.display = 'none';
+                        window.Clerk.mountUserButton(userButtonDiv);
+                        console.log('User signed in:', user.primaryEmailAddress?.emailAddress);
+                        // Refresh community panel if open
+                        if (typeof updateMyFaceSection === 'function') {
+                            loadCommunityList().then(() => updateMyFaceSection());
+                        }
+                    } else {
+                        clerkUser = null;
+                        signInButtonDiv.style.display = 'block';
+                        // Hide my face section when logged out
+                        if (typeof updateMyFaceSection === 'function') {
+                            updateMyFaceSection();
+                        }
+                    }
+                });
+
+            } catch (error) {
+                console.error('Clerk initialization error:', error);
+            }
+        }
+
+        // Initialize Clerk when script loads
+        if (window.Clerk) {
+            initClerk();
+        } else {
+            // Wait for Clerk script to load
+            document.querySelector('script[src*="clerk"]').addEventListener('load', initClerk);
+        }
+
+        // Helper to check if user is logged in
+        window.isLoggedIn = () => !!clerkUser;
+        window.getUser = () => clerkUser;
+
+        // ===== MOBILE DEBUG HELPER =====
+        window.mobileDebug = function() {
+            const info = {
+                userAgent: navigator.userAgent,
+                isIOS: /iPad|iPhone|iPod/.test(navigator.userAgent),
+                isSafari: /^((?!chrome|android).)*safari/i.test(navigator.userAgent),
+                isAndroid: /Android/.test(navigator.userAgent),
+                audioContextState: window.audioContext?.state || 'not created',
+                audioUnlocked: window.isAudioUnlocked?.() || false,
+                audioContextSupport: !!window.AudioContext,
+                mediaDevicesSupport: !!navigator.mediaDevices,
+                getUserMediaSupport: !!navigator.mediaDevices?.getUserMedia,
+                webRTCSupport: !!window.RTCPeerConnection,
+                audioSessionSupport: !!navigator.audioSession,
+                screenWidth: window.innerWidth,
+                screenHeight: window.innerHeight,
+                touchSupport: 'ontouchstart' in window
+            };
+            console.log('=== Mobile Debug Info ===');
+            console.table(info);
+            return info;
+        };
+
+        // Auto-log debug info if ?debug in URL
+        if (location.search.includes('debug')) {
+            document.addEventListener('DOMContentLoaded', () => {
+                window.mobileDebug();
+            });
+        }
+
+        // Show hint on iOS first visit
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (isIOS && !sessionStorage.getItem('iosAudioHint')) {
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(() => {
+                    showTranscription('Tap anywhere to enable audio', false);
+                    setTimeout(hideTranscription, 3000);
+                    sessionStorage.setItem('iosAudioHint', 'true');
+                }, 1000);
+            });
+        }
+
+        // ===== DJ PI-GUY MUSIC SYSTEM =====
+
+        // Initialize music player
+        musicPlayer.volume = musicVolume;
+        let djTransitionTriggered = false;  // Prevent multiple triggers per track
+        let nextTrackQueued = null;         // Track queued for smooth transition
+        const DJ_INTRO_TIME = 12;           // Seconds before end to trigger DJ intro
+
+        // Monitor playback - notify agent when track is ending
+        musicPlayer.addEventListener('timeupdate', async () => {
+            if (!musicPlaying || !currentTrack) return;
+
+            const duration = musicPlayer.duration || currentTrack.duration_seconds || 120;
+            const currentTime = musicPlayer.currentTime;
+            const remaining = duration - currentTime;
+
+            // When ~10 seconds remain, alert agent with BOTH contextual update AND user message
+            if (remaining <= DJ_INTRO_TIME && remaining > (DJ_INTRO_TIME - 1) && !djTransitionTriggered && conversation) {
+                djTransitionTriggered = true;
+                const trackName = currentTrack.title || currentTrack.name || 'current track';
+                console.log(`🎙️ Track "${trackName}" ending in ${remaining.toFixed(1)}s - forcing agent response`);
+
+                try {
+                    // Contextual update for background info
+                    conversation.sendContextualUpdate(`[DJ INFO: "${trackName}" has about 10 seconds left]`);
+                    // User message to FORCE a response - agent MUST act on this
+                    conversation.sendUserMessage(`[SYSTEM: Song ending soon! Announce the next track and call play_music action=skip!]`);
+                } catch (err) {
+                    console.error('Failed to send DJ transition alert:', err);
+                }
+            }
+        });
+
+        // When track ends, notify agent or auto-play next
+        musicPlayer.addEventListener('ended', async () => {
+            const endedTrack = currentTrack ? (currentTrack.title || currentTrack.name) : 'track';
+            djTransitionTriggered = false;  // Reset for next track
+            nextTrackQueued = null;
+
+            // Stop playback and reset UI
+            musicPlaying = false;
+            musicButton.classList.remove('playing');
+            playPauseBtn.textContent = '▶';
+            nowPlaying.classList.remove('visible');
+            currentTrack = null;
+
+            // Clear server state
+            try {
+                await fetch(`${VISION_SERVER_URL}/api/music?action=stop`);
+            } catch (err) {
+                console.error('Failed to clear server state:', err);
+            }
+
+            // If agent is in conversation, let agent handle it
+            if (conversation) {
+                try {
+                    console.log(`🎙️ "${endedTrack}" ended - forcing agent to play next track`);
+                    // Contextual update for background info
+                    conversation.sendContextualUpdate(`[DJ INFO: "${endedTrack}" just finished playing]`);
+                    // User message to FORCE a response - agent MUST act on this
+                    conversation.sendUserMessage(`[SYSTEM: Song ended! Call play_music action=skip NOW to play the next track!]`);
+                } catch (err) {
+                    console.error('Failed to notify agent of track end:', err);
+                }
+                console.log('🎵 Track ended - waiting for agent to play next');
+            }
+            // No agent - check if autoplay is enabled
+            else if (autoplayEnabled) {
+                console.log(`🎵 "${endedTrack}" ended - autoplay enabled, playing next track`);
+                await playMusicFromServer('skip');
+            } else {
+                console.log('🎵 Track ended - autoplay disabled, waiting for manual action');
+            }
+        });
+
+        // Duck music volume when Pi-Guy speaks
+        function duckMusicVolume(duck) {
+            if (musicPlaying) {
+                // Duck to 50% when speaking (was 30% - too quiet)
+                const targetVol = duck ? musicVolume * 0.5 : musicVolume;
+                musicPlayer.volume = targetVol;
+            }
+        }
+
+        // Toggle music play/pause from button
+        window.toggleMusic = async function() {
+            if (musicPlaying) {
+                musicPlayer.pause();
+                musicPlaying = false;
+                musicButton.classList.remove('playing');
+                playPauseBtn.textContent = '▶';
+                nowPlaying.classList.remove('visible');
+            } else {
+                // If we have a track AND a valid source, resume. Otherwise fetch random
+                if (currentTrack && musicPlayer.src && musicPlayer.src !== window.location.href) {
+                    try {
+                        await musicPlayer.play();
+                        musicPlaying = true;
+                        musicButton.classList.add('playing');
+                        playPauseBtn.textContent = '⏸';
+                        nowPlaying.classList.add('visible');
+                    } catch (err) {
+                        console.error('🎵 Failed to resume, fetching new track:', err.message);
+                        currentTrack = null;
+                        await playMusicFromServer('play');
+                    }
+                } else {
+                    // Fetch and play a random track
+                    await playMusicFromServer('play');
+                }
+            }
+        };
+
+        // Control music from now-playing panel
+        window.musicControl = async function(action) {
+            switch(action) {
+                case 'toggle':
+                    toggleMusic();
+                    break;
+                case 'next':
+                    await playMusicFromServer('skip');
+                    break;
+                case 'prev':
+                    // Restart current track or go to previous (just restart for now)
+                    if (musicPlayer.currentTime > 3) {
+                        musicPlayer.currentTime = 0;
+                    } else {
+                        await playMusicFromServer('skip');  // No real prev, just skip
+                    }
+                    break;
+            }
+        };
+
+        // Set volume from slider
+        window.setMusicVolume = function(value) {
+            musicVolume = value / 100;
+            musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
+        };
+
+        // Toggle autoplay (only works when agent is NOT in conversation)
+        window.toggleAutoplay = function(enabled) {
+            autoplayEnabled = enabled;
+            localStorage.setItem('musicAutoplay', enabled);
+            const toggle = document.getElementById('autoplay-toggle');
+            if (toggle) {
+                toggle.classList.toggle('enabled', enabled);
+            }
+            console.log(`🎵 Autoplay ${enabled ? 'enabled' : 'disabled'}`);
+        };
+
+        // Initialize autoplay toggle state on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkbox = document.getElementById('autoplay-checkbox');
+            const toggle = document.getElementById('autoplay-toggle');
+            if (checkbox) {
+                checkbox.checked = autoplayEnabled;
+            }
+            if (toggle && autoplayEnabled) {
+                toggle.classList.add('enabled');
+            }
+        });
+
+        // Switch playlist (from dropdown)
+        window.switchPlaylist = async function(playlist) {
+            console.log(`🎵 Switching to playlist: ${playlist}`);
+            currentPlaylist = playlist;
+
+            // If music is playing, switch to a track from the new playlist
+            if (musicPlaying) {
+                await playMusicFromServer('play');
+            }
+        };
+
+        // Play music from server API
+        async function playMusicFromServer(action, track = '') {
+            try {
+                let url = `${VISION_SERVER_URL}/api/music?action=${action}&playlist=${currentPlaylist}`;
+                if (track) url += `&track=${encodeURIComponent(track)}`;
+
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.action === 'play' && data.url) {
+                    currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track?.title || data.track?.name || 'Unknown Track';
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    try {
+                        await musicPlayer.play();
+                        musicPlaying = true;
+                        musicButton.classList.add('playing');
+                        playPauseBtn.textContent = '⏸';
+                        nowPlaying.classList.add('visible');
+                        // Duck if speaking
+                        if (isSpeaking) duckMusicVolume(true);
+                    } catch (err) {
+                        console.error('🎵 Failed to play track:', err.message);
+                        musicPlaying = false;
+                        currentTrack = null;
+                    }
+                } else if (data.action === 'pause') {
+                    musicPlayer.pause();
+                    musicPlaying = false;
+                    playPauseBtn.textContent = '▶';
+                } else if (data.action === 'resume') {
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    playPauseBtn.textContent = '⏸';
+                } else if (data.action === 'stop') {
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0;
+                    musicPlaying = false;
+                    currentTrack = null;
+                    musicButton.classList.remove('playing');
+                    nowPlaying.classList.remove('visible');
+                } else if (data.action === 'volume' && data.volume !== undefined) {
+                    musicVolume = data.volume / 100;
+                    musicPlayer.volume = musicVolume;
+                    volumeSlider.value = data.volume;
+                }
+
+                return data;
+            } catch (error) {
+                console.error('Music API error:', error);
+                return { action: 'error', response: 'Failed to communicate with music server' };
+            }
+        }
+
+        // Handle music commands from ElevenLabs tool responses
+        // This is called when Pi-Guy's tool returns music data
+        window.handleMusicCommand = function(musicData) {
+            if (!musicData || !musicData.action) return;
+
+            switch(musicData.action) {
+                case 'play':
+                    if (musicData.url) {
+                        currentTrack = musicData.track;
+                        djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                        trackName.textContent = musicData.track?.title || musicData.track?.name || 'Unknown';
+                        musicPlayer.src = `${VISION_SERVER_URL}${musicData.url}`;
+                        musicPlayer.play();
+                        musicPlaying = true;
+                        musicButton.classList.add('playing');
+                        playPauseBtn.textContent = '⏸';
+                        nowPlaying.classList.add('visible');
+                    }
+                    break;
+                case 'pause':
+                    musicPlayer.pause();
+                    musicPlaying = false;
+                    playPauseBtn.textContent = '▶';
+                    break;
+                case 'resume':
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    playPauseBtn.textContent = '⏸';
+                    break;
+                case 'stop':
+                    musicPlayer.pause();
+                    musicPlayer.currentTime = 0;
+                    musicPlaying = false;
+                    currentTrack = null;
+                    musicButton.classList.remove('playing');
+                    nowPlaying.classList.remove('visible');
+                    break;
+                case 'volume':
+                    if (musicData.volume !== undefined) {
+                        musicVolume = musicData.volume / 100;
+                        musicPlayer.volume = musicVolume;
+                        volumeSlider.value = musicData.volume;
+                    }
+                    break;
+            }
+        };
+
+        // Sync music state with server (called when Pi-Guy says he's playing something)
+        async function syncMusicState() {
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=status&playlist=${currentPlaylist}`);
+                const data = await response.json();
+                console.log('Music state from server:', data);
+
+                if (data.playing && data.track) {
+                    currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track.title || data.track.name;
+                    // Use url_prefix from track data (works for both /music/ and /generated_music/)
+                    const urlPrefix = data.track.url_prefix || '/music/';
+                    musicPlayer.src = `${VISION_SERVER_URL}${urlPrefix}${data.track.filename}`;
+                    // Update dropdown to match current playlist
+                    const playlistSelect = document.getElementById('playlist-select');
+                    if (urlPrefix.includes('generated')) {
+                        currentPlaylist = 'generated';
+                        if (playlistSelect) playlistSelect.value = 'generated';
+                    } else {
+                        currentPlaylist = 'sprayfoam';
+                        if (playlistSelect) playlistSelect.value = 'sprayfoam';
+                    }
+                    musicPlayer.volume = isSpeaking ? (data.volume / 100) * 0.3 : data.volume / 100;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    volumeSlider.value = data.volume;
+                    console.log('Music started:', data.track.title || data.track.name);
+                }
+            } catch (error) {
+                console.error('Failed to sync music state:', error);
+            }
+        }
+
+        // Stop music playback
+        function stopMusicPlayback() {
+            musicPlayer.pause();
+            musicPlayer.currentTime = 0;
+            musicPlaying = false;
+            currentTrack = null;
+            musicButton.classList.remove('playing');
+            nowPlaying.classList.remove('visible');
+            console.log('Music stopped');
+        }
+
+        // Pause music playback
+        function pauseMusicPlayback() {
+            musicPlayer.pause();
+            musicPlaying = false;
+            playPauseBtn.textContent = '▶';
+            console.log('Music paused');
+        }
+
+        // =============================================
+        // SYNC MUSIC WITH SERVER - Prevents race conditions
+        // Uses 'sync' action which NEVER selects a new track
+        // Only returns the track that Pi-Guy's tool already reserved
+        // =============================================
+        let lastSyncTime = 0;
+        let lastSyncedTrack = null;
+        const SYNC_DEBOUNCE_MS = 2000;  // Ignore sync calls within 2 seconds of each other
+
+        async function syncMusicWithServer() {
+            const now = Date.now();
+
+            // Debounce: Ignore if we synced recently
+            if (now - lastSyncTime < SYNC_DEBOUNCE_MS) {
+                console.log('🎵 Sync debounced (too soon since last sync)');
+                return;
+            }
+            lastSyncTime = now;
+
+            try {
+                // DON'T send playlist param - let server use its remembered playlist state
+                // This fixes DJ Soul not playing generated tracks properly
+                console.log('🎵 Syncing with server (action=sync, letting server decide playlist)...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync`);
+                const data = await response.json();
+                console.log('🎵 Sync response:', data);
+
+                if (data.action === 'play' && data.track && data.url) {
+                    // Update currentPlaylist based on server response
+                    if (data.playlist) {
+                        currentPlaylist = data.playlist;
+                        const playlistSelect = document.getElementById('playlist-select');
+                        if (playlistSelect) playlistSelect.value = data.playlist === 'generated' ? 'generated' : 'sprayfoam';
+                        console.log(`🎵 Updated currentPlaylist to: ${currentPlaylist}`);
+                    }
+
+                    // Check if this is a different track than what's playing
+                    if (currentTrack && currentTrack.filename === data.track.filename && musicPlaying) {
+                        console.log('🎵 Already playing this track, skipping');
+                        return;
+                    }
+
+                    // Check if we just synced to this same track
+                    if (lastSyncedTrack === data.track.filename) {
+                        console.log('🎵 Just synced to this track, skipping duplicate');
+                        return;
+                    }
+                    lastSyncedTrack = data.track.filename;
+
+                    // Stop current track first (ensures clean switch mid-song)
+                    if (musicPlaying) {
+                        console.log('🎵 Stopping current track to switch songs...');
+                        musicPlayer.pause();
+                        musicPlayer.currentTime = 0;
+                    }
+
+                    // Play the track!
+                    currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track.title || data.track.name;
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    console.log('🎵 Now playing (synced):', data.track.title || data.track.name);
+
+                    // Confirm playback to clear the reservation
+                    if (data.reservation_id) {
+                        fetch(`${VISION_SERVER_URL}/api/music?action=confirm&reservation_id=${data.reservation_id}`)
+                            .then(r => r.json())
+                            .then(d => console.log('🎵 Reservation confirmed:', d.response))
+                            .catch(e => console.error('🎵 Confirm failed:', e));
+                    }
+                } else if (data.action === 'none') {
+                    console.log('🎵 No track to sync (Pi-Guy hasnt selected one yet)');
+                }
+            } catch (error) {
+                console.error('🎵 Sync failed:', error);
+            }
+        }
+
+        // Clear last synced track after 30 seconds (allow re-sync to same track later)
+        setInterval(() => { lastSyncedTrack = null; }, 30000);
+
+        // ===== SYNC FOR AI-GENERATED SONGS =====
+        // Now unified - just calls syncMusicWithServer since server tracks playlist state
+        async function syncGeneratedMusicWithServer() {
+            // Server remembers which playlist is active, so just call the unified sync
+            console.log('🎵 Generated sync -> using unified syncMusicWithServer (server tracks playlist)');
+            return syncMusicWithServer();
+        }
+
+        // Legacy sync function kept for compatibility - now just wraps the unified sync
+        async function syncGeneratedMusicWithServerLegacy() {
+            const now = Date.now();
+
+            // Debounce: Ignore if we synced recently
+            if (now - lastSyncTime < SYNC_DEBOUNCE_MS) {
+                console.log('🎵 Generated sync debounced (too soon since last sync)');
+                return;
+            }
+            lastSyncTime = now;
+
+            try {
+                // Use the unified music endpoint - let server decide playlist
+                console.log('🎵 Syncing GENERATED music with server...');
+                const response = await fetch(`${VISION_SERVER_URL}/api/music?action=sync`);
+                const data = await response.json();
+                console.log('🎵 Generated sync response:', data);
+
+                if (data.action === 'play' && data.track && data.url) {
+                    // Check if we just synced to this same track
+                    const trackId = data.track.id || data.track.filename;
+                    if (lastSyncedTrack === trackId) {
+                        console.log('🎵 Just synced to this generated track, skipping duplicate');
+                        return;
+                    }
+                    lastSyncedTrack = trackId;
+
+                    // Stop current track first (ensures clean switch mid-song)
+                    if (musicPlaying) {
+                        console.log('🎵 Stopping current track to switch to generated song...');
+                        musicPlayer.pause();
+                        musicPlayer.currentTime = 0;
+                    }
+
+                    // Play the generated track!
+                    currentTrack = data.track;
+                    djTransitionTriggered = false;  // Reset so end-of-song alerts will fire
+                    trackName.textContent = data.track.title || 'AI Generated Track';
+                    musicPlayer.src = `${VISION_SERVER_URL}${data.url}`;
+                    musicPlayer.volume = isSpeaking ? musicVolume * 0.5 : musicVolume;
+                    musicPlayer.play();
+                    musicPlaying = true;
+                    musicButton.classList.add('playing');
+                    playPauseBtn.textContent = '⏸';
+                    nowPlaying.classList.add('visible');
+                    console.log('🎵 Now playing GENERATED:', data.track.title);
+
+                    // Confirm playback to clear the reservation
+                    if (data.reservation_id) {
+                        fetch(`${VISION_SERVER_URL}/api/music?action=confirm&reservation_id=${data.reservation_id}`)
+                            .then(r => r.json())
+                            .then(d => console.log('🎵 Reservation confirmed:', d.response))
+                            .catch(e => console.error('🎵 Confirm failed:', e));
+                    }
+                } else if (data.action === 'none') {
+                    console.log('🎵 No generated track to sync (Pi-Guy hasnt selected one yet)');
+                }
+            } catch (error) {
+                console.error('🎵 Generated sync failed:', error);
+            }
+        }
+
+        // Expose music functions for console testing
+        window.playMusic = (track) => playMusicFromServer('play', track);
+        window.stopMusic = () => playMusicFromServer('stop');
+        window.listMusic = async () => {
+            const data = await playMusicFromServer('list');
+            console.log('Available tracks:', data.tracks);
+            return data;
+        };
+        window.syncMusicState = syncMusicState;
+        window.syncMusicWithServer = syncMusicWithServer;
+        window.syncGeneratedMusicWithServer = syncGeneratedMusicWithServer;
+
+        // ===== DJ SOUNDBOARD =====
+        // Sound effects player for DJ-FoamBot
+        // Create new Audio for each sound so they can overlap
+        // Pre-loaded sound cache for instant playback
+        const djSoundCache = {};
+
+        // Preload a sound for faster playback
+        async function preloadDJSound(soundName) {
+            const url = `${VISION_SERVER_URL}/sounds/${soundName}.mp3`;
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                djSoundCache[soundName] = URL.createObjectURL(blob);
+                console.log('🎧 Preloaded DJ sound:', soundName);
+            } catch (e) {
+                console.warn('Failed to preload sound:', soundName, e);
+            }
+        }
+
+        // Preload ALL sounds on page load for instant playback
+        ['air_horn', 'scratch_long', 'crowd_cheer', 'crowd_hype', 'rewind', 'yeah', 'laser', 'lets_go', 'bruh', 'sad_trombone', 'gunshot', 'impact', 'record_stop'].forEach(s => {
+            setTimeout(() => preloadDJSound(s), 1000);
+        });
+
+        async function playDJSound(soundName) {
+            try {
+                console.log('🎧 playDJSound called with:', soundName);
+
+                // Create new audio element for this sound (allows overlapping)
+                const player = new Audio();
+                player.volume = 0.9;  // 90% volume for sound effects
+
+                // Use cached blob URL if available, otherwise fetch with cache-busting
+                let url;
+                if (djSoundCache[soundName]) {
+                    url = djSoundCache[soundName];
+                    console.log('🎵 Using cached sound:', soundName);
+                } else {
+                    // Add cache-busting timestamp to get fresh sounds
+                    const timestamp = Date.now();
+                    url = `${VISION_SERVER_URL}/sounds/${soundName}.mp3?t=${timestamp}`;
+                    console.log('🎵 Loading sound from:', url);
+                }
+
+                player.src = url;
+
+                // Wait for audio to be ready before playing
+                await new Promise((resolve, reject) => {
+                    player.oncanplaythrough = resolve;
+                    player.onerror = reject;
+                    player.load();
+                    // Timeout fallback
+                    setTimeout(resolve, 500);
+                });
+
+                // Play the sound
+                const playPromise = player.play();
+                if (playPromise) {
+                    playPromise.then(() => {
+                        console.log('🎵 DJ Sound playing:', soundName);
+                    }).catch(err => {
+                        console.error('🎵 DJ Sound play error:', err);
+                        // Try again without waiting - autoplay policy issue
+                        console.log('🎵 Attempting silent unlock and retry...');
+                    });
+                }
+
+                return { sound: soundName, url: url };
+            } catch (error) {
+                console.error('DJ Sound error:', error);
+                return null;
+            }
+        }
+
+        // Detect DJ sound triggers in Pi-Guy's messages
+        // Plays ALL sounds mentioned, not just the first one!
+        function checkForDJSounds(message) {
+            const msg = message.toLowerCase();
+
+            // Direct sound effect mentions (when Pi-Guy says he's playing a sound)
+            // Available sounds: air_horn, bruh, crowd_cheer, crowd_hype, gunshot,
+            // impact, laser, lets_go, record_stop, rewind, sad_trombone, scratch_long, yeah
+            const soundTriggers = {
+                // Air horn - classic DJ hype sound
+                'air horn': 'air_horn',
+                'airhorn': 'air_horn',
+                'triple horn': 'air_horn',
+                'horn': 'air_horn',
+                'bwaaah': 'air_horn',
+                'bwaaa': 'air_horn',
+
+                // Scratch - DJ turntable
+                'scratch': 'scratch_long',
+                'wicka': 'scratch_long',
+                'wikka': 'scratch_long',
+                'scratching': 'scratch_long',
+
+                // Rewind - pull up selecta!
+                'rewind': 'rewind',
+                'pull up': 'rewind',
+                'pull it back': 'rewind',
+                'back it up': 'rewind',
+                'selecta': 'rewind',
+                'wheel up': 'rewind',
+
+                // Record stop
+                'record stop': 'record_stop',
+                'stop the record': 'record_stop',
+                'needle scratch': 'record_stop',
+
+                // Crowd sounds
+                'crowd goes wild': 'crowd_hype',
+                'crowd hype': 'crowd_hype',
+                'hype': 'crowd_hype',
+                'going crazy': 'crowd_hype',
+                'lose their minds': 'crowd_hype',
+                'crowd cheer': 'crowd_cheer',
+                'applause': 'crowd_cheer',
+                'cheering': 'crowd_cheer',
+                'clapping': 'crowd_cheer',
+                'give it up': 'crowd_cheer',
+
+                // Laser/sci-fi
+                'laser': 'laser',
+                'pew pew': 'laser',
+                'pew': 'laser',
+                'zap': 'laser',
+                'beam': 'laser',
+
+                // Gunshot/bang
+                'gunshot': 'gunshot',
+                'gun shot': 'gunshot',
+                'bang': 'gunshot',
+                'shots': 'gunshot',
+                'pow': 'gunshot',
+
+                // Impact/hit
+                'impact': 'impact',
+                'punch': 'impact',
+                'boom': 'impact',
+                'hit': 'impact',
+                'drop': 'impact',
+                'thud': 'impact',
+
+                // Vocal hype
+                'yeah': 'yeah',
+                'yeahhh': 'yeah',
+                'yeeah': 'yeah',
+                'lets go': 'lets_go',
+                "let's go": 'lets_go',
+                "let's gooo": 'lets_go',
+                'here we go': 'lets_go',
+
+                // Comedy/fail
+                'bruh': 'bruh',
+                'bruhhh': 'bruh',
+                'bro': 'bruh',
+                'sad trombone': 'sad_trombone',
+                'womp womp': 'sad_trombone',
+                'wah wah': 'sad_trombone',
+                'fail': 'sad_trombone',
+                'that sucks': 'sad_trombone',
+                'price is wrong': 'sad_trombone'
+            };
+
+            // Find ALL sounds mentioned in the message
+            const soundsToPlay = [];
+            const alreadyQueued = new Set();
+
+            for (const [trigger, sound] of Object.entries(soundTriggers)) {
+                if (msg.includes(trigger) && !alreadyQueued.has(sound)) {
+                    soundsToPlay.push({ trigger, sound });
+                    alreadyQueued.add(sound);
+                }
+            }
+
+            // Play all sounds immediately (no delay - realtime!)
+            soundsToPlay.forEach((item) => {
+                console.log('🎧 DJ Sound trigger detected:', item.trigger, '->', item.sound);
+                playDJSound(item.sound);
+            });
+
+            return soundsToPlay.length > 0 ? soundsToPlay.map(s => s.sound) : null;
+        }
+
+        // Expose for console debugging
+        window.playDJSound = playDJSound;
+        window.checkForDJSounds = checkForDJSounds;
+
+        // ===== COMMUNITY PANEL =====
+        const communityToggle = document.getElementById('community-toggle');
+        const communityContent = document.getElementById('community-content');
+        const communityList = document.getElementById('community-list');
+        const myFaceSection = document.getElementById('my-face-section');
+        const myFaceInfo = document.getElementById('my-face-info');
+        const myFacePhotos = document.getElementById('my-face-photos');
+        const registerName = document.getElementById('register-name');
+        const captureBtn = document.getElementById('capture-btn');
+        const uploadBtn = document.getElementById('upload-btn');
+        const fileUpload = document.getElementById('file-upload');
+        const photoPreview = document.getElementById('photo-preview');
+        const registerStatus = document.getElementById('register-status');
+
+        const MAX_PHOTOS_PER_USER = 10;
+        let pendingPhotos = []; // Photos waiting to be saved
+        let facesData = {}; // Store face data from server
+        let myFaceName = null; // The name registered to current user
+
+        // Toggle panel
+        communityToggle.addEventListener('click', () => {
+            communityContent.classList.toggle('open');
+            if (communityContent.classList.contains('open')) {
+                loadCommunityList();
+                updateMyFaceSection();
+            }
+        });
+
+        // Close button
+        document.getElementById('community-close').addEventListener('click', () => {
+            communityContent.classList.remove('open');
+        });
+
+        // Load list of registered faces - simple text with confidence
+        async function loadCommunityList() {
+            try {
+                const response = await fetch(`${VISION_SERVER_URL}/api/faces`);
+                facesData = await response.json();
+
+                communityList.innerHTML = '';
+                const names = Object.keys(facesData).sort();
+
+                if (names.length === 0) {
+                    communityList.innerHTML = '<li style="color: var(--blue-dim);">No faces registered yet</li>';
+                    return;
+                }
+
+                // Get current recognition results if available
+                const confidenceMap = {};
+                if (currentIdentity && currentIdentity.name !== 'unknown') {
+                    confidenceMap[currentIdentity.name] = currentIdentity.confidence;
+                }
+
+                names.forEach(name => {
+                    const li = document.createElement('li');
+                    const confidence = confidenceMap[name];
+
+                    let confidenceHtml = '';
+                    if (confidence !== undefined) {
+                        let confidenceClass = 'low';
+                        if (confidence >= 70) confidenceClass = 'high';
+                        else if (confidence >= 40) confidenceClass = 'medium';
+                        confidenceHtml = `<span class="confidence ${confidenceClass}">${confidence}%</span>`;
+                    }
+
+                    li.innerHTML = `<span>${name}</span>${confidenceHtml}`;
+                    communityList.appendChild(li);
+                });
+            } catch (error) {
+                console.error('Failed to load faces:', error);
+                communityList.innerHTML = '<li style="color: var(--red);">Failed to load</li>';
+            }
+        }
+
+        // Update My Face section based on login status
+        function updateMyFaceSection() {
+            if (!clerkUser) {
+                myFaceSection.style.display = 'none';
+                return;
+            }
+
+            myFaceSection.style.display = 'block';
+
+            // Find if user has a registered face
+            myFaceName = null;
+            for (const [name, data] of Object.entries(facesData)) {
+                if (data.owner_id === clerkUser.id) {
+                    myFaceName = name;
+                    break;
+                }
+            }
+
+            if (myFaceName) {
+                const faceData = facesData[myFaceName];
+                myFaceInfo.textContent = `Registered as: ${myFaceName} (${faceData.photo_count}/${MAX_PHOTOS_PER_USER} photos)`;
+                registerName.value = myFaceName;
+                registerName.disabled = true; // Can't change name once registered
+
+                // Show user's photos with delete buttons
+                myFacePhotos.innerHTML = faceData.photos.map(photo => `
+                    <div class="photo-item">
+                        <img src="${VISION_SERVER_URL}/known_faces/${encodeURIComponent(myFaceName)}/${photo}"
+                             alt="${photo}"
+                             onerror="this.style.display='none'" />
+                        <button class="delete-photo" onclick="deleteMyPhoto('${photo}')" title="Delete">✕</button>
+                    </div>
+                `).join('');
+            } else {
+                myFaceInfo.textContent = 'Add photos to register your face';
+                registerName.value = '';
+                registerName.disabled = false;
+                myFacePhotos.innerHTML = '';
+            }
+        }
+
+        // Delete a single photo
+        window.deleteMyPhoto = async function(filename) {
+            if (!clerkUser || !myFaceName) return;
+
+            if (!confirm(`Delete this photo?`)) return;
+
+            try {
+                const response = await fetch(
+                    `${VISION_SERVER_URL}/api/faces/${encodeURIComponent(myFaceName)}/photo/${encodeURIComponent(filename)}`,
+                    {
+                        method: 'DELETE',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ user_id: clerkUser.id })
+                    }
+                );
+
+                if (response.ok) {
+                    registerStatus.textContent = '✅ Photo deleted';
+                    registerStatus.style.color = 'var(--green)';
+                    await loadCommunityList();
+                    updateMyFaceSection();
+                } else {
+                    const result = await response.json();
+                    throw new Error(result.error || 'Delete failed');
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                registerStatus.textContent = `❌ ${error.message}`;
+                registerStatus.style.color = 'var(--red)';
+            }
+        };
+
+        // Capture from webcam
+        captureBtn.addEventListener('click', async () => {
+            if (!clerkUser) {
+                registerStatus.textContent = '⚠️ Please login first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            const name = registerName.value.trim();
+            if (!name) {
+                registerStatus.textContent = '⚠️ Please enter your name first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            if (!cameraStream) {
+                registerStatus.textContent = '⚠️ Turn on the camera first (click camera button)';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            // Check current photo count for this user
+            const existingCount = facesData[name] ? facesData[name].photo_count : 0;
+            if (existingCount + pendingPhotos.length >= MAX_PHOTOS_PER_USER) {
+                registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            const frame = captureFrame();
+            if (frame) {
+                pendingPhotos.push(frame);
+                updatePhotoPreview();
+                await savePhoto(name, frame);
+            }
+        });
+
+        // Upload file
+        uploadBtn.addEventListener('click', () => {
+            if (!clerkUser) {
+                registerStatus.textContent = '⚠️ Please login first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            const name = registerName.value.trim();
+            if (!name) {
+                registerStatus.textContent = '⚠️ Please enter your name first';
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+            fileUpload.click();
+        });
+
+        fileUpload.addEventListener('change', async (e) => {
+            if (!clerkUser) return;
+
+            const name = registerName.value.trim();
+            const files = Array.from(e.target.files);
+
+            // Check limits
+            const existingCount = facesData[name] ? facesData[name].photo_count : 0;
+            const availableSlots = MAX_PHOTOS_PER_USER - existingCount - pendingPhotos.length;
+
+            if (availableSlots <= 0) {
+                registerStatus.textContent = `⚠️ Max ${MAX_PHOTOS_PER_USER} photos per person`;
+                registerStatus.style.color = 'var(--orange)';
+                return;
+            }
+
+            const filesToProcess = files.slice(0, availableSlots);
+
+            for (const file of filesToProcess) {
+                try {
+                    const base64 = await fileToBase64(file);
+                    pendingPhotos.push(base64);
+                    updatePhotoPreview();
+                    await savePhoto(name, base64);
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    registerStatus.textContent = '❌ Upload failed';
+                    registerStatus.style.color = 'var(--red)';
+                }
+            }
+
+            fileUpload.value = ''; // Reset
+        });
+
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function updatePhotoPreview() {
+            photoPreview.innerHTML = pendingPhotos.map((photo, i) =>
+                `<img src="${photo}" alt="Photo ${i + 1}" />`
+            ).join('');
+        }
+
+        async function savePhoto(name, imageData) {
+            try {
+                registerStatus.textContent = '⏳ Saving...';
+                registerStatus.style.color = 'var(--cyan)';
+
+                const response = await fetch(`${VISION_SERVER_URL}/api/faces/${encodeURIComponent(name)}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        image: imageData,
+                        user_id: clerkUser ? clerkUser.id : null
+                    })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    registerStatus.textContent = `✅ Photo saved for ${name}!`;
+                    registerStatus.style.color = 'var(--green)';
+                    await loadCommunityList(); // Refresh list
+                    updateMyFaceSection();
+                    pendingPhotos = [];
+                    photoPreview.innerHTML = '';
+                } else {
+                    throw new Error(result.error || 'Save failed');
+                }
+            } catch (error) {
+                console.error('Save error:', error);
+                registerStatus.textContent = `❌ ${error.message}`;
+                registerStatus.style.color = 'var(--red)';
+            }
+        }
+
+        // Clear preview when name changes
+        registerName.addEventListener('input', () => {
+            pendingPhotos = [];
+            photoPreview.innerHTML = '';
+            registerStatus.textContent = '';
+        });
+
+        // Refresh community list when face is identified (to show confidence)
+        const originalIdentifyFace = identifyFace;
+        window.identifyFaceWithRefresh = async function() {
+            await originalIdentifyFace();
+            if (communityContent.classList.contains('open')) {
+                loadCommunityList();
+            }
+        };
+
+        // Load community list on page load
+        loadCommunityList();
+    </script>
+</body>
+</html>

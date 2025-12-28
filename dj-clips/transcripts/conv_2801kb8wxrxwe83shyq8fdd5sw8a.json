@@ -1,0 +1,507 @@
+{
+  "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+  "conversation_id": "conv_2801kb8wxrxwe83shyq8fdd5sw8a",
+  "status": "done",
+  "user_id": null,
+  "branch_id": null,
+  "transcript": [
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "Yo Mike! DJ FoamBot here. Ready to rock SprayFoamRadio when you are!",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 0,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2564551470022707
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "user",
+      "agent_metadata": null,
+      "message": "Something can't be right.",
+      "multivoice_message": null,
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 7,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_asr_trailing_service_latency": {
+            "elapsed_time": 0.10644333199888933
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": "audio"
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Alright folks, something's not smelling right at DJ FoamBot HQ! Let's get to the bottom of this!</Radio Voice>\n\nLet me check what's going on here...\n",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Alright folks, something's not smelling right at DJ FoamBot HQ! Let's get to the bottom of this!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 11
+          },
+          {
+            "text": "\n\nLet me check what's going on here...\n",
+            "voice_label": null,
+            "time_in_call_secs": 16
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6233492430001206
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4650695490017824
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.8125791820020822
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2848563430015929
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.2435486912727356
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What's wrong with SprayFoamRadio?",
+        "rag_latency_secs": 0.1957480860000942
+      },
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [
+        {
+          "type": "webhook",
+          "request_id": "chatcmpl-tool-fa610aa1d965465d9b063549b42d02ba",
+          "tool_name": "check_server_status",
+          "params_as_json": "{}",
+          "tool_has_been_called": true,
+          "tool_details": {
+            "type": "webhook",
+            "method": "GET",
+            "url": "https://ai-guy.mikecerqua.ca/api/server-status",
+            "headers": {},
+            "path_params": {},
+            "query_params": {},
+            "body": null
+          }
+        }
+      ],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 11,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 1.6233492430001206
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 1.4650695490017824
+          },
+          "convai_llm_tool_request_generation_latency": {
+            "elapsed_time": 0.7151047519982967
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 1.8125791820020822
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.2848563430015929
+          }
+        }
+      },
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": null,
+      "multivoice_message": {
+        "parts": []
+      },
+      "tool_calls": [],
+      "tool_results": [
+        {
+          "request_id": "chatcmpl-tool-fa610aa1d965465d9b063549b42d02ba",
+          "tool_name": "check_server_status",
+          "result_value": "{\n  \"cpu_percent\": 3.0,\n  \"disk_free_gb\": 57.5,\n  \"disk_total_gb\": 74.8,\n  \"disk_used_gb\": 14.2,\n  \"disk_used_percent\": 19.8,\n  \"memory_total_gb\": 7.6,\n  \"memory_used_gb\": 3.1,\n  \"memory_used_percent\": 45.3,\n  \"services\": {\n    \"nginx\": true,\n    \"pi-guy\": true,\n    \"python\": true\n  },\n  \"summary\": \"Server status: CPU at 3.0%, memory 45% used (3.1GB of 7.6GB), disk 20% full (14.2GB used, 57.5GB free of 74.8GB), been up for 11d 18h 5m.\",\n  \"top_processes\": [],\n  \"uptime\": \"11d 18h 5m\"\n}\n",
+          "is_error": false,
+          "tool_has_been_called": true,
+          "tool_latency_secs": 0.7688799370007473,
+          "dynamic_variable_updates": [],
+          "type": "webhook"
+        }
+      ],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 12,
+      "conversation_turn_metrics": null,
+      "rag_retrieval_info": null,
+      "llm_usage": null,
+      "interrupted": false,
+      "original_message": null,
+      "source_medium": null
+    },
+    {
+      "role": "agent",
+      "agent_metadata": {
+        "agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+        "branch_id": null,
+        "workflow_node_id": null
+      },
+      "message": "\n<Radio Voice>Stand by for the DJ FoamBot diagnostics show!</Radio Voice>\n\nServer looks fine to me - CPU at 3%, memory at 45%, disk at 20%. What's got you thinking something's wrong? My sensors say everything's running smooth except maybe your calibration...",
+      "multivoice_message": {
+        "parts": [
+          {
+            "text": "Stand by for the DJ FoamBot diagnostics show!",
+            "voice_label": "Radio Voice",
+            "time_in_call_secs": 11
+          },
+          {
+            "text": "\n\nServer looks fine to me - CPU at 3%, memory at 45%, disk at 20%. What's got you thinking something's wrong? My sensors say everything's running smooth except maybe your calibration...",
+            "voice_label": null,
+            "time_in_call_secs": 16
+          }
+        ]
+      },
+      "tool_calls": [],
+      "tool_results": [],
+      "feedback": null,
+      "llm_override": null,
+      "time_in_call_secs": 13,
+      "conversation_turn_metrics": {
+        "metrics": {
+          "convai_llm_service_ttf_sentence": {
+            "elapsed_time": 0.440465525000036
+          },
+          "convai_llm_service_ttfb": {
+            "elapsed_time": 0.19247060399720795
+          },
+          "convai_llm_service_tt_last_sentence": {
+            "elapsed_time": 0.7236447189970932
+          },
+          "convai_tts_service_ttfb": {
+            "elapsed_time": 0.3336353449994931
+          }
+        }
+      },
+      "rag_retrieval_info": {
+        "chunks": [
+          {
+            "document_id": "yolIORm1QJ9gvd25mu8V",
+            "chunk_id": "v30VMujxfd7b0lxfyKp1",
+            "vector_distance": 0.21208083629608154
+          }
+        ],
+        "embedding_model": "e5_mistral_7b_instruct",
+        "retrieval_query": "What's wrong with DJ FoamBot HQ?",
+        "rag_latency_secs": 0.16626981300214538
+      },
+      "llm_usage": {
+        "model_usage": {
+          "glm-45-air-fp8": {
+            "input": {
+              "tokens": 9661,
+              "price": 0.008501680000000001
+            },
+            "input_cache_read": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "input_cache_write": {
+              "tokens": 0,
+              "price": 0.0
+            },
+            "output_total": {
+              "tokens": 260,
+              "price": 0.0033799999999999998
+            }
+          }
+        }
+      },
+      "interrupted": true,
+      "original_message": "\n<Radio Voice>Stand by for the DJ FoamBot diagnostics show!</Radio Voice>\n\nServer looks fine to me - CPU at 3%, memory at 45%, disk at 20%. What's got you thinking something's wrong? My sensors say everything's running smooth except maybe your calibration.",
+      "source_medium": null
+    }
+  ],
+  "metadata": {
+    "start_time_unix_secs": 1764456588,
+    "accepted_time_unix_secs": 1764456588,
+    "call_duration_secs": 35,
+    "cost": 292,
+    "deletion_settings": {
+      "deletion_time_unix_secs": null,
+      "deleted_logs_at_time_unix_secs": null,
+      "deleted_audio_at_time_unix_secs": null,
+      "deleted_transcript_at_time_unix_secs": null,
+      "delete_transcript_and_pii": false,
+      "delete_audio": false
+    },
+    "feedback": {
+      "type": null,
+      "overall_score": null,
+      "likes": 0,
+      "dislikes": 0,
+      "rating": null,
+      "comment": null
+    },
+    "authorization_method": "public",
+    "charging": {
+      "dev_discount": false,
+      "is_burst": false,
+      "tier": "creator",
+      "llm_usage": {
+        "irreversible_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 9661,
+                "price": 0.008501680000000001
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 260,
+                "price": 0.0033799999999999998
+              }
+            }
+          }
+        },
+        "initiated_generation": {
+          "model_usage": {
+            "glm-45-air-fp8": {
+              "input": {
+                "tokens": 9661,
+                "price": 0.008501680000000001
+              },
+              "input_cache_read": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "input_cache_write": {
+                "tokens": 0,
+                "price": 0.0
+              },
+              "output_total": {
+                "tokens": 260,
+                "price": 0.0033799999999999998
+              }
+            }
+          }
+        }
+      },
+      "llm_price": 0.01188168,
+      "llm_charge": 54,
+      "call_charge": 238,
+      "free_minutes_consumed": 0.0,
+      "free_llm_dollars_consumed": 0.0
+    },
+    "phone_call": null,
+    "batch_call": null,
+    "termination_reason": "Client disconnected: 1005",
+    "error": null,
+    "warnings": [],
+    "main_language": "en",
+    "rag_usage": {
+      "usage_count": 2,
+      "embedding_model": "e5_mistral_7b_instruct"
+    },
+    "text_only": false,
+    "features_usage": {
+      "language_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_agent": {
+        "enabled": false,
+        "used": false
+      },
+      "transfer_to_number": {
+        "enabled": false,
+        "used": false
+      },
+      "multivoice": {
+        "enabled": true,
+        "used": true
+      },
+      "dtmf_tones": {
+        "enabled": false,
+        "used": false
+      },
+      "external_mcp_servers": {
+        "enabled": false,
+        "used": false
+      },
+      "pii_zrm_workspace": false,
+      "pii_zrm_agent": false,
+      "tool_dynamic_variable_updates": {
+        "enabled": false,
+        "used": false
+      },
+      "is_livekit": false,
+      "voicemail_detection": {
+        "enabled": false,
+        "used": false
+      },
+      "workflow": {
+        "enabled": false,
+        "tool_node": {
+          "enabled": false,
+          "used": false
+        },
+        "standalone_agent_node": {
+          "enabled": false,
+          "used": false
+        },
+        "phone_number_node": {
+          "enabled": false,
+          "used": false
+        },
+        "end_node": {
+          "enabled": false,
+          "used": false
+        }
+      },
+      "agent_testing": {
+        "enabled": false,
+        "tests_ran_after_last_modification": false,
+        "tests_ran_in_last_7_days": false
+      }
+    },
+    "eleven_assistant": {
+      "is_eleven_assistant": false
+    },
+    "initiator_id": null,
+    "conversation_initiation_source": "js_sdk",
+    "conversation_initiation_source_version": "0.12.0",
+    "timezone": "America/New_York",
+    "initiation_trigger": {
+      "trigger_type": "default"
+    },
+    "async_metadata": null,
+    "whatsapp": null,
+    "agent_created_from": "api",
+    "agent_last_updated_from": "ui"
+  },
+  "analysis": {
+    "evaluation_criteria_results": {},
+    "data_collection_results": {},
+    "call_successful": "success",
+    "transcript_summary": "DJ FoamBot initiated a radio show but the user reported an issue. FoamBot checked the server status, finding no problems with CPU, memory, or disk usage. It then inquired about the user's specific concerns.\n",
+    "call_summary_title": "DJ FoamBot Diagnostics"
+  },
+  "conversation_initiation_client_data": {
+    "conversation_config_override": {
+      "turn": null,
+      "tts": {
+        "voice_id": null,
+        "stability": null,
+        "speed": null,
+        "similarity_boost": null
+      },
+      "conversation": {
+        "text_only": null
+      },
+      "agent": {
+        "first_message": "Yo Mike! DJ FoamBot here. Ready to rock SprayFoamRadio when you are!",
+        "language": null,
+        "prompt": null
+      }
+    },
+    "custom_llm_extra_body": {},
+    "user_id": null,
+    "source_info": {
+      "source": null,
+      "version": null
+    },
+    "dynamic_variables": {
+      "system__agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__agent_turns": 3,
+      "system__current_agent_turns": 3,
+      "system__current_subagent_turns": 3,
+      "system__current_agent_id": "agent_0801kb2240vcea2ayx0a2qxmheha",
+      "system__conversation_id": "conv_2801kb8wxrxwe83shyq8fdd5sw8a",
+      "system__call_duration_secs": 35,
+      "system__time_utc": "2025-11-29T22:50:23.828204+00:00",
+      "system__time": "Saturday, 17:50 29 November 2025",
+      "system__timezone": "America/New_York",
+      "system__caller_id": null,
+      "system__called_number": null,
+      "system__call_sid": null
+    }
+  },
+  "has_audio": true,
+  "has_user_audio": true,
+  "has_response_audio": true
+}

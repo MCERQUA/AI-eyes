@@ -207,6 +207,7 @@ The agent has two voices configured in `conversation_config.tts.supported_voices
 | tool_4101kb908dbrfmttcz597n7h91ns | dj_soundboard | **client** |
 | tool_8101kbp5rzccfv4r46zrp6wt356g | generate_song | webhook |
 | tool_6601kbpfyjnpeayrjefkga7mgw0n | play_commercial | webhook |
+| tool_3201kddsj6xcewea49bkaqj12jm2 | do_standup | webhook |
 | end_call | (built-in) | system |
 | skip_turn | (built-in) | system |
 
@@ -280,6 +281,7 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ## Files
 ```
 ├── index.html          # Main app (face + voice agent + camera)
+├── piguy-lab.html      # Visual effects lab - STANDALONE testing page for audio-reactive effects
 ├── server.py           # Flask backend for vision + face recognition + usage API + todos + search + commands + notes
 ├── requirements.txt    # Python dependencies
 ├── setup-nginx.sh      # Nginx + SSL setup script
@@ -298,6 +300,7 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 ├── memory_docs.json    # Maps memory names to ElevenLabs document IDs (not in git)
 ├── job_runner.sh       # Cron script to execute pending jobs
 ├── tools_health_check.py # Script to verify all tools work
+├── comedy_material.json   # Pi-Guy's comedy material (topics, voice DNA, real lines)
 ├── TOOLS.md            # Master reference for all tools (READ THIS FIRST!)
 ├── face_owners.json    # Maps face names to Clerk user IDs (not in git)
 ├── usage.db            # SQLite database for user usage + todos (not in git)
@@ -351,6 +354,7 @@ tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
 tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard (CLIENT tool)
 tool_8101kbp5rzccfv4r46zrp6wt356g  # generate_song
 tool_6601kbpfyjnpeayrjefkga7mgw0n  # play_commercial
+tool_3201kddsj6xcewea49bkaqj12jm2  # do_standup
 ```
 
 #### Vision Tool (look_and_see)
@@ -567,6 +571,28 @@ The `dj_soundboard` is a CLIENT tool, meaning it runs in the browser:
 **Backup: Text Detection (can be re-enabled if needed)**
 
 There's a backup `checkForDJSounds()` function (line 3843) that can be re-enabled if the client tool fails. See "Backup/Restore" section below.
+
+#### Comedy/Standup Tool (do_standup)
+- **Tool ID**: `tool_3201kddsj6xcewea49bkaqj12jm2`
+- **Type**: webhook
+- **Webhook URL**: `https://ai-guy.mikecerqua.ca/api/comedy`
+- **Method**: GET
+- **Trigger phrases**: "do standup", "tell jokes", "comedy", "be funny", "do a set", "roast me"
+- **Query params**:
+  - `action` - one of:
+    - `standup`: Full standup mode - returns random topics, voice reminders, real lines
+    - `roast`: Roast mode - use camera to roast whoever you see
+    - `greeting`: Returns a random authentic greeting
+    - `bit`: Specific bit (`name=thor` or `name=ted`)
+  - `name`: For `bit` action - topic name to search for
+- **How it works**:
+  1. User asks Pi-Guy to do comedy/standup/roast
+  2. Pi-Guy calls this tool to get randomized material
+  3. Tool returns TOPICS and BEATS (not scripts) + voice reminders
+  4. Pi-Guy IMPROVISES in his own voice, hitting the beats
+  5. He should NOT read the material word-for-word
+- **Material source**: `comedy_material.json` - compiled from 1000+ real conversation clips
+- **Key rule**: This gives INSPIRATION, not scripts. Pi-Guy improvises.
 
 ### Server
 - **Domain**: ai-guy.mikecerqua.ca
@@ -817,6 +843,59 @@ setMusicVolume(50)        // Set volume 0-100
 - Include different angles (front, slight left/right)
 - Include different lighting conditions
 - Make sure face is clearly visible and not blurry
+
+## Visual Effects Lab (piguy-lab.html)
+
+**STANDALONE testing page** for developing and refining audio-reactive visual effects for DJ-FoamBot music playback. Changes here do NOT affect the main index.html.
+
+### How to Use
+1. Start local server: `python3 -m http.server 8080`
+2. Open: `http://localhost:8080/piguy-lab.html`
+3. Load an audio file (MP3) using the control panel
+4. Toggle effects on/off to see how they react to the music
+
+### Audio-Reactive Effects (ALL driven by real audio frequencies)
+
+| Effect | Frequency Band | Behavior |
+|--------|---------------|----------|
+| **Shake** | Bass beats | Face box shakes on detected beats |
+| **Beat Flash** | Bass beats | Screen flash on beats |
+| **Lasers** | Mids | Rotation angle follows mids frequency |
+| **Spotlights** | Bass + Mids | Position moves based on frequencies |
+| **Particles** | Treble | Rise up with treble intensity |
+| **Pulse Rings** | Bass beats | Expand on beat, size = bass strength |
+| **Color Wash** | Low-mids | Position + hue shifts with frequencies |
+| **Corners** | Bass | Glow intensity + scale follows bass |
+| **Disco Dots** | High-mids | Opacity + scale follows high-mids |
+| **Grid** | Bass | Opacity follows bass, flashes on beat |
+| **Light Bars** | Energy | Sweep position based on overall energy |
+| **Scanlines** | Mids | Opacity follows mids |
+| **Strobe** | Treble spikes | Flash only on hi-hat/snare transients |
+| **Oscilloscope** | Waveform | Full-screen waveform display |
+| **Tunnel** | Mids + Energy | Rings fly out based on energy |
+| **Plasma** | Bass + Mids + Treble | Blobs move/size based on frequencies |
+
+### Key Design Principles
+- **NO CSS animations** - All movement driven by JS reading audio frequency data
+- **Effects are STILL when no audio plays** - opacity goes to 0
+- **Real frequency band mapping** - Bass (20-250Hz), Mids (500-2000Hz), Treble (4-16kHz)
+- **Beat detection** - Uses spike detection algorithm for accurate bass hit detection
+
+### Frequency Bands (FFT bins for 44100Hz sample rate)
+```javascript
+subBass: 0-86Hz      // Sub-bass rumble
+bass: 86-258Hz       // Kick drums, bass
+lowMid: 258-516Hz    // Low instruments
+mid: 516-1978Hz      // Vocals, guitars
+highMid: 1978-4000Hz // Hi-hats, snares
+treble: 4000-11000Hz // Cymbals, sparkle
+```
+
+### Integration Path
+Once effects are finalized in the lab, they can be ported to index.html by:
+1. Copying the CSS effect styles
+2. Copying the JS audio analysis functions
+3. Connecting to the existing music player's audio element via Web Audio API
 
 ## Future Ideas / TODOs
 - Home automation controls (Home Assistant integration)
