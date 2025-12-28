@@ -769,6 +769,12 @@
             transform: translate(-50%, -50%);
             border-radius: 50%;
             pointer-events: none;
+            /* Multiple concentric rings for sound wave look - EXACT from lab */
+            box-shadow:
+                0 0 0 2px rgba(0, 255, 255, 0.8),
+                0 0 0 4px rgba(0, 255, 255, 0.4),
+                0 0 0 8px rgba(0, 255, 255, 0.2),
+                0 0 20px rgba(0, 255, 255, 0.3);
         }
 
         /* Bass Explosions - burst particles */
@@ -4242,11 +4248,11 @@
 
         // Firework - shoot up then explode
         function triggerFirework(energy) {
-            if (!reactiveEffects.fireworks) return;
+            if (!partyEffects.fireworks) return;
 
             const now = Date.now();
-            if (now - lastFireworkTime < 500) return; // Cooldown
-            if (Math.random() > energy * 0.3) return; // Random chance based on energy
+            if (now - lastFireworkTime < 300) return; // Shorter cooldown for more fireworks
+            if (Math.random() > energy * 0.6) return; // Higher chance based on energy
             lastFireworkTime = now;
 
             const container = document.getElementById('fireworks-container');
