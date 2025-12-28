@@ -1744,6 +1744,8 @@
         let musicVolume = 1.0;  // Default 100% - full blast!
         let currentPlaylist = 'sprayfoam';  // 'sprayfoam' or 'generated'
         let autoplayEnabled = localStorage.getItem('musicAutoplay') === 'true';  // Persist preference
+        let musicVocalLevel = 0;  // For mouth "singing" animation (mid frequencies where vocals sit)
+        let visualizerEnabled = localStorage.getItem('visualizerEnabled') !== 'false'; // Default ON
 
         // Random first messages for Pi-Guy (generic)
         // MASSIVE collection to ensure you rarely hear the same one twice
@@ -3872,7 +3874,7 @@
         // Only active when music is playing AND visualizer is enabled
         // ============================================
 
-        let visualizerEnabled = localStorage.getItem('visualizerEnabled') !== 'false'; // Default ON
+        // visualizerEnabled declared in MUSIC STATE section at top
         let audioContext = null;
         let analyser = null;
         let frequencyData = null;
@@ -3907,8 +3909,7 @@
         // Particles state
         let partyParticles = [];
 
-        // Music vocal level for mouth "singing" (mid frequencies where vocals sit)
-        let musicVocalLevel = 0;
+        // musicVocalLevel declared in MUSIC STATE section at top
 
         // Party effects state - EXACT from lab (toggleable)
         let partyEffects = {
