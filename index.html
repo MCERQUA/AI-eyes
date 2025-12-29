@@ -3026,7 +3026,8 @@
                                     msg.includes('here we go') || msg.includes('coming up') ||
                                     msg.includes('dropping') || msg.includes('fire up');
 
-                                if (shouldSyncMusic) {
+                                // Skip music sync during caller skits (callerEffectEnabled means we're in a caller voice)
+                                if (shouldSyncMusic && !callerEffectEnabled) {
                                     // Clear lastSyncedTrack to allow switching to new track
                                     lastSyncedTrack = null;
 
@@ -3039,6 +3040,8 @@
                                         console.log('🎵 Regular music detected, syncing with server...');
                                         syncMusicWithServer();
                                     }
+                                } else if (shouldSyncMusic && callerEffectEnabled) {
+                                    console.log('🎵 Skipping music sync - caller skit in progress');
                                 } else if (msg.includes('stopped') || msg.includes('stopping') ||
                                     msg.includes('kill the music') || msg.includes('cut the music')) {
                                     stopMusicPlayback();
@@ -5269,46 +5272,55 @@
         let elevenLabsSourceNode = null;
 
         // Create the telephone effect audio chain
+        // More aggressive settings for OBVIOUS telephone sound
         function createCallerEffectChain(audioContext) {
-            // High-pass filter at 300Hz (cuts low frequencies like phone)
+            // High-pass filter at 500Hz (aggressive bass cut - no low rumble)
             const highPass = audioContext.createBiquadFilter();
             highPass.type = 'highpass';
-            highPass.frequency.value = 300;
-            highPass.Q.value = 0.7;
+            highPass.frequency.value = 500;
+            highPass.Q.value = 1.5;  // Sharper cutoff
 
-            // Low-pass filter at 3400Hz (telephone bandwidth ceiling)
+            // Low-pass filter at 2200Hz (aggressive treble cut - muffled sound)
             const lowPass = audioContext.createBiquadFilter();
             lowPass.type = 'lowpass';
-            lowPass.frequency.value = 3400;
-            lowPass.Q.value = 0.7;
+            lowPass.frequency.value = 2200;
+            lowPass.Q.value = 1.5;  // Sharper cutoff
+
+            // Add a mid-boost for that nasal phone quality
+            const midBoost = audioContext.createBiquadFilter();
+            midBoost.type = 'peaking';
+            midBoost.frequency.value = 1200;
+            midBoost.Q.value = 1.0;
+            midBoost.gain.value = 6;  // +6dB boost at 1.2kHz
 
             // Compressor for that "squashed" phone sound
             const compressor = audioContext.createDynamicsCompressor();
-            compressor.threshold.value = -24;
-            compressor.knee.value = 30;
-            compressor.ratio.value = 12;
-            compressor.attack.value = 0.003;
-            compressor.release.value = 0.25;
+            compressor.threshold.value = -30;  // More compression
+            compressor.knee.value = 20;
+            compressor.ratio.value = 16;  // Higher ratio
+            compressor.attack.value = 0.002;
+            compressor.release.value = 0.2;
 
-            // Slight distortion for "crackle" effect
+            // More noticeable distortion for "crackle" effect
             const distortion = audioContext.createWaveShaper();
-            distortion.curve = makeDistortionCurve(8);  // Subtle distortion
+            distortion.curve = makeDistortionCurve(25);  // More distortion
             distortion.oversample = '2x';
 
-            // Gain node for volume adjustment (phone calls are slightly quieter)
+            // Gain node - phone calls sound quieter and thinner
             const gainNode = audioContext.createGain();
-            gainNode.gain.value = 0.85;
+            gainNode.gain.value = 0.7;
 
-            // Connect the chain: source -> highPass -> lowPass -> compressor -> distortion -> gain -> destination
+            // Connect the chain: source -> highPass -> lowPass -> midBoost -> compressor -> distortion -> gain -> destination
             highPass.connect(lowPass);
-            lowPass.connect(compressor);
+            lowPass.connect(midBoost);
+            midBoost.connect(compressor);
             compressor.connect(distortion);
             distortion.connect(gainNode);
 
             return {
                 input: highPass,
                 output: gainNode,
-                nodes: { highPass, lowPass, compressor, distortion, gainNode }
+                nodes: { highPass, lowPass, midBoost, compressor, distortion, gainNode }
             };
         }
 
