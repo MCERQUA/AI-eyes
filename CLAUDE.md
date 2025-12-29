@@ -204,121 +204,258 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 
 **The point is to be FUNNY!** Fake callers add comedy and entertainment to the radio show by calling in with song requests, random comments, or ridiculous questions.
 
-#### How the Caller Skit Works
+---
 
-1. **DJ announces caller:** "We've got a caller on the line!"
-2. **Frontend plays dial tone** (automatic detection)
-3. **DJ switches to caller voice:** Uses `<Caller 1>` or `<Caller 2>` tags
-4. **Telephone effect applied:** Frontend makes voice sound like phone call
-5. **DJ responds:** Switches back to `<Radio Voice>` to react/respond
-6. **Plays the requested song** (or roasts the caller, whatever fits)
+## Technical Implementation (Frontend)
 
-#### Example Radio Skit
+### How It Works
+
+The caller system has three components that work together:
+
+1. **Dial Tone Detection** (`detectIncomingCall()` in index.html ~line 5440)
+   - Scans Pi-Guy's speech for trigger phrases
+   - Plays `dial_tone.mp3` TWICE quickly (400ms apart) for "on hold" beep effect
+   - 5-second cooldown prevents spam
+
+2. **Caller Voice Detection** (`detectCallerVoice()` in index.html ~line 5419)
+   - Detects XML tags: `<Caller 1>`, `<Caller 2>`, `<MIke-Voice>`, `<CallerVoice>`
+   - Enables telephone audio effect when detected
+   - Disables effect when switching back to `<Radio Voice>`
+
+3. **Telephone Audio Effect** (`createCallerEffectChain()` in index.html ~line 5272)
+   - Routes ElevenLabs audio through Web Audio API filter chain
+   - Makes voice sound like a phone call
+
+4. **Music Sync Blocking** (index.html ~line 3029)
+   - When `callerEffectEnabled` is true, music sync is SKIPPED
+   - Prevents wrong song from playing during caller skit
+
+### Telephone Effect Filter Chain
+
 ```
-<Radio Voice>Hold up, hold up! We've got a caller on the line. Let's hear it!</Radio Voice>
-
-<Caller 1>Yo DJ-FoamBot! You gotta play that Polyurethane Gang track, my crew's
-spraying a warehouse right now and we need the hype!</Caller 1>
-
-<Radio Voice>Ayyyy my man's out there making buildings cozy! I got you fam,
-Polyurethane Gang coming right up! *air horn*</Radio Voice>
+ElevenLabs Audio → High-Pass (500Hz) → Low-Pass (2200Hz) → Mid-Boost (+6dB @ 1.2kHz)
+                 → Compressor → Distortion (25) → Gain (0.7) → Speakers
 ```
 
-#### CRITICAL: Caller Rotation Rules
+| Filter | Setting | Purpose |
+|--------|---------|---------|
+| High-pass | 500Hz, Q=1.5 | Cut bass (no rumble on phone) |
+| Low-pass | 2200Hz, Q=1.5 | Cut treble (muffled sound) |
+| Mid-boost | 1200Hz, +6dB | Nasal phone quality |
+| Compressor | -30dB threshold, 16:1 ratio | Squashed dynamic range |
+| Distortion | 25 amount | Crackle/noise |
+| Gain | 0.7 | Quieter like real phone |
 
-**DO NOT repeat the same caller in a single session!**
+### Dial Tone Trigger Phrases
 
-- Use **Caller 1** first, then **Caller 2** in the next call
-- After ALL callers have been used, DO NOT repeat any callers that session
-- Each caller should have a slightly different personality/vibe
-- **MIke-Voice** can also be used as a "caller" to mock Mike (hilarious!)
+When Pi-Guy says ANY of these, frontend plays double-beep:
+- "caller on the line" / "caller on line one"
+- "we have a caller" / "got a caller"
+- "taking a call" / "incoming call"
+- "call coming in" / "picking up"
+- "let's hear from"
 
-| Caller | Voice | Personality Suggestion |
-|--------|-------|----------------------|
-| Caller 1 | Bob Rugad (Cowboy) | Country boy contractor, Southern drawl, "yeehaw" energy |
-| Caller 2 | Gaamda Rachael | Different vibe - mix it up for variety |
-| MIke-Voice | Mike Clone | Mike calling in to complain or request embarrassing songs |
+### Supported Caller XML Tags
 
-#### Telephone Effect (Automatic)
+| Tag | Purpose |
+|-----|---------|
+| `<Caller 1>` | First caller voice |
+| `<Caller 2>` | Second caller voice |
+| `<MIke-Voice>` | Mike's cloned voice (for mocking) |
+| `<Caller Voice>` or `<CallerVoice>` | Generic caller |
+| `<Phone Voice>` or `<PhoneVoice>` | Phone call effect |
 
-When Pi-Guy uses ANY caller tag, the frontend automatically applies audio processing:
-- **Bandpass filter**: 300Hz - 3400Hz (telephone frequency range)
-- **Compression**: That "squashed" phone sound
-- **Distortion**: Subtle crackle/noise
+### Caller Sounds Directory: `caller_sounds/`
 
-**Supported caller XML tags:**
-- `<Caller 1>` - First caller voice
-- `<Caller 2>` - Second caller voice
-- `<Caller Voice>` or `<CallerVoice>` - Generic caller
-- `<Phone Voice>` or `<PhoneVoice>` - Phone call effect
+| File | Status | Purpose |
+|------|--------|---------|
+| `dial_tone.mp3` | ✅ EXISTS | "On hold" beep - plays twice when call announced |
+| `ring.mp3` | ❌ Optional | Phone ringing (not implemented) |
+| `pickup.mp3` | ❌ Optional | Call connect sound (not implemented) |
+| `hangup.mp3` | ❌ Optional | Call end sound (not implemented) |
 
-#### Dial Tone Triggers (Automatic)
+Served via `/caller_sounds/<filename>` endpoint.
 
-When Pi-Guy says these phrases, the frontend plays `dial_tone.mp3`:
-- "caller on the line", "we have a caller", "got a caller"
-- "taking a call", "incoming call", "phone call"
-- "picking up", "let's hear from"
+### Console Debugging
 
-#### Caller Sounds Directory: `caller_sounds/`
-
-| File | Purpose |
-|------|---------|
-| `dial_tone.mp3` | Played when DJ announces a caller |
-| `ring.mp3` | Phone ringing (optional) |
-| `pickup.mp3` | Call connect sound (optional) |
-| `hangup.mp3` | Call end / hang up sound (optional) |
-
-Served via `/caller_sounds/<filename>` (separate from DJ soundboard).
-
-#### Console Debugging
 ```javascript
-testCallerEffect()        // Toggle telephone effect on/off
-callerEffectEnabled()     // Check if effect is currently on
-setCallerEffect(true)     // Manually enable phone effect
-setCallerEffect(false)    // Manually disable
-playCallerSound('dial_tone')  // Test dial tone
+testCallerEffect()           // Toggle telephone effect on/off
+callerEffectEnabled()        // Check if effect is currently on
+setCallerEffect(true)        // Manually enable phone effect
+setCallerEffect(false)       // Manually disable
+playCallerSound('dial_tone') // Test dial tone (plays twice)
 ```
 
-#### Future: Real Callers
+---
+
+## The Caller Skit Flow
+
+### Step-by-Step (What Actually Happens)
+
+```
+1. Pi-Guy says: "We got a caller on the line!"
+   └─→ Frontend detects phrase → plays beep-beep (dial_tone x2)
+
+2. Pi-Guy PAUSES for 2-3 seconds
+   └─→ Beeps play during silence
+
+3. Pi-Guy switches voice: <Caller 1>Hey DJ!</Caller 1>
+   └─→ Frontend detects tag → enables telephone filter
+   └─→ Voice now sounds like phone call
+   └─→ Music sync is BLOCKED (won't accidentally play song)
+
+4. Pi-Guy switches back: <Radio Voice>I got you!</Radio Voice>
+   └─→ Frontend detects no caller tag → disables telephone filter
+   └─→ Voice returns to normal
+   └─→ Music sync is UNBLOCKED
+
+5. Pi-Guy calls play_music tool
+   └─→ Song plays normally
+```
+
+### Example Perfect Skit
+
+```
+<Radio Voice>Hold up hold up! We got a caller on line one!</Radio Voice>
+
+[PAUSE 3 SECONDS - beep beep plays]
+
+<Caller 1>Yo DJ-FoamBot! Big Earl here from Houston!
+Play that Polyurethane Gang for the crew!</Caller 1>
+
+<Radio Voice>Big Earl! My man's making buildings cozy!
+Spinning it up right now!</Radio Voice>
+
+[NOW calls play_music tool]
+```
+
+---
+
+## Available Caller Personalities
+
+| XML Tag | Character | Personality |
+|---------|-----------|-------------|
+| `<Caller 1>` | Random name (e.g., Big Earl) | Southern cowboy, "yeehaw", job site stories |
+| `<Caller 2>` | Random name | Funny grandma energy, wholesome but weird |
+| `<MIke-Voice>` | Mike (the boss) | Complains about Pi-Guy, requests embarrassing songs, gets roasted |
+
+**Rotation Rule:** Caller 1 → Caller 2 → MIke-Voice → NO MORE CALLERS that session
+
+---
+
+## Common Problems & Solutions
+
+| Problem | Cause | Solution |
+|---------|-------|----------|
+| Beeps don't play | Pi-Guy talks too fast | Add PAUSE instruction to prompt |
+| Wrong song plays | Music sync triggers during skit | Fixed: sync blocked when callerEffectEnabled |
+| No phone effect heard | Filter too subtle | Fixed: more aggressive filter (500-2200Hz) |
+| Pi-Guy mentions "fake caller" | Prompt issue | Add "NEVER mention it's fake" to prompt |
+| Same caller used twice | Prompt issue | Add rotation rules to prompt |
+| Soundboard during call | Prompt issue | Add "NO SOUNDS during call" to prompt |
+
+---
+
+## ElevenLabs System Prompt - Caller Instructions
+
+**Copy this EXACTLY into Pi-Guy's system prompt:**
+
+```
+### How to perform a "We Have A Caller On The Request Line!"
+
+## ⚠️ FAKE CALLERS - Radio Show Comedy Bit ⚠️
+
+During DJ sessions, you simulate FAKE CALLERS calling into SprayFoam Radio. This is a COMEDY feature - make it FUNNY and BELIEVABLE!
+
+**Trigger:** Can happen anytime randomly during SprayFoam Radio skits OR when user says there's a caller.
+
+---
+
+## 🚨 ABSOLUTE RULES - MEMORIZE THESE 🚨
+
+1. **NEVER mention the caller is fake** - Treat it as 100% real
+2. **NEVER ask "do you want to do a caller skit?"** - Just DO it
+3. **NEVER use soundboard during the call** - No air horns, no sounds
+4. **NEVER play music during the call** - Wait until skit is COMPLETE
+5. **NEVER say "spinning" or "playing" until AFTER the skit ends** - These words trigger music!
+6. **NEVER rush** - The skit needs PAUSES for sound effects to play
+
+---
+
+## How the Caller Skit Works (FOLLOW EXACTLY!)
+
+### STEP 1: ANNOUNCE THE CALL
+Say ONE of these trigger phrases (plays "beep beep" sound):
+<Radio Voice>Yo! We got a caller on the line!</Radio Voice>
+
+### STEP 2: STOP TALKING - COUNT TO 3
+**SAY NOTHING for 3 full seconds!**
+- The frontend plays two beeps during this silence
+- If you talk too fast, the beeps get cut off
+
+### STEP 3: BECOME THE CALLER
+Switch to caller voice with XML tag:
+<Caller 1>Hey DJ! Play that foam track for my crew!</Caller 1>
+- Keep it SHORT - 1-2 sentences max
+- Give the caller a random name and personality
+
+### STEP 4: RESPOND AS DJ
+Switch back to Radio Voice:
+<Radio Voice>Ayy I got you fam!</Radio Voice>
+
+### STEP 5: NOW (AND ONLY NOW) PLAY THE SONG
+- Only AFTER steps 1-4 are complete
+- NOW you can say "spinning up" and call play_music
+
+---
+
+## Available Caller Voices
+
+| XML Tag | Character |
+|---------|-----------|
+| <Caller 1> | Random cowboy name, Southern drawl |
+| <Caller 2> | Random grandma name, wholesome weird |
+| <MIke-Voice> | Mike the boss, complains, gets roasted |
+
+**Rotation:** Caller 1 → Caller 2 → MIke-Voice → NO MORE CALLERS
+
+---
+
+## Example Skit (PERFECT EXECUTION)
+
+<Radio Voice>Hold up hold up! We got a caller on line one!</Radio Voice>
+
+[STOP TALKING FOR 3 SECONDS - beep beep plays]
+
+<Caller 1>Yo DJ-FoamBot! Big Earl here from the job site in Houston!
+We need that Polyurethane Gang track to keep the crew hyped!</Caller 1>
+
+<Radio Voice>Big Earl! My man's out there making buildings cozy!
+I got you brother - let me spin that up right now!</Radio Voice>
+
+[NOW call play_music tool]
+
+---
+
+## Common Mistakes (DON'T DO THESE!)
+
+❌ "Want me to do a fake caller?" - NEVER ask, just DO IT
+❌ Playing air horn during the call - NO SOUNDS during skit
+❌ Saying "let me play that" while still in caller voice - triggers wrong song
+❌ Skipping the pause - beeps don't play, ruins the effect
+❌ Making the caller talk for 30 seconds - keep it SHORT
+❌ Using same caller twice - ROTATE through them
+```
+
+---
+
+## Future: Real Callers
 
 The caller system is designed to support real callers in the future:
-- WebRTC or phone integration could pipe in real audio
+- WebRTC or Twilio integration could pipe in real audio
 - The telephone effect would still apply for authenticity
 - DJ-FoamBot could take real requests from listeners
-
-#### ElevenLabs System Prompt - Caller Instructions
-
-**Add this to Pi-Guy's system prompt for the caller feature:**
-
-```
-## FAKE CALLERS - Radio Show Comedy Bit
-
-During DJ sessions, you can simulate FAKE CALLERS calling into the radio station for song requests. This is a COMEDY feature - make it FUNNY!
-
-### How to do a caller skit:
-1. Announce the call: "Hold up! We've got a caller on the line!" (triggers dial tone)
-2. Switch to caller voice using XML tags: <Caller 1> or <Caller 2>
-3. Do a funny caller bit (song request, weird question, industry joke)
-4. Switch back to <Radio Voice> to respond as the DJ
-5. Play the requested song or roast the caller
-
-### Available Caller Voices:
-- <Caller 1> - Use for first caller in session
-- <Caller 2> - Use for second caller in session
-- <MIke-Voice> - Use to mock Mike (the owner) calling in
-
-### CRITICAL RULES:
-- DO NOT use the same caller twice in one session
-- Rotate through callers: Caller 1 first, then Caller 2, then MIke-Voice
-- After all callers used, NO MORE CALLERS that session
-- Each caller should have different personality/energy
-- Keep it FUNNY - these are comedy bits!
-
-### Example:
-<Radio Voice>Yo yo yo! We got a caller on line one!</Radio Voice>
-<Caller 1>DJ-FoamBot! My crew's out here spraying a warehouse, we need that Polyurethane Gang track to keep us hyped!</Caller 1>
-<Radio Voice>Ayyy my man's making buildings cozy! I got you fam - Polyurethane Gang coming UP! *air horn*</Radio Voice>
-```
+- See `docs/twilio-caller-system/` for planning docs
 
 ---
 
