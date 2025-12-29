@@ -2754,6 +2754,43 @@
 
                                 return 'Use action=list or action=play with sound parameter';
                             },
+
+                            // Caller Sounds - plays phone sounds for fake caller skits
+                            caller_sounds: async (parameters) => {
+                                console.log('📞 CLIENT TOOL: caller_sounds called with:', parameters);
+                                const action = parameters.action || 'play';
+                                const sound = parameters.sound || 'dial_tone';
+
+                                const CALLER_SOUNDS = {
+                                    dial_tone: { description: 'Double beep - "on hold" sound before caller speaks' },
+                                    ring: { description: 'Phone ringing sound' },
+                                    pickup: { description: 'Call connect/pickup sound' },
+                                    hangup: { description: 'Call end/disconnect sound' }
+                                };
+
+                                if (action === 'list') {
+                                    const sounds = Object.keys(CALLER_SOUNDS);
+                                    return `Available caller sounds: ${sounds.join(', ')}. Use action=play with sound name. dial_tone is most common.`;
+                                }
+
+                                if (action === 'play') {
+                                    const soundName = sound.toLowerCase().replace(/\s+/g, '_').replace(/-/g, '_');
+                                    console.log('📞 Playing caller sound:', soundName);
+
+                                    // Play the sound using existing playCallerSound function
+                                    if (typeof playCallerSound === 'function') {
+                                        await playCallerSound(soundName);
+                                    } else {
+                                        console.error('playCallerSound function not found');
+                                        return 'Error: Sound system not ready';
+                                    }
+
+                                    const info = CALLER_SOUNDS[soundName] || { description: soundName };
+                                    return `*${info.description}* 📞`;
+                                }
+
+                                return 'Use action=list or action=play with sound parameter (default: dial_tone)';
+                            },
                         },
                         onConnect: () => {
                             console.log('Connected to ElevenLabs');
@@ -2852,13 +2889,41 @@
                                 }
                             }
 
-                            // Music tool - sync playback using the proper sync function
+                            // Music tool - handle based on action type
                             if (toolName === 'play_music') {
-                                console.log('🎵 Music tool called, syncing with server...');
-                                // Reset transition flag for new track
-                                djTransitionTriggered = false;
-                                // Use syncMusicWithServer which handles URL properly for all playlists
-                                syncMusicWithServer();
+                                try {
+                                    const toolData = typeof toolResult === 'string'
+                                        ? JSON.parse(toolResult)
+                                        : toolResult;
+                                    const action = toolData?.action || 'play';
+                                    console.log('🎵 Music tool called with action:', action);
+
+                                    if (action === 'stop') {
+                                        console.log('🎵 Stopping music playback');
+                                        stopMusicPlayback();
+                                    } else if (action === 'pause') {
+                                        console.log('🎵 Pausing music playback');
+                                        pauseMusicPlayback();
+                                    } else if (action === 'resume') {
+                                        console.log('🎵 Resuming music playback');
+                                        musicPlayer.play();
+                                        musicPlaying = true;
+                                        playPauseBtn.textContent = '⏸';
+                                    } else if (action === 'volume' && toolData.volume !== undefined) {
+                                        console.log('🎵 Setting volume to:', toolData.volume);
+                                        musicPlayer.volume = toolData.volume / 100;
+                                    } else if (action === 'play' || action === 'skip' || action === 'next') {
+                                        // Only sync for play/skip actions
+                                        console.log('🎵 Playing/skipping - syncing with server...');
+                                        djTransitionTriggered = false;
+                                        syncMusicWithServer();
+                                    }
+                                    // For list, status, next_up - no frontend action needed
+                                } catch (e) {
+                                    console.error('Error parsing music tool result:', e);
+                                    // Fallback to sync for backwards compatibility
+                                    syncMusicWithServer();
+                                }
                             }
 
                             // Commercial tool - play the commercial!
@@ -2938,11 +3003,19 @@
                                     }
                                 }
 
-                                // Play dial tone when Pi-Guy announces a caller
-                                if (typeof detectIncomingCall === 'function' && detectIncomingCall(message.message)) {
-                                    console.log('[CallerFX] Incoming call announced - playing dial tone');
-                                    playCallerSound('dial_tone');
-                                }
+                                // ==========================================================
+                                // BACKUP: Dial Tone Text Detection
+                                // DISABLED: 2024-12-29
+                                // REASON: Replaced with caller_sounds client tool. Pi-Guy now
+                                //         calls the tool BEFORE switching to caller voice, which
+                                //         ensures proper timing. Text detection played too late.
+                                // TO RESTORE: Uncomment the block below if client tool fails
+                                // ORIGINAL CODE:
+                                // if (typeof detectIncomingCall === 'function' && detectIncomingCall(message.message)) {
+                                //     console.log('[CallerFX] Incoming call announced - playing dial tone');
+                                //     playCallerSound('dial_tone');
+                                // }
+                                // ==========================================================
 
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();

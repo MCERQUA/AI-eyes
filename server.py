@@ -166,8 +166,12 @@ current_identity = None
 
 @app.route('/')
 def serve_index():
-    """Serve the main index.html page"""
-    return send_file('index.html')
+    """Serve the main index.html page with no caching"""
+    response = send_file('index.html')
+    response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    response.headers['Pragma'] = 'no-cache'
+    response.headers['Expires'] = '0'
+    return response
 
 @app.route('/known_faces/<name>/<filename>')
 def serve_face_photo(name, filename):
@@ -3820,6 +3824,9 @@ def suno_completed_songs():
 # ===== DJ SOUNDBOARD =====
 SOUNDS_DIR = Path(__file__).parent / "sounds"
 
+# ===== CALLER SOUNDS (Phone simulation) =====
+CALLER_SOUNDS_DIR = Path(__file__).parent / "caller_sounds"
+
 # Available DJ sounds with descriptions and when to use them
 # Current sounds: air_horn, bruh, crowd_cheer, crowd_hype, gunshot, impact, laser,
 # lets_go, record_stop, rewind, sad_trombone, scratch_long, yeah
@@ -3900,6 +3907,14 @@ def serve_sound(filename):
     if sound_path.exists():
         return send_file(sound_path, mimetype='audio/mpeg')
     return jsonify({"error": "Sound not found"}), 404
+
+@app.route('/caller_sounds/<filename>')
+def serve_caller_sound(filename):
+    """Serve caller/phone sound effect files (dial tone, ring, etc.)"""
+    sound_path = CALLER_SOUNDS_DIR / filename
+    if sound_path.exists():
+        return send_file(sound_path, mimetype='audio/mpeg')
+    return jsonify({"error": "Caller sound not found"}), 404
 
 @app.route('/api/dj-sound', methods=['GET'])
 def handle_dj_sound():

@@ -212,10 +212,11 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 
 The caller system has three components that work together:
 
-1. **Dial Tone Detection** (`detectIncomingCall()` in index.html ~line 5440)
-   - Scans Pi-Guy's speech for trigger phrases
-   - Plays `dial_tone.mp3` TWICE quickly (400ms apart) for "on hold" beep effect
-   - 5-second cooldown prevents spam
+1. **Dial Tone (caller_sounds client tool)**
+   - Pi-Guy calls `caller_sounds` tool with `action=play, sound=dial_tone`
+   - Frontend plays `dial_tone.mp3` TWICE quickly (400ms apart) for "on hold" beep effect
+   - Tool-based approach ensures timing is controlled by Pi-Guy
+   - OLD text detection method is DISABLED (was too late)
 
 2. **Caller Voice Detection** (`detectCallerVoice()` in index.html ~line 5419)
    - Detects XML tags: `<Caller 1>`, `<Caller 2>`, `<MIke-Voice>`, `<CallerVoice>`
@@ -246,14 +247,15 @@ ElevenLabs Audio → High-Pass (500Hz) → Low-Pass (2200Hz) → Mid-Boost (+6dB
 | Distortion | 25 amount | Crackle/noise |
 | Gain | 0.7 | Quieter like real phone |
 
-### Dial Tone Trigger Phrases
+### Dial Tone (Now Tool-Based)
 
-When Pi-Guy says ANY of these, frontend plays double-beep:
-- "caller on the line" / "caller on line one"
-- "we have a caller" / "got a caller"
-- "taking a call" / "incoming call"
-- "call coming in" / "picking up"
-- "let's hear from"
+**OLD METHOD (DISABLED):** Text detection that played beeps when Pi-Guy said trigger phrases. This was too late - beeps played while caller was already talking.
+
+**NEW METHOD:** Pi-Guy calls `caller_sounds` client tool BEFORE switching to caller voice:
+```
+caller_sounds action=play sound=dial_tone
+```
+This ensures proper timing - Pi-Guy controls when the beeps play.
 
 ### Supported Caller XML Tags
 
@@ -294,22 +296,23 @@ playCallerSound('dial_tone') // Test dial tone (plays twice)
 
 ```
 1. Pi-Guy says: "We got a caller on the line!"
-   └─→ Frontend detects phrase → plays beep-beep (dial_tone x2)
 
-2. Pi-Guy PAUSES for 2-3 seconds
-   └─→ Beeps play during silence
+2. Pi-Guy calls caller_sounds tool (action=play, sound=dial_tone)
+   └─→ Frontend plays beep-beep (dial_tone x2)
 
-3. Pi-Guy switches voice: <Caller 1>Hey DJ!</Caller 1>
+3. Pi-Guy waits a moment for beeps to play
+
+4. Pi-Guy switches voice: <Caller 1>Hey DJ!</Caller 1>
    └─→ Frontend detects tag → enables telephone filter
    └─→ Voice now sounds like phone call
    └─→ Music sync is BLOCKED (won't accidentally play song)
 
-4. Pi-Guy switches back: <Radio Voice>I got you!</Radio Voice>
+5. Pi-Guy switches back: <Radio Voice>I got you!</Radio Voice>
    └─→ Frontend detects no caller tag → disables telephone filter
    └─→ Voice returns to normal
    └─→ Music sync is UNBLOCKED
 
-5. Pi-Guy calls play_music tool
+6. Pi-Guy calls play_music tool
    └─→ Song plays normally
 ```
 
@@ -318,7 +321,8 @@ playCallerSound('dial_tone') // Test dial tone (plays twice)
 ```
 <Radio Voice>Hold up hold up! We got a caller on line one!</Radio Voice>
 
-[PAUSE 3 SECONDS - beep beep plays]
+[CALL caller_sounds action=play sound=dial_tone]
+[Wait for beep-beep...]
 
 <Caller 1>Yo DJ-FoamBot! Big Earl here from Houston!
 Play that Polyurethane Gang for the crew!</Caller 1>
@@ -347,7 +351,8 @@ Spinning it up right now!</Radio Voice>
 
 | Problem | Cause | Solution |
 |---------|-------|----------|
-| Beeps don't play | Pi-Guy talks too fast | Add PAUSE instruction to prompt |
+| Beeps don't play | Pi-Guy forgot to call tool | Must call `caller_sounds` tool before switching to caller voice |
+| Beeps play late | Pi-Guy didn't wait | Wait a moment after calling tool before switching voice |
 | Wrong song plays | Music sync triggers during skit | Fixed: sync blocked when callerEffectEnabled |
 | No phone effect heard | Filter too subtle | Fixed: more aggressive filter (500-2200Hz) |
 | Pi-Guy mentions "fake caller" | Prompt issue | Add "NEVER mention it's fake" to prompt |
@@ -385,13 +390,13 @@ During DJ sessions, you simulate FAKE CALLERS calling into SprayFoam Radio. This
 ## How the Caller Skit Works (FOLLOW EXACTLY!)
 
 ### STEP 1: ANNOUNCE THE CALL
-Say ONE of these trigger phrases (plays "beep beep" sound):
 <Radio Voice>Yo! We got a caller on the line!</Radio Voice>
 
-### STEP 2: STOP TALKING - COUNT TO 3
-**SAY NOTHING for 3 full seconds!**
-- The frontend plays two beeps during this silence
-- If you talk too fast, the beeps get cut off
+### STEP 2: CALL THE TOOL (CRITICAL!)
+**Call `caller_sounds` with `action=play, sound=dial_tone`**
+- This plays the double-beep "on hold" sound
+- You MUST call this tool BEFORE switching to caller voice!
+- Wait a moment for the beeps to play
 
 ### STEP 3: BECOME THE CALLER
 Switch to caller voice with XML tag:
@@ -425,7 +430,8 @@ Switch back to Radio Voice:
 
 <Radio Voice>Hold up hold up! We got a caller on line one!</Radio Voice>
 
-[STOP TALKING FOR 3 SECONDS - beep beep plays]
+[CALL caller_sounds action=play sound=dial_tone]
+[Wait for beep-beep to play...]
 
 <Caller 1>Yo DJ-FoamBot! Big Earl here from the job site in Houston!
 We need that Polyurethane Gang track to keep the crew hyped!</Caller 1>
@@ -459,7 +465,7 @@ The caller system is designed to support real callers in the future:
 
 ---
 
-### Current tools that MUST always be attached to the agent (13 total: 11 webhook/client + 2 system):
+### Current tools that MUST always be attached to the agent (15 total: 13 webhook/client + 2 system):
 
 **⚠️ CRITICAL: When updating agent via API, you MUST include ALL tool_ids in the array!**
 **If you only send a partial list, tools will be REMOVED from the agent!**
@@ -477,6 +483,7 @@ The caller system is designed to support real callers in the future:
 | tool_8001kb754p5setqb2qedb7rfez15 | manage_notes | webhook |
 | tool_9801kb8k61zpfkksynb8m4wztkkx | play_music | webhook |
 | tool_4101kb908dbrfmttcz597n7h91ns | dj_soundboard | **client** |
+| tool_2301kdnfpp6ceqq8z6bepe4dsjxt | caller_sounds | **client** |
 | tool_8101kbp5rzccfv4r46zrp6wt356g | generate_song | webhook |
 | tool_6601kbpfyjnpeayrjefkga7mgw0n | play_commercial | webhook |
 | tool_3201kddsj6xcewea49bkaqj12jm2 | do_standup | webhook |
@@ -625,6 +632,7 @@ tool_6801kb79mrdwfycsawytjq0gx1ck  # manage_jobs
 tool_8001kb754p5setqb2qedb7rfez15  # manage_notes
 tool_9801kb8k61zpfkksynb8m4wztkkx  # play_music
 tool_4101kb908dbrfmttcz597n7h91ns  # dj_soundboard (CLIENT tool)
+tool_2301kdnfpp6ceqq8z6bepe4dsjxt  # caller_sounds (CLIENT tool)
 tool_8101kbp5rzccfv4r46zrp6wt356g  # generate_song
 tool_6601kbpfyjnpeayrjefkga7mgw0n  # play_commercial
 tool_3201kddsj6xcewea49bkaqj12jm2  # do_standup
@@ -844,6 +852,40 @@ The `dj_soundboard` is a CLIENT tool, meaning it runs in the browser:
 **Backup: Text Detection (can be re-enabled if needed)**
 
 There's a backup `checkForDJSounds()` function (line 3843) that can be re-enabled if the client tool fails. See "Backup/Restore" section below.
+
+#### Caller Sounds Tool (caller_sounds) - CLIENT TOOL
+
+**Tool Configuration:**
+- **Tool ID**: `tool_2301kdnfpp6ceqq8z6bepe4dsjxt`
+- **Type**: `client` (runs directly in browser, NOT webhook)
+- **Purpose**: Play phone sounds for fake caller skits on SprayFoam Radio
+
+**How It Works (CLIENT TOOL - SILENT OPERATION):**
+
+The `caller_sounds` is a CLIENT tool, meaning it runs in the browser:
+1. Agent calls `caller_sounds` with `action=play, sound=dial_tone`
+2. ElevenLabs SDK triggers `clientTools.caller_sounds()` in browser
+3. Browser immediately plays the sound via `playCallerSound()`
+4. **Agent does NOT speak the sound name** - the tool call is completely silent
+
+**CRITICAL TIMING:** Pi-Guy MUST call this tool BEFORE switching to a caller voice!
+1. Announce: "We got a caller on the line!"
+2. Call tool: `caller_sounds action=play sound=dial_tone`
+3. THEN switch to: `<Caller 1>Hey DJ!</Caller 1>`
+
+**Available Sounds (in `caller_sounds/` directory):**
+- **dial_tone**: Double beep "on hold" sound - MOST COMMON
+- **ring**: Phone ringing (optional)
+- **pickup**: Call connect sound (optional)
+- **hangup**: Call end sound (optional)
+
+**Parameters:**
+- `action`: `play` (default) or `list`
+- `sound`: `dial_tone` (default), `ring`, `pickup`, `hangup`
+
+**Backup: Text Detection (DISABLED)**
+
+The old text detection system (`detectIncomingCall()`) is disabled because it played the dial tone at the wrong time (while caller was already talking). The client tool ensures proper timing.
 
 #### Comedy/Standup Tool (do_standup)
 - **Tool ID**: `tool_3201kddsj6xcewea49bkaqj12jm2`
