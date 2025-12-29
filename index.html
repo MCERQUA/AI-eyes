@@ -2923,6 +2923,27 @@
                                 // checkForDJSounds(message.message);
                                 // ==========================================================
 
+                                // ==========================================================
+                                // CALLER VOICE EFFECT: Detect when Pi-Guy uses caller voice
+                                // Applies telephone-quality audio filter when active
+                                // ==========================================================
+                                if (typeof detectCallerVoice === 'function') {
+                                    const isCallerVoice = detectCallerVoice(message.message);
+                                    if (isCallerVoice) {
+                                        console.log('[CallerFX] Caller voice detected in message');
+                                        setCallerEffect(true);
+                                    } else if (callerEffectEnabled) {
+                                        // Turn off effect when switching back to normal voice
+                                        setCallerEffect(false);
+                                    }
+                                }
+
+                                // Play dial tone when Pi-Guy announces a caller
+                                if (typeof detectIncomingCall === 'function' && detectIncomingCall(message.message)) {
+                                    console.log('[CallerFX] Incoming call announced - playing dial tone');
+                                    playCallerSound('dial_tone');
+                                }
+
                                 // Sync music playback when Pi-Guy mentions playing (fallback)
                                 const msg = message.message.toLowerCase();
 
@@ -5237,6 +5258,290 @@
         // Expose for console debugging
         window.playDJSound = playDJSound;
         window.checkForDJSounds = checkForDJSounds;
+
+        // ===== CALLER VOICE EFFECT (Telephone Quality) =====
+        // Makes the "caller" voice sound like a phone call: bandpass filter + compression
+        // Simulates AM radio / telephone audio quality (300Hz - 3400Hz bandwidth)
+
+        let callerEffectEnabled = false;
+        let callerEffectNodes = null;
+        let elevenLabsAudioElement = null;
+        let elevenLabsSourceNode = null;
+
+        // Create the telephone effect audio chain
+        function createCallerEffectChain(audioContext) {
+            // High-pass filter at 300Hz (cuts low frequencies like phone)
+            const highPass = audioContext.createBiquadFilter();
+            highPass.type = 'highpass';
+            highPass.frequency.value = 300;
+            highPass.Q.value = 0.7;
+
+            // Low-pass filter at 3400Hz (telephone bandwidth ceiling)
+            const lowPass = audioContext.createBiquadFilter();
+            lowPass.type = 'lowpass';
+            lowPass.frequency.value = 3400;
+            lowPass.Q.value = 0.7;
+
+            // Compressor for that "squashed" phone sound
+            const compressor = audioContext.createDynamicsCompressor();
+            compressor.threshold.value = -24;
+            compressor.knee.value = 30;
+            compressor.ratio.value = 12;
+            compressor.attack.value = 0.003;
+            compressor.release.value = 0.25;
+
+            // Slight distortion for "crackle" effect
+            const distortion = audioContext.createWaveShaper();
+            distortion.curve = makeDistortionCurve(8);  // Subtle distortion
+            distortion.oversample = '2x';
+
+            // Gain node for volume adjustment (phone calls are slightly quieter)
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0.85;
+
+            // Connect the chain: source -> highPass -> lowPass -> compressor -> distortion -> gain -> destination
+            highPass.connect(lowPass);
+            lowPass.connect(compressor);
+            compressor.connect(distortion);
+            distortion.connect(gainNode);
+
+            return {
+                input: highPass,
+                output: gainNode,
+                nodes: { highPass, lowPass, compressor, distortion, gainNode }
+            };
+        }
+
+        // Create distortion curve for subtle "phone crackle"
+        function makeDistortionCurve(amount) {
+            const samples = 44100;
+            const curve = new Float32Array(samples);
+            const deg = Math.PI / 180;
+            for (let i = 0; i < samples; i++) {
+                const x = (i * 2 / samples) - 1;
+                curve[i] = ((3 + amount) * x * 20 * deg) / (Math.PI + amount * Math.abs(x));
+            }
+            return curve;
+        }
+
+        // Setup caller effect - monitors for ElevenLabs audio and applies effect when needed
+        function setupCallerEffect() {
+            if (!window.audioContext) {
+                console.log('[CallerFX] No AudioContext available yet');
+                return;
+            }
+
+            // Create effect chain
+            callerEffectNodes = createCallerEffectChain(window.audioContext);
+            console.log('[CallerFX] Telephone effect chain created');
+
+            // Monitor DOM for ElevenLabs audio elements
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    mutation.addedNodes.forEach((node) => {
+                        if (node.tagName === 'AUDIO' && !node.id) {
+                            // ElevenLabs creates unnamed audio elements
+                            console.log('[CallerFX] Detected ElevenLabs audio element');
+                            hookElevenLabsAudio(node);
+                        }
+                    });
+                });
+            });
+
+            observer.observe(document.body, { childList: true, subtree: true });
+            console.log('[CallerFX] Watching for ElevenLabs audio elements');
+        }
+
+        // Hook into ElevenLabs audio element and route through effect chain
+        function hookElevenLabsAudio(audioElement) {
+            try {
+                // Only hook once
+                if (audioElement.dataset.callerHooked) return;
+                audioElement.dataset.callerHooked = 'true';
+
+                elevenLabsAudioElement = audioElement;
+
+                // Ensure AudioContext is ready
+                if (window.audioContext.state === 'suspended') {
+                    window.audioContext.resume();
+                }
+
+                // Create source node from the audio element
+                elevenLabsSourceNode = window.audioContext.createMediaElementSource(audioElement);
+
+                // Create a bypass node (goes direct to destination when effect is off)
+                const bypassGain = window.audioContext.createGain();
+                bypassGain.gain.value = 1;
+
+                // Connect source to bypass (normal path)
+                elevenLabsSourceNode.connect(bypassGain);
+                bypassGain.connect(window.audioContext.destination);
+
+                // Store for later effect toggling
+                callerEffectNodes.bypassGain = bypassGain;
+                callerEffectNodes.effectOutput = callerEffectNodes.output;
+                callerEffectNodes.effectOutput.connect(window.audioContext.destination);
+
+                console.log('[CallerFX] ElevenLabs audio hooked - ready for caller effect');
+            } catch (e) {
+                console.error('[CallerFX] Failed to hook ElevenLabs audio:', e);
+            }
+        }
+
+        // Toggle caller effect on/off
+        function setCallerEffect(enabled) {
+            if (!elevenLabsSourceNode || !callerEffectNodes) {
+                console.log('[CallerFX] Not ready yet');
+                return;
+            }
+
+            try {
+                if (enabled && !callerEffectEnabled) {
+                    // Enable effect: disconnect bypass, connect through effect chain
+                    elevenLabsSourceNode.disconnect();
+                    elevenLabsSourceNode.connect(callerEffectNodes.input);
+                    callerEffectEnabled = true;
+                    console.log('[CallerFX] ENABLED - Voice now sounds like phone call');
+                } else if (!enabled && callerEffectEnabled) {
+                    // Disable effect: disconnect effect, reconnect bypass
+                    elevenLabsSourceNode.disconnect();
+                    elevenLabsSourceNode.connect(callerEffectNodes.bypassGain);
+                    callerEffectEnabled = false;
+                    console.log('[CallerFX] DISABLED - Normal voice quality');
+                }
+            } catch (e) {
+                console.error('[CallerFX] Toggle error:', e);
+            }
+        }
+
+        // Detect caller voice from Pi-Guy's messages (XML tags)
+        // Applies telephone effect when Pi-Guy uses any caller voice
+        function detectCallerVoice(message) {
+            if (!message) return false;
+
+            // Check for Caller Voice XML tags
+            // Supports: <Caller 1>, <Caller 2>, <MIke-Voice> (as caller), <Caller Voice>, etc.
+            const callerPatterns = [
+                /<caller\s*1>/i,           // <Caller 1>
+                /<caller\s*2>/i,           // <Caller 2>
+                /<caller\s*3>/i,           // <Caller 3> (future)
+                /<mike[\-\s]*voice>/i,     // <MIke-Voice> or <Mike Voice> (Mike calling in)
+                /<caller\s*voice>/i,       // <Caller Voice>
+                /<callervoice>/i,          // <CallerVoice>
+                /<phone\s*voice>/i,        // <Phone Voice>
+                /<phonevoice>/i,           // <PhoneVoice>
+                /<caller>/i                // <Caller>
+            ];
+
+            return callerPatterns.some(pattern => pattern.test(message));
+        }
+
+        // Detect when Pi-Guy is about to take a call (play dial tone)
+        function detectIncomingCall(message) {
+            if (!message) return false;
+            const msg = message.toLowerCase();
+
+            // Phrases that indicate a call is coming in
+            const callPhrases = [
+                'caller on the line',
+                'caller on line',
+                'we have a caller',
+                'got a caller',
+                'taking a call',
+                'take a call',
+                'phone call',
+                'incoming call',
+                'call coming in',
+                'picking up',
+                'answer the phone',
+                'let\'s hear from'
+            ];
+
+            return callPhrases.some(phrase => msg.includes(phrase));
+        }
+
+        // ===== CALLER SOUNDS (Dial tone, ring, etc.) =====
+        const callerSoundCache = {};
+        let lastCallerSoundTime = 0;
+        const CALLER_SOUND_COOLDOWN = 5000; // 5 second cooldown between sounds
+
+        // Preload caller sounds
+        async function preloadCallerSound(soundName) {
+            const url = `${VISION_SERVER_URL}/caller_sounds/${soundName}.mp3`;
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    const blob = await response.blob();
+                    callerSoundCache[soundName] = URL.createObjectURL(blob);
+                    console.log('[CallerFX] Preloaded caller sound:', soundName);
+                }
+            } catch (e) {
+                console.warn('[CallerFX] Failed to preload caller sound:', soundName, e);
+            }
+        }
+
+        // Play a caller sound (dial tone, ring, etc.)
+        // For dial_tone: plays twice quickly like "on hold" beeps before caller answers
+        async function playCallerSound(soundName, repeatCount = 1) {
+            // Cooldown to prevent spam
+            const now = Date.now();
+            if (now - lastCallerSoundTime < CALLER_SOUND_COOLDOWN) {
+                console.log('[CallerFX] Sound cooldown active, skipping');
+                return;
+            }
+            lastCallerSoundTime = now;
+
+            // Dial tone plays twice for "on hold" effect
+            const times = (soundName === 'dial_tone') ? 2 : repeatCount;
+            const delayBetween = 400; // ms between beeps
+
+            try {
+                for (let i = 0; i < times; i++) {
+                    const player = new Audio();
+                    player.volume = 0.7;
+
+                    // Use cached or fetch fresh
+                    if (callerSoundCache[soundName]) {
+                        player.src = callerSoundCache[soundName];
+                    } else {
+                        player.src = `${VISION_SERVER_URL}/caller_sounds/${soundName}.mp3`;
+                    }
+
+                    await player.play();
+                    console.log(`[CallerFX] Playing caller sound: ${soundName} (${i + 1}/${times})`);
+
+                    // Wait between beeps (except for last one)
+                    if (i < times - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delayBetween));
+                    }
+                }
+            } catch (e) {
+                console.error('[CallerFX] Failed to play caller sound:', e);
+            }
+        }
+
+        // Initialize caller effect on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Delay setup to ensure AudioContext exists
+            setTimeout(setupCallerEffect, 2000);
+
+            // Preload caller sounds
+            setTimeout(() => {
+                preloadCallerSound('dial_tone');
+                preloadCallerSound('ring');
+                preloadCallerSound('pickup');
+                preloadCallerSound('hangup');
+            }, 3000);
+        });
+
+        // Expose for console debugging and manual control
+        window.setCallerEffect = setCallerEffect;
+        window.callerEffectEnabled = () => callerEffectEnabled;
+        window.testCallerEffect = () => {
+            setCallerEffect(!callerEffectEnabled);
+            return `Caller effect is now ${callerEffectEnabled ? 'ON' : 'OFF'}`;
+        };
+        window.playCallerSound = playCallerSound;
 
         // ===== COMMUNITY PANEL =====
         const communityToggle = document.getElementById('community-toggle');

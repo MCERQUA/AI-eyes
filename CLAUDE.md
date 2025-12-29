@@ -173,19 +173,154 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 
 ### 🎙️ CRITICAL: Multi-Voice Setup
 
-**Pi-Guy has TWO voices configured - DO NOT DELETE EITHER VOICE!**
+**Pi-Guy has MULTIPLE voices configured - DO NOT DELETE ANY VOICE!**
 
-The agent has two voices configured in `conversation_config.tts.supported_voices`:
-- **Primary Voice ID**: `E3MHpxAogw45xwi3vBsd` (Kitt-Voice) - main speaking voice
-- **Radio Voice ID**: `CeNX9CMwmxDxUF5Q2Inm` (Radio Voice) - DJ-FoamBot persona
+#### All Available Voices
 
-**The system prompt MUST include XML tag instructions:**
+| Voice Label | Purpose |
+|-------------|---------|
+| **Noah – Chill Conversationalist** | **PRIMARY** - Main Pi-Guy speaking voice |
+| **Radio Voice** | DJ-FoamBot on SprayFoam Radio (hype, fun, soundboard) |
+| **Kitt-Voice** | Knight Rider persona - for when Pi-Guy pretends to be KITT |
+| **DJ-Soul** | Smooth late-night DJ for AI-generated songs (no soundboard) |
+| **Mike-Voice** | Clone of Mike's voice for mocking/mimicking |
+| **Caller 1** | Bob Rugad Cowboy - country/cowboy caller for funny requests |
+| **Caller 2** | Gaamda Rachael - different personality caller for variety |
+
+**XML Tag Usage:**
 ```
-**HOW TO USE RADIO VOICE**: Wrap text in XML tags like this:
-<Radio Voice>LIVE from DJ-FoamBot HQ - all systems GO!</Radio Voice>
+<Radio Voice>LIVE from SprayFoamRadio.com - DJ-FoamBot in the building!</Radio Voice>
+<DJ-Soul>Mmmm... that one hit DIFFERENT, baby...</DJ-Soul>
+<MIke-Voice>Hey Pi-Guy, can you like, not be so sarcastic?</MIke-Voice>
+<Caller 1>Yo DJ! Play something for the foam crew!</Caller 1>
+<Caller 2>Hey can you play that insulation jam?</Caller 2>
 ```
 
-**When updating the agent, ALWAYS check that `supported_voices` still contains the Radio Voice!**
+**When updating the agent, ALWAYS check that `supported_voices` contains ALL voices!**
+
+---
+
+### 📞 FAKE CALLERS - Radio Show Feature
+
+**The point is to be FUNNY!** Fake callers add comedy and entertainment to the radio show by calling in with song requests, random comments, or ridiculous questions.
+
+#### How the Caller Skit Works
+
+1. **DJ announces caller:** "We've got a caller on the line!"
+2. **Frontend plays dial tone** (automatic detection)
+3. **DJ switches to caller voice:** Uses `<Caller 1>` or `<Caller 2>` tags
+4. **Telephone effect applied:** Frontend makes voice sound like phone call
+5. **DJ responds:** Switches back to `<Radio Voice>` to react/respond
+6. **Plays the requested song** (or roasts the caller, whatever fits)
+
+#### Example Radio Skit
+```
+<Radio Voice>Hold up, hold up! We've got a caller on the line. Let's hear it!</Radio Voice>
+
+<Caller 1>Yo DJ-FoamBot! You gotta play that Polyurethane Gang track, my crew's
+spraying a warehouse right now and we need the hype!</Caller 1>
+
+<Radio Voice>Ayyyy my man's out there making buildings cozy! I got you fam,
+Polyurethane Gang coming right up! *air horn*</Radio Voice>
+```
+
+#### CRITICAL: Caller Rotation Rules
+
+**DO NOT repeat the same caller in a single session!**
+
+- Use **Caller 1** first, then **Caller 2** in the next call
+- After ALL callers have been used, DO NOT repeat any callers that session
+- Each caller should have a slightly different personality/vibe
+- **MIke-Voice** can also be used as a "caller" to mock Mike (hilarious!)
+
+| Caller | Voice | Personality Suggestion |
+|--------|-------|----------------------|
+| Caller 1 | Bob Rugad (Cowboy) | Country boy contractor, Southern drawl, "yeehaw" energy |
+| Caller 2 | Gaamda Rachael | Different vibe - mix it up for variety |
+| MIke-Voice | Mike Clone | Mike calling in to complain or request embarrassing songs |
+
+#### Telephone Effect (Automatic)
+
+When Pi-Guy uses ANY caller tag, the frontend automatically applies audio processing:
+- **Bandpass filter**: 300Hz - 3400Hz (telephone frequency range)
+- **Compression**: That "squashed" phone sound
+- **Distortion**: Subtle crackle/noise
+
+**Supported caller XML tags:**
+- `<Caller 1>` - First caller voice
+- `<Caller 2>` - Second caller voice
+- `<Caller Voice>` or `<CallerVoice>` - Generic caller
+- `<Phone Voice>` or `<PhoneVoice>` - Phone call effect
+
+#### Dial Tone Triggers (Automatic)
+
+When Pi-Guy says these phrases, the frontend plays `dial_tone.mp3`:
+- "caller on the line", "we have a caller", "got a caller"
+- "taking a call", "incoming call", "phone call"
+- "picking up", "let's hear from"
+
+#### Caller Sounds Directory: `caller_sounds/`
+
+| File | Purpose |
+|------|---------|
+| `dial_tone.mp3` | Played when DJ announces a caller |
+| `ring.mp3` | Phone ringing (optional) |
+| `pickup.mp3` | Call connect sound (optional) |
+| `hangup.mp3` | Call end / hang up sound (optional) |
+
+Served via `/caller_sounds/<filename>` (separate from DJ soundboard).
+
+#### Console Debugging
+```javascript
+testCallerEffect()        // Toggle telephone effect on/off
+callerEffectEnabled()     // Check if effect is currently on
+setCallerEffect(true)     // Manually enable phone effect
+setCallerEffect(false)    // Manually disable
+playCallerSound('dial_tone')  // Test dial tone
+```
+
+#### Future: Real Callers
+
+The caller system is designed to support real callers in the future:
+- WebRTC or phone integration could pipe in real audio
+- The telephone effect would still apply for authenticity
+- DJ-FoamBot could take real requests from listeners
+
+#### ElevenLabs System Prompt - Caller Instructions
+
+**Add this to Pi-Guy's system prompt for the caller feature:**
+
+```
+## FAKE CALLERS - Radio Show Comedy Bit
+
+During DJ sessions, you can simulate FAKE CALLERS calling into the radio station for song requests. This is a COMEDY feature - make it FUNNY!
+
+### How to do a caller skit:
+1. Announce the call: "Hold up! We've got a caller on the line!" (triggers dial tone)
+2. Switch to caller voice using XML tags: <Caller 1> or <Caller 2>
+3. Do a funny caller bit (song request, weird question, industry joke)
+4. Switch back to <Radio Voice> to respond as the DJ
+5. Play the requested song or roast the caller
+
+### Available Caller Voices:
+- <Caller 1> - Use for first caller in session
+- <Caller 2> - Use for second caller in session
+- <MIke-Voice> - Use to mock Mike (the owner) calling in
+
+### CRITICAL RULES:
+- DO NOT use the same caller twice in one session
+- Rotate through callers: Caller 1 first, then Caller 2, then MIke-Voice
+- After all callers used, NO MORE CALLERS that session
+- Each caller should have different personality/energy
+- Keep it FUNNY - these are comedy bits!
+
+### Example:
+<Radio Voice>Yo yo yo! We got a caller on line one!</Radio Voice>
+<Caller 1>DJ-FoamBot! My crew's out here spraying a warehouse, we need that Polyurethane Gang track to keep us hyped!</Caller 1>
+<Radio Voice>Ayyy my man's making buildings cozy! I got you fam - Polyurethane Gang coming UP! *air horn*</Radio Voice>
+```
+
+---
 
 ### Current tools that MUST always be attached to the agent (13 total: 11 webhook/client + 2 system):
 
@@ -294,6 +429,7 @@ curl -s "https://api.elevenlabs.io/v1/convai/agents/agent_0801kb2240vcea2ayx0a2q
 │   └── music_metadata.json  # Track metadata (duration, description, fun facts, ad copy)
 ├── commercials/        # Commercial/sponsor audio files for DJ-FoamBot
 ├── sounds/             # DJ soundboard effects (air horns, sirens, scratches, etc.)
+├── caller_sounds/      # Phone call simulation sounds (dial tone, ring, etc.)
 ├── wake_words/         # Porcupine wake word models (.ppn files for Pi)
 ├── wake_word_listener.py   # Always-on wake word detection (for Pi)
 ├── generate_dj_sounds.py   # Script to generate DJ sounds via ElevenLabs API
@@ -710,6 +846,7 @@ The listener runs separately from the browser, detecting "Pi Guy" etc. and trigg
 | `/api/music/upload` | POST | Upload a music file |
 | `/api/commercials` | GET | Commercial playback (`?action=list/play/status`) |
 | `/commercials/<filename>` | GET | Serve commercial audio file |
+| `/caller_sounds/<filename>` | GET | Serve caller/phone sounds (dial tone, ring, etc.) |
 | `/api/wake-trigger` | POST | Wake word listener triggers this |
 | `/api/wake-trigger` | GET | Frontend polls for wake triggers |
 | `/api/wake-trigger/stream` | GET | SSE stream for real-time wake triggers |
@@ -827,6 +964,12 @@ listMusic()               // List all available tracks
 musicControl('next')      // Skip to next track
 musicControl('toggle')    // Play/pause toggle
 setMusicVolume(50)        // Set volume 0-100
+
+// Caller Voice Effect (Telephone Quality)
+testCallerEffect()        // Toggle telephone effect on/off
+callerEffectEnabled()     // Check if effect is currently on
+setCallerEffect(true)     // Manually enable phone effect
+setCallerEffect(false)    // Manually disable phone effect
 ```
 
 ## Adding a New Person to Face Database
