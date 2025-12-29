@@ -5525,12 +5525,10 @@
             // Delay setup to ensure AudioContext exists
             setTimeout(setupCallerEffect, 2000);
 
-            // Preload caller sounds
+            // Preload caller sounds (only dial_tone exists currently)
             setTimeout(() => {
                 preloadCallerSound('dial_tone');
-                preloadCallerSound('ring');
-                preloadCallerSound('pickup');
-                preloadCallerSound('hangup');
+                // Future: ring, pickup, hangup when added to caller_sounds/
             }, 3000);
         });
 
